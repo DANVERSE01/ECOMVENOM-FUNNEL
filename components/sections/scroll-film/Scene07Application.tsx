@@ -10,7 +10,8 @@ import { SceneHairline } from "@/components/cinematic/SceneHairline";
 import { SystemOverlay } from "@/components/cinematic/SystemOverlay";
 import { CTA_LABEL, CTA_SUB, faq } from "@/lib/content";
 import { HIGGSFIELD_STILLS } from "@/lib/frameManifest";
-import { gsap, SplitText, DrawSVGPlugin } from "@/lib/gsap";
+import { gsap } from "@/lib/gsap";
+import { splitText, setupStrokeDraw, getStrokeLength } from "@/lib/motion";
 import { useReducedMotion } from "@/lib/useReducedMotion";
 
 const steps = [
@@ -65,20 +66,16 @@ export function Scene07Application() {
       const stepCards = gsap.utils.toArray<HTMLElement>(".step-card", section);
 
       if (reduced) {
-        if (headline) gsap.set(headline, { opacity: 1, yPercent: 0 });
+        if (headline) gsap.set(headline, { opacity: 1 });
         gsap.set(stepCards, { opacity: 1, y: 0, clipPath: "inset(0 0% 0 0)" });
         return;
       }
 
-      // Headline SplitText mask
+      // Headline line reveal
       if (headline) {
-        const headlineSplit = SplitText.create(headline, {
-          type: "lines",
-          linesClass: "split-line",
-          mask: "lines",
-        });
-        gsap.set(headlineSplit.lines, { yPercent: 110 });
-        gsap.to(headlineSplit.lines, {
+        const { elements } = splitText(headline, "lines", { mask: true });
+        gsap.set(elements, { yPercent: 110 });
+        gsap.to(elements, {
           yPercent: 0,
           duration: 0.85,
           stagger: 0.1,
@@ -99,18 +96,18 @@ export function Scene07Application() {
         scrollTrigger: { trigger: stepCardsRef.current, start: "top 75%", once: true },
       });
 
-      // DrawSVG connector
+      // SVG connector — stroke-dashoffset (replaces DrawSVG)
       if (svgPathRef.current) {
-        gsap.fromTo(
-          svgPathRef.current,
-          { drawSVG: "0%" },
-          {
-            drawSVG: "100%",
-            duration: 1.2,
-            ease: "venom",
-            scrollTrigger: { trigger: stepCardsRef.current, start: "top 70%", once: true },
-          },
-        );
+        const path = svgPathRef.current;
+        const length = getStrokeLength(path);
+        path.style.strokeDasharray = `${length}`;
+        path.style.strokeDashoffset = `${length}`;
+        gsap.to(path, {
+          strokeDashoffset: 0,
+          duration: 1.2,
+          ease: "venom",
+          scrollTrigger: { trigger: stepCardsRef.current, start: "top 70%", once: true },
+        });
       }
     },
     { scope: sectionRef, dependencies: [reduced], revertOnUpdate: true },
@@ -120,10 +117,10 @@ export function Scene07Application() {
     <ScrollFilmScene id="application-flow" scene="07" title="APPLY" className="py-28">
       <span className="scene-ghost bottom-8 left-8">07</span>
       <div className="absolute inset-0">
-        <Image src={HIGGSFIELD_STILLS.storePortal} alt="" fill sizes="100vw" className="object-cover opacity-[0.14]" />
+        <Image src={HIGGSFIELD_STILLS.storePortal} alt="" fill sizes="100vw" className="object-cover opacity-[0.10]" />
         <SystemOverlay />
       </div>
-      <div ref={sectionRef} className="relative z-10 mx-auto max-w-[1180px] px-5 sm:px-8 lg:px-12">
+      <div ref={sectionRef} className="relative z-10 mx-auto max-w-measure px-5 sm:px-8 lg:px-12">
         <SceneEyebrow label="APPLY" />
         <div className="mt-8 grid gap-10 lg:grid-cols-[0.9fr_1.1fr]">
           <div>
@@ -134,35 +131,35 @@ export function Scene07Application() {
               Enter the operating system.
             </h2>
             <p className="mt-5 max-w-xl text-lg leading-relaxed text-ash">
-              The funnel stays simple: submit your application, confirm fit, then choose a consultation time. No fake scarcity, no hidden endpoint, no fabricated proof.
+              The funnel stays simple: submit your application, confirm fit, then choose a consultation time. No fake scarcity, no hidden endpoint.
             </p>
             <div className="relative z-30 mt-8">
               <CtaLink href="/apply" sub={CTA_SUB} className="cinematic-command">
                 {CTA_LABEL}
               </CtaLink>
             </div>
-            <p className="mt-4 max-w-md font-mono text-[10px] uppercase leading-relaxed tracking-[0.16em] text-ash/80">
+            <p className="mt-4 max-w-md font-heading text-[10px] uppercase leading-relaxed tracking-label text-ash/70">
               Applications are reviewed for fit before scheduling.
             </p>
           </div>
 
-          {/* Step cards with DrawSVG connector */}
+          {/* Step cards with connector */}
           <div ref={stepCardsRef} className="relative">
-            {/* DrawSVG vertical connector — desktop only */}
+            {/* Vertical connector — desktop only */}
             <svg
               className="pointer-events-none absolute -left-5 top-0 hidden h-full w-4 lg:block"
               viewBox="0 0 16 300"
               preserveAspectRatio="none"
             >
-              <circle cx="8" cy="0" r="3" fill="#B8FF2E" fillOpacity="0.5" />
-              <circle cx="8" cy="150" r="3" fill="#B8FF2E" fillOpacity="0.5" />
-              <circle cx="8" cy="300" r="3" fill="#B8FF2E" fillOpacity="0.5" />
+              <circle cx="8" cy="0" r="3" fill="#B8FF2E" fillOpacity="0.4" />
+              <circle cx="8" cy="150" r="3" fill="#B8FF2E" fillOpacity="0.4" />
+              <circle cx="8" cy="300" r="3" fill="#B8FF2E" fillOpacity="0.4" />
               <path
                 ref={svgPathRef}
                 d="M8 0 L8 300"
                 stroke="#B8FF2E"
                 strokeWidth="1"
-                strokeOpacity="0.35"
+                strokeOpacity="0.3"
                 fill="none"
               />
             </svg>
@@ -170,7 +167,7 @@ export function Scene07Application() {
             <div className="grid gap-3">
               {steps.map((step, index) => (
                 <div key={step.title} className="step-card scene-panel p-5">
-                  <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-venom">
+                  <p className="font-heading text-[10px] uppercase tracking-caps text-venom">
                     Step {String(index + 1).padStart(2, "0")}
                   </p>
                   <h3 className="mt-2 font-display text-2xl uppercase text-bone">{step.title}</h3>
@@ -191,7 +188,7 @@ export function Scene07Application() {
               <div
                 key={item.q}
                 className={`scene-panel p-4 transition-colors duration-200 ${
-                  openIndex === index ? "border-venom/30" : "border-white/10"
+                  openIndex === index ? "border-venom/25" : "border-white/6"
                 }`}
               >
                 <button

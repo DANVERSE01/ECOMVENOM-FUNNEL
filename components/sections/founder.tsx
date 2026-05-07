@@ -7,7 +7,8 @@ import { Container } from "@/components/ui/container";
 import { Reveal } from "@/components/ui/reveal";
 import { SectionEyebrow } from "@/components/ui/section-eyebrow";
 import { founder } from "@/lib/content";
-import { gsap, SplitText } from "@/lib/gsap";
+import { gsap } from "@/lib/gsap";
+import { splitText } from "@/lib/motion";
 import { useReducedMotion } from "@/lib/useReducedMotion";
 
 export function Founder() {
@@ -64,12 +65,9 @@ export function Founder() {
         },
       });
 
-      const quoteSplit = SplitText.create(quote, {
-        type: "chars",
-        charsClass: "split-char",
-      });
+      const { elements: quoteChars, revert: revertQuote } = splitText(quote, "chars");
 
-      gsap.from(quoteSplit.chars, {
+      gsap.from(quoteChars, {
         opacity: 0,
         duration: 0.35,
         stagger: 0.018,
@@ -83,7 +81,7 @@ export function Founder() {
       });
 
       return () => {
-        quoteSplit.revert();
+        revertQuote();
         ctx.revert();
       };
     },

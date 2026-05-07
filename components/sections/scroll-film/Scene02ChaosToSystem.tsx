@@ -7,7 +7,8 @@ import { SceneProgress } from "@/components/cinematic/SceneProgress";
 import { SceneEyebrow } from "@/components/cinematic/SceneEyebrow";
 import { HIGGSFIELD_FRAME_COUNT, HIGGSFIELD_FRAMES, HIGGSFIELD_STILLS } from "@/lib/frameManifest";
 import { chaosToSystem } from "@/lib/content";
-import { gsap, ScrollTrigger, SplitText } from "@/lib/gsap";
+import { gsap, ScrollTrigger } from "@/lib/gsap";
+import { splitText } from "@/lib/motion";
 import { useReducedMotion } from "@/lib/useReducedMotion";
 
 const checkpoints = [
@@ -68,19 +69,15 @@ export function Scene02ChaosToSystem() {
       if (reduced) {
         gsap.set(panels, { opacity: 1, clipPath: "inset(0 0% 0 0)" });
         gsap.set([visual, depth], { opacity: 1, scale: 1, y: 0 });
-        if (headline) gsap.set(headline, { opacity: 1, yPercent: 0 });
+        if (headline) gsap.set(headline, { opacity: 1 });
         return;
       }
 
-      // Headline SplitText mask reveal
+      // Headline line reveal using free splitText
       if (headline) {
-        const headlineSplit = SplitText.create(headline, {
-          type: "lines",
-          linesClass: "split-line",
-          mask: "lines",
-        });
-        gsap.set(headlineSplit.lines, { yPercent: 110 });
-        gsap.to(headlineSplit.lines, {
+        const { elements, revert } = splitText(headline, "lines", { mask: true });
+        gsap.set(elements, { yPercent: 110 });
+        gsap.to(elements, {
           yPercent: 0,
           duration: 0.85,
           stagger: 0.1,
@@ -187,7 +184,7 @@ export function Scene02ChaosToSystem() {
         <div ref={depthRef} className="scene02-depth-field pointer-events-none absolute inset-0 z-[5]" aria-hidden />
         <div className="pointer-events-none absolute inset-x-0 bottom-0 z-[6] h-40 bg-gradient-to-b from-transparent via-black/30 to-black" />
         <div className="relative z-10 flex h-full flex-col justify-between px-5 py-20 sm:px-8 lg:px-12">
-          <div className="mx-auto w-full max-w-[1320px] pt-8">
+          <div className="mx-auto w-full max-w-wide pt-8">
             <SceneEyebrow label="THE SYSTEM" />
             <h2
               ref={headlineRef}
@@ -195,22 +192,25 @@ export function Scene02ChaosToSystem() {
             >
               {chaosToSystem.headline}
             </h2>
+            <p className="mt-4 max-w-xl text-base leading-relaxed text-ash">
+              {chaosToSystem.body.slice(0, 140)}…
+            </p>
           </div>
 
           <div className="pointer-events-none absolute inset-0 z-[8] bg-[radial-gradient(circle_at_center,transparent_28%,rgba(0,0,0,0.54)_78%)]" />
 
           {/* HUD readout */}
-          <div className="absolute top-4 right-4 z-20 text-right font-mono text-[9px] uppercase leading-relaxed tracking-widest text-venom/60">
+          <div className="absolute top-4 right-4 z-20 text-right font-heading text-[9px] uppercase leading-relaxed tracking-caps text-venom/50">
             <span ref={hudFrameRef}>001</span>/{String(HIGGSFIELD_FRAME_COUNT).padStart(3, "0")} · <span ref={hudScrollRef}>0</span>%
           </div>
 
-          <div className="mx-auto grid w-full max-w-[1320px] gap-4 pb-6 lg:grid-cols-4">
-            {checkpoints.map((checkpoint) => (
+          <div className="mx-auto grid w-full max-w-wide gap-4 pb-6 lg:grid-cols-4">
+            {checkpoints.map((checkpoint, i) => (
               <div
                 key={checkpoint.t}
-                className="checkpoint-panel border-t border-white/10 bg-black/35 p-4 backdrop-blur-sm transition-colors duration-300"
+                className="checkpoint-panel border-t border-white/8 bg-ink-2/50 p-4 backdrop-blur-sm transition-colors duration-300"
               >
-                <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-venom">
+                <p className="font-heading text-[10px] uppercase tracking-caps text-venom/70">
                   {checkpoint.t}
                 </p>
                 <h3 className="mt-3 font-display text-xl uppercase text-bone">{checkpoint.label}</h3>
@@ -219,7 +219,7 @@ export function Scene02ChaosToSystem() {
             ))}
           </div>
 
-          <span className="scene-ghost bottom-0 left-4 opacity-[0.025]">02</span>
+          <span className="scene-ghost bottom-0 left-4 opacity-[0.015]">02</span>
           <SceneProgress triggerSelector="#chaos-system-scroll-film" />
         </div>
       </div>

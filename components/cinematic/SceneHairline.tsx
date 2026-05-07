@@ -4,6 +4,7 @@ import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import { cn } from "@/lib/cn";
 import { gsap } from "@/lib/gsap";
+import { setupStrokeDraw, getStrokeLength } from "@/lib/motion";
 import { useReducedMotion } from "@/lib/useReducedMotion";
 
 export function SceneHairline({
@@ -21,24 +22,23 @@ export function SceneHairline({
       const line = ref.current;
       if (!line) return;
 
-      gsap.fromTo(
-        line,
-        { drawSVG: reduced ? "0% 100%" : "50% 50%" },
-        {
-          drawSVG: "0% 100%",
-          duration: reduced ? 0 : 1,
-          ease: "venom",
-          scrollTrigger: reduced
-            ? undefined
-            : {
-                trigger: line,
-                start: "top 88%",
-                toggleActions: "play none none none",
-                once: true,
-              },
+      if (reduced) return;
+
+      const length = getStrokeLength(line);
+      // Start from center expanding outward
+      line.style.strokeDasharray = `${length}`;
+      line.style.strokeDashoffset = `${length}`;
+
+      gsap.to(line, {
+        strokeDashoffset: 0,
+        duration: 1,
+        ease: "venom",
+        scrollTrigger: {
+          trigger: line,
+          start: "top 88%",
+          once: true,
         },
-      );
-      return;
+      });
     },
     { scope: ref, dependencies: [reduced], revertOnUpdate: true },
   );

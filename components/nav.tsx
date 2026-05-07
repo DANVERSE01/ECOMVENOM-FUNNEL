@@ -9,6 +9,7 @@ import { CtaLink } from "./ui/button";
 import { ScrollProgressIndicator } from "./ui/ScrollProgressIndicator";
 import { CTA_LABEL, CTA_SUB } from "@/lib/content";
 import { gsap, ScrollTrigger, reducedMotion } from "@/lib/gsap";
+import { scrambleText } from "@/lib/motion";
 
 export function Nav() {
   const pathname = usePathname();
@@ -62,14 +63,7 @@ export function Nav() {
       return;
     }
 
-    gsap.to(el, {
-      duration: 0.45,
-      scrambleText: {
-        text: scene,
-        chars: "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",
-        revealDelay: 0.2,
-      },
-    });
+    scrambleText(el, scene, { duration: 0.45 });
   }, [scene]);
 
   return (

@@ -3,6 +3,7 @@
 import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import { gsap } from "@/lib/gsap";
+import { scrambleText } from "@/lib/motion";
 import { useReducedMotion } from "@/lib/useReducedMotion";
 import { cn } from "@/lib/cn";
 
@@ -27,14 +28,17 @@ export function ShotLabel({
       const wrap = wrapRef.current;
       if (!el || !wrap || reduced) return;
 
-      gsap.to(el, {
-        duration: 0.45,
-        scrambleText: {
-          text: label,
-          chars: "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",
-          revealDelay: 0.2,
+      gsap.from(el, {
+        opacity: 0,
+        duration: 0.3,
+        scrollTrigger: {
+          trigger: wrap,
+          start: "top 88%",
+          once: true,
+          onEnter: () => {
+            scrambleText(el, label, { duration: 0.45 });
+          },
         },
-        scrollTrigger: { trigger: wrap, start: "top 88%", once: true },
       });
     },
     { scope: wrapRef, dependencies: [label, reduced] },
@@ -44,7 +48,7 @@ export function ShotLabel({
     <div
       ref={wrapRef}
       className={cn(
-        "inline-flex items-center gap-3 border border-venom/25 bg-black/55 px-3 py-2 font-mono text-[10px] uppercase tracking-[0.2em] text-bone/80 backdrop-blur-md",
+        "inline-flex items-center gap-3 border border-venom/25 bg-ink-2/70 px-3 py-2 font-heading text-[10px] uppercase tracking-caps text-bone-2 backdrop-blur-md",
         className,
       )}
     >

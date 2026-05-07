@@ -6,7 +6,8 @@ import { useGSAP } from "@gsap/react";
 import { Container } from "@/components/ui/container";
 import { CtaLink } from "@/components/ui/button";
 import { hero, CTA_LABEL, CTA_SUB } from "@/lib/content";
-import { gsap, ScrollTrigger, SplitText } from "@/lib/gsap";
+import { gsap, ScrollTrigger } from "@/lib/gsap";
+import { splitText } from "@/lib/motion";
 import { useReducedMotion } from "@/lib/useReducedMotion";
 
 export function Hero() {
@@ -42,26 +43,19 @@ export function Hero() {
         return () => ctx.revert();
       }
 
-      const eyebrowSplit = SplitText.create(eyebrow, {
-        type: "chars",
-        charsClass: "split-char",
-      });
-      const headlineSplit = SplitText.create(headline, {
-        type: "lines",
-        linesClass: "split-line",
-        mask: "lines",
-      });
+      const { elements: eyebrowChars, revert: revertEyebrow } = splitText(eyebrow, "chars");
+      const { elements: headlineLines, revert: revertHeadline } = splitText(headline, "lines", { mask: true });
 
       gsap.set([logo, media], { opacity: 0 });
-      gsap.set(eyebrowSplit.chars, { opacity: 0, y: 16 });
-      gsap.set(headlineSplit.lines, { yPercent: 110 });
+      gsap.set(eyebrowChars, { opacity: 0, y: 16 });
+      gsap.set(headlineLines, { yPercent: 110 });
       gsap.set(support, { opacity: 0, y: 18 });
 
       const intro = gsap.timeline({ defaults: { ease: "power3.out" } });
       intro
         .to(logo, { opacity: 1, duration: 0.6 })
         .to(
-          eyebrowSplit.chars,
+          eyebrowChars,
           {
             opacity: 1,
             y: 0,
@@ -71,7 +65,7 @@ export function Hero() {
           0.25,
         )
         .to(
-          headlineSplit.lines,
+          headlineLines,
           {
             yPercent: 0,
             duration: 0.9,
@@ -111,8 +105,8 @@ export function Hero() {
       });
 
       return () => {
-        eyebrowSplit.revert();
-        headlineSplit.revert();
+        revertEyebrow();
+        revertHeadline();
         ctx.revert();
       };
     },

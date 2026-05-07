@@ -5,7 +5,8 @@ import { useGSAP } from "@gsap/react";
 import { Container } from "@/components/ui/container";
 import { CtaLink } from "@/components/ui/button";
 import { CTA_LABEL, CTA_SUB } from "@/lib/content";
-import { gsap, ScrollTrigger, SplitText } from "@/lib/gsap";
+import { gsap, ScrollTrigger } from "@/lib/gsap";
+import { splitText } from "@/lib/motion";
 import { useReducedMotion } from "@/lib/useReducedMotion";
 
 export function FinalCta() {
@@ -46,13 +47,9 @@ export function FinalCta() {
         };
       }
 
-      const headlineSplit = SplitText.create(headline, {
-        type: "lines",
-        linesClass: "split-line",
-        mask: "lines",
-      });
+      const { elements: headlineLines, revert: revertHeadline } = splitText(headline, "lines", { mask: true });
 
-      gsap.set(headlineSplit.lines, { yPercent: 110 });
+      gsap.set(headlineLines, { yPercent: 110 });
       gsap.set(support, { opacity: 0, y: 18 });
 
       gsap
@@ -64,7 +61,7 @@ export function FinalCta() {
             once: true,
           },
         })
-        .to(headlineSplit.lines, {
+        .to(headlineLines, {
           yPercent: 0,
           duration: 0.9,
           stagger: 0.12,
@@ -99,7 +96,7 @@ export function FinalCta() {
 
       return () => {
         stopGlow();
-        headlineSplit.revert();
+        revertHeadline();
         ctx.revert();
       };
     },

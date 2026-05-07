@@ -11,7 +11,8 @@ import { VideoStage } from "@/components/cinematic/VideoStage";
 import { SystemOverlay } from "@/components/cinematic/SystemOverlay";
 import { HIGGSFIELD_LOOPS, HIGGSFIELD_STILLS, GENERATED_STILLS } from "@/lib/frameManifest";
 import { CTA_LABEL, CTA_SUB, hero } from "@/lib/content";
-import { gsap, SplitText } from "@/lib/gsap";
+import { gsap } from "@/lib/gsap";
+import { splitText, scrambleText } from "@/lib/motion";
 import { useReducedMotion } from "@/lib/useReducedMotion";
 
 const HERO_VSL_SRC = "/media/hero-vsl.mp4";
@@ -38,38 +39,31 @@ export function Scene00ColdOpen() {
         return;
       }
 
-      const headlineSplit = SplitText.create(headline, {
-        type: "lines",
-        linesClass: "split-line",
-        mask: "lines",
-      });
+      const { elements: headlineLines, revert: revertSplit } = splitText(headline, "lines", { mask: true });
+      const eyebrowText = eyebrow.textContent ?? "";
 
       gsap.set(logo, { opacity: 0 });
       gsap.set(eyebrow, { opacity: 0 });
-      gsap.set(headlineSplit.lines, { yPercent: 110 });
+      gsap.set(headlineLines, { yPercent: 110 });
       gsap.set(support, { opacity: 0, y: 22 });
 
       gsap
         .timeline({ defaults: { ease: "venom" } })
         .to(logo, { opacity: 1, duration: 0.6 })
         .to(eyebrow, {
-          scrambleText: {
-            text: eyebrow.textContent ?? "",
-            chars: "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",
-            revealDelay: 0.2,
-          },
           opacity: 1,
           duration: 0.6,
+          onStart: () => scrambleText(eyebrow, eyebrowText, { duration: 0.6 }),
         }, 0.5)
         .to(
-          headlineSplit.lines,
+          headlineLines,
           { yPercent: 0, duration: 0.9, stagger: 0.1, ease: "filmDrop" },
           0.65,
         )
         .to(support, { opacity: 1, y: 0, duration: 0.65 }, ">-0.12");
 
       return () => {
-        headlineSplit.revert();
+        revertSplit();
       };
     },
     { scope: sectionRef, dependencies: [reduced], revertOnUpdate: true },

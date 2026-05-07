@@ -9,7 +9,8 @@ import { SceneEyebrow } from "@/components/cinematic/SceneEyebrow";
 import { SystemOverlay } from "@/components/cinematic/SystemOverlay";
 import { BRAND_VISUALS, HIGGSFIELD_STILLS } from "@/lib/frameManifest";
 import { CTA_LABEL, CTA_SUB, graduationGift, beyond } from "@/lib/content";
-import { gsap, SplitText, ScrollTrigger } from "@/lib/gsap";
+import { gsap, ScrollTrigger } from "@/lib/gsap";
+import { splitText, scrambleText } from "@/lib/motion";
 import { useReducedMotion } from "@/lib/useReducedMotion";
 
 function marketCode(market: string) {
@@ -32,20 +33,16 @@ export function Scene04Offer() {
       const beyondCards = gsap.utils.toArray<HTMLElement>(".beyond-card", section);
 
       if (reduced) {
-        if (headline) gsap.set(headline, { opacity: 1, yPercent: 0 });
+        if (headline) gsap.set(headline, { opacity: 1 });
         gsap.set([...optionCards, ...beyondCards], { opacity: 1, y: 0 });
         return;
       }
 
-      // Headline SplitText mask
+      // Headline line reveal
       if (headline) {
-        const headlineSplit = SplitText.create(headline, {
-          type: "lines",
-          linesClass: "split-line",
-          mask: "lines",
-        });
-        gsap.set(headlineSplit.lines, { yPercent: 110 });
-        gsap.to(headlineSplit.lines, {
+        const { elements } = splitText(headline, "lines", { mask: true });
+        gsap.set(elements, { yPercent: 110 });
+        gsap.to(elements, {
           yPercent: 0,
           duration: 0.85,
           stagger: 0.1,
@@ -64,17 +61,20 @@ export function Scene04Offer() {
         scrollTrigger: { trigger: section, start: "top 70%", once: true },
       });
 
-      // Beyond heading ScrambleText
+      // Beyond heading scramble
       if (beyondHeadingRef.current) {
         const text = beyondHeadingRef.current.textContent ?? "";
-        gsap.to(beyondHeadingRef.current, {
-          duration: 0.55,
-          scrambleText: {
-            text,
-            chars: "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",
-            revealDelay: 0.2,
+        gsap.from(beyondHeadingRef.current, {
+          opacity: 0,
+          duration: 0.3,
+          scrollTrigger: {
+            trigger: beyondHeadingRef.current,
+            start: "top 80%",
+            once: true,
+            onEnter: () => {
+              scrambleText(beyondHeadingRef.current!, text, { duration: 0.55 });
+            },
           },
-          scrollTrigger: { trigger: beyondHeadingRef.current, start: "top 80%", once: true },
         });
       }
 
@@ -102,17 +102,17 @@ export function Scene04Offer() {
     <ScrollFilmScene id="offer" scene="04" title="THE OFFER" className="min-h-screen py-28">
       <span className="scene-ghost bottom-8 left-8">04</span>
       <div className="absolute inset-0">
-        <Image src={HIGGSFIELD_STILLS.storePortal} alt="" fill sizes="100vw" className="object-cover opacity-[0.32]" />
+        <Image src={HIGGSFIELD_STILLS.storePortal} alt="" fill sizes="100vw" className="object-cover opacity-[0.28]" />
         <SystemOverlay />
-        <div className="pointer-events-none absolute inset-x-0 bottom-0 z-[2] hidden grid-cols-11 gap-1 px-5 pb-5 opacity-[0.07] md:grid">
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 z-[2] hidden grid-cols-11 gap-1 px-5 pb-5 opacity-[0.05] md:grid">
           {BRAND_VISUALS.map((src) => (
-            <div key={src} className="relative aspect-video overflow-hidden border border-venom/10">
+            <div key={src} className="relative aspect-video overflow-hidden border border-venom/8">
               <Image src={src} alt="" fill sizes="8vw" className="object-cover" />
             </div>
           ))}
         </div>
       </div>
-      <div ref={sectionRef} className="relative z-10 mx-auto max-w-[1220px] px-5 sm:px-8 lg:px-12">
+      <div ref={sectionRef} className="relative z-10 mx-auto max-w-measure px-5 sm:px-8 lg:px-12">
         <div className="grid min-h-[70vh] items-center gap-10 lg:grid-cols-[1fr_0.82fr]">
           <div>
             <SceneEyebrow label="THE OFFER" />
@@ -132,25 +132,25 @@ export function Scene04Offer() {
           </div>
           <div className="grid gap-4">
             {graduationGift.options.map((option) => (
-              <div key={option.label} className="option-card scene-panel border-gold/25 p-6 transition-transform duration-200 hover:-translate-y-1 hover:border-gold/55">
-                <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-ash">{option.label}</p>
+              <div key={option.label} className="option-card scene-panel border-gold/20 p-6 transition-transform duration-200 hover:-translate-y-1 hover:border-gold/40">
+                <p className="font-heading text-[10px] uppercase tracking-caps text-ash-2">{option.label}</p>
                 <p className="mt-4 flex items-center gap-3 font-display text-3xl uppercase leading-tight text-bone sm:text-4xl">
-                  <span className="grid h-10 min-w-14 place-items-center border border-gold/40 bg-gold/10 px-2 font-mono text-[10px] tracking-[0.18em] text-gold">
+                  <span className="grid h-10 min-w-14 place-items-center border border-gold/30 bg-gold/8 px-2 font-heading text-[10px] tracking-caps text-gold">
                     {marketCode(option.market)}
                   </span>
                   {option.market}
                 </p>
               </div>
             ))}
-            <p className="scene-panel p-5 font-mono text-xs uppercase leading-relaxed tracking-[0.2em] text-bone/80">
+            <p className="scene-panel p-5 font-heading text-xs uppercase leading-relaxed tracking-caps text-bone-2">
               {graduationGift.outro}
             </p>
           </div>
         </div>
 
         {/* Marquee strip */}
-        <div className="mt-16 overflow-hidden border-y border-white/5 py-3">
-          <div className="marquee-track font-mono text-[11px] uppercase tracking-widest text-ash/70">
+        <div className="mt-16 overflow-hidden border-y border-white/4 py-3">
+          <div className="marquee-track font-heading text-[11px] uppercase tracking-widest text-ash/50">
             {Array(4).fill(marqueeText).join("")}
           </div>
         </div>
@@ -167,8 +167,8 @@ export function Scene04Offer() {
           <p className="mt-4 max-w-2xl text-ash">{beyond.sub}</p>
           <div className="mt-10 grid gap-3 sm:grid-cols-2">
             {beyond.pillars.map((pillar) => (
-              <div key={pillar.title} className="beyond-card scene-panel border-t-gold/45 p-5 transition-transform duration-200 hover:-translate-y-1 hover:border-gold/35">
-                <h4 className="font-display text-xl uppercase text-venom">{pillar.title}</h4>
+              <div key={pillar.title} className="beyond-card scene-panel border-t border-t-gold/30 p-5 transition-transform duration-200 hover:-translate-y-1 hover:border-gold/30">
+                <h4 className="font-display text-xl uppercase text-gold">{pillar.title}</h4>
                 <p className="mt-2 text-sm leading-relaxed text-ash">{pillar.body}</p>
               </div>
             ))}

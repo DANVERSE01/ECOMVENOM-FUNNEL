@@ -8,7 +8,8 @@ import { SceneEyebrow } from "@/components/cinematic/SceneEyebrow";
 import { SceneHairline } from "@/components/cinematic/SceneHairline";
 import { SystemOverlay } from "@/components/cinematic/SystemOverlay";
 import { HIGGSFIELD_STILLS } from "@/lib/frameManifest";
-import { gsap, SplitText } from "@/lib/gsap";
+import { gsap } from "@/lib/gsap";
+import { splitText } from "@/lib/motion";
 import { useReducedMotion } from "@/lib/useReducedMotion";
 
 const signals = [
@@ -40,13 +41,9 @@ export function Scene01Problem() {
 
       // Headline SplitText mask
       if (headline) {
-        const headlineSplit = SplitText.create(headline, {
-          type: "lines",
-          linesClass: "split-line",
-          mask: "lines",
-        });
-        gsap.set(headlineSplit.lines, { yPercent: 110 });
-        gsap.to(headlineSplit.lines, {
+        const { elements } = splitText(headline, "lines", { mask: true });
+        gsap.set(elements, { yPercent: 110 });
+        gsap.to(elements, {
           yPercent: 0,
           duration: 0.85,
           stagger: 0.1,
@@ -57,8 +54,8 @@ export function Scene01Problem() {
 
       // Body text word split
       if (body) {
-        const bodySplit = SplitText.create(body, { type: "words" });
-        gsap.from(bodySplit.words, {
+        const { elements: words } = splitText(body, "words");
+        gsap.from(words, {
           opacity: 0,
           duration: 0.4,
           stagger: 0.05,

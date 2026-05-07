@@ -19,7 +19,7 @@ export default function ApplyPage() {
       </div>
       <Container className="relative z-10 grid max-w-5xl gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:items-start">
         <div>
-          <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-venom">
+          <p className="font-heading text-[10px] uppercase tracking-caps text-venom">
             STEP 1 OF 2
           </p>
           <h1 className="mt-4 font-display text-[clamp(3rem,7vw,6.5rem)] uppercase leading-[0.86] tracking-tightest">
@@ -27,6 +27,9 @@ export default function ApplyPage() {
           </h1>
           <p className="mt-5 text-base leading-relaxed text-ash sm:text-lg">
             Tell us about you. If we&apos;re a fit, you&apos;ll book a call on the next step.
+          </p>
+          <p className="mt-3 font-heading text-[10px] uppercase tracking-label text-ash/60">
+            Application takes ~2 minutes
           </p>
         </div>
         <div>

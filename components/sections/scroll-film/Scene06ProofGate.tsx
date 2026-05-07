@@ -9,7 +9,8 @@ import { ResponsiveMediaFrame } from "@/components/cinematic/ResponsiveMediaFram
 import { SystemOverlay } from "@/components/cinematic/SystemOverlay";
 import { FINAL_FUNNEL_IMAGES, GENERATED_STILLS } from "@/lib/frameManifest";
 import { testimonials } from "@/lib/content";
-import { gsap, SplitText } from "@/lib/gsap";
+import { gsap } from "@/lib/gsap";
+import { splitText } from "@/lib/motion";
 import { useReducedMotion } from "@/lib/useReducedMotion";
 
 const testimonialImages = [
@@ -37,13 +38,9 @@ export function Scene06ProofGate() {
 
       // Heading reveal with rotation
       if (headline) {
-        const headlineSplit = SplitText.create(headline, {
-          type: "lines",
-          linesClass: "split-line",
-          mask: "lines",
-        });
-        gsap.set(headlineSplit.lines, { yPercent: 120, rotation: 2 });
-        gsap.to(headlineSplit.lines, {
+        const { elements } = splitText(headline, "lines", { mask: true });
+        gsap.set(elements, { yPercent: 120, rotation: 2 });
+        gsap.to(elements, {
           yPercent: 0,
           rotation: 0,
           duration: 0.9,

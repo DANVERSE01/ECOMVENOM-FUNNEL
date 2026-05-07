@@ -9,7 +9,8 @@ import { SceneEyebrow } from "@/components/cinematic/SceneEyebrow";
 import { SystemOverlay } from "@/components/cinematic/SystemOverlay";
 import { GENERATED_STILLS } from "@/lib/frameManifest";
 import { CTA_LABEL, CTA_SUB } from "@/lib/content";
-import { gsap, SplitText } from "@/lib/gsap";
+import { gsap } from "@/lib/gsap";
+import { splitText, getStrokeLength } from "@/lib/motion";
 import { useReducedMotion } from "@/lib/useReducedMotion";
 
 export function Scene08FinalCTA() {
@@ -38,19 +39,15 @@ export function Scene08FinalCTA() {
 
       // Headline SplitText — lines with yPercent + rotation
       if (headline) {
-        const headlineSplit = SplitText.create(headline, {
-          type: "lines",
-          linesClass: "split-line",
-          mask: "lines",
-        });
-        gsap.set(headlineSplit.lines, { yPercent: 120, rotation: 3 });
+        const { elements: headlineLines } = splitText(headline, "lines", { mask: true });
+        gsap.set(headlineLines, { yPercent: 120, rotation: 3 });
         if (applySpanRef.current) gsap.set(applySpanRef.current, { scale: 0.9 });
         gsap.set([subtext, ctaWrap], { opacity: 0, y: 22 });
 
         const tl = gsap.timeline({
           scrollTrigger: { trigger: headline, start: "top 72%", once: true },
         });
-        tl.to(headlineSplit.lines, {
+        tl.to(headlineLines, {
           yPercent: 0,
           rotation: 0,
           duration: 0.9,
@@ -86,8 +83,8 @@ export function Scene08FinalCTA() {
 
       // Subtext word split
       if (subtext) {
-        const subtextSplit = SplitText.create(subtext, { type: "words" });
-        gsap.from(subtextSplit.words, {
+        const { elements: words } = splitText(subtext, "words");
+        gsap.from(words, {
           opacity: 0,
           duration: 0.4,
           stagger: 0.05,
@@ -96,18 +93,18 @@ export function Scene08FinalCTA() {
         });
       }
 
-      // DrawSVG venom hairline
+      // Venom hairline — stroke-dashoffset (replaces DrawSVG)
       if (hairlinePathRef.current) {
-        gsap.fromTo(
-          hairlinePathRef.current,
-          { drawSVG: "0%" },
-          {
-            drawSVG: "100%",
-            duration: 1.5,
-            ease: "venom",
-            scrollTrigger: { trigger: hairlinePathRef.current, start: "top 90%", once: true },
-          },
-        );
+        const line = hairlinePathRef.current;
+        const length = getStrokeLength(line);
+        line.style.strokeDasharray = `${length}`;
+        line.style.strokeDashoffset = `${length}`;
+        gsap.to(line, {
+          strokeDashoffset: 0,
+          duration: 1.5,
+          ease: "venom",
+          scrollTrigger: { trigger: line, start: "top 90%", once: true },
+        });
       }
 
       return () => {
@@ -159,7 +156,7 @@ export function Scene08FinalCTA() {
           </div>
         </div>
 
-        {/* Venom hairline with DrawSVG */}
+        {/* Venom hairline */}
         <div className="absolute bottom-16 left-0 right-0 px-5 sm:px-8 lg:px-12">
           <svg className="w-full" height="2" viewBox="0 0 1000 2" preserveAspectRatio="none">
             <line

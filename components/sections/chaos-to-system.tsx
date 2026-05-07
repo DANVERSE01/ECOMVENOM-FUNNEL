@@ -4,7 +4,8 @@ import { useEffect, useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import { Container } from "@/components/ui/container";
 import { chaosToSystem } from "@/lib/content";
-import { gsap, SplitText } from "@/lib/gsap";
+import { gsap } from "@/lib/gsap";
+import { splitText } from "@/lib/motion";
 import { useReducedMotion } from "@/lib/useReducedMotion";
 
 export function ChaosToSystem() {
@@ -41,11 +42,7 @@ export function ChaosToSystem() {
         return () => ctx.revert();
       }
 
-      const headlineSplit = SplitText.create(headline, {
-        type: "lines",
-        linesClass: "split-line",
-        mask: "lines",
-      });
+      const { elements: headlineLines, revert: revertHeadline } = splitText(headline, "lines", { mask: true });
 
       gsap.fromTo(
         panel,
@@ -68,7 +65,7 @@ export function ChaosToSystem() {
         scaleX: 0.96,
         transformOrigin: "left center",
       });
-      gsap.set(headlineSplit.lines, { yPercent: 100 });
+      gsap.set(headlineLines, { yPercent: 100 });
       gsap.set([body, caption], { opacity: 0, y: 20 });
 
       const copyTl = gsap.timeline({
@@ -89,7 +86,7 @@ export function ChaosToSystem() {
           ease: "power3.out",
         })
         .to(
-          headlineSplit.lines,
+          headlineLines,
           {
             yPercent: 0,
             duration: 0.85,
@@ -102,7 +99,7 @@ export function ChaosToSystem() {
         .to(caption, { opacity: 1, y: 0, duration: 0.45, ease: "power3.out" }, "-=0.2");
 
       return () => {
-        headlineSplit.revert();
+        revertHeadline();
         ctx.revert();
       };
     },

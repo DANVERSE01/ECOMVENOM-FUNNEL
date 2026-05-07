@@ -9,7 +9,8 @@ import { ResponsiveMediaFrame } from "@/components/cinematic/ResponsiveMediaFram
 import { SystemOverlay } from "@/components/cinematic/SystemOverlay";
 import { HIGGSFIELD_STILLS } from "@/lib/frameManifest";
 import { founder } from "@/lib/content";
-import { gsap, SplitText } from "@/lib/gsap";
+import { gsap } from "@/lib/gsap";
+import { splitText } from "@/lib/motion";
 import { useReducedMotion } from "@/lib/useReducedMotion";
 
 export function Scene05Founder() {
@@ -51,10 +52,11 @@ export function Scene05Founder() {
         );
       }
 
-      // Trait cards
+      // Trait cards — staggered entrance with slight scale
       gsap.from(traits, {
         opacity: 0,
-        y: 20,
+        y: 24,
+        scale: 0.97,
         duration: 0.6,
         stagger: 0.08,
         ease: "venom",
@@ -63,8 +65,8 @@ export function Scene05Founder() {
 
       // Paragraphs word split
       paragraphs.forEach((para) => {
-        const split = SplitText.create(para, { type: "words" });
-        gsap.from(split.words, {
+        const { elements } = splitText(para, "words");
+        gsap.from(elements, {
           opacity: 0,
           duration: 0.35,
           stagger: 0.04,
@@ -74,8 +76,8 @@ export function Scene05Founder() {
       });
 
       // Quote chars with blur
-      const split = SplitText.create(quote, { type: "chars" });
-      gsap.from(split.chars, {
+      const { elements, revert } = splitText(quote, "chars");
+      gsap.from(elements, {
         opacity: 0,
         filter: "blur(4px)",
         x: 4,
@@ -84,10 +86,6 @@ export function Scene05Founder() {
         ease: "venom",
         scrollTrigger: { trigger: quote, start: "top 84%", once: true },
       });
-
-      return () => {
-        split.revert();
-      };
     },
     { scope: sectionRef, dependencies: [reduced], revertOnUpdate: true },
   );
@@ -96,10 +94,10 @@ export function Scene05Founder() {
     <ScrollFilmScene id="operator" scene="05" title="FOUNDER" className="py-28">
       <span className="scene-ghost top-8 left-8">05</span>
       <div className="absolute inset-0">
-        <Image src={HIGGSFIELD_STILLS.productWireframe} alt="" fill sizes="100vw" className="object-cover opacity-[0.18]" />
+        <Image src={HIGGSFIELD_STILLS.productWireframe} alt="" fill sizes="100vw" className="object-cover opacity-[0.14]" />
         <SystemOverlay />
       </div>
-      <div ref={sectionRef} className="relative z-10 mx-auto grid max-w-[1220px] gap-10 px-5 sm:px-8 lg:grid-cols-[0.86fr_1.14fr] lg:px-12">
+      <div ref={sectionRef} className="relative z-10 mx-auto grid max-w-measure gap-10 px-5 sm:px-8 lg:grid-cols-[0.86fr_1.14fr] lg:px-12">
         {/* Portrait with cinematic frame */}
         <ResponsiveMediaFrame ref={portraitRef} className="aspect-[4/5]">
           <div ref={portraitImgRef} className="absolute inset-0">
@@ -114,7 +112,7 @@ export function Scene05Founder() {
         </ResponsiveMediaFrame>
 
         <div className="self-center">
-          <SceneEyebrow label="FOUNDER" />
+          <SceneEyebrow label="THE COACH" />
           <h2 className="mt-5 font-display text-[clamp(3rem,6vw,6rem)] uppercase leading-[0.88] tracking-tightest">
             {founder.heading}
           </h2>
@@ -125,19 +123,19 @@ export function Scene05Founder() {
           ))}
           <div className="mt-8 grid gap-3 sm:grid-cols-2">
             {founder.traits.map((trait) => (
-              <div key={trait.title} className="operator-trait group border border-white/10 bg-black/55 p-4 transition-all duration-[250ms] hover:translate-y-[-3px] hover:border-gold/35">
-                <div className="mb-3 h-px w-8 bg-gold/70" />
+              <div key={trait.title} className="operator-trait group border border-white/6 bg-ink-3/50 p-4 transition-all duration-[250ms] hover:translate-y-[-3px] hover:border-gold/30">
+                <div className="mb-3 h-px w-8 bg-gold/60 transition-all duration-300 group-hover:w-12" />
                 <h3 className="font-display text-lg uppercase text-bone">{trait.title}</h3>
                 <p className="mt-2 text-sm leading-relaxed text-ash">{trait.body}</p>
               </div>
             ))}
           </div>
-          <blockquote className="mt-8 border-l border-steel pl-5">
+          <blockquote className="mt-8 border-l-2 border-steel pl-5">
             <p ref={quoteRef} className="font-display text-2xl uppercase leading-tight text-bone">
               {founder.pullquote}
-              <span className="founder-cursor ml-1 font-mono text-venom">|</span>
+              <span className="founder-cursor ml-1 font-heading text-venom">|</span>
             </p>
-            <footer className="mt-3 font-mono text-[10px] uppercase tracking-[0.2em] text-ash">
+            <footer className="mt-3 font-heading text-[10px] uppercase tracking-caps text-ash">
               {founder.signature} / {founder.signatureRole}
             </footer>
           </blockquote>

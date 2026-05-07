@@ -22,7 +22,7 @@ export default function SchedulePage() {
         <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(0,0,0,0.92),rgba(0,0,0,0.72))]" />
       </div>
       <Container className="relative z-10 max-w-4xl">
-        <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-venom">
+        <p className="font-heading text-[10px] uppercase tracking-caps text-venom">
           {schedule.eyebrow}
         </p>
         <h1 className="mt-4 font-display text-[clamp(3rem,7vw,6rem)] uppercase leading-[0.88] tracking-tightest">
