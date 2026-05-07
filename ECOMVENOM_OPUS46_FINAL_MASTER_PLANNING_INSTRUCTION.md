@@ -160,28 +160,28 @@ Do not commit.
 
 ## Absolute Ban
 
-Do not use WACUS.
+Do not use obsolete legacy reference.
 
 ```text
-WACUS
-wacusglobal.com
-https://www.wacusglobal.com/en
-https://www.wacusglobal.com/en/about
-https://www.wacusglobal.com/en/work
+obsolete legacy reference
+removed-obsolete-legacy-domain
+[removed obsolete legacy URL]
+[removed obsolete legacy URL]
+[removed obsolete legacy URL]
 ```
 
-WACUS is banned from this project and all future projects unless explicitly requested by the user.
+obsolete legacy reference is banned from this project and all future projects unless explicitly requested by the user.
 
 Do not open it.
 Do not search it.
 Do not mention it as a reference.
 Do not cite it.
 Do not benchmark against it.
-Do not use any WACUS screenshot.
-Do not use any WACUS wording.
-Do not write "WACUS-grade", "WACUS-style", "WACUS-inspired", or "WACUS benchmark".
+Do not use any obsolete legacy reference screenshot.
+Do not use any obsolete legacy reference wording.
+Do not write "obsolete legacy reference-grade", "obsolete legacy reference-style", "obsolete legacy reference-inspired", or "obsolete legacy reference benchmark".
 
-If older audit artifacts include WACUS, classify them as contaminated and excluded.
+If older audit artifacts include obsolete legacy reference, classify them as contaminated and excluded.
 
 ---
 
@@ -321,7 +321,7 @@ Include:
 - valid localhost QA source
 - stale localhost source excluded
 - previous audit/planning artifacts reviewed
-- WACUS exclusion note
+- obsolete legacy reference exclusion note
 
 ### 3. Codex Audit Review
 
@@ -354,7 +354,7 @@ controlled venom/steel/gold material palette
 conversion-first cinematic scroll
 ```
 
-Do not use WACUS language.
+Do not use obsolete legacy reference language.
 
 ### 6. Final Typography System
 
@@ -683,7 +683,7 @@ This prompt must instruct the agent to:
 - read this master plan
 - inspect files first
 - implement Phase 2 in order
-- never use WACUS
+- never use obsolete legacy reference
 - not deploy
 - not push
 - not install dependencies unless approved
@@ -705,7 +705,7 @@ Do not:
 - commit
 - push
 - deploy
-- open WACUS
+- open obsolete legacy reference
 - research new references
 - implement Phase 2
 

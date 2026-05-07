@@ -18,7 +18,7 @@
 
 **Final Direction:** Premium cinematic ECOMVENOM conversion funnel. Dark commerce operating system. Founder-led high-trust application funnel. Controlled venom/steel/gold material palette. Conversion-first cinematic scroll.
 
-**Forbidden:** No WACUS. No fabricated proof/testimonials/metrics. No heavy WebGL/Three.js. No paid services. No new dependencies unless justified. No content language changes (English only). No deployment.
+**Forbidden:** No obsolete legacy reference. No fabricated proof/testimonials/metrics. No heavy WebGL/Three.js. No paid services. No new dependencies unless justified. No content language changes (English only). No deployment.
 
 ---
 
@@ -43,11 +43,11 @@
 
 **Valid QA Source:** `http://localhost:3012`.
 
-**WACUS Exclusion:** All `wacus-*.png` screenshots in project root are contaminated artifacts. Zero evidentiary weight.
+**obsolete legacy reference Exclusion:** All `removed-obsolete-legacy-*.png` screenshots in project root are contaminated artifacts. Zero evidentiary weight.
 
 **Previous Artifacts Reviewed:**
 - `ECOMVENOM_CTO_AUDIT_INSTRUCTION.md` — Codex original audit instruction
-- `ECOMVENOM_PHASE1_SANITIZE_AND_CORRECT_PLAN.md` — Sanitization correcting WACUS contamination
+- `ECOMVENOM_PHASE1_SANITIZE_AND_CORRECT_PLAN.md` — Sanitization correcting obsolete legacy reference contamination
 - `ECOMVENOM_CLAUDE_OPUS_PHASE2_PLANNING_INSTRUCTION.md` — Sonnet-era planning continuation
 
 ---
@@ -65,10 +65,10 @@
 
 **Mistakes to Discard:**
 
-- All WACUS benchmark comparisons, screenshots, "WACUS-grade" language
-- Recommendation to match specific WACUS scroll behaviors
+- All obsolete legacy reference benchmark comparisons, screenshots, "obsolete legacy reference-grade" language
+- Recommendation to match specific obsolete legacy reference scroll behaviors
 
-**Contaminated Artifacts:** `wacus-*.png` (28+ files), `wacus-home-text-map.json` — excluded.
+**Contaminated Artifacts:** `removed-obsolete-legacy-*.png` (28+ files), `removed-obsolete-legacy-text-map.json` — excluded.
 
 **Still Needs Verification:**
 

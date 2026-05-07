@@ -308,7 +308,7 @@ Phase 2G cannot start until `PHASE2_ASSET_INVENTORY.md` is generated and human-r
 ## 7. Hard Rules — Immutable
 
 ### Forbidden (absolute)
-- ❌ WACUS — references, screenshots, comparisons, terminology
+- ❌ obsolete legacy reference — references, screenshots, comparisons, terminology
 - ❌ Deployment (Netlify, Vercel, any CDN)
 - ❌ `git push` to any remote
 - ❌ Paid services or external paid APIs

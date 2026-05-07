@@ -43,14 +43,14 @@ Remove all unauthorized external references from the audit and final plan.
 ### Explicitly banned reference
 
 ```text
-WACUS
-wacusglobal.com
-https://www.wacusglobal.com/en
-https://www.wacusglobal.com/en/about
-https://www.wacusglobal.com/en/work
+obsolete legacy reference
+removed-obsolete-legacy-domain
+[removed obsolete legacy URL]
+[removed obsolete legacy URL]
+[removed obsolete legacy URL]
 ```
 
-WACUS must not be used as:
+obsolete legacy reference must not be used as:
 
 - benchmark
 - design reference
@@ -64,11 +64,11 @@ WACUS must not be used as:
 Remove all language such as:
 
 ```text
-WACUS-grade
-WACUS-style
-WACUS-inspired
-WACUS benchmark
-WACUS protocol
+obsolete legacy reference-grade
+obsolete legacy reference-style
+obsolete legacy reference-inspired
+obsolete legacy reference benchmark
+obsolete legacy reference protocol
 ```
 
 Replace with project-native language:
@@ -124,7 +124,7 @@ LUSION manifest/runtime references found inside the local package
 
 ### 4. Unauthorized / excluded references
 
-List WACUS here and explicitly state it is excluded from all findings and recommendations.
+List obsolete legacy reference here and explicitly state it is excluded from all findings and recommendations.
 
 If any other unapproved external page, domain, or artifact was opened, searched, inspected, screenshotted, or referenced, list it here and exclude it from the corrected plan.
 
@@ -138,14 +138,14 @@ No other unauthorized external references were confirmed from the available sess
 
 ## Artifact Sanitization
 
-Exclude all WACUS-generated screenshots and artifacts from the evidence set.
+Exclude all obsolete legacy reference-generated screenshots and artifacts from the evidence set.
 
 Examples to exclude:
 
 ```text
-wacus-home-*.png
-wacus-about-*.png
-wacus-work-*.png
+removed-obsolete-legacy-home-*.png
+removed-obsolete-legacy-about-*.png
+removed-obsolete-legacy-work-*.png
 ```
 
 Do not delete project source files.
@@ -278,6 +278,6 @@ Do not delete project files.
 Do not commit.
 Do not push.
 Do not deploy.
-Do not open WACUS again.
+Do not open obsolete legacy reference again.
 Do not research new references.
 ```

@@ -32,7 +32,7 @@ Codex already performed a Phase 1 audit and gathered useful evidence:
 - LUSION package inspection
 - external reference review
 
-However, the Codex output became contaminated by WACUS references and must be sanitized.
+However, the Codex output became contaminated by obsolete legacy reference references and must be sanitized.
 
 The current funnel is technically passable but **not visually or commercially finished**.
 
@@ -42,21 +42,21 @@ Treat the current implementation as a technical base only, not the final creativ
 
 ## Hard Ban
 
-Do not use WACUS.
+Do not use obsolete legacy reference.
 
 ```text
-WACUS
-wacusglobal.com
-https://www.wacusglobal.com/en
-https://www.wacusglobal.com/en/about
-https://www.wacusglobal.com/en/work
+obsolete legacy reference
+removed-obsolete-legacy-domain
+[removed obsolete legacy URL]
+[removed obsolete legacy URL]
+[removed obsolete legacy URL]
 ```
 
-WACUS is not approved for this or any other project.
+obsolete legacy reference is not approved for this or any other project.
 
 Do not open it, cite it, benchmark against it, mention it, screenshot it, or use it as inspiration.
 
-If any previous Codex artifact contains WACUS references, remove them mentally from the plan and mark them as contaminated/excluded.
+If any previous Codex artifact contains obsolete legacy reference references, remove them mentally from the plan and mark them as contaminated/excluded.
 
 ---
 
@@ -206,7 +206,7 @@ State clearly:
 
 Include only valid sources.
 
-Mention that WACUS is excluded.
+Mention that obsolete legacy reference is excluded.
 
 Mention that localhost:3012 is the valid QA source.
 
@@ -249,7 +249,7 @@ controlled neon/material accents
 cinematic scroll with conversion clarity
 ```
 
-Do not use WACUS language.
+Do not use obsolete legacy reference language.
 
 ### 6. Typography Replacement Plan
 
@@ -595,7 +595,7 @@ The final output must be:
 - visual-direction complete
 - technical enough for a senior engineer
 - creative enough for an award-level funnel
-- not dependent on WACUS
+- not dependent on obsolete legacy reference
 - not generic
 - not a small patch plan
 
@@ -612,7 +612,7 @@ Do not:
 - commit
 - push
 - deploy
-- open WACUS
+- open obsolete legacy reference
 - research new references
 - implement Phase 2
 

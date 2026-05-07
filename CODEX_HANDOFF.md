@@ -162,7 +162,7 @@ If content is wrong → ship poster-only VideoStage with TODO marker.
 ## STEP 7 — HARD RULES (NON-NEGOTIABLE)
 
 ```
-❌ No WACUS references, screenshots, comparisons, terminology
+❌ No obsolete legacy reference references, screenshots, comparisons, terminology
 ❌ No deployment (Netlify, Vercel, any CDN)
 ❌ No git push to any remote
 ❌ No new dependencies (unless master plan §19 explicitly approves)
