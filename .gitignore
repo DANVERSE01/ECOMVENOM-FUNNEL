@@ -28,6 +28,27 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 
+# TypeScript cache
+*.tsbuildinfo
+
+# Local caches
+npm-cache/
+.cache/
+
+# QA / audit / automation artifacts
+.audit/
+.qa/
+.playwright-mcp/
+output/
+test-results/
+playwright-report/
+
+# Local screenshots / references at repo root
+local-*.png
+wacus-*.png
+phase2*.png
+download*.png
+
 # Heavy design / archive / video sources
 *.zip
 *.rar
