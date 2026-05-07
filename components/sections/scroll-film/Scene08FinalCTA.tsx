@@ -143,14 +143,14 @@ export function Scene08FinalCTA() {
             ref={headlineRef}
             className="mt-6 font-display text-[clamp(3.4rem,8vw,8rem)] uppercase leading-[0.84] tracking-tightest"
           >
-            Ready to start?{" "}
-            <span ref={applySpanRef} className="inline-block text-venom">Apply now.</span>
+            Your system is{" "}
+            <span ref={applySpanRef} className="inline-block text-venom">waiting.</span>
           </h2>
           <p
             ref={subtextRef}
             className="mx-auto mt-5 max-w-2xl text-lg leading-relaxed text-ash"
           >
-            Spots are limited. We only accept students we believe will put in the work.
+            A 45-day roadmap. A free store build. Two winning products. Dual-market strategies. And a mentor who won&apos;t leave you behind.
           </p>
           <div ref={ctaWrapRef} className="relative z-30 mt-9 flex justify-center">
             <CtaLink href="/apply" sub={CTA_SUB} className="cinematic-command">

@@ -13,7 +13,8 @@ export const hero = {
   headlineHighlight: "PROFITABLE DROPSHIPPING SYSTEM",
   headlineTail: "IN 45 DAYS WITH",
   headlineHighlight2: "ZERO EXPERIENCE",
-  sub: "A-Z roadmap for U.S. and Saudi/Gulf markets. No wasted money. No random tutorials. No fluff.",
+  sub: "A complete A-Z roadmap for U.S. and Saudi/Gulf markets. No wasted money. No random tutorials. No fluff.",
+  scrollCue: "Scroll to see the system",
 };
 
 export const learn = {
@@ -118,11 +119,12 @@ export const beyond = {
 };
 
 export const testimonials = {
-  heading: "SOME OF OUR TESTIMONIALS",
+  heading: "VERIFIED RESULTS",
+  subheading: "Real students. Real screenshots. Nothing fabricated.",
   // Source page contains this heading but no embedded testimonial copy that
   // could be verified. We refuse to fabricate quotes / faces / metrics.
   honestNote:
-    "Verified student screenshots are displayed directly. We keep claims restrained and avoid invented quotes or fake metrics.",
+    "All evidence shown is captured directly from student accounts. We do not fabricate quotes, inflate metrics, or use stock imagery.",
 };
 
 export const faq = {
@@ -235,5 +237,5 @@ export const confirmation = {
 
 export const footer = {
   legal: "Privacy Policy | Terms",
-  copyright: "© 2025 ECOMVENOM. All rights reserved.",
+  copyright: "© 2026 ECOMVENOM. All rights reserved.",
 };

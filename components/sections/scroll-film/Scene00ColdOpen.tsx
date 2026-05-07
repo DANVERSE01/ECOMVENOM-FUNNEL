@@ -133,8 +133,16 @@ export function Scene00ColdOpen() {
               <CtaLink href="/apply" sub={CTA_SUB} className="cinematic-command min-w-[min(100%,17rem)]">
                 {CTA_LABEL}
               </CtaLink>
-              <p className="max-w-xl font-mono text-[11px] uppercase leading-relaxed tracking-[0.16em] text-ash">
+              <p className="max-w-xl text-sm leading-relaxed text-ash sm:text-[13px]">
                 {hero.sub}
+              </p>
+            </div>
+
+            {/* Scroll invitation */}
+            <div className="mt-10 flex items-center gap-3 opacity-50">
+              <div className="h-8 w-[1px] bg-gradient-to-b from-venom/60 to-transparent animate-float" />
+              <p className="font-heading text-[10px] uppercase tracking-caps text-ash-2">
+                {hero.scrollCue}
               </p>
             </div>
           </div>

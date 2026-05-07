@@ -29,12 +29,13 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`${syne.variable} ${spaceGrotesk.variable} ${inter.variable} ${jetbrainsMono.variable}`}>
-      <body className="font-sans antialiased min-h-screen flex flex-col cursor-none">
+      <body className="font-sans antialiased min-h-screen flex flex-col">
+        <a href="#main-content" className="skip-to-content">Skip to content</a>
         <Preloader />
         <ParticleTrailCursor />
         <SmoothScroll>
           <Nav />
-          <main className="flex-1">{children}</main>
+          <main id="main-content" className="flex-1">{children}</main>
           <Footer />
         </SmoothScroll>
         <StickyMobileCTA />

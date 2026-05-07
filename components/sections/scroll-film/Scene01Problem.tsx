@@ -11,7 +11,11 @@ import { HIGGSFIELD_STILLS } from "@/lib/frameManifest";
 import { gsap, SplitText } from "@/lib/gsap";
 import { useReducedMotion } from "@/lib/useReducedMotion";
 
-const signals = ["Random tutorials", "Random products", "Random ad spend"];
+const signals = [
+  { label: "Random tutorials", detail: "Hours of YouTube videos, contradicting advice, no clear path forward" },
+  { label: "Random products", detail: "Testing blindly, burning budget on items nobody wants to buy" },
+  { label: "Random ad spend", detail: "Money leaving your account with zero idea what's working or why" },
+];
 
 export function Scene01Problem() {
   const sectionRef = useRef<HTMLDivElement | null>(null);
@@ -27,7 +31,6 @@ export function Scene01Problem() {
       if (!section) return;
 
       const items = gsap.utils.toArray<HTMLElement>(".chaos-signal", section);
-      const badges = gsap.utils.toArray<HTMLElement>(".badge-uncontrolled", section);
 
       if (reduced) {
         gsap.set(items, { opacity: 1, x: 0 });
@@ -68,7 +71,6 @@ export function Scene01Problem() {
       gsap.from(items, {
         opacity: 0,
         x: -32,
-        rotate: (index) => (index % 2 === 0 ? -1 : 1),
         duration: 0.7,
         stagger: 0.12,
         ease: "venom",
@@ -76,21 +78,7 @@ export function Scene01Problem() {
           trigger: section,
           start: "top 75%",
           once: true,
-          onEnter: () => {
-            badges.forEach((badge) => {
-              badge.classList.remove("badge-glitch");
-              void badge.offsetWidth;
-              badge.classList.add("badge-glitch");
-            });
-          },
         },
-      });
-      gsap.to(items, {
-        rotate: 0,
-        duration: 0.55,
-        stagger: 0.08,
-        ease: "venom",
-        scrollTrigger: { trigger: section, start: "top 70%", once: true },
       });
     },
     { scope: sectionRef, dependencies: [reduced], revertOnUpdate: true },
@@ -116,19 +104,20 @@ export function Scene01Problem() {
         <div className="space-y-4">
           {signals.map((signal, index) => (
             <div
-              key={signal}
-              className="chaos-signal border border-l-2 border-white/10 border-l-alert/50 bg-black/55 p-5 backdrop-blur-sm"
+              key={signal.label}
+              className="chaos-signal border border-l-2 border-white/8 border-l-alert/40 bg-ink-3/70 p-5 backdrop-blur-sm"
             >
-              <div className="flex items-center justify-between gap-4 font-mono text-[10px] uppercase tracking-[0.2em] text-ash">
+              <div className="flex items-center justify-between gap-4 font-heading text-[10px] uppercase tracking-caps text-ash">
                 <span>Signal {String(index + 1).padStart(2, "0")}</span>
-                <span className="badge-uncontrolled text-venom">Uncontrolled</span>
+                <span className="text-alert/80">Uncontrolled</span>
               </div>
-              <p className="mt-3 font-display text-2xl uppercase text-bone">{signal}</p>
+              <p className="mt-3 font-display text-2xl uppercase text-bone">{signal.label}</p>
+              <p className="mt-2 text-sm leading-relaxed text-ash-2">{signal.detail}</p>
             </div>
           ))}
           <SceneHairline />
           <p ref={bodyRef} className="max-w-xl text-base leading-relaxed text-ash">
-            Most people who try dropshipping run on guesswork. The scroll-film turns that noise into an operating path.
+            Most people who try dropshipping operate on guesswork. The system you&apos;re about to see replaces that chaos with a structured operating path.
           </p>
         </div>
       </div>
