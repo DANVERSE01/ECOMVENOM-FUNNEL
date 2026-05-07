@@ -75,11 +75,10 @@ export function Scene05Founder() {
         });
       });
 
-      // Quote chars with blur
-      const { elements, revert } = splitText(quote, "chars");
+      // Quote chars use opacity/transform only for lighter paint.
+      const { elements } = splitText(quote, "chars");
       gsap.from(elements, {
         opacity: 0,
-        filter: "blur(4px)",
         x: 4,
         duration: 0.35,
         stagger: 0.014,

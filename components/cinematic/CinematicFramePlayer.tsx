@@ -20,8 +20,8 @@ export function CinematicFramePlayer({
         src={poster}
         alt=""
         fill
-        priority
         sizes="100vw"
+        quality={72}
         className="object-cover opacity-95"
       />
       <FrameScrubCanvas

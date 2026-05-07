@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useEffect } from "react";
-import { gsap, ScrollTrigger } from "@/lib/gsap";
+import { ScrollTrigger } from "@/lib/gsap";
 
 export function ScrollProgressIndicator() {
   const barRef = useRef<HTMLDivElement>(null);
@@ -14,7 +14,7 @@ export function ScrollProgressIndicator() {
       start: "top top",
       end: "bottom bottom",
       onUpdate: (self) => {
-        gsap.set(bar, { scaleY: self.progress });
+        bar.style.transform = `scaleY(${self.progress})`;
       },
     });
 

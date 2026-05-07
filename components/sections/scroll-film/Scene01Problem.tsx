@@ -34,7 +34,7 @@ export function Scene01Problem() {
       const items = gsap.utils.toArray<HTMLElement>(".chaos-signal", section);
 
       if (reduced) {
-        gsap.set(items, { opacity: 1, x: 0 });
+        gsap.set(items, { opacity: 1, x: 0, scaleX: 1 });
         if (headline) gsap.set(headline, { opacity: 1, yPercent: 0 });
         return;
       }
@@ -64,10 +64,10 @@ export function Scene01Problem() {
         });
       }
 
-      // Signal cards entrance — clipPath wipe (authored, not generic fade)
-      gsap.set(items, { clipPath: "inset(0 100% 0 0)", opacity: 0 });
+      // Signal cards keep the wipe feel with transform instead of clip-path.
+      gsap.set(items, { scaleX: 0.96, transformOrigin: "left center", opacity: 0 });
       gsap.to(items, {
-        clipPath: "inset(0 0% 0 0)",
+        scaleX: 1,
         opacity: 1,
         duration: 0.65,
         stagger: 0.15,

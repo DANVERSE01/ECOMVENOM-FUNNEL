@@ -20,7 +20,6 @@ export function Scene08FinalCTA() {
   const ctaWrapRef = useRef<HTMLDivElement | null>(null);
   const subtextRef = useRef<HTMLParagraphElement | null>(null);
   const hairlinePathRef = useRef<SVGLineElement | null>(null);
-  const glowRef = useRef<gsap.core.Tween | null>(null);
   const reduced = useReducedMotion();
 
   useGSAP(
@@ -65,20 +64,6 @@ export function Scene08FinalCTA() {
           ease: "venom",
         }, "-=0.2");
 
-        // CTA breathing glow — after entrance
-        if (ctaWrapRef.current) {
-          const btn = ctaWrapRef.current.querySelector<HTMLElement>(".btn-primary");
-          if (btn && !glowRef.current) {
-            glowRef.current = gsap.to(btn, {
-              boxShadow: "0 0 60px rgba(184,255,46,0.45)",
-              repeat: -1,
-              yoyo: true,
-              duration: 2,
-              ease: "venom",
-              delay: 1.5,
-            });
-          }
-        }
       }
 
       // Subtext word split
@@ -107,10 +92,7 @@ export function Scene08FinalCTA() {
         });
       }
 
-      return () => {
-        glowRef.current?.kill();
-        glowRef.current = null;
-      };
+      return undefined;
     },
     { scope: sectionRef, dependencies: [reduced], revertOnUpdate: true },
   );

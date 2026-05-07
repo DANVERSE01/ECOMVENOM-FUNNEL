@@ -301,7 +301,7 @@ export function Scene00ColdOpen() {
       <div ref={sectionRef} className="absolute inset-0" />
 
       <div className="absolute inset-0">
-        <Image src={GENERATED_STILLS.heroBg} alt="" fill sizes="100vw" className="object-cover opacity-[0.12]" priority />
+        <Image src={GENERATED_STILLS.heroBg} alt="" fill sizes="100vw" quality={70} className="object-cover opacity-[0.12]" />
         <CinematicLoopVideo
           src={HIGGSFIELD_LOOPS.systemWake}
           poster={HIGGSFIELD_STILLS.systemIntro}
@@ -391,7 +391,7 @@ export function Scene00ColdOpen() {
                 priority
               />
               <div className="hero-vsl-card__depth" aria-hidden />
-              <div className="absolute left-4 top-4 z-30 border border-white/10 bg-black/55 px-3 py-2 backdrop-blur-md">
+              <div className="absolute left-4 top-4 z-30 border border-white/10 bg-black/70 px-3 py-2 backdrop-blur-sm">
                 <p className="font-heading text-[10px] uppercase tracking-normal text-venom">Founder VSL</p>
                 <p className="mt-1 font-mono text-[10px] text-ash">Preview</p>
               </div>
@@ -448,7 +448,7 @@ export function Scene00ColdOpen() {
               controls
               muted={videoMuted}
               playsInline
-              preload="auto"
+              preload="metadata"
               poster={HERO_MEDIA.posterSrc}
               className="hero-vsl-overlay__video"
               onEnded={closeOverlay}

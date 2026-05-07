@@ -68,7 +68,7 @@ export function Scene02ChaosToSystem() {
       }
 
       if (reduced) {
-        gsap.set(panels, { opacity: 1, clipPath: "inset(0 0% 0 0)" });
+        gsap.set(panels, { opacity: 1, scaleX: 1 });
         gsap.set([visual, depth], { opacity: 1, scale: 1, y: 0 });
         if (headline) gsap.set(headline, { opacity: 1 });
         return;
@@ -87,8 +87,8 @@ export function Scene02ChaosToSystem() {
         });
       }
 
-      // Checkpoint panels — clipPath wipe
-      gsap.set(panels, { clipPath: "inset(0 100% 0 0)", opacity: 0 });
+      // Checkpoint panels use transform wipes to avoid clip-path paint cost.
+      gsap.set(panels, { scaleX: 0.96, transformOrigin: "left center", opacity: 0 });
 
       const timeline = gsap.timeline({
         scrollTrigger: {
@@ -107,10 +107,10 @@ export function Scene02ChaosToSystem() {
       if (visual) {
         gsap.fromTo(
           visual,
-          { scale: 1.02, filter: "brightness(0.78) contrast(1.08)" },
+          { scale: 1.02, opacity: 0.86 },
           {
             scale: 1.2,
-            filter: "brightness(1.02) contrast(1.18)",
+            opacity: 1,
             ease: "none",
             scrollTrigger: {
               trigger: section,
@@ -145,7 +145,7 @@ export function Scene02ChaosToSystem() {
         const isLast = index === panels.length - 1;
         timeline
           .to(panel, {
-            clipPath: "inset(0 0% 0 0)",
+            scaleX: 1,
             opacity: 1,
             duration: 0.12,
             ease: "venom",

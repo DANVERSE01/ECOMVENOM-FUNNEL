@@ -55,7 +55,7 @@ export function VideoStage({
           type="button"
           onClick={() => setOpen(true)}
           aria-label={`Play ${title}`}
-          className="absolute bottom-4 left-4 right-4 z-30 flex min-h-12 items-center justify-between border border-white/10 bg-black/72 px-4 font-mono text-[10px] uppercase tracking-[0.18em] text-bone backdrop-blur transition-colors hover:border-venom/50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-venom"
+          className="absolute bottom-4 left-4 right-4 z-30 flex min-h-12 items-center justify-between border border-white/10 bg-black/78 px-4 font-mono text-[10px] uppercase tracking-[0.12em] text-bone backdrop-blur-sm transition-colors hover:border-venom/50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-venom"
         >
           <span>{eyebrow}</span>
           <span className="grid h-9 w-9 place-items-center rounded-full bg-venom text-ink" aria-hidden>
@@ -71,7 +71,7 @@ export function VideoStage({
           role="dialog"
           aria-modal="true"
           aria-label={title}
-          className="fixed inset-0 z-[10001] flex items-center justify-center bg-black/90 p-4 backdrop-blur-sm"
+          className="fixed inset-0 z-[10001] flex items-center justify-center bg-black/92 p-4"
           onClick={() => setOpen(false)}
         >
           <div className="relative w-full max-w-5xl" onClick={(event) => event.stopPropagation()}>

@@ -34,7 +34,7 @@ export function Scene04Offer() {
 
       if (reduced) {
         if (headline) gsap.set(headline, { opacity: 1 });
-        gsap.set([...optionCards, ...beyondCards], { opacity: 1, y: 0 });
+        gsap.set([...optionCards, ...beyondCards], { opacity: 1, y: 0, scaleY: 1 });
         return;
       }
 
@@ -51,10 +51,10 @@ export function Scene04Offer() {
         });
       }
 
-      // Option cards — clipPath wipe entrance (authored)
-      gsap.set(optionCards, { clipPath: "inset(0 0 100% 0)", opacity: 0 });
+      // Option cards retain the shutter reveal with transform instead of clip-path.
+      gsap.set(optionCards, { scaleY: 0.96, transformOrigin: "top center", opacity: 0 });
       gsap.to(optionCards, {
-        clipPath: "inset(0 0 0% 0)",
+        scaleY: 1,
         opacity: 1,
         duration: 0.7,
         stagger: 0.18,
@@ -107,9 +107,9 @@ export function Scene04Offer() {
         <SystemOverlay />
         <div className="scene-material-wash" data-tone="value" aria-hidden />
         <div className="pointer-events-none absolute inset-x-0 bottom-0 z-[2] hidden grid-cols-11 gap-1 px-5 pb-5 opacity-[0.05] md:grid">
-          {BRAND_VISUALS.map((src) => (
+          {BRAND_VISUALS.slice(0, 10).map((src) => (
             <div key={src} className="relative aspect-video overflow-hidden border border-venom/8">
-              <Image src={src} alt="" fill sizes="8vw" className="object-cover" />
+              <Image src={src} alt="" fill sizes="96px" quality={42} className="object-cover" />
             </div>
           ))}
         </div>

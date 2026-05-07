@@ -44,7 +44,7 @@ export function Preloader() {
 
     gsap.to(obj, {
       val: 100,
-      duration: 1.8,
+      duration: 0.8,
       ease: "power2.inOut",
       onUpdate() {
         const n = Math.floor(obj.val);
@@ -57,7 +57,7 @@ export function Preloader() {
       onComplete() {
         gsap.to(el, {
           yPercent: -100,
-          duration: 0.9,
+          duration: 0.42,
           ease: "power4.inOut",
           onComplete() {
             document.body.style.overflow = "";

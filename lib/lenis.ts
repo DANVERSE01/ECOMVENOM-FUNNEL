@@ -9,7 +9,7 @@ function tick(time: number) { lenis?.raf(time * 1000); }
 export function getLenis() {
   if (typeof window === "undefined" || reducedMotion()) return null;
   if (!lenis) {
-    lenis = new Lenis({ lerp: 0.075, smoothWheel: true, wheelMultiplier: 0.88, touchMultiplier: 1.8 });
+    lenis = new Lenis({ lerp: 0.11, smoothWheel: true, wheelMultiplier: 1, touchMultiplier: 1.15 });
     lenis.on("scroll", ScrollTrigger.update);
   }
   if (!tickerAdded) { gsap.ticker.add(tick); gsap.ticker.lagSmoothing(0); tickerAdded = true; }

@@ -11,7 +11,7 @@ import { HoverGrid, HoverGridItem } from "@/components/ui/HoverGrid";
 import { GENERATED_STILLS } from "@/lib/frameManifest";
 import { curriculum, learn } from "@/lib/content";
 import { gsap, ScrollTrigger } from "@/lib/gsap";
-import { splitText, scrambleText, setupStrokeDraw, getStrokeLength } from "@/lib/motion";
+import { scrambleText, getStrokeLength } from "@/lib/motion";
 import { useReducedMotion } from "@/lib/useReducedMotion";
 
 export function Scene03Roadmap() {
@@ -29,16 +29,17 @@ export function Scene03Roadmap() {
       const learnHeading = learnHeadingRef.current;
 
       if (reduced) {
-        gsap.set(cards, { opacity: 1, clipPath: "inset(0% 0 0 0)" });
+        gsap.set(cards, { opacity: 1, scaleY: 1 });
         return;
       }
 
-      // Module cards — clipPath wipe via ScrollTrigger.batch
-      gsap.set(cards, { clipPath: "inset(100% 0 0 0)" });
+      // Module cards use a transform wipe instead of clip-path for smoother paints.
+      gsap.set(cards, { scaleY: 0.97, transformOrigin: "top center", opacity: 0 });
       const triggers = ScrollTrigger.batch(cards, {
         onEnter: (elements) => {
           gsap.to(elements, {
-            clipPath: "inset(0% 0 0 0)",
+            scaleY: 1,
+            opacity: 1,
             ease: "venom",
             duration: 0.7,
             stagger: 0.055,
@@ -123,7 +124,7 @@ export function Scene03Roadmap() {
 
             <HoverGrid className="sm:grid-cols-2">
               {curriculum.modules.map((module) => (
-                <HoverGridItem key={module.n} className="system-module border border-white/6 bg-ink-3/60 p-5 backdrop-blur">
+                <HoverGridItem key={module.n} className="system-module border border-white/6 bg-ink-3/70 p-5 backdrop-blur-sm">
                   <p className="font-display text-5xl uppercase leading-none text-venom/70">{module.n}</p>
                   <p className="mt-2 font-heading text-[10px] uppercase tracking-caps text-ash-2">Module</p>
                   <h3 className="mt-3 font-display text-2xl uppercase leading-tight text-bone">{module.title}</h3>

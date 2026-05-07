@@ -48,7 +48,7 @@ export function ShotLabel({
     <div
       ref={wrapRef}
       className={cn(
-        "inline-flex items-center gap-3 border border-venom/25 bg-ink-2/70 px-3 py-2 font-heading text-[10px] uppercase tracking-caps text-bone-2 backdrop-blur-md",
+        "inline-flex items-center gap-3 border border-venom/25 bg-ink-2/80 px-3 py-2 font-heading text-[10px] uppercase tracking-caps text-bone-2 backdrop-blur-sm",
         className,
       )}
     >

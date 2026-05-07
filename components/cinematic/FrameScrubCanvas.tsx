@@ -40,6 +40,7 @@ export function FrameScrubCanvas({
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const imagesRef = useRef<Array<HTMLImageElement | null>>([]);
   const currentFrameRef = useRef(0);
+  const canvasSizeRef = useRef({ width: 0, height: 0 });
   const reduced = useReducedMotion();
 
   useGSAP(
@@ -59,18 +60,22 @@ export function FrameScrubCanvas({
 
       const sizeCanvas = () => {
         const rect = canvas.getBoundingClientRect();
-        canvas.width = Math.max(1, Math.floor(rect.width * dpr));
-        canvas.height = Math.max(1, Math.floor(rect.height * dpr));
+        const width = Math.max(1, Math.floor(rect.width));
+        const height = Math.max(1, Math.floor(rect.height));
+        canvasSizeRef.current = { width, height };
+        canvas.width = Math.max(1, Math.floor(width * dpr));
+        canvas.height = Math.max(1, Math.floor(height * dpr));
         context.setTransform(dpr, 0, 0, dpr, 0, 0);
         const image = imagesRef.current[currentFrameRef.current];
-        if (image) drawCover(context, image, rect.width, rect.height);
+        if (image) drawCover(context, image, width, height);
       };
 
       const drawFrame = (index: number) => {
         const image = imagesRef.current[index];
         if (!image) return;
-        const rect = canvas.getBoundingClientRect();
-        drawCover(context, image, rect.width, rect.height);
+        const { width, height } = canvasSizeRef.current;
+        if (!width || !height) return;
+        drawCover(context, image, width, height);
       };
 
       const loadFrame = (index: number) => {
@@ -84,15 +89,31 @@ export function FrameScrubCanvas({
         };
       };
 
-      const preloadAll = () => frames.forEach((_, index) => loadFrame(index));
+      const preloadAround = (index: number) => {
+        for (let offset = 0; offset <= 3; offset += 1) {
+          loadFrame(Math.min(frames.length - 1, index + offset));
+          if (offset > 0) loadFrame(Math.max(0, index - offset));
+        }
+      };
+
+      const preloadInBatches = (startIndex = 0) => {
+        const batchSize = 8;
+        const end = Math.min(frames.length, startIndex + batchSize);
+        for (let index = startIndex; index < end; index += 1) loadFrame(index);
+        if (end >= frames.length) return;
+
+        timeoutId = globalThis.setTimeout(() => preloadInBatches(end), 120);
+      };
+
       loadFrame(0);
+      preloadAround(0);
       sizeCanvas();
       window.addEventListener("resize", sizeCanvas);
 
       if (typeof window.requestIdleCallback === "function") {
-        idleCallbackId = window.requestIdleCallback(preloadAll);
+        idleCallbackId = window.requestIdleCallback(() => preloadInBatches(0), { timeout: 1600 });
       } else {
-        timeoutId = globalThis.setTimeout(preloadAll, 200);
+        timeoutId = globalThis.setTimeout(() => preloadInBatches(0), 900);
       }
 
       const playhead = { frame: 0 };
@@ -109,9 +130,7 @@ export function FrameScrubCanvas({
         onUpdate: () => {
           const nextFrame = Math.max(0, Math.min(frames.length - 1, Math.round(playhead.frame)));
           currentFrameRef.current = nextFrame;
-          loadFrame(nextFrame);
-          loadFrame(Math.min(frames.length - 1, nextFrame + 1));
-          loadFrame(Math.min(frames.length - 1, nextFrame + 2));
+          preloadAround(nextFrame);
           drawFrame(nextFrame);
         },
       });

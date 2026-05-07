@@ -11,7 +11,11 @@ export function SmoothScroll({ children }: { children: React.ReactNode }) {
   const reduced = useReducedMotion();
 
   useEffect(() => {
-    if (reduced) {
+    const useNativeScroll =
+      reduced ||
+      window.matchMedia("(pointer: coarse), (max-width: 767px)").matches;
+
+    if (useNativeScroll) {
       destroyLenis();
       ScrollTrigger.refresh();
       return () => {

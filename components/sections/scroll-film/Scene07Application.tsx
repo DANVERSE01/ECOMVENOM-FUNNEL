@@ -11,7 +11,7 @@ import { SystemOverlay } from "@/components/cinematic/SystemOverlay";
 import { CTA_LABEL, CTA_SUB, faq } from "@/lib/content";
 import { HIGGSFIELD_STILLS } from "@/lib/frameManifest";
 import { gsap } from "@/lib/gsap";
-import { splitText, setupStrokeDraw, getStrokeLength } from "@/lib/motion";
+import { splitText, getStrokeLength } from "@/lib/motion";
 import { useReducedMotion } from "@/lib/useReducedMotion";
 
 const steps = [
@@ -67,7 +67,7 @@ export function Scene07Application() {
 
       if (reduced) {
         if (headline) gsap.set(headline, { opacity: 1 });
-        gsap.set(stepCards, { opacity: 1, y: 0, clipPath: "inset(0 0% 0 0)" });
+        gsap.set(stepCards, { opacity: 1, y: 0, scaleX: 1 });
         return;
       }
 
@@ -84,10 +84,10 @@ export function Scene07Application() {
         });
       }
 
-      // Step cards — clipPath wipe left→right + y stagger
-      gsap.set(stepCards, { clipPath: "inset(0 100% 0 0)", y: 30, opacity: 0 });
+      // Step cards wipe with transform/opacity to keep mobile scroll light.
+      gsap.set(stepCards, { scaleX: 0.96, transformOrigin: "left center", y: 24, opacity: 0 });
       gsap.to(stepCards, {
-        clipPath: "inset(0 0% 0 0)",
+        scaleX: 1,
         y: 0,
         opacity: 1,
         duration: 0.65,

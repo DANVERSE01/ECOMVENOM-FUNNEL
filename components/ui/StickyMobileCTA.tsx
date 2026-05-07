@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
-import { gsap, ScrollTrigger } from "@/lib/gsap";
+import { ScrollTrigger } from "@/lib/gsap";
 import { CtaLink } from "@/components/ui/button";
 
 const HIDDEN_ROUTES = ["/apply", "/schedule", "/confirmation"];
@@ -30,23 +30,18 @@ export function StickyMobileCTA() {
     return () => st.kill();
   }, [hidden, pathname]);
 
-  useEffect(() => {
-    const bar = barRef.current;
-    if (!bar) return;
-    gsap.to(bar, {
-      y: visible ? 0 : "100%",
-      duration: 0.4,
-      ease: "power3.out",
-    });
-  }, [visible]);
-
   if (hidden) return null;
 
   return (
     <div
       ref={barRef}
       data-sticky-mobile-cta
-      className="mobile-command-bar fixed bottom-0 left-0 right-0 z-[8000] translate-y-full md:hidden"
+      className="mobile-command-bar fixed bottom-0 left-0 right-0 z-[8000] md:hidden"
+      style={{
+        transform: visible ? "translate3d(0,0,0)" : "translate3d(0,100%,0)",
+        transition: "transform 320ms cubic-bezier(0.16,1,0.3,1)",
+        willChange: "transform",
+      }}
     >
       <div className="px-4 py-3 flex flex-col items-center gap-1">
         <CtaLink href="/apply" className="w-full max-w-sm text-center">

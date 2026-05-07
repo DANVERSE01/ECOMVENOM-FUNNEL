@@ -16,6 +16,8 @@ export function ParticleTrailCursor() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const dotRef = useRef<HTMLDivElement>(null);
   const rafRef = useRef(0);
+  const runningRef = useRef(false);
+  const lastMoveRef = useRef(0);
   const mouseRef = useRef({ x: -100, y: -100 });
   const dotPosRef = useRef({ x: -100, y: -100 });
   const particlesRef = useRef<Particle[]>([]);
@@ -29,55 +31,78 @@ export function ParticleTrailCursor() {
 
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
+    const canvasEl = canvas;
+    const dotEl = dot;
+    const context = ctx;
 
     const resize = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
+      const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+      canvasEl.width = Math.floor(window.innerWidth * dpr);
+      canvasEl.height = Math.floor(window.innerHeight * dpr);
+      canvasEl.style.width = `${window.innerWidth}px`;
+      canvasEl.style.height = `${window.innerHeight}px`;
+      context.setTransform(dpr, 0, 0, dpr, 0, 0);
     };
     resize();
-    window.addEventListener("resize", resize);
+    window.addEventListener("resize", resize, { passive: true });
+
+    const startLoop = () => {
+      if (runningRef.current) return;
+      runningRef.current = true;
+      rafRef.current = requestAnimationFrame(loop);
+    };
 
     const onMouseMove = (e: MouseEvent) => {
       mouseRef.current = { x: e.clientX, y: e.clientY };
-      for (let i = 0; i < 2; i++) {
+      lastMoveRef.current = performance.now();
+      dotEl.style.opacity = "1";
+      if (particlesRef.current.length < 34) {
         particlesRef.current.push({
           x: e.clientX,
           y: e.clientY,
-          vx: (Math.random() - 0.5) * 1.2,
-          vy: (Math.random() - 0.5) * 1.2,
+          vx: (Math.random() - 0.5) * 0.85,
+          vy: (Math.random() - 0.5) * 0.85,
           life: 1,
-          size: 1.5 + Math.random() * 2,
+          size: 1.2 + Math.random() * 1.6,
         });
       }
+      startLoop();
     };
-    window.addEventListener("mousemove", onMouseMove);
+    window.addEventListener("mousemove", onMouseMove, { passive: true });
 
-    const loop = () => {
-      rafRef.current = requestAnimationFrame(loop);
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    function loop() {
+      context.clearRect(0, 0, canvasEl.width, canvasEl.height);
 
       dotPosRef.current.x += (mouseRef.current.x - dotPosRef.current.x) * 0.18;
       dotPosRef.current.y += (mouseRef.current.y - dotPosRef.current.y) * 0.18;
-      dot.style.transform = `translate(${dotPosRef.current.x - 6}px, ${dotPosRef.current.y - 6}px)`;
+      dotEl.style.transform = `translate3d(${dotPosRef.current.x - 6}px, ${dotPosRef.current.y - 6}px, 0)`;
 
-      ctx.globalCompositeOperation = "screen";
+      context.globalCompositeOperation = "screen";
       particlesRef.current = particlesRef.current.filter((p) => p.life > 0);
 
       for (const p of particlesRef.current) {
         p.x += p.vx;
         p.y += p.vy;
-        p.life -= 0.035;
+        p.life -= 0.052;
         const alpha = Math.max(0, p.life);
-        ctx.fillStyle = `rgba(184,255,46,${alpha})`;
-        ctx.shadowColor = "#B8FF2E";
-        ctx.shadowBlur = p.size * 3;
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-        ctx.fill();
+        context.fillStyle = `rgba(184,255,46,${alpha * 0.9})`;
+        context.beginPath();
+        context.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        context.fill();
       }
-      ctx.shadowBlur = 0;
-    };
-    loop();
+
+      const cursorSettled =
+        Math.abs(mouseRef.current.x - dotPosRef.current.x) < 0.5 &&
+        Math.abs(mouseRef.current.y - dotPosRef.current.y) < 0.5;
+      const idle = performance.now() - lastMoveRef.current > 180 && particlesRef.current.length === 0 && cursorSettled;
+
+      if (idle) {
+        runningRef.current = false;
+        return;
+      }
+
+      rafRef.current = requestAnimationFrame(loop);
+    }
 
     return () => {
       cancelAnimationFrame(rafRef.current);
@@ -95,7 +120,7 @@ export function ParticleTrailCursor() {
       <div
         ref={dotRef}
         className="particle-cursor fixed top-0 left-0 z-[9999] pointer-events-none w-3 h-3 rounded-full bg-venom mix-blend-screen"
-        style={{ boxShadow: "0 0 12px rgba(184,255,46,0.8)" }}
+        style={{ boxShadow: "0 0 12px rgba(184,255,46,0.8)", opacity: 0, transform: "translate3d(-100px,-100px,0)" }}
       />
     </>
   );

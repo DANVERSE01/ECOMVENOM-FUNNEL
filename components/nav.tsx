@@ -72,7 +72,7 @@ export function Nav() {
 
   return (
     <>
-      <header className="fixed left-0 right-0 top-0 z-[9000] isolate border-b border-white/[0.06] bg-black/55 backdrop-blur-xl backdrop-saturate-150">
+      <header className="fixed left-0 right-0 top-0 z-[9000] isolate border-b border-white/[0.06] bg-black/72 backdrop-blur-md backdrop-saturate-125">
         <div className="mx-auto grid h-14 max-w-[1440px] grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3 px-4 sm:px-6">
           <Link href="/" aria-label="ECOMVENOM home" className="relative z-40 flex min-h-11 min-w-0 items-center gap-3">
             <span className="relative block h-11 w-40 overflow-hidden">

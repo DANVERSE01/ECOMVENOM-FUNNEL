@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "@/lib/gsap";
 import { useReducedMotion } from "@/lib/useReducedMotion";
@@ -21,6 +21,18 @@ export function CinematicLoopVideo({
 }) {
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const reduced = useReducedMotion();
+  const [canRenderVideo, setCanRenderVideo] = useState(!hideOnMobile);
+
+  useEffect(() => {
+    if (!hideOnMobile) return;
+
+    const media = window.matchMedia("(max-width: 767px)");
+    const update = () => setCanRenderVideo(!media.matches);
+    update();
+    media.addEventListener("change", update);
+
+    return () => media.removeEventListener("change", update);
+  }, [hideOnMobile]);
 
   useGSAP(
     () => {
@@ -52,8 +64,10 @@ export function CinematicLoopVideo({
         video.pause();
       };
     },
-    { scope: videoRef, dependencies: [preload, reduced], revertOnUpdate: true },
+    { scope: videoRef, dependencies: [preload, reduced, canRenderVideo], revertOnUpdate: true },
   );
+
+  if (reduced || !canRenderVideo) return null;
 
   return (
     <video
