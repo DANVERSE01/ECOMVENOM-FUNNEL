@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 export default function ConfirmationPage() {
   return (
     <>
-      <div className="border-b border-gold/25 bg-gold/10 py-2 text-center text-xs uppercase tracking-[0.22em] text-gold sm:text-sm">
+      <div className="border-b border-gold/25 bg-gold/10 py-2 text-center font-heading text-xs uppercase tracking-caps text-gold sm:text-sm">
         {confirmation.banner}
       </div>
 

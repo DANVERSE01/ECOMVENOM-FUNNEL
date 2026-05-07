@@ -53,7 +53,7 @@ export function StickyMobileCTA() {
         <CtaLink href="/apply" className="w-full max-w-sm text-center">
           APPLY FOR THE PROGRAM
         </CtaLink>
-        <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-ash">Limited spots available</p>
+        <p className="font-heading text-[10px] uppercase tracking-caps text-ash">Free 20-minute consultation</p>
       </div>
     </div>
   );

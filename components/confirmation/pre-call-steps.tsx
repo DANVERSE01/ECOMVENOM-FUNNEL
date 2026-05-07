@@ -9,7 +9,7 @@ export function PreCallSteps() {
           key={i}
           className="scene-panel grid gap-4 p-5 sm:grid-cols-[auto_minmax(0,1fr)] sm:p-6"
         >
-          <span className="grid h-10 w-10 place-items-center border border-steel/35 bg-steel/10 font-mono text-[10px] text-steel">
+          <span className="grid h-10 w-10 place-items-center border border-steel/35 bg-steel/10 font-heading text-[10px] tracking-caps text-steel">
             {String(i + 1).padStart(2, "0")}
           </span>
           <div>

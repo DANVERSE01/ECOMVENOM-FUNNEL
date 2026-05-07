@@ -83,7 +83,7 @@ export function Nav() {
             </span>
           </Link>
 
-          <div className="relative z-10 hidden max-w-[min(36vw,24rem)] items-center justify-center gap-3 overflow-hidden border-x border-white/10 px-5 font-mono text-[10px] uppercase tracking-[0.22em] text-ash lg:flex">
+          <div className="relative z-10 hidden max-w-[min(36vw,24rem)] items-center justify-center gap-3 overflow-hidden border-x border-white/10 px-5 font-heading text-[10px] uppercase tracking-caps text-ash lg:flex">
             <span className="system-status-dot h-1.5 w-1.5 rounded-full bg-venom shadow-[0_0_12px_rgba(184,255,46,0.8)]" />
             <span ref={sceneLabelRef} className="truncate" />
           </div>
@@ -96,7 +96,7 @@ export function Nav() {
             </div>
             <Link
               href="/apply"
-              className="relative z-40 inline-flex h-11 min-w-16 items-center justify-center border border-venom/45 bg-black/80 px-3 font-mono text-[10px] uppercase tracking-[0.18em] text-venom transition-colors hover:bg-venom hover:text-ink focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-venom sm:hidden"
+              className="relative z-40 inline-flex h-11 min-w-16 items-center justify-center border border-venom/45 bg-ink-2/80 px-3 font-heading text-[10px] uppercase tracking-caps text-venom transition-colors hover:bg-venom hover:text-ink focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-venom sm:hidden"
             >
               Apply
             </Link>
