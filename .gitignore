@@ -45,8 +45,6 @@ playwright-report/
 
 # Local screenshots / references at repo root
 local-*.png
-wacus-*.png
-wacus-*.json
 phase2*.png
 download*.png
 

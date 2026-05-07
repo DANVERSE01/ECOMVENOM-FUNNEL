@@ -11,9 +11,13 @@ import { CTA_LABEL, CTA_SUB } from "@/lib/content";
 import { gsap, ScrollTrigger, reducedMotion } from "@/lib/gsap";
 import { scrambleText } from "@/lib/motion";
 
+function displaySceneLabel(label?: string) {
+  return label === "ECOMVENOM" ? "SYSTEM ONLINE" : label ?? "SYSTEM ONLINE";
+}
+
 export function Nav() {
   const pathname = usePathname();
-  const [scene, setScene] = useState("ECOMVENOM");
+  const [scene, setScene] = useState("SYSTEM ONLINE");
   const sceneLabelRef = useRef<HTMLSpanElement>(null);
   const firstRender = useRef(true);
 
@@ -26,7 +30,7 @@ export function Nav() {
             ? "START"
             : pathname === "/confirmation"
               ? "CONFIRMED"
-              : "ECOMVENOM";
+              : "SYSTEM ONLINE";
 
       setScene(routeLabel);
 
@@ -38,8 +42,8 @@ export function Nav() {
           trigger: node,
           start: "top center",
           end: "bottom center",
-          onEnter: () => setScene(node.dataset.sceneTitle ?? "ECOMVENOM"),
-          onEnterBack: () => setScene(node.dataset.sceneTitle ?? "ECOMVENOM"),
+          onEnter: () => setScene(displaySceneLabel(node.dataset.sceneTitle)),
+          onEnterBack: () => setScene(displaySceneLabel(node.dataset.sceneTitle)),
         });
       });
 
@@ -83,7 +87,7 @@ export function Nav() {
             </span>
           </Link>
 
-          <div className="relative z-10 hidden max-w-[min(36vw,24rem)] items-center justify-center gap-3 overflow-hidden border-x border-white/10 px-5 font-heading text-[10px] uppercase tracking-caps text-ash lg:flex">
+          <div className="relative z-10 hidden max-w-[min(36vw,24rem)] items-center justify-center gap-3 overflow-hidden border-x border-white/10 px-5 font-heading text-[10px] uppercase tracking-normal text-ash lg:flex">
             <span className="system-status-dot h-1.5 w-1.5 rounded-full bg-venom shadow-[0_0_12px_rgba(184,255,46,0.8)]" />
             <span ref={sceneLabelRef} className="truncate" />
           </div>

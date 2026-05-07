@@ -1,78 +1,105 @@
 "use client";
 
 import Image from "next/image";
-import { useRef } from "react";
+import {
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+  type CSSProperties,
+  type MouseEvent,
+} from "react";
 import { useGSAP } from "@gsap/react";
 import { CtaLink } from "@/components/ui/button";
 import { CinematicLoopVideo } from "@/components/cinematic/CinematicLoopVideo";
+import { ResponsiveMediaFrame } from "@/components/cinematic/ResponsiveMediaFrame";
 import { ScrollFilmScene } from "@/components/cinematic/ScrollFilmScene";
-import { SceneEyebrow } from "@/components/cinematic/SceneEyebrow";
-import { VideoStage } from "@/components/cinematic/VideoStage";
 import { SystemOverlay } from "@/components/cinematic/SystemOverlay";
 import { HIGGSFIELD_LOOPS, HIGGSFIELD_STILLS, GENERATED_STILLS } from "@/lib/frameManifest";
 import { CTA_LABEL, CTA_SUB, hero } from "@/lib/content";
-import { gsap, ScrollTrigger } from "@/lib/gsap";
-import { splitText, scrambleText } from "@/lib/motion";
+import { gsap } from "@/lib/gsap";
+import { scrambleText } from "@/lib/motion";
 import { useReducedMotion } from "@/lib/useReducedMotion";
 
-const HERO_VSL_SRC = "/media/hero-vsl.mp4";
-const HERO_VSL_POSTER = "/media/hero-vsl-poster.jpg";
+const HERO_VSL_SRC = "/media/confirmation-embed.mp4";
+const HERO_VSL_POSTER = "/posters/confirmation-poster.jpg";
+const HERO_VSL_SESSION_KEY = "ecomvenom.heroVslIntro.seen";
+
+type OverlayPhase = "opening" | "closing";
+type LaunchMode = "auto" | "manual";
+type PlaybackState = "starting" | "playing" | "playing-muted" | "blocked";
+type CollapseVars = CSSProperties & {
+  "--collapse-x"?: string;
+  "--collapse-y"?: string;
+  "--collapse-scale"?: string;
+};
 
 export function Scene00ColdOpen() {
   const sectionRef = useRef<HTMLDivElement | null>(null);
-  const logoRef = useRef<HTMLDivElement | null>(null);
   const eyebrowRef = useRef<HTMLParagraphElement | null>(null);
   const headlineRef = useRef<HTMLHeadingElement | null>(null);
   const supportRef = useRef<HTMLDivElement | null>(null);
-  const orbRef = useRef<HTMLDivElement | null>(null);
+  const tunnelRef = useRef<HTMLDivElement | null>(null);
   const spotlightRef = useRef<HTMLDivElement | null>(null);
+  const vslCardRef = useRef<HTMLDivElement | null>(null);
+  const overlayPanelRef = useRef<HTMLDivElement | null>(null);
+  const overlayVideoRef = useRef<HTMLVideoElement | null>(null);
+  const closeTimerRef = useRef<number | null>(null);
   const reduced = useReducedMotion();
+
+  const [overlayOpen, setOverlayOpen] = useState(false);
+  const [overlayPhase, setOverlayPhase] = useState<OverlayPhase>("opening");
+  const [launchMode, setLaunchMode] = useState<LaunchMode>("auto");
+  const [playbackState, setPlaybackState] = useState<PlaybackState>("starting");
+  const [videoMuted, setVideoMuted] = useState(true);
+  const [collapseStyle, setCollapseStyle] = useState<CollapseVars>({});
 
   useGSAP(
     () => {
-      const logo = logoRef.current;
       const eyebrow = eyebrowRef.current;
       const headline = headlineRef.current;
       const support = supportRef.current;
-      const orb = orbRef.current;
+      const tunnel = tunnelRef.current;
       const spotlight = spotlightRef.current;
-      if (!logo || !eyebrow || !headline || !support) return;
+      const vslCard = vslCardRef.current;
+      if (!eyebrow || !headline || !support || !vslCard) return;
+
+      const headlineLines = Array.from(
+        headline.querySelectorAll<HTMLElement>("[data-headline-line]"),
+      );
 
       if (reduced) {
-        gsap.set([logo, eyebrow, headline, support], { opacity: 1, y: 0, yPercent: 0 });
+        gsap.set([eyebrow, support, vslCard, ...headlineLines], { opacity: 1, y: 0, yPercent: 0 });
         return;
       }
 
-      const { elements: headlineLines, revert: revertSplit } = splitText(headline, "lines", { mask: true });
       const eyebrowText = eyebrow.textContent ?? "";
 
-      gsap.set(logo, { opacity: 0, scale: 0.92 });
-      gsap.set(eyebrow, { opacity: 0 });
-      gsap.set(headlineLines, { yPercent: 120, rotation: 1.5 });
-      gsap.set(support, { opacity: 0, y: 28 });
+      gsap.set(eyebrow, { opacity: 0, y: 10 });
+      gsap.set(headlineLines, { yPercent: 110, rotation: 0.6 });
+      gsap.set(support, { opacity: 0, y: 22 });
+      gsap.set(vslCard, { opacity: 0, y: 34, scale: 0.96 });
 
-      // Entrance choreography — staggered with authored timing
       gsap
         .timeline({ defaults: { ease: "venom" } })
-        .to(logo, { opacity: 1, scale: 1, duration: 0.8, ease: "filmDrop" })
         .to(eyebrow, {
           opacity: 1,
-          duration: 0.6,
-          onStart: () => scrambleText(eyebrow, eyebrowText, { duration: 0.7 }),
-        }, 0.4)
+          y: 0,
+          duration: 0.55,
+          onStart: () => scrambleText(eyebrow, eyebrowText, { duration: 0.55 }),
+        }, 0.15)
         .to(
           headlineLines,
-          { yPercent: 0, rotation: 0, duration: 1, stagger: 0.12, ease: "filmDrop" },
-          0.55,
+          { yPercent: 0, rotation: 0, duration: 1.05, stagger: 0.09, ease: "filmDrop" },
+          0.35,
         )
-        .to(support, { opacity: 1, y: 0, duration: 0.7 }, ">-0.15");
+        .to(support, { opacity: 1, y: 0, duration: 0.65 }, 0.96)
+        .to(vslCard, { opacity: 1, y: 0, scale: 1, duration: 0.8, ease: "filmDrop" }, 1.02);
 
-      // Atmospheric orb parallax — slow drift on scroll
-      if (orb) {
-        gsap.to(orb, {
-          y: "-30%",
-          x: "10%",
-          scale: 1.3,
+      if (tunnel) {
+        gsap.to(tunnel, {
+          y: "-12%",
+          scale: 1.08,
           ease: "none",
           scrollTrigger: {
             trigger: sectionRef.current,
@@ -83,11 +110,10 @@ export function Scene00ColdOpen() {
         });
       }
 
-      // Spotlight radial tracks scroll
       if (spotlight) {
         gsap.to(spotlight, {
-          opacity: 0.3,
-          scale: 1.4,
+          opacity: 0.34,
+          scale: 1.35,
           ease: "none",
           scrollTrigger: {
             trigger: sectionRef.current,
@@ -97,101 +123,236 @@ export function Scene00ColdOpen() {
           },
         });
       }
-
-      return () => {
-        revertSplit();
-      };
     },
     { scope: sectionRef, dependencies: [reduced], revertOnUpdate: true },
   );
+
+  const closeOverlay = useCallback(() => {
+    const video = overlayVideoRef.current;
+    video?.pause();
+
+    if (closeTimerRef.current) {
+      window.clearTimeout(closeTimerRef.current);
+      closeTimerRef.current = null;
+    }
+
+    const panel = overlayPanelRef.current;
+    const card = vslCardRef.current;
+
+    if (!reduced && panel && card) {
+      const panelRect = panel.getBoundingClientRect();
+      const cardRect = card.getBoundingClientRect();
+      const dx = cardRect.left + cardRect.width / 2 - (panelRect.left + panelRect.width / 2);
+      const dy = cardRect.top + cardRect.height / 2 - (panelRect.top + panelRect.height / 2);
+      const scale = Math.max(0.2, Math.min(cardRect.width / panelRect.width, cardRect.height / panelRect.height));
+
+      setCollapseStyle({
+        "--collapse-x": `${dx}px`,
+        "--collapse-y": `${dy}px`,
+        "--collapse-scale": String(scale),
+      });
+      setOverlayPhase("closing");
+
+      closeTimerRef.current = window.setTimeout(() => {
+        setOverlayOpen(false);
+        setOverlayPhase("opening");
+        setCollapseStyle({});
+      }, 560);
+
+      return;
+    }
+
+    setOverlayOpen(false);
+    setOverlayPhase("opening");
+    setCollapseStyle({});
+  }, [reduced]);
+
+  useEffect(() => {
+    if (reduced || overlayOpen) return;
+
+    const mobileQuery = window.matchMedia("(max-width: 767px)");
+    if (mobileQuery.matches) return;
+
+    try {
+      if (window.sessionStorage.getItem(HERO_VSL_SESSION_KEY)) return;
+    } catch {
+      return;
+    }
+
+    const timer = window.setTimeout(() => {
+      try {
+        window.sessionStorage.setItem(HERO_VSL_SESSION_KEY, "1");
+      } catch {
+        return;
+      }
+
+      setLaunchMode("auto");
+      setPlaybackState("starting");
+      setOverlayPhase("opening");
+      setCollapseStyle({});
+      setOverlayOpen(true);
+    }, 3200);
+
+    return () => window.clearTimeout(timer);
+  }, [overlayOpen, reduced]);
+
+  useEffect(() => {
+    if (!overlayOpen) return;
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    document.body.dataset.heroVslOpen = "true";
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") closeOverlay();
+    };
+
+    window.addEventListener("keydown", onKeyDown);
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      delete document.body.dataset.heroVslOpen;
+      window.removeEventListener("keydown", onKeyDown);
+    };
+  }, [closeOverlay, overlayOpen]);
+
+  useEffect(() => {
+    if (!overlayOpen) return;
+
+    const video = overlayVideoRef.current;
+    if (!video) return;
+
+    const startMuted = launchMode === "auto";
+    video.currentTime = 0;
+    video.muted = startMuted;
+    setVideoMuted(startMuted);
+    video.playsInline = true;
+    setPlaybackState("starting");
+
+    const attempt = video.play();
+    if (!attempt) return;
+
+    attempt
+      .then(() => setPlaybackState(startMuted ? "playing-muted" : "playing"))
+      .catch(() => setPlaybackState("blocked"));
+  }, [launchMode, overlayOpen]);
+
+  useEffect(() => {
+    return () => {
+      if (closeTimerRef.current) window.clearTimeout(closeTimerRef.current);
+    };
+  }, []);
+
+  const openManualVsl = useCallback(() => {
+    try {
+      window.sessionStorage.setItem(HERO_VSL_SESSION_KEY, "1");
+    } catch {
+      // Storage can be unavailable in strict browser modes; manual playback still works.
+    }
+
+    setLaunchMode("manual");
+    setPlaybackState("starting");
+    setOverlayPhase("opening");
+    setCollapseStyle({});
+    setOverlayOpen(true);
+  }, []);
+
+  const handleTapToPlay = useCallback(() => {
+    const video = overlayVideoRef.current;
+    if (!video) return;
+
+    video.muted = false;
+    setVideoMuted(false);
+    video
+      .play()
+      .then(() => setPlaybackState("playing"))
+      .catch(() => setPlaybackState("blocked"));
+  }, []);
+
+  const handleSoundOn = useCallback(() => {
+    const video = overlayVideoRef.current;
+    if (!video) return;
+
+    video.muted = false;
+    setVideoMuted(false);
+    setPlaybackState("playing");
+  }, []);
+
+  const handleOverlayBackdropClick = (event: MouseEvent<HTMLDivElement>) => {
+    if (event.target === event.currentTarget) closeOverlay();
+  };
 
   return (
     <ScrollFilmScene
       id="system-boot"
       scene="00"
       title="ECOMVENOM"
-      className="min-h-[112svh]"
+      className="hero-cold-open min-h-[100svh]"
     >
       <span className="scene-ghost top-4 right-8">00</span>
       <div ref={sectionRef} className="absolute inset-0" />
 
-      {/* Atmospheric depth layers */}
       <div className="absolute inset-0">
-        <Image src={GENERATED_STILLS.heroBg} alt="" fill sizes="100vw" className="object-cover opacity-[0.18]" priority />
+        <Image src={GENERATED_STILLS.heroBg} alt="" fill sizes="100vw" className="object-cover opacity-[0.12]" priority />
         <CinematicLoopVideo
           src={HIGGSFIELD_LOOPS.systemWake}
           poster={HIGGSFIELD_STILLS.systemIntro}
           preload="metadata"
           hideOnMobile
-          className="opacity-55"
+          className="opacity-35"
         />
-        <SystemOverlay />
-
-        {/* Atmospheric gradient orbs — depth illusion */}
-        <div
-          ref={orbRef}
-          className="atmosphere-orb venom"
-          style={{ width: "60vw", height: "60vw", top: "-10%", left: "-15%", opacity: 0.35 }}
-          aria-hidden
-        />
-        <div
-          className="atmosphere-orb steel"
-          style={{ width: "40vw", height: "40vw", bottom: "5%", right: "-10%", opacity: 0.25 }}
-          aria-hidden
-        />
-
-        {/* Spotlight radial — tracks scroll for living depth */}
+        <div ref={tunnelRef} className="hero-tunnel-field" aria-hidden />
+        <SystemOverlay className="opacity-65" />
         <div
           ref={spotlightRef}
-          className="pointer-events-none absolute left-1/2 top-1/3 z-[1] -translate-x-1/2 -translate-y-1/2"
+          className="pointer-events-none absolute left-[56%] top-[38%] z-[1] -translate-x-1/2 -translate-y-1/2"
           style={{
-            width: "80vw",
-            height: "80vw",
-            background: "radial-gradient(circle, rgba(184,255,46,0.04) 0%, transparent 50%)",
-            opacity: 0.15,
+            width: "74rem",
+            maxWidth: "96vw",
+            aspectRatio: "1",
+            background: "radial-gradient(circle, rgba(184,255,46,0.07) 0%, rgba(90,154,173,0.03) 30%, transparent 62%)",
+            opacity: 0.18,
           }}
           aria-hidden
         />
-
-        {/* Bottom gradient fade into next scene */}
-        <div className="pointer-events-none absolute inset-x-0 bottom-0 z-[3] h-48 bg-gradient-to-b from-transparent via-black/40 to-black" />
+        <div className="pointer-events-none absolute inset-x-0 top-0 z-[3] h-36 bg-gradient-to-b from-black via-black/72 to-transparent" />
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 z-[3] h-44 bg-gradient-to-b from-transparent via-black/46 to-black" />
       </div>
 
-      <div className="relative z-10 grid min-h-[100svh] items-center px-5 pb-14 pt-24 sm:px-8 sm:pb-16 sm:pt-28 lg:px-12">
-        <div className="mx-auto grid w-full max-w-[1320px] gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(360px,520px)] lg:items-center">
-          <div className="max-w-5xl">
-            <SceneEyebrow label="ECOMVENOM" />
-            <div
-              ref={logoRef}
-              className="relative mt-6 h-16 w-64 overflow-hidden sm:h-20 sm:w-[24rem] lg:h-24 lg:w-[28rem]"
-              aria-label="ECOMVENOM"
-            >
-              <Image
-                src="/brand/ecomvenom-logo-final.png"
-                alt=""
-                fill
-                sizes="448px"
-                className="object-contain"
-                priority
-              />
-            </div>
+      <div className="relative z-10 grid min-h-[100svh] px-5 pb-10 pt-20 sm:px-8 sm:pb-12 sm:pt-24 lg:px-12 lg:pb-14 lg:pt-24 xl:pt-28">
+        <div className="mx-auto grid w-full max-w-[1360px] gap-7 self-start lg:grid-cols-[minmax(0,0.95fr)_minmax(18rem,27rem)] lg:items-start lg:gap-9">
+          <div className="max-w-[58rem] pt-2 sm:pt-4 lg:pt-0">
             <p
               ref={eyebrowRef}
-              className="mt-6 max-w-3xl font-heading text-[10px] uppercase leading-relaxed tracking-caps text-ash sm:text-[11px]"
+              className="max-w-2xl font-heading text-[0.68rem] uppercase leading-relaxed tracking-normal text-ash sm:text-xs"
             >
               {hero.eyebrow}
             </p>
             <h1
               ref={headlineRef}
-              className="mt-4 max-w-5xl font-display text-[clamp(2.55rem,5.4vw,5.85rem)] uppercase leading-[0.94] tracking-tightest text-bone"
+              className="mt-4 max-w-[56rem] font-display text-[1.95rem] uppercase leading-[0.88] tracking-normal text-bone sm:text-[3rem] lg:text-[3.35rem] xl:text-[3.8rem] 2xl:text-[4.2rem]"
             >
-              {hero.headlineLead}{" "}
-              <span className="text-venom">{hero.headlineHighlight}</span>{" "}
-              {hero.headlineTail}{" "}
-              <span className="text-venom">{hero.headlineHighlight2}</span>
+              <span data-headline-line className="block overflow-hidden">
+                <span className="block">BUILD A</span>
+              </span>
+              <span data-headline-line className="block overflow-hidden text-venom">
+                <span className="block">PROFITABLE</span>
+              </span>
+              <span data-headline-line className="block overflow-hidden">
+                <span className="block">DROPSHIPPING</span>
+              </span>
+              <span data-headline-line className="block overflow-hidden text-venom">
+                <span className="block">SYSTEM</span>
+              </span>
+              <span data-headline-line className="block overflow-hidden">
+                <span className="block">IN 45 DAYS</span>
+              </span>
+              <span data-headline-line className="block overflow-hidden text-venom">
+                <span className="block">ZERO EXPERIENCE</span>
+              </span>
             </h1>
-            <div ref={supportRef} className="relative z-30 mt-7 flex flex-col gap-5 sm:flex-row sm:items-center">
-              <CtaLink href="/apply" sub={CTA_SUB} className="cinematic-command min-w-[min(100%,17rem)]">
+            <div ref={supportRef} className="relative z-30 mt-6 flex max-w-3xl flex-col gap-5 sm:flex-row sm:items-center">
+              <CtaLink href="/apply" sub={CTA_SUB} className="cinematic-command min-w-[min(100%,16rem)]">
                 {CTA_LABEL}
               </CtaLink>
               <p className="max-w-xl text-sm leading-relaxed text-ash sm:text-[13px]">
@@ -199,25 +360,116 @@ export function Scene00ColdOpen() {
               </p>
             </div>
 
-            {/* Scroll invitation — refined */}
-            <div className="mt-12 flex items-center gap-3 opacity-40">
-              <div className="relative h-10 w-[1px]">
-                <div className="absolute inset-0 bg-gradient-to-b from-venom/60 to-transparent animate-float" />
+            <div className="mt-8 hidden items-center gap-3 opacity-45 sm:flex">
+              <div className="relative h-9 w-px overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-b from-venom/70 to-transparent animate-float" />
               </div>
-              <p className="font-heading text-[9px] uppercase tracking-caps text-ash-2">
+              <p className="font-heading text-[9px] uppercase tracking-normal text-ash-2">
                 {hero.scrollCue}
               </p>
             </div>
           </div>
 
-          <VideoStage
-            src={HERO_VSL_SRC}
-            poster={HERO_VSL_POSTER}
-            title="ECOMVENOM founder VSL"
-            className="w-full max-w-[34rem] justify-self-center"
-          />
+          <div ref={vslCardRef} className="hero-vsl-stage justify-self-center lg:justify-self-end">
+            <ResponsiveMediaFrame className="hero-vsl-card aspect-[16/10] w-[min(78vw,18.5rem)] bg-ink-3 p-2 sm:aspect-[9/14] sm:w-[min(58vw,21rem)] lg:w-full">
+              <Image
+                src={HERO_VSL_POSTER}
+                alt="Youssef Adel founder VSL poster"
+                fill
+                sizes="(min-width: 1024px) 430px, 78vw"
+                className="object-cover"
+                priority
+              />
+              <div className="hero-vsl-card__depth" aria-hidden />
+              <div className="absolute left-4 top-4 z-30 border border-white/10 bg-black/55 px-3 py-2 backdrop-blur-md">
+                <p className="font-heading text-[10px] uppercase tracking-normal text-venom">Founder VSL</p>
+                <p className="mt-1 font-mono text-[10px] text-ash">03:21</p>
+              </div>
+              <button
+                type="button"
+                onClick={openManualVsl}
+                aria-label="Play founder VSL"
+                className="hero-vsl-play absolute bottom-4 left-4 right-4 z-30"
+              >
+                <span>Watch founder VSL</span>
+                <span className="hero-vsl-play__icon" aria-hidden>
+                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                    <path d="M4.5 3.25L10 7L4.5 10.75V3.25Z" fill="currentColor" />
+                  </svg>
+                </span>
+              </button>
+            </ResponsiveMediaFrame>
+          </div>
         </div>
       </div>
+
+      {overlayOpen && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-label="Founder VSL opening"
+          className="hero-vsl-overlay"
+          data-phase={overlayPhase}
+          style={collapseStyle}
+          onClick={handleOverlayBackdropClick}
+        >
+          <div className="hero-vsl-overlay__ambient" aria-hidden />
+          <div ref={overlayPanelRef} className="hero-vsl-overlay__panel">
+            <span className="hero-vsl-bracket hero-vsl-bracket--tl" aria-hidden />
+            <span className="hero-vsl-bracket hero-vsl-bracket--tr" aria-hidden />
+            <span className="hero-vsl-bracket hero-vsl-bracket--bl" aria-hidden />
+            <span className="hero-vsl-bracket hero-vsl-bracket--br" aria-hidden />
+
+            <div className="hero-vsl-overlay__meta">
+              <span>Founder VSL</span>
+              <span>Youssef Adel</span>
+              <span>{playbackState === "playing-muted" ? "Muted autoplay" : "Opening sequence"}</span>
+            </div>
+
+            <video
+              ref={overlayVideoRef}
+              controls
+              muted={videoMuted}
+              playsInline
+              preload="auto"
+              poster={HERO_VSL_POSTER}
+              className="hero-vsl-overlay__video"
+              onEnded={closeOverlay}
+            >
+              <source src={HERO_VSL_SRC} type="video/mp4" />
+            </video>
+
+            {playbackState === "blocked" && (
+              <button type="button" onClick={handleTapToPlay} className="hero-vsl-overlay__play">
+                <span className="hero-vsl-play__icon" aria-hidden>
+                  <svg width="16" height="16" viewBox="0 0 14 14" fill="none">
+                    <path d="M4.5 3.25L10 7L4.5 10.75V3.25Z" fill="currentColor" />
+                  </svg>
+                </span>
+                <span>Tap to play</span>
+              </button>
+            )}
+
+            {playbackState === "playing-muted" && (
+              <button type="button" onClick={handleSoundOn} className="hero-vsl-overlay__sound">
+                Sound on
+              </button>
+            )}
+
+            <button
+              type="button"
+              onClick={closeOverlay}
+              aria-label="Close founder VSL"
+              className="hero-vsl-overlay__close"
+            >
+              X
+            </button>
+            <button type="button" onClick={closeOverlay} className="hero-vsl-overlay__skip">
+              Skip
+            </button>
+          </div>
+        </div>
+      )}
     </ScrollFilmScene>
   );
 }
