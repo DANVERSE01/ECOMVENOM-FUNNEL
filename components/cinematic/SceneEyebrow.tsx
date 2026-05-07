@@ -35,9 +35,9 @@ export function SceneEyebrow({ label, className }: { label: string; className?: 
   );
 
   return (
-    <div ref={wrapRef} className={cn("flex items-center gap-3", className)}>
-      <span className="h-px w-6 flex-shrink-0 bg-venom" />
-      <span ref={labelRef} className="font-heading text-[10px] uppercase tracking-caps text-ash">
+    <div ref={wrapRef} className={cn("scene-eyebrow flex items-center gap-3", className)}>
+      <span className="scene-eyebrow__mark" />
+      <span ref={labelRef} className="font-heading text-[10px] uppercase tracking-[0.12em] text-ash">
         {label}
       </span>
     </div>

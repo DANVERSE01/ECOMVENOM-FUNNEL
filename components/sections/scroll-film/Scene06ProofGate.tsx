@@ -83,8 +83,7 @@ export function Scene06ProofGate() {
       <div className="absolute inset-0">
         <Image src={GENERATED_STILLS.proofBg} alt="" fill sizes="100vw" className="object-cover opacity-[0.12]" />
         <SystemOverlay />
-        {/* Atmospheric trust warmth */}
-        <div className="atmosphere-orb gold" style={{ width: '50vw', height: '50vw', top: '10%', left: '-10%', opacity: 0.3 }} aria-hidden />
+        <div className="scene-material-wash" data-tone="value" aria-hidden />
       </div>
       <div ref={sectionRef} className="relative z-10 mx-auto max-w-measure px-5 sm:px-8 lg:px-12">
         <SceneEyebrow label="RESULTS" />
@@ -124,7 +123,7 @@ export function Scene06ProofGate() {
                 {/* Bottom info */}
                 <div className="absolute bottom-0 inset-x-0 p-5 z-30">
                   <div className="proof-badge mb-2.5 w-fit">
-                    <span className="h-1 w-1 rounded-full bg-gold animate-venom-pulse" />
+                    <span className="signal-glyph signal-glyph--gold" />
                     <span className="font-heading">
                       {t.label}
                     </span>

@@ -3,6 +3,7 @@
 import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import { CinematicFramePlayer } from "@/components/cinematic/CinematicFramePlayer";
+import { MaterialField } from "@/components/cinematic/MaterialField";
 import { SceneProgress } from "@/components/cinematic/SceneProgress";
 import { SceneEyebrow } from "@/components/cinematic/SceneEyebrow";
 import { HIGGSFIELD_FRAME_COUNT, HIGGSFIELD_FRAMES, HIGGSFIELD_STILLS } from "@/lib/frameManifest";
@@ -173,6 +174,7 @@ export function Scene02ChaosToSystem() {
       data-frame-scrub-scene
       className="relative h-[330vh] bg-black text-bone"
     >
+      <MaterialField scene="02" />
       <div ref={pinRef} className="relative h-screen overflow-hidden">
         <div ref={visualRef} className="absolute inset-0 origin-center will-change-transform">
           <CinematicFramePlayer

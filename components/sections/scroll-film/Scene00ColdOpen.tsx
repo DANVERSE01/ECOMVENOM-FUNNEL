@@ -9,6 +9,7 @@ import {
   type CSSProperties,
   type MouseEvent,
 } from "react";
+import { createPortal } from "react-dom";
 import { useGSAP } from "@gsap/react";
 import { CtaLink } from "@/components/ui/button";
 import { CinematicLoopVideo } from "@/components/cinematic/CinematicLoopVideo";
@@ -337,16 +338,13 @@ export function Scene00ColdOpen() {
             </p>
             <h1
               ref={headlineRef}
-              className="mt-4 max-w-[56rem] font-display text-[1.95rem] uppercase leading-[0.88] tracking-normal text-bone sm:text-[3rem] lg:text-[3.35rem] xl:text-[3.8rem] 2xl:text-[4.2rem]"
+              className="mt-4 max-w-[62rem] font-display text-[2.35rem] uppercase leading-[0.86] tracking-normal text-bone sm:text-[3.05rem] lg:text-[3.05rem] xl:text-[3.75rem] 2xl:text-[4.2rem]"
             >
               <span data-headline-line className="block overflow-hidden">
                 <span className="block">BUILD A</span>
               </span>
-              <span data-headline-line className="block overflow-hidden text-venom">
-                <span className="block">PROFITABLE</span>
-              </span>
               <span data-headline-line className="block overflow-hidden">
-                <span className="block">DROPSHIPPING</span>
+                <span className="block"><span className="text-venom">PROFITABLE</span> DROPSHIPPING</span>
               </span>
               <span data-headline-line className="block overflow-hidden text-venom">
                 <span className="block">SYSTEM</span>
@@ -374,6 +372,11 @@ export function Scene00ColdOpen() {
               <p className="font-heading text-[9px] uppercase tracking-normal text-ash-2">
                 {hero.scrollCue}
               </p>
+            </div>
+            <div className="hero-command-rail mt-7 hidden sm:grid" aria-label="Program highlights">
+              <span>U.S. + Gulf operating path</span>
+              <span>Free store build on completion</span>
+              <span>Application before scheduling</span>
             </div>
           </div>
 
@@ -417,7 +420,7 @@ export function Scene00ColdOpen() {
         </div>
       </div>
 
-      {overlayOpen && HERO_MEDIA.videoSrc && (
+      {overlayOpen && HERO_MEDIA.videoSrc && typeof document !== "undefined" && createPortal((
         <div
           role="dialog"
           aria-modal="true"
@@ -476,14 +479,16 @@ export function Scene00ColdOpen() {
               aria-label="Close founder VSL"
               className="hero-vsl-overlay__close"
             >
-              X
+              <svg width="15" height="15" viewBox="0 0 15 15" fill="none" aria-hidden>
+                <path d="M3.5 3.5L11.5 11.5M11.5 3.5L3.5 11.5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
+              </svg>
             </button>
             <button type="button" onClick={closeOverlay} className="hero-vsl-overlay__skip">
               Skip
             </button>
           </div>
         </div>
-      )}
+      ), document.body)}
     </ScrollFilmScene>
   );
 }

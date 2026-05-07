@@ -88,8 +88,7 @@ export function Scene01Problem() {
       <div className="absolute inset-0">
         <Image src={HIGGSFIELD_STILLS.cartChaos} alt="" fill sizes="100vw" className="object-cover opacity-[0.35]" />
         <SystemOverlay />
-        {/* Atmospheric tension */}
-        <div className="atmosphere-orb" style={{ width: '50vw', height: '50vw', top: '20%', right: '-15%', background: 'radial-gradient(circle, rgba(255,51,68,0.06) 0%, transparent 70%)', opacity: 0.4 }} aria-hidden />
+        <div className="scene-material-wash" data-tone="alert" aria-hidden />
       </div>
       <div ref={sectionRef} className="relative z-10 mx-auto grid min-h-[70vh] max-w-[1200px] items-center gap-10 px-5 sm:px-8 lg:grid-cols-[0.8fr_1.2fr] lg:px-12">
         <div>
@@ -109,7 +108,7 @@ export function Scene01Problem() {
             >
               <div className="flex items-center justify-between gap-4 font-heading text-[10px] uppercase tracking-caps text-ash">
                 <span className="flex items-center gap-2">
-                  <span className="h-1.5 w-1.5 rounded-full bg-alert/60" aria-hidden />
+                  <span className="signal-glyph signal-glyph--alert" aria-hidden />
                   Signal {String(index + 1).padStart(2, "0")}
                 </span>
                 <span className="text-alert/80">Uncontrolled</span>

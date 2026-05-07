@@ -121,11 +121,8 @@ export function Scene08FinalCTA() {
         <Image src={GENERATED_STILLS.ctaBg} alt="" fill sizes="100vw" className="object-cover opacity-[0.16]" />
         <div className="clean-system-bg absolute inset-0" aria-hidden />
         <SystemOverlay />
-        {/* Dramatic venom spotlight */}
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_40%,rgba(184,255,46,0.1),transparent_28%,rgba(0,0,0,0.88)_72%)]" />
-        {/* Atmospheric orbs */}
-        <div className="atmosphere-orb venom" style={{ width: '60vw', height: '60vw', top: '-20%', left: '20%', opacity: 0.2 }} aria-hidden />
-        <div className="atmosphere-orb steel" style={{ width: '40vw', height: '40vw', bottom: '10%', right: '-5%', opacity: 0.15 }} aria-hidden />
+        <div className="absolute inset-0 bg-[linear-gradient(120deg,rgba(184,255,46,0.08),transparent_34%,rgba(0,0,0,0.88)_74%)]" />
+        <div className="scene-material-wash" data-tone="action" aria-hidden />
         {/* Top gradient from previous scene */}
         <div className="pointer-events-none absolute inset-x-0 top-0 z-[3] h-32 bg-gradient-to-b from-black to-transparent" />
       </div>

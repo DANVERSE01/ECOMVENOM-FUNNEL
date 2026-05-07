@@ -39,6 +39,7 @@ npm-cache/
 .audit/
 .qa/
 .playwright-mcp/
+.playwright-cli/
 output/
 test-results/
 playwright-report/
@@ -66,4 +67,9 @@ download*.png
 
 # Local agent/input/reference folders
 00_AGENT_READ_FIRST/
+ECOMVENOM_CTO_HERO_VSL_SCREEN_REBUILD_DIRECTIVE.md
+ECOMVENOM_CTO_HERO_VSL_HANDOFF_PACKAGE/
+ECOMVENOM_CTO_FULL_PREMIUM_REBUILD_HANDOFF_PACKAGE/
+_HERO_VSL_FULL_LAPTOP_SEARCH.csv
+_reference/
 01_INPUT/

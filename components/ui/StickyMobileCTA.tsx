@@ -46,8 +46,7 @@ export function StickyMobileCTA() {
     <div
       ref={barRef}
       data-sticky-mobile-cta
-      className="fixed bottom-0 left-0 right-0 z-[8000] md:hidden translate-y-full"
-      style={{ background: "rgba(5,5,6,0.92)", backdropFilter: "blur(24px)", borderTop: "1px solid rgba(184,255,46,0.12)" }}
+      className="mobile-command-bar fixed bottom-0 left-0 right-0 z-[8000] translate-y-full md:hidden"
     >
       <div className="px-4 py-3 flex flex-col items-center gap-1">
         <CtaLink href="/apply" className="w-full max-w-sm text-center">

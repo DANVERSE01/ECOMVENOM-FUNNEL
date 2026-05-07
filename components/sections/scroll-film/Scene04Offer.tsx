@@ -105,8 +105,7 @@ export function Scene04Offer() {
       <div className="absolute inset-0">
         <Image src={HIGGSFIELD_STILLS.storePortal} alt="" fill sizes="100vw" className="object-cover opacity-[0.28]" />
         <SystemOverlay />
-        {/* Atmospheric value warmth */}
-        <div className="atmosphere-orb venom" style={{ width: '45vw', height: '45vw', bottom: '0%', right: '-10%', opacity: 0.2 }} aria-hidden />
+        <div className="scene-material-wash" data-tone="value" aria-hidden />
         <div className="pointer-events-none absolute inset-x-0 bottom-0 z-[2] hidden grid-cols-11 gap-1 px-5 pb-5 opacity-[0.05] md:grid">
           {BRAND_VISUALS.map((src) => (
             <div key={src} className="relative aspect-video overflow-hidden border border-venom/8">
@@ -138,7 +137,7 @@ export function Scene04Offer() {
               <div key={option.label} className="option-card scene-panel-feature border-gold/15 p-6">
                 <p className="font-heading text-[10px] uppercase tracking-caps text-ash-2">{option.label}</p>
                 <p className="mt-4 flex items-center gap-3 font-display text-3xl uppercase leading-tight text-bone sm:text-4xl">
-                  <span className="grid h-10 min-w-14 place-items-center border border-gold/30 bg-gold/8 px-2 font-heading text-[10px] tracking-caps text-gold">
+                  <span className="market-terminal">
                     {marketCode(option.market)}
                   </span>
                   {option.market}
