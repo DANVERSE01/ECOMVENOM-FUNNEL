@@ -22,7 +22,7 @@ const config: Config = {
         tightest: "-0.04em", tighter: "-0.02em", tight: "-0.01em",
         caps: "0.22em", label: "0.18em", widest: "0.2em",
       },
-      maxWidth: { measure: "1120px", wide: "1320px" },
+      maxWidth: { wrap: "1200px", measure: "1120px", wide: "1320px" },
       transitionTimingFunction: {
         "out-expo": "cubic-bezier(0.16, 1, 0.3, 1)",
         "venom": "cubic-bezier(0.22, 1, 0.36, 1)",

@@ -11,7 +11,7 @@ import { VideoStage } from "@/components/cinematic/VideoStage";
 import { SystemOverlay } from "@/components/cinematic/SystemOverlay";
 import { HIGGSFIELD_LOOPS, HIGGSFIELD_STILLS, GENERATED_STILLS } from "@/lib/frameManifest";
 import { CTA_LABEL, CTA_SUB, hero } from "@/lib/content";
-import { gsap } from "@/lib/gsap";
+import { gsap, ScrollTrigger } from "@/lib/gsap";
 import { splitText, scrambleText } from "@/lib/motion";
 import { useReducedMotion } from "@/lib/useReducedMotion";
 
@@ -24,6 +24,8 @@ export function Scene00ColdOpen() {
   const eyebrowRef = useRef<HTMLParagraphElement | null>(null);
   const headlineRef = useRef<HTMLHeadingElement | null>(null);
   const supportRef = useRef<HTMLDivElement | null>(null);
+  const orbRef = useRef<HTMLDivElement | null>(null);
+  const spotlightRef = useRef<HTMLDivElement | null>(null);
   const reduced = useReducedMotion();
 
   useGSAP(
@@ -32,6 +34,8 @@ export function Scene00ColdOpen() {
       const eyebrow = eyebrowRef.current;
       const headline = headlineRef.current;
       const support = supportRef.current;
+      const orb = orbRef.current;
+      const spotlight = spotlightRef.current;
       if (!logo || !eyebrow || !headline || !support) return;
 
       if (reduced) {
@@ -42,25 +46,57 @@ export function Scene00ColdOpen() {
       const { elements: headlineLines, revert: revertSplit } = splitText(headline, "lines", { mask: true });
       const eyebrowText = eyebrow.textContent ?? "";
 
-      gsap.set(logo, { opacity: 0 });
+      gsap.set(logo, { opacity: 0, scale: 0.92 });
       gsap.set(eyebrow, { opacity: 0 });
-      gsap.set(headlineLines, { yPercent: 110 });
-      gsap.set(support, { opacity: 0, y: 22 });
+      gsap.set(headlineLines, { yPercent: 120, rotation: 1.5 });
+      gsap.set(support, { opacity: 0, y: 28 });
 
+      // Entrance choreography — staggered with authored timing
       gsap
         .timeline({ defaults: { ease: "venom" } })
-        .to(logo, { opacity: 1, duration: 0.6 })
+        .to(logo, { opacity: 1, scale: 1, duration: 0.8, ease: "filmDrop" })
         .to(eyebrow, {
           opacity: 1,
           duration: 0.6,
-          onStart: () => scrambleText(eyebrow, eyebrowText, { duration: 0.6 }),
-        }, 0.5)
+          onStart: () => scrambleText(eyebrow, eyebrowText, { duration: 0.7 }),
+        }, 0.4)
         .to(
           headlineLines,
-          { yPercent: 0, duration: 0.9, stagger: 0.1, ease: "filmDrop" },
-          0.65,
+          { yPercent: 0, rotation: 0, duration: 1, stagger: 0.12, ease: "filmDrop" },
+          0.55,
         )
-        .to(support, { opacity: 1, y: 0, duration: 0.65 }, ">-0.12");
+        .to(support, { opacity: 1, y: 0, duration: 0.7 }, ">-0.15");
+
+      // Atmospheric orb parallax — slow drift on scroll
+      if (orb) {
+        gsap.to(orb, {
+          y: "-30%",
+          x: "10%",
+          scale: 1.3,
+          ease: "none",
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top top",
+            end: "bottom top",
+            scrub: 2,
+          },
+        });
+      }
+
+      // Spotlight radial tracks scroll
+      if (spotlight) {
+        gsap.to(spotlight, {
+          opacity: 0.3,
+          scale: 1.4,
+          ease: "none",
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top top",
+            end: "bottom top",
+            scrub: 1.5,
+          },
+        });
+      }
 
       return () => {
         revertSplit();
@@ -78,6 +114,8 @@ export function Scene00ColdOpen() {
     >
       <span className="scene-ghost top-4 right-8">00</span>
       <div ref={sectionRef} className="absolute inset-0" />
+
+      {/* Atmospheric depth layers */}
       <div className="absolute inset-0">
         <Image src={GENERATED_STILLS.heroBg} alt="" fill sizes="100vw" className="object-cover opacity-[0.18]" priority />
         <CinematicLoopVideo
@@ -88,6 +126,35 @@ export function Scene00ColdOpen() {
           className="opacity-55"
         />
         <SystemOverlay />
+
+        {/* Atmospheric gradient orbs — depth illusion */}
+        <div
+          ref={orbRef}
+          className="atmosphere-orb venom"
+          style={{ width: "60vw", height: "60vw", top: "-10%", left: "-15%", opacity: 0.35 }}
+          aria-hidden
+        />
+        <div
+          className="atmosphere-orb steel"
+          style={{ width: "40vw", height: "40vw", bottom: "5%", right: "-10%", opacity: 0.25 }}
+          aria-hidden
+        />
+
+        {/* Spotlight radial — tracks scroll for living depth */}
+        <div
+          ref={spotlightRef}
+          className="pointer-events-none absolute left-1/2 top-1/3 z-[1] -translate-x-1/2 -translate-y-1/2"
+          style={{
+            width: "80vw",
+            height: "80vw",
+            background: "radial-gradient(circle, rgba(184,255,46,0.04) 0%, transparent 50%)",
+            opacity: 0.15,
+          }}
+          aria-hidden
+        />
+
+        {/* Bottom gradient fade into next scene */}
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 z-[3] h-48 bg-gradient-to-b from-transparent via-black/40 to-black" />
       </div>
 
       <div className="relative z-10 grid min-h-[100svh] items-center px-5 pb-14 pt-24 sm:px-8 sm:pb-16 sm:pt-28 lg:px-12">
@@ -110,7 +177,7 @@ export function Scene00ColdOpen() {
             </div>
             <p
               ref={eyebrowRef}
-              className="mt-6 max-w-3xl font-mono text-[10px] uppercase leading-relaxed tracking-[0.2em] text-ash sm:text-[11px]"
+              className="mt-6 max-w-3xl font-heading text-[10px] uppercase leading-relaxed tracking-caps text-ash sm:text-[11px]"
             >
               {hero.eyebrow}
             </p>
@@ -132,10 +199,12 @@ export function Scene00ColdOpen() {
               </p>
             </div>
 
-            {/* Scroll invitation */}
-            <div className="mt-10 flex items-center gap-3 opacity-50">
-              <div className="h-8 w-[1px] bg-gradient-to-b from-venom/60 to-transparent animate-float" />
-              <p className="font-heading text-[10px] uppercase tracking-caps text-ash-2">
+            {/* Scroll invitation — refined */}
+            <div className="mt-12 flex items-center gap-3 opacity-40">
+              <div className="relative h-10 w-[1px]">
+                <div className="absolute inset-0 bg-gradient-to-b from-venom/60 to-transparent animate-float" />
+              </div>
+              <p className="font-heading text-[9px] uppercase tracking-caps text-ash-2">
                 {hero.scrollCue}
               </p>
             </div>

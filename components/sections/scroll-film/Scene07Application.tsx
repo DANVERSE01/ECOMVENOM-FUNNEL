@@ -166,7 +166,7 @@ export function Scene07Application() {
 
             <div className="grid gap-3">
               {steps.map((step, index) => (
-                <div key={step.title} className="step-card scene-panel p-5">
+                <div key={step.title} className="step-card scene-panel-elevated p-5">
                   <p className="font-heading text-[10px] uppercase tracking-caps text-venom">
                     Step {String(index + 1).padStart(2, "0")}
                   </p>
@@ -187,8 +187,8 @@ export function Scene07Application() {
             {faq.items.map((item, index) => (
               <div
                 key={item.q}
-                className={`scene-panel p-4 transition-colors duration-200 ${
-                  openIndex === index ? "border-venom/25" : "border-white/6"
+                className={`scene-panel-elevated p-4 transition-colors duration-200 ${
+                  openIndex === index ? "border-venom/25" : ""
                 }`}
               >
                 <button
@@ -222,6 +222,8 @@ export function Scene07Application() {
           </div>
         </div>
       </div>
+      {/* Inter-scene divider */}
+      <div className="scene-divider" aria-hidden />
     </ScrollFilmScene>
   );
 }

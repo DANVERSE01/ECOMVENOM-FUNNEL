@@ -83,6 +83,8 @@ export function Scene06ProofGate() {
       <div className="absolute inset-0">
         <Image src={GENERATED_STILLS.proofBg} alt="" fill sizes="100vw" className="object-cover opacity-[0.12]" />
         <SystemOverlay />
+        {/* Atmospheric trust warmth */}
+        <div className="atmosphere-orb gold" style={{ width: '50vw', height: '50vw', top: '10%', left: '-10%', opacity: 0.3 }} aria-hidden />
       </div>
       <div ref={sectionRef} className="relative z-10 mx-auto max-w-measure px-5 sm:px-8 lg:px-12">
         <SceneEyebrow label="RESULTS" />
@@ -115,19 +117,19 @@ export function Scene06ProofGate() {
                   alt={`${t.label} ${i + 1}`}
                   fill
                   sizes="(min-width: 640px) 33vw, 100vw"
-                  className="object-cover transition-transform duration-700 group-hover:scale-[1.04]"
+                  className="object-cover transition-transform duration-700 ease-venom group-hover:scale-[1.04]"
                 />
                 {/* Gradient overlay */}
-                <div className="absolute inset-0 z-20 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                <div className="absolute inset-0 z-20 bg-gradient-to-t from-black/85 via-black/30 to-transparent" />
                 {/* Bottom info */}
-                <div className="absolute bottom-0 inset-x-0 p-4 z-30">
-                  <div className="flex items-center gap-2 mb-2">
-                    <span className="h-1.5 w-1.5 rounded-full bg-venom animate-venom-pulse" />
-                    <span className="font-heading text-[10px] uppercase tracking-caps text-venom font-semibold">
+                <div className="absolute bottom-0 inset-x-0 p-5 z-30">
+                  <div className="proof-badge mb-2.5 w-fit">
+                    <span className="h-1 w-1 rounded-full bg-gold animate-venom-pulse" />
+                    <span className="font-heading">
                       {t.label}
                     </span>
                   </div>
-                  <p className="text-xs leading-relaxed text-ash-2">
+                  <p className="text-xs leading-relaxed text-ash">
                     {t.note}
                   </p>
                 </div>
@@ -153,6 +155,8 @@ export function Scene06ProofGate() {
           </div>
         </div>
       </div>
+      {/* Inter-scene divider */}
+      <div className="scene-divider" aria-hidden />
     </ScrollFilmScene>
   );
 }

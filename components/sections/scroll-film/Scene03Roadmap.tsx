@@ -167,6 +167,8 @@ export function Scene03Roadmap() {
           </HoverGrid>
         </div>
       </div>
+      {/* Inter-scene divider */}
+      <div className="scene-divider" aria-hidden />
     </ScrollFilmScene>
   );
 }

@@ -15,6 +15,70 @@ interface SplitResult {
   revert: () => void;
 }
 
+function getTextNodes(root: HTMLElement): Text[] {
+  const nodes: Text[] = [];
+  const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+    acceptNode(node) {
+      return node.textContent && node.textContent.length > 0
+        ? NodeFilter.FILTER_ACCEPT
+        : NodeFilter.FILTER_REJECT;
+    },
+  });
+
+  let next = walker.nextNode();
+  while (next) {
+    nodes.push(next as Text);
+    next = walker.nextNode();
+  }
+
+  return nodes;
+}
+
+function wrapTextParts(
+  root: HTMLElement,
+  type: "words" | "chars",
+  createSpan: (text: string) => HTMLElement,
+): HTMLElement[] {
+  const created: HTMLElement[] = [];
+  const doc = root.ownerDocument;
+
+  getTextNodes(root).forEach((node) => {
+    const value = node.nodeValue ?? "";
+    if (!value) return;
+
+    const parts = type === "words" ? value.split(/(\s+)/) : Array.from(value);
+    const fragment = doc.createDocumentFragment();
+    let changed = false;
+
+    parts.forEach((part) => {
+      if (!part) return;
+
+      if (/^\s+$/.test(part)) {
+        fragment.appendChild(doc.createTextNode(part));
+        return;
+      }
+
+      changed = true;
+      const span = createSpan(part);
+      span.textContent = part;
+      created.push(span);
+      fragment.appendChild(span);
+    });
+
+    if (changed) {
+      node.parentNode?.replaceChild(fragment, node);
+    }
+  });
+
+  return created;
+}
+
+function unwrapTemporaryWordSpans(fragment: DocumentFragment) {
+  fragment.querySelectorAll<HTMLElement>("[data-split-word]").forEach((span) => {
+    span.replaceWith(...Array.from(span.childNodes));
+  });
+}
+
 /**
  * Split an element's text content into animatable spans.
  *
@@ -30,7 +94,6 @@ export function splitText(
   opts: { className?: string; mask?: boolean } = {},
 ): SplitResult {
   const original = el.innerHTML;
-  const text = el.textContent ?? "";
 
   const revert = () => {
     el.innerHTML = original;
@@ -38,38 +101,35 @@ export function splitText(
 
   if (type === "chars") {
     const cls = opts.className ?? "split-char";
-    el.innerHTML = text
-      .split("")
-      .map((c) => (c === " " ? " " : `<span class="${cls}" style="display:inline-block">${c}</span>`))
-      .join("");
-    const elements = Array.from(el.querySelectorAll<HTMLElement>(`.${cls}`));
+    const elements = wrapTextParts(el, "chars", () => {
+      const span = el.ownerDocument.createElement("span");
+      span.className = cls;
+      span.style.display = "inline-block";
+      return span;
+    });
     return { elements, revert };
   }
 
   if (type === "words") {
     const cls = opts.className ?? "split-word";
-    el.innerHTML = text
-      .split(/(\s+)/)
-      .map((w) =>
-        /^\s+$/.test(w) ? w : `<span class="${cls}" style="display:inline-block">${w}</span>`,
-      )
-      .join("");
-    const elements = Array.from(el.querySelectorAll<HTMLElement>(`.${cls}`));
+    const elements = wrapTextParts(el, "words", () => {
+      const span = el.ownerDocument.createElement("span");
+      span.className = cls;
+      span.style.display = "inline-block";
+      return span;
+    });
     return { elements, revert };
   }
 
   // type === "lines"
   const cls = opts.className ?? "split-line";
 
-  // First, split into words to measure which words end up on which line
-  const words = text.split(/(\s+)/);
-  el.innerHTML = words
-    .map((w, i) =>
-      /^\s+$/.test(w) ? w : `<span data-sw="${i}" style="display:inline-block">${w}</span>`,
-    )
-    .join("");
-
-  const wordSpans = Array.from(el.querySelectorAll<HTMLElement>("[data-sw]"));
+  const wordSpans = wrapTextParts(el, "words", () => {
+    const span = el.ownerDocument.createElement("span");
+    span.dataset.splitWord = "";
+    span.style.display = "inline-block";
+    return span;
+  });
   if (wordSpans.length === 0) return { elements: [], revert };
 
   // Group words by their top offset to detect lines
@@ -89,24 +149,38 @@ export function splitText(
   });
   if (currentLine.length) lines.push(currentLine);
 
-  // Rebuild el with line spans
-  if (opts.mask) {
-    el.innerHTML = lines
-      .map((lineWords) => {
-        const lineText = lineWords.map((w) => w.textContent).join(" ");
-        return `<span style="display:block;overflow:hidden"><span class="${cls}" style="display:block;will-change:transform">${lineText}</span></span>`;
-      })
-      .join("");
-  } else {
-    el.innerHTML = lines
-      .map((lineWords) => {
-        const lineText = lineWords.map((w) => w.textContent).join(" ");
-        return `<span class="${cls}" style="display:block;will-change:transform">${lineText}</span>`;
-      })
-      .join("");
-  }
+  const doc = el.ownerDocument;
+  const rebuilt = doc.createDocumentFragment();
+  const elements: HTMLElement[] = [];
 
-  const elements = Array.from(el.querySelectorAll<HTMLElement>(`.${cls}`));
+  lines.forEach((lineWords) => {
+    const range = doc.createRange();
+    range.setStartBefore(lineWords[0]);
+    range.setEndAfter(lineWords[lineWords.length - 1]);
+
+    const content = range.extractContents();
+    unwrapTemporaryWordSpans(content);
+
+    const line = doc.createElement("span");
+    line.className = cls;
+    line.style.display = "block";
+    line.style.willChange = "transform";
+    line.appendChild(content);
+
+    if (opts.mask) {
+      const mask = doc.createElement("span");
+      mask.style.display = "block";
+      mask.style.overflow = "hidden";
+      mask.appendChild(line);
+      rebuilt.appendChild(mask);
+    } else {
+      rebuilt.appendChild(line);
+    }
+
+    elements.push(line);
+  });
+
+  el.replaceChildren(rebuilt);
   return { elements, revert };
 }
 

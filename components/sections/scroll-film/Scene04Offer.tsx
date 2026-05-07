@@ -51,14 +51,15 @@ export function Scene04Offer() {
         });
       }
 
-      // Option cards stagger entrance
-      gsap.from(optionCards, {
-        y: 40,
-        opacity: 0,
-        duration: 0.65,
-        stagger: 0.15,
+      // Option cards — clipPath wipe entrance (authored)
+      gsap.set(optionCards, { clipPath: "inset(0 0 100% 0)", opacity: 0 });
+      gsap.to(optionCards, {
+        clipPath: "inset(0 0 0% 0)",
+        opacity: 1,
+        duration: 0.7,
+        stagger: 0.18,
         ease: "venom",
-        scrollTrigger: { trigger: section, start: "top 70%", once: true },
+        scrollTrigger: { trigger: section, start: "top 68%", once: true },
       });
 
       // Beyond heading scramble
@@ -104,6 +105,8 @@ export function Scene04Offer() {
       <div className="absolute inset-0">
         <Image src={HIGGSFIELD_STILLS.storePortal} alt="" fill sizes="100vw" className="object-cover opacity-[0.28]" />
         <SystemOverlay />
+        {/* Atmospheric value warmth */}
+        <div className="atmosphere-orb venom" style={{ width: '45vw', height: '45vw', bottom: '0%', right: '-10%', opacity: 0.2 }} aria-hidden />
         <div className="pointer-events-none absolute inset-x-0 bottom-0 z-[2] hidden grid-cols-11 gap-1 px-5 pb-5 opacity-[0.05] md:grid">
           {BRAND_VISUALS.map((src) => (
             <div key={src} className="relative aspect-video overflow-hidden border border-venom/8">
@@ -132,7 +135,7 @@ export function Scene04Offer() {
           </div>
           <div className="grid gap-4">
             {graduationGift.options.map((option) => (
-              <div key={option.label} className="option-card scene-panel border-gold/20 p-6 transition-transform duration-200 hover:-translate-y-1 hover:border-gold/40">
+              <div key={option.label} className="option-card scene-panel-feature border-gold/15 p-6">
                 <p className="font-heading text-[10px] uppercase tracking-caps text-ash-2">{option.label}</p>
                 <p className="mt-4 flex items-center gap-3 font-display text-3xl uppercase leading-tight text-bone sm:text-4xl">
                   <span className="grid h-10 min-w-14 place-items-center border border-gold/30 bg-gold/8 px-2 font-heading text-[10px] tracking-caps text-gold">
@@ -167,7 +170,7 @@ export function Scene04Offer() {
           <p className="mt-4 max-w-2xl text-ash">{beyond.sub}</p>
           <div className="mt-10 grid gap-3 sm:grid-cols-2">
             {beyond.pillars.map((pillar) => (
-              <div key={pillar.title} className="beyond-card scene-panel border-t border-t-gold/30 p-5 transition-transform duration-200 hover:-translate-y-1 hover:border-gold/30">
+              <div key={pillar.title} className="beyond-card scene-panel-elevated border-t border-t-gold/25 p-5">
                 <h4 className="font-display text-xl uppercase text-gold">{pillar.title}</h4>
                 <p className="mt-2 text-sm leading-relaxed text-ash">{pillar.body}</p>
               </div>
@@ -175,6 +178,8 @@ export function Scene04Offer() {
           </div>
         </div>
       </div>
+      {/* Inter-scene divider */}
+      <div className="scene-divider" aria-hidden />
     </ScrollFilmScene>
   );
 }

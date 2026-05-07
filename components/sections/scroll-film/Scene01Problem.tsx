@@ -64,16 +64,17 @@ export function Scene01Problem() {
         });
       }
 
-      // Signal cards entrance
-      gsap.from(items, {
-        opacity: 0,
-        x: -32,
-        duration: 0.7,
-        stagger: 0.12,
+      // Signal cards entrance — clipPath wipe (authored, not generic fade)
+      gsap.set(items, { clipPath: "inset(0 100% 0 0)", opacity: 0 });
+      gsap.to(items, {
+        clipPath: "inset(0 0% 0 0)",
+        opacity: 1,
+        duration: 0.65,
+        stagger: 0.15,
         ease: "venom",
         scrollTrigger: {
           trigger: section,
-          start: "top 75%",
+          start: "top 70%",
           once: true,
         },
       });
@@ -87,6 +88,8 @@ export function Scene01Problem() {
       <div className="absolute inset-0">
         <Image src={HIGGSFIELD_STILLS.cartChaos} alt="" fill sizes="100vw" className="object-cover opacity-[0.35]" />
         <SystemOverlay />
+        {/* Atmospheric tension */}
+        <div className="atmosphere-orb" style={{ width: '50vw', height: '50vw', top: '20%', right: '-15%', background: 'radial-gradient(circle, rgba(255,51,68,0.06) 0%, transparent 70%)', opacity: 0.4 }} aria-hidden />
       </div>
       <div ref={sectionRef} className="relative z-10 mx-auto grid min-h-[70vh] max-w-[1200px] items-center gap-10 px-5 sm:px-8 lg:grid-cols-[0.8fr_1.2fr] lg:px-12">
         <div>
@@ -102,10 +105,13 @@ export function Scene01Problem() {
           {signals.map((signal, index) => (
             <div
               key={signal.label}
-              className="chaos-signal border border-l-2 border-white/8 border-l-alert/40 bg-ink-3/70 p-5 backdrop-blur-sm"
+              className="chaos-signal scene-panel-elevated border-l-2 border-l-alert/40 p-5"
             >
               <div className="flex items-center justify-between gap-4 font-heading text-[10px] uppercase tracking-caps text-ash">
-                <span>Signal {String(index + 1).padStart(2, "0")}</span>
+                <span className="flex items-center gap-2">
+                  <span className="h-1.5 w-1.5 rounded-full bg-alert/60" aria-hidden />
+                  Signal {String(index + 1).padStart(2, "0")}
+                </span>
                 <span className="text-alert/80">Uncontrolled</span>
               </div>
               <p className="mt-3 font-display text-2xl uppercase text-bone">{signal.label}</p>
@@ -118,6 +124,8 @@ export function Scene01Problem() {
           </p>
         </div>
       </div>
+      {/* Inter-scene divider */}
+      <div className="scene-divider" aria-hidden />
     </ScrollFilmScene>
   );
 }

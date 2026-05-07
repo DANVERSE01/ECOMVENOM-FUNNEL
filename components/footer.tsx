@@ -4,7 +4,9 @@ import { footer } from "@/lib/content";
 
 export function Footer() {
   return (
-    <footer className="border-t border-white/6 bg-ink py-12">
+    <footer className="relative border-t border-white/6 bg-ink py-12">
+      {/* Venom hairline accent */}
+      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-venom/15 to-transparent" aria-hidden />
       <Container className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
         <span className="relative block h-9 w-44 overflow-hidden">
           <Image

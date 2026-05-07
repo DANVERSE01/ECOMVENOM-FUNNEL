@@ -141,6 +141,8 @@ export function Scene05Founder() {
           </blockquote>
         </div>
       </div>
+      {/* Inter-scene divider */}
+      <div className="scene-divider" aria-hidden />
     </ScrollFilmScene>
   );
 }
