@@ -1,0 +1,219 @@
+"use client";
+
+import { useEffect, useRef } from "react";
+import { useGSAP } from "@gsap/react";
+import { Container } from "@/components/ui/container";
+import { chaosToSystem } from "@/lib/content";
+import { gsap, SplitText } from "@/lib/gsap";
+import { useReducedMotion } from "@/lib/useReducedMotion";
+
+export function ChaosToSystem() {
+  const sectionRef = useRef<HTMLElement | null>(null);
+  const videoRef = useRef<HTMLVideoElement | null>(null);
+  const panelRef = useRef<HTMLDivElement | null>(null);
+  const copyRef = useRef<HTMLDivElement | null>(null);
+  const eyebrowRef = useRef<HTMLSpanElement | null>(null);
+  const headlineRef = useRef<HTMLHeadingElement | null>(null);
+  const bodyRef = useRef<HTMLParagraphElement | null>(null);
+  const captionRef = useRef<HTMLParagraphElement | null>(null);
+  const reduced = useReducedMotion();
+
+  useGSAP(
+    (ctx) => {
+      const panel = panelRef.current;
+      const copy = copyRef.current;
+      const eyebrow = eyebrowRef.current;
+      const headline = headlineRef.current;
+      const body = bodyRef.current;
+      const caption = captionRef.current;
+
+      if (!panel || !copy || !eyebrow || !headline || !body || !caption) {
+        return () => ctx.revert();
+      }
+
+      if (reduced) {
+        gsap.set([panel, eyebrow, headline, body, caption], {
+          opacity: 1,
+          y: 0,
+          yPercent: 0,
+          clipPath: "inset(0% 0% 0% 0%)",
+        });
+        return () => ctx.revert();
+      }
+
+      const headlineSplit = SplitText.create(headline, {
+        type: "lines",
+        linesClass: "split-line",
+        mask: "lines",
+      });
+
+      gsap.fromTo(
+        panel,
+        { opacity: 0 },
+        {
+          opacity: 1,
+          ease: "none",
+          scrollTrigger: {
+            trigger: panel,
+            scrub: 1,
+            start: "top 80%",
+            end: "top 30%",
+          },
+        },
+      );
+
+      gsap.set(eyebrow, {
+        opacity: 0,
+        clipPath: "inset(0% 100% 0% 0%)",
+        scaleX: 0.96,
+        transformOrigin: "left center",
+      });
+      gsap.set(headlineSplit.lines, { yPercent: 100 });
+      gsap.set([body, caption], { opacity: 0, y: 20 });
+
+      const copyTl = gsap.timeline({
+        scrollTrigger: {
+          trigger: copy,
+          start: "top 78%",
+          toggleActions: "play none none none",
+          once: true,
+        },
+      });
+
+      copyTl
+        .to(eyebrow, {
+          opacity: 1,
+          clipPath: "inset(0% 0% 0% 0%)",
+          scaleX: 1,
+          duration: 0.55,
+          ease: "power3.out",
+        })
+        .to(
+          headlineSplit.lines,
+          {
+            yPercent: 0,
+            duration: 0.85,
+            stagger: 0.15,
+            ease: "power4.out",
+          },
+          "-=0.05",
+        )
+        .to(body, { opacity: 1, y: 0, duration: 0.55, ease: "power3.out" }, "-=0.15")
+        .to(caption, { opacity: 1, y: 0, duration: 0.45, ease: "power3.out" }, "-=0.2");
+
+      return () => {
+        headlineSplit.revert();
+        ctx.revert();
+      };
+    },
+    { scope: sectionRef, dependencies: [reduced], revertOnUpdate: true },
+  );
+
+  useEffect(() => {
+    const node = panelRef.current;
+    const video = videoRef.current;
+    if (!node || !video) return;
+
+    const obs = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) {
+          if (e.intersectionRatio >= 0.35) {
+            void video.play().catch(() => {});
+          } else {
+            video.pause();
+          }
+        }
+      },
+      { threshold: 0.35 },
+    );
+    obs.observe(node);
+    return () => obs.disconnect();
+  }, []);
+
+  return (
+    <section
+      ref={sectionRef}
+      aria-labelledby="chaos-system-heading"
+      className="relative py-20 sm:py-28 border-y border-white/5 bg-ink-2/30 overflow-hidden"
+    >
+      <Container>
+        <div className="grid gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
+          <div className="relative">
+            <div
+              ref={panelRef}
+              className="relative aspect-video w-full max-w-2xl mx-auto lg:mx-0 rounded-[8px] border border-venom/20 bg-black p-2 sm:p-3"
+            >
+              <div className="relative h-full w-full overflow-hidden rounded-[4px] bg-black">
+                <video
+                  ref={videoRef}
+                  className="block h-full w-full object-cover"
+                  src="/media/chaos-system.mp4"
+                  poster="/posters/chaos-system-poster.jpg"
+                  muted
+                  loop
+                  playsInline
+                  preload="metadata"
+                  aria-hidden="true"
+                  tabIndex={-1}
+                />
+                <div
+                  aria-hidden
+                  className="pointer-events-none absolute inset-0"
+                  style={{
+                    background:
+                      "linear-gradient(90deg, rgba(0,0,0,0.55), transparent 16%, transparent 84%, rgba(0,0,0,0.55)), linear-gradient(180deg, rgba(0,0,0,0.5), transparent 18%, transparent 82%, rgba(0,0,0,0.5))",
+                  }}
+                />
+              </div>
+
+              <span aria-hidden className="absolute top-0 left-0 h-4 w-4 border-t border-l border-venom/80" />
+              <span aria-hidden className="absolute top-0 right-0 h-4 w-4 border-t border-r border-venom/80" />
+              <span aria-hidden className="absolute bottom-0 left-0 h-4 w-4 border-b border-l border-venom/80" />
+              <span aria-hidden className="absolute bottom-0 right-0 h-4 w-4 border-b border-r border-venom/80" />
+            </div>
+
+            <div className="mt-3 grid gap-2 text-[10px] uppercase tracking-[0.18em] text-ash/80 sm:grid-cols-3">
+              {["SYSTEM ACTIVE", "MUTED LOOP", "FRAME LOCKED"].map((label) => (
+                <span
+                  key={label}
+                  className="inline-flex items-center gap-2 border border-white/8 bg-black/50 px-3 py-2 font-mono"
+                >
+                  <span className="system-status-dot h-1.5 w-1.5 rounded-full bg-venom shadow-[0_0_8px_rgba(184,255,46,0.7)]" />
+                  {label}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          <div ref={copyRef} className="max-w-xl">
+            <span
+              ref={eyebrowRef}
+              className="inline-block text-xs sm:text-sm font-semibold tracking-[0.2em] text-venom"
+            >
+              {chaosToSystem.eyebrow}
+            </span>
+            <h2
+              ref={headlineRef}
+              id="chaos-system-heading"
+              className="font-display text-3xl sm:text-5xl lg:text-6xl uppercase leading-[1.05] tracking-tightest mt-3"
+            >
+              {chaosToSystem.headline}
+            </h2>
+            <p
+              ref={bodyRef}
+              className="mt-5 text-ash text-base sm:text-lg leading-relaxed"
+            >
+              {chaosToSystem.body}
+            </p>
+            <p
+              ref={captionRef}
+              className="mt-6 text-xs uppercase tracking-[0.18em] text-ash/70"
+            >
+              {chaosToSystem.caption}
+            </p>
+          </div>
+        </div>
+      </Container>
+    </section>
+  );
+}

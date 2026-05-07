@@ -1,0 +1,275 @@
+- generic [active] [ref=e1]:
+  - main [ref=e7]:
+    - navigation [ref=e8]:
+      - generic [ref=e9]:
+        - generic [ref=e10]:
+          - heading "WACUS" [level=1] [ref=e11]:
+            - link "WACUS" [ref=e12] [cursor=pointer]:
+              - /url: /
+              - img "WACUS" [ref=e13]
+          - generic:
+            - generic:
+              - link "Work" [ref=e14] [cursor=pointer]:
+                - /url: /en/work
+              - link "About" [ref=e15] [cursor=pointer]:
+                - /url: /en/about
+              - link "Services" [ref=e16] [cursor=pointer]:
+                - /url: /en/services
+              - link "Portfolio" [ref=e17] [cursor=pointer]:
+                - /url: /en/portfolio
+        - generic [ref=e18]:
+          - generic [ref=e19]:
+            - button "EN" [ref=e20] [cursor=pointer]
+            - link "KO" [ref=e21] [cursor=pointer]:
+              - /url: https://wacuskorea.com
+          - link "CONTACT" [ref=e22] [cursor=pointer]:
+            - /url: /en/contact
+            - generic [ref=e23]: CONTACT
+    - generic [ref=e72]:
+      - img "Background" [ref=e77]
+      - generic [ref=e82]:
+        - img "Card 1 front" [ref=e86]
+        - generic [ref=e89]:
+          - generic [ref=e91]:
+            - img "Card 3 front" [ref=e93]
+            - img "Card 4 back" [ref=e95]
+          - generic [ref=e97]:
+            - img "Card 5 front" [ref=e99]
+            - img "Card 6 back" [ref=e101]
+          - generic [ref=e103]:
+            - img "Card 7 front" [ref=e105]
+            - img "Card 8 back" [ref=e107]
+          - generic [ref=e109]:
+            - img "Card 9 front" [ref=e111]
+            - img "Card 10 back" [ref=e113]
+      - generic [ref=e114]:
+        - generic [ref=e115]:
+          - paragraph [ref=e116]:
+            - text: WACUS builds high-performance, responsive
+            - text: platforms and
+            - strong [ref=e117]: custom-engineered
+            - text: systems.
+          - paragraph [ref=e118]:
+            - text: We leverage cutting-edge technology to deliver robust,
+            - strong [ref=e119]: future-proof
+            - text: digital infrastructure.
+          - paragraph [ref=e120]:
+            - text: Through continuous maintenance and advanced security
+            - text: protocols, we ensure stable uptime and peak
+            - text: performance for your
+            - strong [ref=e121]: guaranteed business continuity.
+        - img
+        - generic [ref=e122]:
+          - heading "WACUS is a digital growth Agency." [level=2] [ref=e123]:
+            - text: WACUS is a
+            - strong [ref=e124]: digital growth
+            - text: Agency.
+          - paragraph [ref=e125]: We bridge the gap between Korean innovation and U.S. market needs.
+      - generic [ref=e126]:
+        - paragraph [ref=e129]:
+          - text: We design your brand through
+          - text: user-centric web development
+        - paragraph [ref=e134]:
+          - text: We analyze website visitor
+          - text: journeys to execute better strategies.
+        - paragraph [ref=e137]:
+          - text: We Build Strategically Consistent Websites
+          - text: That Amplify Your Brand Authority.
+      - generic [ref=e139]:
+        - generic [ref=e140]:
+          - generic [ref=e142]:
+            - link "도쿄안과" [ref=e144] [cursor=pointer]:
+              - /url: https://gangnam-tokyo.co.kr/ko
+              - img "도쿄안과" [ref=e145]
+            - link "반포리움성형외과" [ref=e147] [cursor=pointer]:
+              - /url: https://banpoleeum.com
+              - img "반포리움성형외과" [ref=e148]
+            - link "엠아이텍" [ref=e150] [cursor=pointer]:
+              - /url: https://mitech.co.kr/kor/
+              - img "엠아이텍" [ref=e151]
+            - link "청라빛안과" [ref=e153] [cursor=pointer]:
+              - /url: https://cheongnabit.com/
+              - img "청라빛안과" [ref=e154]
+            - link "포토클리닉" [ref=e156] [cursor=pointer]:
+              - /url: https://photoclinic.wacuskorea.com/
+              - img "포토클리닉" [ref=e157]
+            - link "데미안안과의원" [ref=e159] [cursor=pointer]:
+              - /url: https://demianeye.co.kr/
+              - img "데미안안과의원" [ref=e160]
+            - link "도쿄안과" [ref=e162] [cursor=pointer]:
+              - /url: https://gangnam-tokyo.co.kr/ko
+              - img "도쿄안과" [ref=e163]
+            - link "반포리움성형외과" [ref=e165] [cursor=pointer]:
+              - /url: https://banpoleeum.com
+              - img "반포리움성형외과" [ref=e166]
+            - link "엠아이텍" [ref=e168] [cursor=pointer]:
+              - /url: https://mitech.co.kr/kor/
+              - img "엠아이텍" [ref=e169]
+            - link "청라빛안과" [ref=e171] [cursor=pointer]:
+              - /url: https://cheongnabit.com/
+              - img "청라빛안과" [ref=e172]
+            - link "포토클리닉" [ref=e174] [cursor=pointer]:
+              - /url: https://photoclinic.wacuskorea.com/
+              - img "포토클리닉" [ref=e175]
+            - link "데미안안과의원" [ref=e177] [cursor=pointer]:
+              - /url: https://demianeye.co.kr/
+              - img "데미안안과의원" [ref=e178]
+          - generic [ref=e180]:
+            - link "첫눈애안과" [ref=e182] [cursor=pointer]:
+              - /url: https://www.1st-eye.com/ko
+              - img "첫눈애안과" [ref=e183]
+            - link "바스노바" [ref=e185] [cursor=pointer]:
+              - /url: https://vasnova.co.kr/
+              - img "바스노바" [ref=e186]
+            - link "목동예스안과" [ref=e188] [cursor=pointer]:
+              - /url: https://yes-oph.com/
+              - img "목동예스안과" [ref=e189]
+            - link "Nocturne" [ref=e191] [cursor=pointer]:
+              - /url: https://nocturne.wacuskorea.com/
+              - img "Nocturne" [ref=e192]
+            - link "메디모아의원" [ref=e194] [cursor=pointer]:
+              - /url: https://medimoa.co.kr/
+              - img "메디모아의원" [ref=e195]
+            - link "우리들척추신경원" [ref=e197] [cursor=pointer]:
+              - /url: https://aimga.wacuskorea.com/
+              - img "우리들척추신경원" [ref=e198]
+            - link "첫눈애안과" [ref=e200] [cursor=pointer]:
+              - /url: https://www.1st-eye.com/ko
+              - img "첫눈애안과" [ref=e201]
+            - link "바스노바" [ref=e203] [cursor=pointer]:
+              - /url: https://vasnova.co.kr/
+              - img "바스노바" [ref=e204]
+            - link "목동예스안과" [ref=e206] [cursor=pointer]:
+              - /url: https://yes-oph.com/
+              - img "목동예스안과" [ref=e207]
+            - link "Nocturne" [ref=e209] [cursor=pointer]:
+              - /url: https://nocturne.wacuskorea.com/
+              - img "Nocturne" [ref=e210]
+            - link "메디모아의원" [ref=e212] [cursor=pointer]:
+              - /url: https://medimoa.co.kr/
+              - img "메디모아의원" [ref=e213]
+            - link "우리들척추신경원" [ref=e215] [cursor=pointer]:
+              - /url: https://aimga.wacuskorea.com/
+              - img "우리들척추신경원" [ref=e216]
+          - generic [ref=e218]:
+            - link "샤브로21" [ref=e220] [cursor=pointer]:
+              - /url: https://www.shaburo21.com/
+              - img "샤브로21" [ref=e221]
+            - link "골드제이의원" [ref=e223] [cursor=pointer]:
+              - /url: https://goldjclinic-com.vercel.app/ko
+              - img "골드제이의원" [ref=e224]
+            - link "나무안과" [ref=e226] [cursor=pointer]:
+              - /url: https://namueye.com/
+              - img "나무안과" [ref=e227]
+            - link "소일스튜디오" [ref=e229] [cursor=pointer]:
+              - /url: https://soilstudio.wacuskorea.com/
+              - img "소일스튜디오" [ref=e230]
+            - link "게인세이어" [ref=e232] [cursor=pointer]:
+              - /url: https://gainsayer.wacuskorea.com/
+              - img "게인세이어" [ref=e233]
+            - link "더원서울안과" [ref=e235] [cursor=pointer]:
+              - /url: https://the1seoul.com/ko
+              - img "더원서울안과" [ref=e236]
+            - link "샤브로21" [ref=e238] [cursor=pointer]:
+              - /url: https://www.shaburo21.com/
+              - img "샤브로21" [ref=e239]
+            - link "골드제이의원" [ref=e241] [cursor=pointer]:
+              - /url: https://goldjclinic-com.vercel.app/ko
+              - img "골드제이의원" [ref=e242]
+            - link "나무안과" [ref=e244] [cursor=pointer]:
+              - /url: https://namueye.com/
+              - img "나무안과" [ref=e245]
+            - link "소일스튜디오" [ref=e247] [cursor=pointer]:
+              - /url: https://soilstudio.wacuskorea.com/
+              - img "소일스튜디오" [ref=e248]
+            - link "게인세이어" [ref=e250] [cursor=pointer]:
+              - /url: https://gainsayer.wacuskorea.com/
+              - img "게인세이어" [ref=e251]
+            - link "더원서울안과" [ref=e253] [cursor=pointer]:
+              - /url: https://the1seoul.com/ko
+              - img "더원서울안과" [ref=e254]
+        - generic [ref=e255]:
+          - heading "Our Experience" [level=2] [ref=e256]
+          - link "View More" [ref=e257] [cursor=pointer]:
+            - /url: /portfolio
+      - region "FAQ" [ref=e258]:
+        - heading "FAQ" [level=2] [ref=e259]
+        - generic [ref=e260]:
+          - generic [ref=e261] [cursor=pointer]:
+            - button "How much does it cost to build a website?" [expanded] [ref=e262]:
+              - generic [ref=e264]: How much does it cost to build a website?
+            - region "How much does it cost to build a website?" [ref=e266]:
+              - paragraph [ref=e268]: The cost of a website varies depending on the purpose and scope of the project. Whether it's a corporate site, brand site, e-commerce platform, or responsive web, the design and development requirements will differ. We can customize the structure to fit your budget, and we provide accurate, reasonable estimates after a consultation.
+          - generic [ref=e269] [cursor=pointer]:
+            - button "How long does the website production take?" [ref=e270]:
+              - generic [ref=e272]: How long does the website production take?
+            - region "How long does the website production take?":
+              - paragraph: Typically, production takes between 6 to 12 weeks. The schedule may vary based on the number of pages, complexity of features (such as login, booking, shopping cart), and level of design customization. We work closely with you during planning to ensure smooth project management and timely delivery.
+          - generic [ref=e275] [cursor=pointer]:
+            - button "Do you create custom designs or use templates?" [ref=e276]:
+              - generic [ref=e278]: Do you create custom designs or use templates?
+            - region "Do you create custom designs or use templates?":
+              - paragraph: We offer both custom-designed websites and template-based builds. If strong brand identity is important, we recommend a fully customized design for a unique look and feel. For faster turnaround or cost efficiency, our premium templates can also deliver high-quality, professional results.
+          - generic [ref=e281] [cursor=pointer]:
+            - button "Will the website be mobile-friendly?" [ref=e282]:
+              - generic [ref=e284]: Will the website be mobile-friendly?
+            - region "Will the website be mobile-friendly?":
+              - paragraph: Absolutely. All our websites are responsive by default, optimized for mobile, tablet, and desktop devices. Given that mobile traffic now dominates, we place special emphasis on clean, intuitive mobile UX to ensure seamless usability across all screen sizes.
+          - generic [ref=e287] [cursor=pointer]:
+            - button "Do you provide hosting and domain services?" [ref=e288]:
+              - generic [ref=e290]: Do you provide hosting and domain services?
+            - region "Do you provide hosting and domain services?":
+              - paragraph: We offer free hosting for the first year. After that, renewal is available as a paid service. For domains, we recommend purchasing under your own name for ownership protection, but if needed, we can assist with domain registration and setup. If you already own a domain, we can migrate it to our hosting environment for you.
+      - generic [ref=e293]:
+        - generic [ref=e295]:
+          - generic:
+            - img
+        - generic [ref=e323]:
+          - generic [ref=e324]:
+            - generic [ref=e325]:
+              - heading "Work with us." [level=2] [ref=e326]
+              - generic [ref=e327]:
+                - generic [ref=e328]:
+                  - generic [ref=e330]: Email
+                  - textbox "Email" [ref=e333]:
+                    - /placeholder: example@yourdomain.com
+                - generic [ref=e334]:
+                  - generic [ref=e336]: Company Name
+                  - textbox "Company Name" [ref=e339]
+                - generic [ref=e340]:
+                  - generic [ref=e342]: Contact Number
+                  - textbox "Contact Number" [ref=e345]:
+                    - /placeholder: +1 (000) 000-0000
+                - button "SUBMIT" [ref=e346] [cursor=pointer]
+            - generic [ref=e347]:
+              - list [ref=e349]:
+                - listitem [ref=e350]:
+                  - link "Work" [ref=e351] [cursor=pointer]:
+                    - /url: /work
+                - listitem [ref=e352]:
+                  - link "About" [ref=e353] [cursor=pointer]:
+                    - /url: /about
+                - listitem [ref=e354]:
+                  - link "Services" [ref=e355] [cursor=pointer]:
+                    - /url: /services
+                - listitem [ref=e356]:
+                  - link "Portfolio" [ref=e357] [cursor=pointer]:
+                    - /url: /portfolio
+                - listitem [ref=e358]:
+                  - link "CONTACT" [ref=e359] [cursor=pointer]:
+                    - /url: /contact
+              - generic [ref=e360]:
+                - generic [ref=e361]: Social
+                - list [ref=e362]:
+                  - listitem [ref=e363]:
+                    - link "LinkedIn" [ref=e364] [cursor=pointer]:
+                      - /url: https://www.linkedin.com/company/wacusglobal/
+                  - listitem [ref=e365]:
+                    - link "Instagram" [ref=e366] [cursor=pointer]:
+                      - /url: "javascript:throw new Error('React has blocked a javascript: URL as a security precaution.')"
+          - generic [ref=e367]:
+            - generic [ref=e368]: Copyright © 2026 WACUS Global. All rights reserved.
+            - generic [ref=e369]:
+              - generic [ref=e370]: Privacy Policy
+              - generic [ref=e371]: Terms of Service
+  - alert [ref=e71]

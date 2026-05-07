@@ -1,0 +1,579 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e13]:
+    - generic [ref=e14]:
+      - link "ECOMVENOM home" [ref=e15]:
+        - /url: /
+        - img "ECOMVENOM" [ref=e17]
+      - link "APPLY FOR THE PROGRAM LIMITED SPOTS*" [ref=e21]:
+        - /url: /apply
+        - generic [ref=e22]: APPLY FOR THE PROGRAM
+        - generic [ref=e23]: LIMITED SPOTS*
+  - main [ref=e25]:
+    - generic [ref=e26]:
+      - generic [ref=e27]:
+        - generic: "00"
+        - generic [ref=e32]:
+          - generic [ref=e33]:
+            - generic [ref=e34]:
+              - generic [ref=e35]: "00"
+              - generic [ref=e36]: SYSTEM BOOT
+            - generic "ECOMVENOM" [ref=e37]
+            - paragraph [ref=e38]: FOR SERIOUS LEARNERS WHO WANT TO BUILD A SUSTAINABLE, CONSISTENT BUSINESS
+            - heading "BUILD A PROFITABLE DROPSHIPPING SYSTEM IN 45 DAYS WITH ZERO EXPERIENCE" [level=1] [ref=e39]:
+              - generic [ref=e434]: BUILD A PROFITABLE DROPSHIPPING SYSTEM
+              - generic [ref=e436]: IN 45 DAYS WITH ZERO EXPERIENCE
+            - generic [ref=e40]:
+              - link "APPLY FOR THE PROGRAM LIMITED SPOTS*" [ref=e42]:
+                - /url: /apply
+                - generic [ref=e43]: APPLY FOR THE PROGRAM
+                - generic [ref=e44]: LIMITED SPOTS*
+              - paragraph [ref=e45]: A-Z roadmap for U.S. and Saudi/Gulf markets. No wasted money. No random tutorials. No fluff.
+          - generic [ref=e46]:
+            - img "Youssef Adel intro video poster" [ref=e47]
+            - button "Play founder video" [ref=e50]:
+              - generic [ref=e51]: Founder VSL
+              - generic [ref=e52]: ▶
+      - img [ref=e53]
+      - generic [ref=e54]:
+        - generic: "01"
+        - generic [ref=e56]:
+          - generic [ref=e57]:
+            - generic [ref=e58]:
+              - generic [ref=e59]: "01"
+              - generic [ref=e60]: INPUT NOISE
+            - heading "Random inputs create expensive chaos." [level=2] [ref=e61]:
+              - generic [ref=e438]: Random inputs create expensive
+              - generic [ref=e440]: chaos.
+          - generic [ref=e62]:
+            - generic [ref=e63]:
+              - generic [ref=e64]:
+                - generic [ref=e65]: Signal 01
+                - generic [ref=e66]: Uncontrolled
+              - paragraph [ref=e67]: Random tutorials
+            - generic [ref=e68]:
+              - generic [ref=e69]:
+                - generic [ref=e70]: Signal 02
+                - generic [ref=e71]: Uncontrolled
+              - paragraph [ref=e72]: Random products
+            - generic [ref=e73]:
+              - generic [ref=e74]:
+                - generic [ref=e75]: Signal 03
+                - generic [ref=e76]: Uncontrolled
+              - paragraph [ref=e77]: Random ad spend
+            - img [ref=e78]
+            - paragraph [ref=e79]:
+              - generic [ref=e441]: Most
+              - generic [ref=e442]: people
+              - generic [ref=e443]: who
+              - generic [ref=e444]: try
+              - generic [ref=e445]: dropshipping
+              - generic [ref=e446]: run
+              - generic [ref=e447]: "on"
+              - generic [ref=e448]: guesswork.
+              - generic [ref=e449]: The
+              - generic [ref=e450]: scroll-film
+              - generic [ref=e451]: turns
+              - generic [ref=e452]: that
+              - generic [ref=e453]: noise
+              - generic [ref=e454]: into
+              - generic [ref=e455]: an
+              - generic [ref=e456]: operating
+              - generic [ref=e457]: path.
+      - img [ref=e80]
+      - generic [ref=e82]:
+        - generic "Scroll-driven ECOMVENOM operating system film sequence" [ref=e85]
+        - generic [ref=e86]:
+          - generic [ref=e87]:
+            - generic [ref=e88]:
+              - generic [ref=e89]: "02"
+              - generic [ref=e90]: CHAOS → SYSTEM
+            - heading "Stop guessing. Start operating." [level=2] [ref=e91]:
+              - generic [ref=e460]: Stop guessing. Start operating.
+          - generic [ref=e92]:
+            - generic [ref=e93]: "FRAME: 001/074"
+            - generic [ref=e94]: "SCROLL: 0%"
+            - generic [ref=e95]: "MODE: CHAOS > SYSTEM"
+          - generic [ref=e96]:
+            - generic [ref=e97]:
+              - paragraph [ref=e98]: 00-20%
+              - heading "System wakes" [level=3] [ref=e99]
+              - paragraph [ref=e100]: The operator view opens. Inputs are still loose, but the frame establishes control.
+            - generic [ref=e101]:
+              - paragraph [ref=e102]: 20-45%
+              - heading "Chaos enters" [level=3] [ref=e103]
+              - paragraph [ref=e104]: Carts, products, panels, and random signals move through the dark field.
+            - generic [ref=e105]:
+              - paragraph [ref=e106]: 45-70%
+              - heading "Frames align" [level=3] [ref=e107]
+              - paragraph [ref=e108]: The conversion engine stops drifting and starts arranging decisions into a repeatable path.
+            - generic [ref=e109]:
+              - paragraph [ref=e110]: 70-100%
+              - heading "Operating mode" [level=3] [ref=e111]
+              - paragraph [ref=e112]: Store, roadmap, booking, and ECOMVENOM lockup resolve into one command state.
+          - generic: "02"
+      - img [ref=e115]
+      - generic [ref=e116]:
+        - generic: "03"
+        - generic [ref=e118]:
+          - generic [ref=e119]:
+            - generic [ref=e120]:
+              - generic [ref=e121]:
+                - generic [ref=e122]: "03"
+                - generic [ref=e123]: ROADMAP
+              - heading "COURSE CONTENT" [level=2] [ref=e124]
+              - paragraph [ref=e125]: Everything you need to succeed, step-by-step.
+            - generic [ref=e127]:
+              - generic [ref=e128]:
+                - paragraph [ref=e129]: Module 01
+                - heading "Introduction to Dropshipping" [level=3] [ref=e130]
+                - list [ref=e131]:
+                  - listitem [ref=e132]:
+                    - generic [ref=e134]: What is Dropshipping?
+                  - listitem [ref=e135]:
+                    - generic [ref=e137]: A-Z purchase workflow
+              - generic [ref=e138]:
+                - paragraph [ref=e139]: Module 02
+                - heading "Types of Stores" [level=3] [ref=e140]
+                - list [ref=e141]:
+                  - listitem [ref=e142]:
+                    - generic [ref=e144]: Best store types
+                  - listitem [ref=e145]:
+                    - generic [ref=e147]: Store model analysis
+              - generic [ref=e148]:
+                - paragraph [ref=e149]: Module 03
+                - heading "U.S. Market Strategies" [level=3] [ref=e150]
+                - list [ref=e151]:
+                  - listitem [ref=e152]:
+                    - generic [ref=e154]: Top U.S. suppliers
+                  - listitem [ref=e155]:
+                    - generic [ref=e157]: PlusBase platform
+                  - listitem [ref=e158]:
+                    - generic [ref=e160]: Winning product research
+              - generic [ref=e161]:
+                - paragraph [ref=e162]: Module 04
+                - heading "Marketing Strategies" [level=3] [ref=e163]
+                - list [ref=e164]:
+                  - listitem [ref=e165]:
+                    - generic [ref=e167]: Influencer Marketing
+                  - listitem [ref=e168]:
+                    - generic [ref=e170]: Ambassador setup
+                  - listitem [ref=e171]:
+                    - generic [ref=e173]: Content Marketing
+              - generic [ref=e174]:
+                - paragraph [ref=e175]: Module 05
+                - heading "Saudi & Gulf Market Strategies" [level=3] [ref=e176]
+                - list [ref=e177]:
+                  - listitem [ref=e178]:
+                    - generic [ref=e180]: Saudi/Gulf ad strategies
+                  - listitem [ref=e181]:
+                    - generic [ref=e183]: Local suppliers
+                  - listitem [ref=e184]:
+                    - generic [ref=e186]: Gulf platforms
+                  - listitem [ref=e187]:
+                    - generic [ref=e189]: Gulf product-market fit
+              - generic [ref=e190]:
+                - paragraph [ref=e191]: Module 06
+                - heading "Payment & Store Setup" [level=3] [ref=e192]
+                - list [ref=e193]:
+                  - listitem [ref=e194]:
+                    - generic [ref=e196]: Payment gateways
+                  - listitem [ref=e197]:
+                    - generic [ref=e199]: Free store setup bonus
+          - generic [ref=e200]:
+            - generic [ref=e201]:
+              - generic [ref=e202]: 03B
+              - generic [ref=e203]: WHAT YOU LEARN
+            - heading "WHAT YOU WILL LEARN" [level=3] [ref=e204]
+            - paragraph [ref=e205]: Master the skills needed to build a sustainable dropshipping business.
+            - generic [ref=e206]:
+              - article [ref=e207]:
+                - paragraph [ref=e208]: Skill 01
+                - heading "Winning Product Research" [level=4] [ref=e209]
+                - paragraph [ref=e210]: Learn how to identify high-potential products that solve real problems. Stop guessing and start selling what people actually want to buy.
+              - article [ref=e211]:
+                - paragraph [ref=e212]: Skill 02
+                - heading "U.S. Market Strategies" [level=4] [ref=e213]
+                - paragraph [ref=e214]: Master the American market. Get access to the best suppliers, platforms like PlusBase, and payment gateways tailored for U.S. customers.
+              - article [ref=e215]:
+                - paragraph [ref=e216]: Skill 03
+                - heading "Saudi & Gulf Expansion" [level=4] [ref=e217]
+                - paragraph [ref=e218]: "A complete breakdown of the Saudi market: local suppliers, specific payment methods, and TikTok Ads strategies targeting the Gulf audience."
+              - article [ref=e219]:
+                - paragraph [ref=e220]: Skill 04
+                - heading "Advanced Marketing Tactics" [level=4] [ref=e221]
+                - paragraph [ref=e222]: Learn to sell without breaking the bank. We teach Ambassador Marketing, Influencer collaboration, and Content Marketing strategies.
+              - article [ref=e223]:
+                - paragraph [ref=e224]: Skill 05
+                - heading "Financial & Budget Mastery" [level=4] [ref=e225]
+                - paragraph [ref=e226]: Overcome the challenge of limited capital. Learn exactly how to manage your budget, calculate your ROAS, and scale effectively without wasting money.
+              - article [ref=e227]:
+                - paragraph [ref=e228]: Skill 06
+                - heading "Store Creation & Automation" [level=4] [ref=e229]
+                - paragraph [ref=e230]: Step-by-step guidance on building high-converting stores. Plus, receive a free store build service upon course completion.
+              - article [ref=e231]:
+                - paragraph [ref=e232]: Skill 07
+                - heading "Building a Trustworthy Brand" [level=4] [ref=e233]
+                - paragraph [ref=e234]: Learn to build trust before selling. Move beyond basic dropshipping to create a recognizable brand that retains customers and encourages repeat buying.
+              - article [ref=e235]:
+                - paragraph [ref=e236]: Skill 08
+                - heading "The Business Mindset" [level=4] [ref=e237]
+                - paragraph [ref=e238]: Dropshipping is a system, not a lottery. Learn to treat it like a real business, manage cash flow, and avoid the mistakes that cause beginners to fail.
+      - img [ref=e239]
+      - generic [ref=e240]:
+        - generic: "04"
+        - generic [ref=e242]:
+          - generic [ref=e243]:
+            - generic [ref=e244]:
+              - generic [ref=e245]:
+                - generic [ref=e246]: "04"
+                - generic [ref=e247]: EXCLUSIVE GRADUATION GIFT
+              - heading "We Build Your Store For Free" [level=2] [ref=e248]:
+                - generic [ref=e462]: We Build Your Store For Free
+              - paragraph [ref=e249]: Pre-Loaded with 2 Winning Products
+              - paragraph [ref=e250]: "We want to ensure you start on the right foot. After completing the course, our team will build a professional dropshipping store for you. You simply choose your target audience:"
+              - link "APPLY FOR THE PROGRAM LIMITED SPOTS*" [ref=e253]:
+                - /url: /apply
+                - generic [ref=e254]: APPLY FOR THE PROGRAM
+                - generic [ref=e255]: LIMITED SPOTS*
+            - generic [ref=e256]:
+              - generic [ref=e257]:
+                - paragraph [ref=e258]: OPTION A
+                - paragraph [ref=e259]: 🇺🇸The U.S. Market
+              - generic [ref=e260]:
+                - paragraph [ref=e261]: OPTION B
+                - paragraph [ref=e262]: 🇸🇦The Saudi Market
+              - paragraph [ref=e263]: Everything You Need To Build A Sustainable Business
+          - generic [ref=e265]: FREE STORE BUILD · 2 WINNING PRODUCTS · US MARKET · SAUDI MARKET · FREE STORE BUILD · 2 WINNING PRODUCTS · US MARKET · SAUDI MARKET · FREE STORE BUILD · 2 WINNING PRODUCTS · US MARKET · SAUDI MARKET · FREE STORE BUILD · 2 WINNING PRODUCTS · US MARKET · SAUDI MARKET ·
+          - generic [ref=e266]:
+            - generic [ref=e267]:
+              - generic [ref=e268]: 04B
+              - generic [ref=e269]: BEYOND THE VIDEO
+            - heading "BEYOND THE VIDEO" [level=3] [ref=e270]
+            - paragraph [ref=e271]: This isn't just a course; it's a partnership. Here is the standard we hold ourselves to.
+            - generic [ref=e272]:
+              - generic [ref=e273]:
+                - heading "TOTAL COMMITMENT" [level=4] [ref=e274]
+                - paragraph [ref=e275]: “I will not leave you behind.” If you are committed to success, we provide unwavering support every step of the way until you achieve outstanding results.
+              - generic [ref=e276]:
+                - heading "ZERO FLUFF, ALL ACTION" [level=4] [ref=e277]
+                - paragraph [ref=e278]: We prefer practical, hands-on learning over boring theory. We focus purely on modern sales strategies and store building techniques you can use immediately.
+              - generic [ref=e279]:
+                - heading "SUSTAINABLE GROWTH" [level=4] [ref=e280]
+                - paragraph [ref=e281]: We strictly avoid “black-hat” methods or shortcuts that risk your reputation. We teach you how to build a legitimate brand designed for long-term survival.
+              - generic [ref=e282]:
+                - heading "4-8 WEEKS ROADMAP" [level=4] [ref=e283]
+                - paragraph [ref=e284]: No fake “get rich quick” promises. Students who apply our strategies consistently can realistically expect to see meaningful results within 4 to 8 weeks.
+      - img [ref=e285]
+      - generic [ref=e286]:
+        - generic: "05"
+        - generic [ref=e288]:
+          - generic [ref=e289]:
+            - img "Youssef Adel, founder and lead instructor of ECOMVENOM" [ref=e291]
+            - generic [ref=e292]: "Operator identity locked: real Youssef image"
+          - generic [ref=e293]:
+            - generic [ref=e294]:
+              - generic [ref=e295]: "05"
+              - generic [ref=e296]: THE COACH
+            - heading "Meet Youssef Adel" [level=2] [ref=e297]
+            - paragraph [ref=e298]:
+              - generic [ref=e463]: I
+              - generic [ref=e464]: didn't
+              - generic [ref=e465]: start
+              - generic [ref=e466]: with
+              - generic [ref=e467]: success.
+              - generic [ref=e468]: I
+              - generic [ref=e469]: started
+              - generic [ref=e470]: like
+              - generic [ref=e471]: many
+              - generic [ref=e472]: of
+              - generic [ref=e473]: you—experimenting,
+              - generic [ref=e474]: losing
+              - generic [ref=e475]: money
+              - generic [ref=e476]: "on"
+              - generic [ref=e477]: ads,
+              - generic [ref=e478]: and
+              - generic [ref=e479]: realizing
+              - generic [ref=e480]: that
+              - generic [ref=e481]: the
+              - generic [ref=e482]: “get
+              - generic [ref=e483]: rich
+              - generic [ref=e484]: quick”
+              - generic [ref=e485]: promises
+              - generic [ref=e486]: online
+              - generic [ref=e487]: were
+              - generic [ref=e488]: a
+              - generic [ref=e489]: lie.
+              - generic [ref=e490]: I
+              - generic [ref=e491]: learned
+              - generic [ref=e492]: the
+              - generic [ref=e493]: hard
+              - generic [ref=e494]: way
+              - generic [ref=e495]: that
+              - generic [ref=e496]: Dropshipping
+              - generic [ref=e497]: isn't
+              - generic [ref=e498]: luck;
+              - generic [ref=e499]: it's
+              - generic [ref=e500]: a
+              - generic [ref=e501]: precise
+              - generic [ref=e502]: business
+              - generic [ref=e503]: system
+              - generic [ref=e504]: that
+              - generic [ref=e505]: requires
+              - generic [ref=e506]: a
+              - generic [ref=e507]: specific
+              - generic [ref=e508]: roadmap.
+            - paragraph [ref=e299]:
+              - generic [ref=e509]: Instead
+              - generic [ref=e510]: of
+              - generic [ref=e511]: giving
+              - generic [ref=e512]: up,
+              - generic [ref=e513]: I
+              - generic [ref=e514]: obsessed
+              - generic [ref=e515]: over
+              - generic [ref=e516]: the
+              - generic [ref=e517]: details.
+              - generic [ref=e518]: I
+              - generic [ref=e519]: mastered
+              - generic [ref=e520]: the
+              - generic [ref=e521]: differences
+              - generic [ref=e522]: between
+              - generic [ref=e523]: the
+              - generic [ref=e524]: U.S.
+              - generic [ref=e525]: and
+              - generic [ref=e526]: Saudi
+              - generic [ref=e527]: markets,
+              - generic [ref=e528]: decoded
+              - generic [ref=e529]: consumer
+              - generic [ref=e530]: psychology,
+              - generic [ref=e531]: and
+              - generic [ref=e532]: built
+              - generic [ref=e533]: a
+              - generic [ref=e534]: strategy
+              - generic [ref=e535]: focused
+              - generic [ref=e536]: "on"
+              - generic [ref=e537]: sustainable
+              - generic [ref=e538]: growth
+              - generic [ref=e539]: rather
+              - generic [ref=e540]: than
+              - generic [ref=e541]: quick
+              - generic [ref=e542]: wins.
+              - generic [ref=e543]: Now,
+              - generic [ref=e544]: I
+              - generic [ref=e545]: teach
+              - generic [ref=e546]: that
+              - generic [ref=e547]: exact
+              - generic [ref=e548]: system
+              - generic [ref=e549]: to
+              - generic [ref=e550]: ensure
+              - generic [ref=e551]: you
+              - generic [ref=e552]: don't
+              - generic [ref=e553]: make
+              - generic [ref=e554]: the
+              - generic [ref=e555]: same
+              - generic [ref=e556]: mistakes
+              - generic [ref=e557]: I
+              - generic [ref=e558]: did.
+            - generic [ref=e300]:
+              - generic [ref=e301]:
+                - heading "DUAL-MARKET EXPERT" [level=3] [ref=e302]
+                - paragraph [ref=e303]: Specialized strategies for dominating both the U.S. Global Market and the local Saudi/Gulf sector.
+              - generic [ref=e304]:
+                - heading "SYSTEM OVER HYPE" [level=3] [ref=e305]
+                - paragraph [ref=e306]: Rejects “fake guru” promises. Teaches dropshipping as a structured, long-term business model.
+              - generic [ref=e307]:
+                - heading "MARKETING FIRST" [level=3] [ref=e308]
+                - paragraph [ref=e309]: Mastery in Influencer, Ambassador, and Content Marketing to build trust before asking for the sale.
+              - generic [ref=e310]:
+                - heading "ZERO-FLUFF MENTOR" [level=3] [ref=e311]
+                - paragraph [ref=e312]: Created this course to fill the gap in Arabic education with practical, 100% actionable steps.
+            - blockquote [ref=e313]:
+              - paragraph [ref=e314]:
+                - generic [ref=e559]: “
+                - generic [ref=e560]: I
+                - generic [ref=e561]: d
+                - generic [ref=e562]: e
+                - generic [ref=e563]: c
+                - generic [ref=e564]: i
+                - generic [ref=e565]: d
+                - generic [ref=e566]: e
+                - generic [ref=e567]: d
+                - generic [ref=e568]: t
+                - generic [ref=e569]: o
+                - generic [ref=e570]: u
+                - generic [ref=e571]: "n"
+                - generic [ref=e572]: d
+                - generic [ref=e573]: e
+                - generic [ref=e574]: r
+                - generic [ref=e575]: s
+                - generic [ref=e576]: t
+                - generic [ref=e577]: a
+                - generic [ref=e578]: "n"
+                - generic [ref=e579]: d
+                - generic [ref=e580]: w
+                - generic [ref=e581]: h
+                - generic [ref=e582]: "y"
+                - generic [ref=e583]: I
+                - generic [ref=e584]: f
+                - generic [ref=e585]: a
+                - generic [ref=e586]: i
+                - generic [ref=e587]: l
+                - generic [ref=e588]: e
+                - generic [ref=e589]: d
+                - generic [ref=e590]: ","
+                - generic [ref=e591]: "n"
+                - generic [ref=e592]: o
+                - generic [ref=e593]: t
+                - generic [ref=e594]: j
+                - generic [ref=e595]: u
+                - generic [ref=e596]: s
+                - generic [ref=e597]: t
+                - generic [ref=e598]: h
+                - generic [ref=e599]: o
+                - generic [ref=e600]: w
+                - generic [ref=e601]: t
+                - generic [ref=e602]: o
+                - generic [ref=e603]: s
+                - generic [ref=e604]: u
+                - generic [ref=e605]: c
+                - generic [ref=e606]: c
+                - generic [ref=e607]: e
+                - generic [ref=e608]: e
+                - generic [ref=e609]: d
+                - generic [ref=e610]: .
+                - generic [ref=e611]: ”
+                - generic [ref=e613]: "|"
+              - generic [ref=e315]: Youssef Adel / FOUNDER & LEAD INSTRUCTOR
+      - img [ref=e316]
+      - generic [ref=e317]:
+        - generic: "06"
+        - generic [ref=e319]:
+          - generic [ref=e320]:
+            - generic [ref=e321]: "06"
+            - generic [ref=e322]: NO FABRICATION
+          - generic [ref=e323]:
+            - heading "SOME OF OUR TESTIMONIALS" [level=2] [ref=e324]:
+              - generic [ref=e615]: SOME OF OUR TESTIMONIALS
+            - generic [ref=e325]:
+              - paragraph [ref=e326]: "Verification state: local proof assets"
+              - paragraph [ref=e327]: Student screenshots are shown only as captured assets. Claims stay restrained, and identities are not inflated into invented stories.
+              - paragraph [ref=e328]: Verified student screenshots are displayed directly. We keep claims restrained and avoid invented quotes or fake metrics.
+          - generic [ref=e329]:
+            - generic [ref=e330]:
+              - img "VERIFIED STUDENT 1" [ref=e331]
+              - paragraph [ref=e333]: VERIFIED STUDENT
+            - generic [ref=e334]:
+              - img "VERIFIED STUDENT 2" [ref=e335]
+              - paragraph [ref=e337]: VERIFIED STUDENT
+            - generic [ref=e338]:
+              - img "VERIFIED STUDENT 3" [ref=e339]
+              - paragraph [ref=e341]: VERIFIED STUDENT
+      - img [ref=e342]
+      - generic [ref=e343]:
+        - generic: "07"
+        - generic [ref=e345]:
+          - generic [ref=e346]:
+            - generic [ref=e347]: "07"
+            - generic [ref=e348]: CONVERSION PATH
+          - generic [ref=e349]:
+            - generic [ref=e350]:
+              - heading "Enter the operating system." [level=2] [ref=e351]:
+                - generic [ref=e617]: Enter the operating system.
+              - paragraph [ref=e352]: "The funnel stays simple: submit your application, confirm fit, then choose a consultation time. No fake scarcity, no hidden endpoint, no fabricated proof."
+              - link "APPLY FOR THE PROGRAM LIMITED SPOTS*" [ref=e355]:
+                - /url: /apply
+                - generic [ref=e356]: APPLY FOR THE PROGRAM
+                - generic [ref=e357]: LIMITED SPOTS*
+            - generic [ref=e359]:
+              - generic [ref=e360]:
+                - paragraph [ref=e361]: Step 01
+                - heading "Application" [level=3] [ref=e362]
+              - generic [ref=e363]:
+                - paragraph [ref=e364]: Step 02
+                - heading "Schedule" [level=3] [ref=e365]
+              - generic [ref=e366]:
+                - paragraph [ref=e367]: Step 03
+                - heading "Confirmation" [level=3] [ref=e368]
+          - img [ref=e369]
+          - generic [ref=e370]:
+            - heading "FREQUENTLY ASKED QUESTIONS" [level=3] [ref=e371]
+            - generic [ref=e372]:
+              - generic [ref=e373]:
+                - button "Do I need previous experience to start?" [ref=e374]:
+                  - generic [ref=e375]: Do I need previous experience to start?
+                  - generic [ref=e376]: +
+                - paragraph [ref=e377]: No. The roadmap assumes zero experience and walks you from picking a product through running ads. If you can follow steps and put in the hours, the system covers the rest.
+              - generic [ref=e378]:
+                - button "How quickly can I expect to see results?" [ref=e379]:
+                  - generic [ref=e380]: How quickly can I expect to see results?
+                  - generic [ref=e381]: +
+                - paragraph [ref=e382]: Students who apply the strategies consistently can realistically expect to see meaningful results within 4 to 8 weeks. There are no “get rich quick” promises.
+              - generic [ref=e383]:
+                - button "Do I need a large budget to start?" [ref=e384]:
+                  - generic [ref=e385]: Do I need a large budget to start?
+                  - generic [ref=e386]: +
+                - paragraph [ref=e387]: No. The Financial & Budget Mastery module is built around limited capital — calculating ROAS, managing cash flow, and scaling without wasting money.
+              - generic [ref=e388]:
+                - button "Does this work for the Saudi Market?" [ref=e389]:
+                  - generic [ref=e390]: Does this work for the Saudi Market?
+                  - generic [ref=e391]: +
+                - paragraph [ref=e392]: Yes. There is a dedicated Saudi & Gulf module covering local suppliers, payment methods, and TikTok Ads strategy for the Gulf audience.
+              - generic [ref=e393]:
+                - button "Is the store setup really free?" [ref=e394]:
+                  - generic [ref=e395]: Is the store setup really free?
+                  - generic [ref=e396]: +
+                - paragraph [ref=e397]: Yes. Upon course completion, our team builds a professional dropshipping store for you, pre-loaded with 2 winning products. You choose either the U.S. or the Saudi market.
+              - generic [ref=e398]:
+                - button "What if I get stuck? Is there support?" [ref=e399]:
+                  - generic [ref=e400]: What if I get stuck? Is there support?
+                  - generic [ref=e401]: +
+                - paragraph [ref=e402]: We are committed to your success. If you are willing to put in the work, we will not leave you behind. We support you every step of the way until you achieve the results you are aiming for.
+      - img [ref=e403]
+      - generic [ref=e408]:
+        - generic: "08"
+        - generic [ref=e409]:
+          - generic [ref=e410]:
+            - generic [ref=e411]: "08"
+            - generic [ref=e412]: FINAL COMMAND
+          - heading "Ready to start? Apply now." [level=2] [ref=e413]:
+            - generic [ref=e619]:
+              - text: Ready to start?
+              - generic [ref=e414]: Apply now.
+          - paragraph [ref=e415]:
+            - generic [ref=e620]: Spots
+            - generic [ref=e621]: are
+            - generic [ref=e622]: limited.
+            - generic [ref=e623]: We
+            - generic [ref=e624]: only
+            - generic [ref=e625]: accept
+            - generic [ref=e626]: students
+            - generic [ref=e627]: we
+            - generic [ref=e628]: believe
+            - generic [ref=e629]: will
+            - generic [ref=e630]: put
+            - generic [ref=e631]: in
+            - generic [ref=e632]: the
+            - generic [ref=e633]: work.
+          - link "APPLY FOR THE PROGRAM LIMITED SPOTS*" [ref=e418]:
+            - /url: /apply
+            - generic [ref=e419]: APPLY FOR THE PROGRAM
+            - generic [ref=e420]: LIMITED SPOTS*
+        - img [ref=e422]
+  - contentinfo [ref=e423]:
+    - generic [ref=e424]:
+      - img "ECOMVENOM" [ref=e426]
+      - generic [ref=e427]:
+        - generic [ref=e428]:
+          - link "Privacy Policy" [ref=e429]:
+            - /url: "#"
+          - generic [ref=e430]: "|"
+          - link "Terms" [ref=e431]:
+            - /url: "#"
+        - paragraph [ref=e432]: © 2025 ECOMVENOM. All rights reserved.
+  - status [ref=e634]:
+    - generic [ref=e635]:
+      - img [ref=e637]
+      - generic [ref=e639]:
+        - text: Static route
+        - button "Hide static indicator" [ref=e640] [cursor=pointer]:
+          - img [ref=e641]
+  - alert [ref=e644]

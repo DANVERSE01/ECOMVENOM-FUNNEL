@@ -1,0 +1,54 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - generic [ref=e7]:
+      - generic [ref=e8]: "0"
+      - generic [ref=e9]: "0"
+      - generic [ref=e10]: "0"
+    - generic [ref=e12]: ECOMVENOM — SYSTEM BOOT
+  - banner [ref=e13]:
+    - generic [ref=e14]:
+      - link "ECOMVENOM home" [ref=e15]:
+        - /url: /
+        - img "ECOMVENOM" [ref=e17]
+      - link "APPLY FOR THE PROGRAM LIMITED SPOTS*" [ref=e23]:
+        - /url: /apply
+        - generic [ref=e24]: APPLY FOR THE PROGRAM
+        - generic [ref=e25]: LIMITED SPOTS*
+  - main [ref=e27]:
+    - generic [ref=e31]:
+      - generic [ref=e32]:
+        - paragraph [ref=e33]: STEP 1 OF 2
+        - heading "Apply for the program" [level=1] [ref=e34]
+        - paragraph [ref=e35]: Tell us about you. If we're a fit, you'll book a call on the next step.
+      - generic [ref=e37]:
+        - generic "Application step 1 of 3" [ref=e38]:
+          - generic [ref=e40]: Identity
+          - generic [ref=e44]: Market
+          - generic [ref=e47]: Commitment
+        - group "Step 01 / Identity" [ref=e49]:
+          - generic [ref=e50]: Step 01 / Identity
+          - generic [ref=e51]:
+            - generic [ref=e52]: Full name
+            - textbox "Full name" [ref=e53]
+          - generic [ref=e54]:
+            - generic [ref=e55]: Email
+            - textbox "Email" [ref=e56]
+          - generic [ref=e57]:
+            - generic [ref=e58]: WhatsApp number (with country code)
+            - textbox "WhatsApp number (with country code)" [ref=e59]:
+              - /placeholder: +20 1XX XXX XXXX
+        - generic [ref=e60]:
+          - paragraph [ref=e61]: By applying you agree to be contacted by an advisor.
+          - button "Continue" [ref=e63]:
+            - generic [ref=e64]: Continue
+  - contentinfo [ref=e65]:
+    - generic [ref=e66]:
+      - img "ECOMVENOM" [ref=e68]
+      - generic [ref=e69]:
+        - generic [ref=e70]:
+          - link "Privacy Policy" [ref=e71]:
+            - /url: "#"
+          - generic [ref=e72]: "|"
+          - link "Terms" [ref=e73]:
+            - /url: "#"
+        - paragraph [ref=e74]: © 2025 ECOMVENOM. All rights reserved.

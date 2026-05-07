@@ -1,0 +1,137 @@
+"use client";
+
+import Image from "next/image";
+import { useRef } from "react";
+import { useGSAP } from "@gsap/react";
+import { ScrollFilmScene } from "@/components/cinematic/ScrollFilmScene";
+import { SceneEyebrow } from "@/components/cinematic/SceneEyebrow";
+import { SceneHairline } from "@/components/cinematic/SceneHairline";
+import { SystemOverlay } from "@/components/cinematic/SystemOverlay";
+import { HIGGSFIELD_STILLS } from "@/lib/frameManifest";
+import { gsap, SplitText } from "@/lib/gsap";
+import { useReducedMotion } from "@/lib/useReducedMotion";
+
+const signals = ["Random tutorials", "Random products", "Random ad spend"];
+
+export function Scene01Problem() {
+  const sectionRef = useRef<HTMLDivElement | null>(null);
+  const headlineRef = useRef<HTMLHeadingElement | null>(null);
+  const bodyRef = useRef<HTMLParagraphElement | null>(null);
+  const reduced = useReducedMotion();
+
+  useGSAP(
+    () => {
+      const section = sectionRef.current;
+      const headline = headlineRef.current;
+      const body = bodyRef.current;
+      if (!section) return;
+
+      const items = gsap.utils.toArray<HTMLElement>(".chaos-signal", section);
+      const badges = gsap.utils.toArray<HTMLElement>(".badge-uncontrolled", section);
+
+      if (reduced) {
+        gsap.set(items, { opacity: 1, x: 0 });
+        if (headline) gsap.set(headline, { opacity: 1, yPercent: 0 });
+        return;
+      }
+
+      // Headline SplitText mask
+      if (headline) {
+        const headlineSplit = SplitText.create(headline, {
+          type: "lines",
+          linesClass: "split-line",
+          mask: "lines",
+        });
+        gsap.set(headlineSplit.lines, { yPercent: 110 });
+        gsap.to(headlineSplit.lines, {
+          yPercent: 0,
+          duration: 0.85,
+          stagger: 0.1,
+          ease: "filmDrop",
+          scrollTrigger: { trigger: headline, start: "top 72%", once: true },
+        });
+      }
+
+      // Body text word split
+      if (body) {
+        const bodySplit = SplitText.create(body, { type: "words" });
+        gsap.from(bodySplit.words, {
+          opacity: 0,
+          duration: 0.4,
+          stagger: 0.05,
+          ease: "venom",
+          scrollTrigger: { trigger: body, start: "top 80%", once: true },
+        });
+      }
+
+      // Signal cards entrance
+      gsap.from(items, {
+        opacity: 0,
+        x: -32,
+        rotate: (index) => (index % 2 === 0 ? -1 : 1),
+        duration: 0.7,
+        stagger: 0.12,
+        ease: "venom",
+        scrollTrigger: {
+          trigger: section,
+          start: "top 75%",
+          once: true,
+          onEnter: () => {
+            badges.forEach((badge) => {
+              badge.classList.remove("badge-glitch");
+              void badge.offsetWidth;
+              badge.classList.add("badge-glitch");
+            });
+          },
+        },
+      });
+      gsap.to(items, {
+        rotate: 0,
+        duration: 0.55,
+        stagger: 0.08,
+        ease: "venom",
+        scrollTrigger: { trigger: section, start: "top 70%", once: true },
+      });
+    },
+    { scope: sectionRef, dependencies: [reduced], revertOnUpdate: true },
+  );
+
+  return (
+    <ScrollFilmScene id="chaos-input" scene="01" title="THE PROBLEM" className="min-h-screen py-28">
+      <span className="scene-ghost bottom-8 right-8">01</span>
+      <div className="absolute inset-0">
+        <Image src={HIGGSFIELD_STILLS.cartChaos} alt="" fill sizes="100vw" className="object-cover opacity-[0.35]" />
+        <SystemOverlay />
+      </div>
+      <div ref={sectionRef} className="relative z-10 mx-auto grid min-h-[70vh] max-w-[1200px] items-center gap-10 px-5 sm:px-8 lg:grid-cols-[0.8fr_1.2fr] lg:px-12">
+        <div>
+          <SceneEyebrow label="THE PROBLEM" />
+          <h2
+            ref={headlineRef}
+            className="mt-6 font-display text-[clamp(3rem,7vw,7rem)] uppercase leading-[0.86] tracking-tightest"
+          >
+            Random inputs create expensive chaos.
+          </h2>
+        </div>
+        <div className="space-y-4">
+          {signals.map((signal, index) => (
+            <div
+              key={signal}
+              className="chaos-signal border border-l-2 border-white/10 border-l-alert/50 bg-black/55 p-5 backdrop-blur-sm"
+            >
+              <div className="flex items-center justify-between gap-4 font-mono text-[10px] uppercase tracking-[0.2em] text-ash">
+                <span>Signal {String(index + 1).padStart(2, "0")}</span>
+                <span className="badge-uncontrolled text-venom">Uncontrolled</span>
+              </div>
+              <p className="mt-3 font-display text-2xl uppercase text-bone">{signal}</p>
+            </div>
+          ))}
+          <SceneHairline />
+          <p ref={bodyRef} className="max-w-xl text-base leading-relaxed text-ash">
+            Most people who try dropshipping run on guesswork. The scroll-film turns that noise into an operating path.
+          </p>
+        </div>
+      </div>
+    </ScrollFilmScene>
+  );
+}

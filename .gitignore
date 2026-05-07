@@ -1,0 +1,49 @@
+﻿# Dependencies
+node_modules/
+
+# Next / build outputs
+.next/
+out/
+dist/
+build/
+
+# Platform outputs
+.vercel/
+.netlify/
+
+# Env / secrets
+.env
+.env.local
+.env.*.local
+
+# OS junk
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Heavy design / archive / video sources
+*.zip
+*.rar
+*.7z
+*.tar
+*.gz
+*.psd
+*.ai
+*.aep
+*.prproj
+*.blend
+*.c4d
+*.mov
+*.avi
+*.mkv
+
+# Local agent/input/reference folders
+00_AGENT_READ_FIRST/
+01_INPUT/

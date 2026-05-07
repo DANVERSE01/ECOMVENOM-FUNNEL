@@ -1,0 +1,145 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - generic [ref=e7]:
+      - generic [ref=e8]: "0"
+      - generic [ref=e9]: "0"
+      - generic [ref=e10]: "0"
+    - generic [ref=e12]: ECOMVENOM — SYSTEM BOOT
+  - banner [ref=e13]:
+    - generic [ref=e14]:
+      - link "ECOMVENOM home" [ref=e15]:
+        - /url: /
+        - img "ECOMVENOM" [ref=e17]
+      - link "APPLY FOR THE PROGRAM LIMITED SPOTS*" [ref=e23]:
+        - /url: /apply
+        - generic [ref=e24]: APPLY FOR THE PROGRAM
+        - generic [ref=e25]: LIMITED SPOTS*
+  - main [ref=e27]:
+    - generic [ref=e31]:
+      - paragraph [ref=e32]: "FINAL STEP:"
+      - heading "Required to Complete Your Application" [level=1] [ref=e33]
+      - paragraph [ref=e34]: Congratulations on taking the first step! To finalize your application, please select a time below for your FREE consultation call.
+      - timer [ref=e36]:
+        - generic [ref=e38]: 0 hours 09 minutes 44 seconds
+      - paragraph [ref=e39]: Choose your free consultation time
+      - generic [ref=e41]:
+        - generic [ref=e42]:
+          - generic [ref=e43]:
+            - paragraph [ref=e44]: Free Discovery Call · 20 min
+            - paragraph [ref=e45]: Select Date & Time
+          - generic [ref=e46]:
+            - combobox "Month" [ref=e47]:
+              - option "January"
+              - option "February"
+              - option "March"
+              - option "April"
+              - option "May" [selected]
+              - option "June"
+              - option "July"
+              - option "August"
+              - option "September"
+              - option "October"
+              - option "November"
+              - option "December"
+            - combobox "Year" [ref=e48]:
+              - option "2025"
+              - option "2026" [selected]
+              - option "2027"
+              - option "2028"
+        - generic [ref=e49]:
+          - generic [ref=e50]: Sun
+          - generic [ref=e51]: Mon
+          - generic [ref=e52]: Tue
+          - generic [ref=e53]: Wed
+          - generic [ref=e54]: Thu
+          - generic [ref=e55]: Fri
+          - generic [ref=e56]: Sat
+          - button [disabled]
+          - button [disabled]
+          - button [disabled]
+          - button [disabled]
+          - button [disabled]
+          - button "1" [disabled] [ref=e57]
+          - button "2" [disabled] [ref=e58]
+          - button "3" [disabled] [ref=e59]
+          - button "4" [disabled] [ref=e60]
+          - button "5" [disabled] [ref=e61]
+          - button "6" [ref=e62]
+          - button "7" [ref=e63]
+          - button "8" [ref=e64]
+          - button "9" [ref=e65]
+          - button "10" [ref=e66]
+          - button "11" [ref=e67]
+          - button "12" [ref=e68]
+          - button "13" [ref=e69]
+          - button "14" [ref=e70]
+          - button "15" [ref=e71]
+          - button "16" [ref=e72]
+          - button "17" [ref=e73]
+          - button "18" [ref=e74]
+          - button "19" [ref=e75]
+          - button "20" [ref=e76]
+          - button "21" [ref=e77]
+          - button "22" [ref=e78]
+          - button "23" [ref=e79]
+          - button "24" [ref=e80]
+          - button "25" [ref=e81]
+          - button "26" [ref=e82]
+          - button "27" [ref=e83]
+          - button "28" [ref=e84]
+          - button "29" [ref=e85]
+          - button "30" [ref=e86]
+          - button "31" [ref=e87]
+        - generic [ref=e88]:
+          - paragraph [ref=e89]: "Time zone: —"
+          - generic [ref=e90]:
+            - button "02:00 AM" [ref=e91]
+            - button "02:20 AM" [ref=e92]
+            - button "02:40 AM" [ref=e93]
+            - button "03:00 AM" [ref=e94]
+            - button "03:20 AM" [ref=e95]
+            - button "03:40 AM" [ref=e96]
+            - button "04:00 AM" [ref=e97]
+            - button "04:20 AM" [ref=e98]
+            - button "04:40 AM" [ref=e99]
+            - button "05:00 AM" [ref=e100]
+            - button "05:20 AM" [ref=e101]
+            - button "05:40 AM" [ref=e102]
+            - button "06:00 AM" [ref=e103]
+            - button "06:20 AM" [ref=e104]
+            - button "06:40 AM" [ref=e105]
+            - button "07:00 AM" [ref=e106]
+            - button "07:20 AM" [ref=e107]
+            - button "07:40 AM" [ref=e108]
+            - button "08:00 AM" [ref=e109]
+            - button "08:20 AM" [ref=e110]
+            - button "08:40 AM" [ref=e111]
+            - button "09:00 AM" [ref=e112]
+            - button "09:20 AM" [ref=e113]
+            - button "09:40 AM" [ref=e114]
+            - button "10:00 AM" [ref=e115]
+            - button "10:20 AM" [ref=e116]
+            - button "10:40 AM" [ref=e117]
+            - button "11:00 AM" [ref=e118]
+            - button "11:20 AM" [ref=e119]
+            - button "11:40 AM" [ref=e120]
+            - button "12:00 PM" [ref=e121]
+            - button "12:20 PM" [ref=e122]
+            - button "12:40 PM" [ref=e123]
+        - button "Confirm booking" [disabled] [ref=e125]:
+          - generic [ref=e126]: Confirm booking
+        - paragraph [ref=e127]:
+          - text: Calendar integration not yet configured. Set
+          - code [ref=e128]: NEXT_PUBLIC_SCHEDULE_PROVIDER_URL
+          - text: before launch.
+  - contentinfo [ref=e129]:
+    - generic [ref=e130]:
+      - img "ECOMVENOM" [ref=e132]
+      - generic [ref=e133]:
+        - generic [ref=e134]:
+          - link "Privacy Policy" [ref=e135]:
+            - /url: "#"
+          - generic [ref=e136]: "|"
+          - link "Terms" [ref=e137]:
+            - /url: "#"
+        - paragraph [ref=e138]: © 2025 ECOMVENOM. All rights reserved.

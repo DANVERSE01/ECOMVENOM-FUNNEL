@@ -1,0 +1,82 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - generic [ref=e3]: "000"
+    - text: ECOMVENOM
+  - banner [ref=e5]:
+    - generic [ref=e6]:
+      - link "ECOMVENOM home":
+        - /url: /
+        - img "ECOMVENOM" [ref=e7] [cursor=pointer]
+      - generic [ref=e8]:
+        - link "APPLY FOR THE PROGRAMLIMITED SPOTS*" [ref=e11] [cursor=pointer]:
+          - /url: /apply
+        - link "Apply" [ref=e12] [cursor=pointer]:
+          - /url: /apply
+  - main [ref=e13]:
+    - generic [ref=e15]:
+      - generic [ref=e16]:
+        - paragraph [ref=e17]: STEP 1 OF 2
+        - heading "Apply for the program" [level=1] [ref=e18]
+        - paragraph [ref=e19]: Tell us about you. If we're a fit, you'll book a call on the next step.
+      - generic [ref=e21]:
+        - generic "Application step 1 of 3" [ref=e22]:
+          - generic [ref=e23]: Identity
+          - generic [ref=e24]: Market
+          - generic [ref=e25]: Commitment
+        - group "Step 01 / Identity" [ref=e26]:
+          - generic [ref=e27]: Step 01 / Identity
+          - generic [ref=e28]:
+            - text: Full name
+            - textbox "Full name" [ref=e29]
+          - generic [ref=e30]:
+            - text: Email
+            - textbox "Email" [ref=e31]
+          - generic [ref=e32]:
+            - text: WhatsApp number (with country code)
+            - textbox "WhatsApp number (with country code)" [ref=e33]:
+              - /placeholder: +20 1XX XXX XXXX
+        - group "Step 02 / Market" [ref=e34]:
+          - generic [ref=e35]: Step 02 / Market
+          - generic [ref=e36]:
+            - text: Experience level
+            - combobox "Experience level" [ref=e37]:
+              - option "Select one" [disabled] [selected]
+              - option "Zero experience"
+              - option "Tried before"
+              - option "Already selling"
+          - generic [ref=e38]:
+            - text: Target market
+            - combobox "Target market" [ref=e39]:
+              - option "Select one" [disabled] [selected]
+              - option "U.S. Market"
+              - option "Saudi/Gulf Market"
+              - option "Both markets"
+          - generic [ref=e40]:
+            - text: Monthly starting budget
+            - combobox "Monthly starting budget" [ref=e41]:
+              - option "Select one" [disabled] [selected]
+              - option "Limited budget"
+              - option "Moderate budget"
+              - option "Ready to invest"
+        - group "Step 03 / Commitment" [ref=e42]:
+          - generic [ref=e43]: Step 03 / Commitment
+          - generic [ref=e44]:
+            - text: Biggest dropshipping challenge?
+            - textbox "Biggest dropshipping challenge?" [ref=e45]
+          - generic [ref=e47]:
+            - checkbox "I understand this is a business system and I am ready to follow the roadmap." [ref=e48]
+            - text: I understand this is a business system and I am ready to follow the roadmap.
+        - generic [ref=e49]:
+          - paragraph [ref=e50]: By applying you agree to be contacted by an advisor.
+          - button "Continue" [ref=e52]
+  - contentinfo [ref=e53]:
+    - generic [ref=e54]:
+      - img "ECOMVENOM" [ref=e55]
+      - generic [ref=e56]:
+        - generic [ref=e57]:
+          - link "Privacy Policy" [ref=e58] [cursor=pointer]:
+            - /url: "#"
+          - text: "|"
+          - link "Terms" [ref=e59] [cursor=pointer]:
+            - /url: "#"
+        - paragraph [ref=e60]: © 2025 ECOMVENOM. All rights reserved.

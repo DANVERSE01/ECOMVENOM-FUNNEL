@@ -1,0 +1,139 @@
+- generic [active] [ref=e1]:
+  - main:
+    - navigation [ref=e3]:
+      - generic [ref=e4]:
+        - generic [ref=e5]:
+          - heading "WACUS" [level=1] [ref=e6]:
+            - link "WACUS" [ref=e7] [cursor=pointer]:
+              - /url: /
+              - img "WACUS" [ref=e8]
+          - generic:
+            - generic:
+              - link "Work" [ref=e9] [cursor=pointer]:
+                - /url: /en/work
+              - link "About" [ref=e10] [cursor=pointer]:
+                - /url: /en/about
+              - link "Services" [ref=e11] [cursor=pointer]:
+                - /url: /en/services
+              - link "Portfolio" [ref=e12] [cursor=pointer]:
+                - /url: /en/portfolio
+        - generic [ref=e13]:
+          - generic [ref=e14]:
+            - button "EN" [ref=e15] [cursor=pointer]
+            - link "KO" [ref=e16] [cursor=pointer]:
+              - /url: https://wacuskorea.com
+          - link "CONTACT" [ref=e17] [cursor=pointer]:
+            - /url: /en/contact
+            - generic [ref=e18]: CONTACT
+    - generic [ref=e20]:
+      - generic [ref=e22]:
+        - generic [ref=e29]:
+          - generic "ABOUT" [ref=e30]:
+            - generic [ref=e31]: A
+            - generic [ref=e32]: B
+            - generic [ref=e33]: O
+            - generic [ref=e34]: U
+            - generic [ref=e35]: T
+          - paragraph [ref=e36]:
+            - text: By integrating a design-led approach with cutting-edge technology from Next.js to AI-driven solutions. We construct robust, scalable platforms that bridge the gap between global brands and their users.
+            - text: At WACUS Digital Agency, we don't just build websites, We engineer digital legacies that empower businesses to thrive in an ever-evolving landscape.
+        - link "Our Services Our Services" [ref=e37] [cursor=pointer]:
+          - /url: /en/services
+          - generic [ref=e38]:
+            - generic [ref=e39]: Our Services
+            - generic [ref=e40]: Our Services
+      - generic [ref=e41]:
+        - generic [ref=e42]:
+          - generic [ref=e43]:
+            - generic "OUR TEAM" [ref=e44]:
+              - generic [ref=e45]: O
+              - generic [ref=e46]: U
+              - generic [ref=e47]: R
+              - generic [ref=e48]: T
+              - generic [ref=e49]: E
+              - generic [ref=e50]: A
+              - generic [ref=e51]: M
+            - generic "&" [ref=e52]:
+              - generic [ref=e53]: "&"
+            - generic "LEADERSHIP" [ref=e54]:
+              - generic [ref=e55]: L
+              - generic [ref=e56]: E
+              - generic [ref=e57]: A
+              - generic [ref=e58]: D
+              - generic [ref=e59]: E
+              - generic [ref=e60]: R
+              - generic [ref=e61]: S
+              - generic [ref=e62]: H
+              - generic [ref=e63]: I
+              - generic [ref=e64]: P
+          - paragraph [ref=e65]:
+            - text: Our journey began with a relentless pursuit of digital craftsmanship.
+            - text: Today, WACUS Digital Agency has evolved into a premier team of designers, developers, and technical strategists dedicated to building the digital foundations of tomorrow. We specialize in high-performance web architecture, transforming complex business logic into seamless, intuitive user experiences.
+        - generic [ref=e66]:
+          - generic [ref=e67]:
+            - img "CEO" [ref=e69]
+            - generic [ref=e70]: CEO
+          - generic [ref=e71]:
+            - img "Director" [ref=e73]
+            - generic [ref=e74]: Director
+          - generic [ref=e75]:
+            - img "Associate Director" [ref=e77]
+            - generic [ref=e78]: Associate Director
+          - generic [ref=e79]:
+            - img "Head of Engineering" [ref=e81]
+            - generic [ref=e82]: Head of Engineering
+          - generic [ref=e83]:
+            - img "Head of Design" [ref=e85]
+            - generic [ref=e86]: Head of Design
+          - generic [ref=e87]:
+            - img "Lead Web Publisher" [ref=e89]
+            - generic [ref=e90]: Lead Web Publisher
+      - generic [ref=e92]:
+        - generic [ref=e93]:
+          - generic [ref=e94]:
+            - heading "Work with us." [level=2] [ref=e95]
+            - generic [ref=e96]:
+              - generic [ref=e97]:
+                - generic [ref=e99]: Email
+                - textbox "Email" [ref=e102]:
+                  - /placeholder: example@yourdomain.com
+              - generic [ref=e103]:
+                - generic [ref=e105]: Company Name
+                - textbox "Company Name" [ref=e108]
+              - generic [ref=e109]:
+                - generic [ref=e111]: Contact Number
+                - textbox "Contact Number" [ref=e114]:
+                  - /placeholder: +1 (000) 000-0000
+              - button "SUBMIT" [ref=e115] [cursor=pointer]
+          - generic [ref=e116]:
+            - list [ref=e118]:
+              - listitem [ref=e119]:
+                - link "Work" [ref=e120] [cursor=pointer]:
+                  - /url: /work
+              - listitem [ref=e121]:
+                - link "About" [ref=e122] [cursor=pointer]:
+                  - /url: /about
+              - listitem [ref=e123]:
+                - link "Services" [ref=e124] [cursor=pointer]:
+                  - /url: /services
+              - listitem [ref=e125]:
+                - link "Portfolio" [ref=e126] [cursor=pointer]:
+                  - /url: /portfolio
+              - listitem [ref=e127]:
+                - link "CONTACT" [ref=e128] [cursor=pointer]:
+                  - /url: /contact
+            - generic [ref=e129]:
+              - generic [ref=e130]: Social
+              - list [ref=e131]:
+                - listitem [ref=e132]:
+                  - link "LinkedIn" [ref=e133] [cursor=pointer]:
+                    - /url: https://www.linkedin.com/company/wacusglobal/
+                - listitem [ref=e134]:
+                  - link "Instagram" [ref=e135] [cursor=pointer]:
+                    - /url: "javascript:throw new Error('React has blocked a javascript: URL as a security precaution.')"
+        - generic [ref=e136]:
+          - generic [ref=e137]: Copyright © 2026 WACUS Global. All rights reserved.
+          - generic [ref=e138]:
+            - generic [ref=e139]: Privacy Policy
+            - generic [ref=e140]: Terms of Service
+  - alert [ref=e21]

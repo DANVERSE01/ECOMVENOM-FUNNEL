@@ -1,0 +1,50 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e14]:
+    - generic [ref=e15]:
+      - link "ECOMVENOM home" [ref=e16]:
+        - /url: /
+        - img "ECOMVENOM" [ref=e18]
+      - generic [ref=e21]: CONFIRMED
+      - link "APPLY FOR THE PROGRAM LIMITED SPOTS*" [ref=e25]:
+        - /url: /apply
+        - generic [ref=e26]: APPLY FOR THE PROGRAM
+        - generic [ref=e27]: LIMITED SPOTS*
+  - main [ref=e29]:
+    - generic [ref=e30]: DO NOT CLOSE THIS PAGE
+    - generic [ref=e35]:
+      - generic [ref=e36]:
+        - heading "CONFIRMED!" [level=1] [ref=e37]
+        - paragraph [ref=e38]: Your call has been booked
+        - heading "IMPORTANT PRE-CALL STEPS:" [level=2] [ref=e39]
+      - list [ref=e41]:
+        - listitem [ref=e42]:
+          - 'heading "Step 1: Watch This Video" [level=2] [ref=e43]'
+          - generic [ref=e46]: Your browser cannot play this video. Please refresh, or check your WhatsApp for the call details.
+        - listitem [ref=e47]:
+          - 'heading "Step 2: Check Your WhatsApp" [level=2] [ref=e48]'
+          - paragraph [ref=e49]: We are going to send you the call details in WhatsApp. You will get reminders before the call then you will get a link for the call.
+        - listitem [ref=e50]:
+          - 'heading "Step 3: Punctuality" [level=2] [ref=e51]'
+          - paragraph [ref=e52]: Join your call early and in a quiet environment. Your advisor will give you their undivided attention, and we expect the same from you.
+        - listitem [ref=e53]:
+          - 'heading "Step 4: Questions" [level=2] [ref=e54]'
+          - paragraph [ref=e55]: We want to answer any question on your mind to clear the fog and make everything crystal clear.
+  - contentinfo [ref=e56]:
+    - generic [ref=e57]:
+      - img "ECOMVENOM" [ref=e59]
+      - generic [ref=e60]:
+        - generic [ref=e61]:
+          - link "Privacy Policy" [ref=e62]:
+            - /url: "#"
+          - generic [ref=e63]: "|"
+          - link "Terms" [ref=e64]:
+            - /url: "#"
+        - paragraph [ref=e65]: © 2025 ECOMVENOM. All rights reserved.
+  - status [ref=e67]:
+    - generic [ref=e68]:
+      - img [ref=e70]
+      - generic [ref=e72]:
+        - text: Static route
+        - button "Hide static indicator" [ref=e73] [cursor=pointer]:
+          - img [ref=e74]
+  - alert [ref=e66]
