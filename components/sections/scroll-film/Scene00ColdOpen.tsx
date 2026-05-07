@@ -21,8 +21,13 @@ import { gsap } from "@/lib/gsap";
 import { scrambleText } from "@/lib/motion";
 import { useReducedMotion } from "@/lib/useReducedMotion";
 
-const HERO_VSL_SRC = "/media/confirmation-embed.mp4";
-const HERO_VSL_POSTER = "/posters/confirmation-poster.jpg";
+const ORIGINAL_HERO_VIDEO_SRC = "/media/hero-vsl.mp4";
+const HERO_MEDIA = {
+  videoSrc: ORIGINAL_HERO_VIDEO_SRC,
+  posterSrc: "/media/hero-vsl-poster.jpg",
+  orientation: "landscape",
+  purpose: "homepage-hero-vsl",
+} as const;
 const HERO_VSL_SESSION_KEY = "ecomvenom.heroVslIntro.seen";
 
 type OverlayPhase = "opening" | "closing";
@@ -168,7 +173,7 @@ export function Scene00ColdOpen() {
   }, [reduced]);
 
   useEffect(() => {
-    if (reduced || overlayOpen) return;
+    if (!HERO_MEDIA.videoSrc || reduced || overlayOpen) return;
 
     const mobileQuery = window.matchMedia("(max-width: 767px)");
     if (mobileQuery.matches) return;
@@ -197,7 +202,7 @@ export function Scene00ColdOpen() {
   }, [overlayOpen, reduced]);
 
   useEffect(() => {
-    if (!overlayOpen) return;
+    if (!HERO_MEDIA.videoSrc || !overlayOpen) return;
 
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
@@ -244,6 +249,8 @@ export function Scene00ColdOpen() {
   }, []);
 
   const openManualVsl = useCallback(() => {
+    if (!HERO_MEDIA.videoSrc) return;
+
     try {
       window.sessionStorage.setItem(HERO_VSL_SESSION_KEY, "1");
     } catch {
@@ -371,9 +378,9 @@ export function Scene00ColdOpen() {
           </div>
 
           <div ref={vslCardRef} className="hero-vsl-stage justify-self-center lg:justify-self-end">
-            <ResponsiveMediaFrame className="hero-vsl-card aspect-[16/10] w-[min(78vw,18.5rem)] bg-ink-3 p-2 sm:aspect-[9/14] sm:w-[min(58vw,21rem)] lg:w-full">
+            <ResponsiveMediaFrame className="hero-vsl-card aspect-video w-[min(82vw,24rem)] bg-ink-3 p-2 sm:w-[min(62vw,28rem)] lg:w-full">
               <Image
-                src={HERO_VSL_POSTER}
+                src={HERO_MEDIA.posterSrc}
                 alt="Youssef Adel founder VSL poster"
                 fill
                 sizes="(min-width: 1024px) 430px, 78vw"
@@ -383,27 +390,34 @@ export function Scene00ColdOpen() {
               <div className="hero-vsl-card__depth" aria-hidden />
               <div className="absolute left-4 top-4 z-30 border border-white/10 bg-black/55 px-3 py-2 backdrop-blur-md">
                 <p className="font-heading text-[10px] uppercase tracking-normal text-venom">Founder VSL</p>
-                <p className="mt-1 font-mono text-[10px] text-ash">03:21</p>
+                <p className="mt-1 font-mono text-[10px] text-ash">Preview</p>
               </div>
-              <button
-                type="button"
-                onClick={openManualVsl}
-                aria-label="Play founder VSL"
-                className="hero-vsl-play absolute bottom-4 left-4 right-4 z-30"
-              >
-                <span>Watch founder VSL</span>
-                <span className="hero-vsl-play__icon" aria-hidden>
-                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                    <path d="M4.5 3.25L10 7L4.5 10.75V3.25Z" fill="currentColor" />
-                  </svg>
-                </span>
-              </button>
+              {HERO_MEDIA.videoSrc ? (
+                <button
+                  type="button"
+                  onClick={openManualVsl}
+                  aria-label="Play founder VSL"
+                  className="hero-vsl-play absolute bottom-4 left-4 right-4 z-30"
+                >
+                  <span>Watch founder VSL</span>
+                  <span className="hero-vsl-play__icon" aria-hidden>
+                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                      <path d="M4.5 3.25L10 7L4.5 10.75V3.25Z" fill="currentColor" />
+                    </svg>
+                  </span>
+                </button>
+              ) : (
+                <div className="hero-vsl-static-label absolute bottom-4 left-4 right-4 z-30">
+                  <span>Founder VSL preview</span>
+                  <span>Original frame</span>
+                </div>
+              )}
             </ResponsiveMediaFrame>
           </div>
         </div>
       </div>
 
-      {overlayOpen && (
+      {overlayOpen && HERO_MEDIA.videoSrc && (
         <div
           role="dialog"
           aria-modal="true"
@@ -432,11 +446,11 @@ export function Scene00ColdOpen() {
               muted={videoMuted}
               playsInline
               preload="auto"
-              poster={HERO_VSL_POSTER}
+              poster={HERO_MEDIA.posterSrc}
               className="hero-vsl-overlay__video"
               onEnded={closeOverlay}
             >
-              <source src={HERO_VSL_SRC} type="video/mp4" />
+              <source src={HERO_MEDIA.videoSrc} type="video/mp4" />
             </video>
 
             {playbackState === "blocked" && (
