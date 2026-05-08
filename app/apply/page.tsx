@@ -22,7 +22,7 @@ export default function ApplyPage() {
           <p className="font-heading text-[10px] uppercase tracking-caps text-venom">
             STEP 1 OF 2
           </p>
-          <h1 className="mt-4 font-display text-[clamp(3rem,7vw,6.5rem)] uppercase leading-[0.86] tracking-tightest">
+          <h1 className="mt-4 font-display text-[clamp(3rem,7vw,6.5rem)] uppercase leading-[1.02] tracking-tightest">
             Apply for the program
           </h1>
           <p className="mt-5 text-base leading-relaxed text-ash sm:text-lg">

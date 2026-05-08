@@ -25,7 +25,7 @@ export default function SchedulePage() {
         <p className="font-heading text-[10px] uppercase tracking-caps text-venom">
           {schedule.eyebrow}
         </p>
-        <h1 className="mt-4 font-display text-[clamp(3rem,7vw,6rem)] uppercase leading-[0.88] tracking-tightest">
+        <h1 className="mt-4 font-display text-[clamp(3rem,7vw,6rem)] uppercase leading-[1.02] tracking-tightest">
           {schedule.heading}
         </h1>
         <p className="mt-3 text-ash text-base sm:text-lg">{schedule.sub}</p>

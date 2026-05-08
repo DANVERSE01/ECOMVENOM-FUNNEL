@@ -306,7 +306,7 @@ export function Scene00ColdOpen() {
             </p>
             <h1
               ref={headlineRef}
-              className="mt-4 max-w-[62rem] font-display text-[2.35rem] uppercase leading-[0.86] tracking-normal text-bone sm:text-[3.05rem] lg:text-[3.05rem] xl:text-[3.75rem] 2xl:text-[4.2rem]"
+              className="mt-4 max-w-[62rem] font-display text-[2.35rem] uppercase leading-[1.02] tracking-normal text-bone sm:text-[3.05rem] lg:text-[3.05rem] xl:text-[3.75rem] 2xl:text-[4.2rem]"
             >
               {HERO_HEADLINE_LINES.map((line, lineIndex) => (
                 <span key={lineIndex} data-headline-line className="block overflow-hidden">

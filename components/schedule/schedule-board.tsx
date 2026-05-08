@@ -51,7 +51,7 @@ export function ScheduleBoard() {
     >
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
-          <p className="text-xs tracking-[0.2em] text-ash">
+          <p className="text-xs tracking-[0.12em] text-ash">
             {schedule.card.name} · {schedule.card.duration}
           </p>
           <p className="font-display text-lg sm:text-xl mt-1 text-bone uppercase tracking-tight">
@@ -128,7 +128,7 @@ export function ScheduleBoard() {
       </div>
 
       <div className="mt-6">
-        <p className="text-xs tracking-[0.2em] text-ash">
+        <p className="text-xs tracking-[0.12em] text-ash">
           Time zone: <span className="text-bone">{tz || "—"}</span>
         </p>
         <p className="mt-2 font-mono text-[10px] uppercase tracking-[0.16em] text-steel">

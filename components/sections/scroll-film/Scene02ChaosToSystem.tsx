@@ -190,7 +190,7 @@ export function Scene02ChaosToSystem() {
             <SceneEyebrow label="THE SYSTEM" />
             <h2
               ref={headlineRef}
-              className="mt-5 max-w-4xl font-display text-[clamp(2.9rem,6vw,6.6rem)] uppercase leading-[0.88] tracking-tightest"
+              className="mt-5 max-w-4xl font-display text-[clamp(2.9rem,6vw,6.6rem)] uppercase leading-[1.02] tracking-tightest"
             >
               {chaosToSystem.headline}
             </h2>

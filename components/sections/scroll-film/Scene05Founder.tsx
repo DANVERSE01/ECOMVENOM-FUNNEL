@@ -112,7 +112,7 @@ export function Scene05Founder() {
 
         <div className="self-center">
           <SceneEyebrow label="THE COACH" />
-          <h2 className="mt-5 font-display text-[clamp(3rem,6vw,6rem)] uppercase leading-[0.88] tracking-tightest">
+          <h2 className="mt-5 font-display text-[clamp(3rem,6vw,6rem)] uppercase leading-[1.02] tracking-tightest">
             {founder.heading}
           </h2>
           {founder.paragraphs.map((paragraph) => (

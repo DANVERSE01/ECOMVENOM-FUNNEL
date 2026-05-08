@@ -46,7 +46,7 @@ export function CountUpNumber({
   }, [duration, inView, reduced, value]);
 
   return (
-    <span ref={ref} className={className}>
+    <span ref={ref} className={className} style={{ fontVariantNumeric: "tabular-nums" }}>
       {String(display).padStart(pad, "0")}
     </span>
   );

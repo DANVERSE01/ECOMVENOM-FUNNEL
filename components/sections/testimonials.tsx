@@ -7,7 +7,7 @@ export function Testimonials() {
     <section className="py-20 sm:py-28 bg-ink-2/40 border-y border-white/5">
       <Container>
         <Reveal className="max-w-3xl">
-          <h2 className="font-display text-3xl sm:text-5xl uppercase leading-tight tracking-tightest">
+          <h2 className="font-display text-3xl sm:text-5xl uppercase leading-[1.1] tracking-tightest">
             {testimonials.heading}
           </h2>
           <div className="mt-8 rounded-xl border border-dashed border-white/15 bg-ink-3/40 p-8">

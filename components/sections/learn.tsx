@@ -11,7 +11,7 @@ export function Learn() {
       <Container>
         <Reveal className="max-w-3xl">
           <SectionEyebrow>WHAT YOU GET</SectionEyebrow>
-          <h2 className="font-display text-3xl sm:text-5xl uppercase leading-tight tracking-tightest mt-3">
+          <h2 className="font-display text-3xl sm:text-5xl uppercase leading-[1.1] tracking-tightest mt-3">
             {learn.heading}
           </h2>
           <p className="mt-4 text-ash text-base sm:text-lg">{learn.sub}</p>

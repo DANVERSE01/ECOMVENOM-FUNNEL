@@ -108,7 +108,7 @@ export function Founder() {
 
           <Reveal className="order-1 lg:order-2">
             <SectionEyebrow>{founder.eyebrow}</SectionEyebrow>
-            <h2 className="font-display text-3xl sm:text-5xl uppercase tracking-tightest leading-tight mt-3">
+            <h2 className="font-display text-3xl sm:text-5xl uppercase tracking-tightest leading-[1.1] mt-3">
               {founder.heading}
             </h2>
             {founder.paragraphs.map((p, i) => (
@@ -143,7 +143,7 @@ export function Founder() {
                   |
                 </span>
               </p>
-              <footer className="mt-2 text-xs tracking-[0.2em] text-ash">
+              <footer className="mt-2 text-xs tracking-[0.12em] text-ash">
                 {founder.signature} — {founder.signatureRole}
               </footer>
             </blockquote>

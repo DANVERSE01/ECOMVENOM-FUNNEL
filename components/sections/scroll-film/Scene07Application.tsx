@@ -126,7 +126,7 @@ export function Scene07Application() {
           <div>
             <h2
               ref={headlineRef}
-              className="font-display text-[clamp(3rem,6vw,6rem)] uppercase leading-[0.88] tracking-tightest"
+              className="font-display text-[clamp(3rem,6vw,6rem)] uppercase leading-[1.02] tracking-tightest"
             >
               Enter the operating system.
             </h2>

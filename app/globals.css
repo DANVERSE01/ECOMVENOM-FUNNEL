@@ -41,6 +41,13 @@
       linear-gradient(115deg, rgba(184,255,46,0.032), transparent 22%, rgba(90,154,173,0.028) 58%, transparent 82%),
       linear-gradient(180deg, #030403 0%, #070809 42%, #010101 100%);
   }
+  h1, h2, h3 {
+    font-feature-settings: "kern" 1, "liga" 1;
+  }
+  p {
+    max-width: 65ch;
+    line-height: 1.68;
+  }
   /* Film grain — lightweight, no SVG filter. */
   body::before {
     content: ""; position: fixed; inset: 0; z-index: 9998; pointer-events: none;
@@ -1162,7 +1169,8 @@
   .metric-number {
     font-family: var(--font-syne), Impact, ui-sans-serif;
     font-weight: 800;
-    letter-spacing: -0.04em;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.02em;
     line-height: 0.9;
     background: linear-gradient(180deg, var(--c-bone) 20%, var(--c-ash) 100%);
     -webkit-background-clip: text;

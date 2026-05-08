@@ -110,7 +110,7 @@ export function ApplicationForm() {
       </div>
 
       <fieldset className={step === 0 ? "grid gap-5" : "hidden"}>
-          <legend className="font-mono text-[10px] uppercase tracking-[0.22em] text-venom">
+          <legend className="font-mono text-[11px] uppercase tracking-[0.12em] text-venom">
             Step 01 / Identity
           </legend>
           <Field label="Full name" name="name" type="text" autoComplete="name" error={fieldErrors.name} required />
@@ -127,7 +127,7 @@ export function ApplicationForm() {
       </fieldset>
 
       <fieldset className={step === 1 ? "grid gap-5" : "hidden"}>
-          <legend className="font-mono text-[10px] uppercase tracking-[0.22em] text-venom">
+          <legend className="font-mono text-[11px] uppercase tracking-[0.12em] text-venom">
             Step 02 / Market
           </legend>
           <Select label="Experience level" name="experience" error={fieldErrors.experience} options={["Zero experience", "Tried before", "Already selling"]} />
@@ -136,11 +136,11 @@ export function ApplicationForm() {
       </fieldset>
 
       <fieldset className={step === 2 ? "grid gap-5" : "hidden"}>
-          <legend className="font-mono text-[10px] uppercase tracking-[0.22em] text-venom">
+          <legend className="font-mono text-[11px] uppercase tracking-[0.12em] text-venom">
             Step 03 / Commitment
           </legend>
           <label className="form-field grid gap-2">
-            <span className="form-field__label text-xs tracking-[0.18em] uppercase text-ash">
+            <span className="form-field__label text-xs tracking-[0.12em] uppercase text-ash">
               Biggest dropshipping challenge?
             </span>
             <textarea
@@ -172,7 +172,7 @@ export function ApplicationForm() {
           {step > 0 && (
             <button
               type="button"
-              className="tap-target border border-white/10 px-4 py-3 font-mono text-[10px] uppercase tracking-[0.18em] text-ash transition-colors hover:border-white/25 hover:text-bone focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-venom"
+              className="tap-target border border-white/10 px-4 py-3 font-mono text-[11px] uppercase tracking-[0.12em] text-ash transition-colors hover:border-white/25 hover:text-bone focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-venom"
               onClick={() => setStep((current) => Math.max(0, current - 1))}
             >
               Back
@@ -200,7 +200,7 @@ function Field({
 
   return (
     <label htmlFor={fieldId} className={cn("form-field grid gap-2", error && "form-field--error")}>
-      <span className="form-field__label text-xs tracking-[0.18em] uppercase text-ash">
+      <span className="form-field__label text-xs tracking-[0.12em] uppercase text-ash">
         {label}
       </span>
       <input
@@ -233,7 +233,7 @@ function Select({
 
   return (
     <label htmlFor={name} className={cn("form-field grid gap-2", error && "form-field--error")}>
-      <span className="form-field__label text-xs tracking-[0.18em] uppercase text-ash">{label}</span>
+      <span className="form-field__label text-xs tracking-[0.12em] uppercase text-ash">{label}</span>
       <select
         id={name}
         name={name}

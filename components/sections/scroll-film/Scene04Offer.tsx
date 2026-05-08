@@ -120,7 +120,7 @@ export function Scene04Offer() {
             <SceneEyebrow label="THE OFFER" />
             <h2
               ref={headlineRef}
-              className="mt-6 font-display text-[clamp(3rem,7vw,7rem)] uppercase leading-[0.86] tracking-tightest"
+              className="mt-6 font-display text-[clamp(3rem,7vw,7rem)] uppercase leading-[1.02] tracking-tightest"
             >
               {graduationGift.title}
             </h2>
@@ -162,7 +162,7 @@ export function Scene04Offer() {
           <SceneEyebrow label={beyond.heading} />
           <h3
             ref={beyondHeadingRef}
-            className="mt-5 font-display text-[clamp(2.4rem,5vw,5rem)] uppercase leading-[0.9] tracking-tightest"
+            className="mt-5 font-display text-[clamp(2.4rem,5vw,5rem)] uppercase leading-[1.08] tracking-tightest"
           >
             {beyond.heading}
           </h3>

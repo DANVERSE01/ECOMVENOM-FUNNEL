@@ -95,7 +95,7 @@ export function Scene01Problem() {
           <SceneEyebrow label="THE PROBLEM" />
           <h2
             ref={headlineRef}
-            className="mt-6 font-display text-[clamp(3rem,7vw,7rem)] uppercase leading-[0.86] tracking-tightest"
+            className="mt-6 font-display text-[clamp(3rem,7vw,7rem)] uppercase leading-[1.02] tracking-tightest"
           >
             Random inputs create expensive chaos.
           </h2>

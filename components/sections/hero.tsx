@@ -140,13 +140,13 @@ export function Hero() {
             </div>
             <p
               ref={eyebrowRef}
-              className="text-[10px] sm:text-xs uppercase tracking-[0.22em] text-ash mb-5"
+              className="text-[11px] sm:text-xs uppercase tracking-[0.12em] text-ash mb-5"
             >
               {hero.eyebrow}
             </p>
             <h1
               ref={headlineRef}
-              className="font-display text-4xl uppercase leading-[0.98] tracking-tightest text-bone sm:text-6xl lg:text-7xl"
+              className="font-display text-4xl uppercase leading-[1.02] tracking-tightest text-bone sm:text-6xl lg:text-7xl"
             >
               {hero.headlineLead}{" "}
               <span className="text-venom">{hero.headlineHighlight}</span>{" "}

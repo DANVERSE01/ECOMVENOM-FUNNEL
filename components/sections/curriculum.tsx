@@ -12,7 +12,7 @@ export function Curriculum() {
       <Container>
         <Reveal className="max-w-3xl">
           <SectionEyebrow>STEP-BY-STEP</SectionEyebrow>
-          <h2 className="font-display text-3xl sm:text-5xl uppercase leading-tight tracking-tightest mt-3">
+          <h2 className="font-display text-3xl sm:text-5xl uppercase leading-[1.1] tracking-tightest mt-3">
             {curriculum.heading}
           </h2>
           <p className="mt-4 text-ash text-base sm:text-lg">{curriculum.sub}</p>

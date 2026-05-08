@@ -169,7 +169,7 @@ export function ChaosToSystem() {
               <span aria-hidden className="absolute bottom-0 right-0 h-4 w-4 border-b border-r border-venom/80" />
             </div>
 
-            <div className="mt-3 grid gap-2 text-[10px] uppercase tracking-[0.18em] text-ash/80 sm:grid-cols-3">
+            <div className="mt-3 grid gap-2 text-[11px] uppercase tracking-[0.12em] text-ash/80 sm:grid-cols-3">
               {["SYSTEM ACTIVE", "MUTED LOOP", "FRAME LOCKED"].map((label) => (
                 <span
                   key={label}
@@ -185,7 +185,7 @@ export function ChaosToSystem() {
           <div ref={copyRef} className="max-w-xl">
             <span
               ref={eyebrowRef}
-              className="inline-block text-xs sm:text-sm font-semibold tracking-[0.2em] text-venom"
+              className="inline-block text-xs sm:text-sm font-semibold tracking-[0.12em] text-venom"
             >
               {chaosToSystem.eyebrow}
             </span>
@@ -204,7 +204,7 @@ export function ChaosToSystem() {
             </p>
             <p
               ref={captionRef}
-              className="mt-6 text-xs uppercase tracking-[0.18em] text-ash/70"
+              className="mt-6 text-xs uppercase tracking-[0.12em] text-ash/70"
             >
               {chaosToSystem.caption}
             </p>

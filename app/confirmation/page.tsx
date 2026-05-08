@@ -34,7 +34,7 @@ export default function ConfirmationPage() {
         <Container className="relative z-10 max-w-6xl">
           <div className="grid gap-10 lg:grid-cols-[0.86fr_1.14fr] lg:items-start">
             <div>
-              <h1 className="font-display text-[clamp(4rem,9vw,8rem)] uppercase tracking-tightest leading-[0.86] text-venom">
+              <h1 className="font-display text-[clamp(4rem,9vw,8rem)] uppercase tracking-tightest leading-[1.02] text-venom">
                 {confirmation.h1}
               </h1>
               <p className="mt-4 font-display text-2xl uppercase leading-tight tracking-tight text-bone sm:text-3xl">

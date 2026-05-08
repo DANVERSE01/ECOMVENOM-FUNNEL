@@ -123,7 +123,7 @@ export function Scene08FinalCTA() {
           <SceneEyebrow label="START" />
           <h2
             ref={headlineRef}
-            className="mt-6 font-display text-[clamp(3.4rem,8vw,8rem)] uppercase leading-[0.84] tracking-tightest"
+            className="mt-6 font-display text-[clamp(3.4rem,8vw,8rem)] uppercase leading-[1.02] tracking-tightest"
           >
             Your system is{" "}
             <span ref={applySpanRef} className="inline-block text-venom">waiting.</span>

@@ -99,7 +99,7 @@ export function Scene03Roadmap() {
         <div className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr]">
           <div>
             <SceneEyebrow label="ROADMAP" />
-            <h2 className="mt-5 font-display text-[clamp(3rem,7vw,7rem)] uppercase leading-[0.86] tracking-tightest">
+            <h2 className="mt-5 font-display text-[clamp(3rem,7vw,7rem)] uppercase leading-[1.02] tracking-tightest">
               {curriculum.heading}
             </h2>
             <p className="mt-5 max-w-lg text-lg leading-relaxed text-ash">{curriculum.sub}</p>
@@ -149,7 +149,7 @@ export function Scene03Roadmap() {
           <SceneEyebrow label="WHAT YOU LEARN" />
           <h3
             ref={learnHeadingRef}
-            className="mt-4 max-w-4xl font-display text-[clamp(2.6rem,5vw,5rem)] uppercase leading-[0.9] tracking-tightest"
+            className="mt-4 max-w-4xl font-display text-[clamp(2.6rem,5vw,5rem)] uppercase leading-[1.08] tracking-tightest"
           >
             {learn.heading}
           </h3>

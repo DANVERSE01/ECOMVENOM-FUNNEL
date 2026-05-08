@@ -20,7 +20,7 @@ const config: Config = {
       },
       letterSpacing: {
         tightest: "-0.04em", tighter: "-0.02em", tight: "-0.01em",
-        caps: "0.22em", label: "0.18em", widest: "0.2em",
+        caps: "0.12em", label: "0.12em", widest: "0.14em",
       },
       maxWidth: { wrap: "1200px", measure: "1120px", wide: "1320px" },
       transitionTimingFunction: {

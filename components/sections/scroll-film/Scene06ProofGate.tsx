@@ -92,7 +92,7 @@ export function Scene06ProofGate() {
         <div className="mt-8 grid gap-6 lg:grid-cols-[1fr_1fr] lg:items-end">
           <h2
             ref={headlineRef}
-            className="font-display text-[clamp(2.8rem,6vw,5.5rem)] uppercase leading-[0.88] tracking-tightest"
+            className="font-display text-[clamp(2.8rem,6vw,5.5rem)] uppercase leading-[1.02] tracking-tightest"
           >
             {testimonials.heading}
           </h2>

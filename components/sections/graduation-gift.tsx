@@ -7,10 +7,10 @@ export function GraduationGift() {
     <section className="py-20 sm:py-28 bg-ink-2/40 border-y border-white/5">
       <Container>
         <Reveal className="max-w-4xl mx-auto text-center">
-          <p className="text-xs sm:text-sm tracking-[0.22em] text-venom font-semibold">
+          <p className="text-xs sm:text-sm tracking-[0.12em] text-venom font-semibold">
             {graduationGift.ribbon}
           </p>
-          <h2 className="font-display text-3xl sm:text-5xl uppercase mt-3 tracking-tightest leading-tight">
+          <h2 className="font-display text-3xl sm:text-5xl uppercase mt-3 tracking-tightest leading-[1.1]">
             {graduationGift.title}
           </h2>
           <p className="mt-3 text-base sm:text-lg text-bone">
@@ -28,7 +28,7 @@ export function GraduationGift() {
               className="rounded-2xl border border-white/8 bg-ink-3/60 p-6 text-center"
             >
               <div className="text-3xl">{o.flag}</div>
-              <p className="mt-2 text-xs tracking-[0.2em] text-venom font-semibold">
+              <p className="mt-2 text-xs tracking-[0.12em] text-venom font-semibold">
                 {o.label}
               </p>
               <p className="mt-1 font-display uppercase text-xl tracking-wide text-bone">

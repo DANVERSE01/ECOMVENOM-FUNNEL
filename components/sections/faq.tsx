@@ -68,7 +68,7 @@ export function Faq() {
     >
       <Container>
         <Reveal className="max-w-3xl">
-          <h2 className="font-display text-3xl sm:text-5xl uppercase leading-tight tracking-tightest">
+          <h2 className="font-display text-3xl sm:text-5xl uppercase leading-[1.1] tracking-tightest">
             {faq.heading}
           </h2>
           <p className="mt-4 text-ash text-base sm:text-lg">{faq.sub}</p>
