@@ -14,7 +14,7 @@ export function ScrollProgressIndicator() {
       start: "top top",
       end: "bottom bottom",
       onUpdate: (self) => {
-        bar.style.transform = `scaleY(${self.progress})`;
+        bar.style.transform = `scaleX(${self.progress})`;
       },
     });
 
@@ -22,11 +22,11 @@ export function ScrollProgressIndicator() {
   }, []);
 
   return (
-    <div className="fixed right-3 top-1/4 bottom-1/4 w-px bg-white/5 z-50 hidden md:block">
+    <div className="fixed left-0 right-0 top-0 z-[9100] hidden h-0.5 bg-white/5 md:block">
       <div
         ref={barRef}
-        className="absolute inset-0 bg-venom/50 origin-top"
-        style={{ transform: "scaleY(0)" }}
+        className="absolute inset-0 origin-left bg-venom"
+        style={{ transform: "scaleX(0)" }}
       />
     </div>
   );

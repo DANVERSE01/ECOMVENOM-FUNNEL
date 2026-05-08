@@ -3,7 +3,7 @@
 import { useEffect } from "react";
 import { usePathname } from "next/navigation";
 import { ScrollTrigger } from "@/lib/gsap";
-import { destroyLenis, getLenis } from "@/lib/lenis";
+import { destroyLenis, getLenis, scrollToElement } from "@/lib/lenis";
 import { useReducedMotion } from "@/lib/useReducedMotion";
 
 export function SmoothScroll({ children }: { children: React.ReactNode }) {
@@ -15,10 +15,36 @@ export function SmoothScroll({ children }: { children: React.ReactNode }) {
       reduced ||
       window.matchMedia("(pointer: coarse), (max-width: 767px)").matches;
 
+    const handleAnchorClick = (event: MouseEvent) => {
+      if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) {
+        return;
+      }
+
+      const source = event.target instanceof Element ? event.target : null;
+      const anchor = source?.closest<HTMLAnchorElement>("a[href*='#']");
+      if (!anchor) return;
+
+      const url = new URL(anchor.href, window.location.href);
+      if (url.origin !== window.location.origin || url.pathname !== window.location.pathname || !url.hash) {
+        return;
+      }
+
+      const id = decodeURIComponent(url.hash.slice(1));
+      const target = document.getElementById(id);
+      if (!target) return;
+
+      event.preventDefault();
+      history.pushState(null, "", url.hash);
+      scrollToElement(target);
+    };
+
+    document.addEventListener("click", handleAnchorClick);
+
     if (useNativeScroll) {
       destroyLenis();
       ScrollTrigger.refresh();
       return () => {
+        document.removeEventListener("click", handleAnchorClick);
         ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
       };
     }
@@ -27,6 +53,7 @@ export function SmoothScroll({ children }: { children: React.ReactNode }) {
     const refresh = window.setTimeout(() => ScrollTrigger.refresh(), 0);
 
     return () => {
+      document.removeEventListener("click", handleAnchorClick);
       window.clearTimeout(refresh);
       destroyLenis();
       ScrollTrigger.getAll().forEach((trigger) => trigger.kill());

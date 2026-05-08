@@ -7,6 +7,7 @@ import { SmoothScroll } from "@/components/providers/SmoothScroll";
 import { Preloader } from "@/components/ui/Preloader";
 import { ParticleTrailCursor } from "@/components/cursor/ParticleTrailCursor";
 import { StickyMobileCTA } from "@/components/ui/StickyMobileCTA";
+import { BackToTop } from "@/components/ui/BackToTop";
 
 const syne = Syne({ subsets: ["latin"], weight: ["700", "800"], variable: "--font-syne", display: "swap" });
 const spaceGrotesk = Space_Grotesk({ subsets: ["latin"], variable: "--font-space", display: "swap" });
@@ -39,6 +40,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <Footer />
         </SmoothScroll>
         <StickyMobileCTA />
+        <BackToTop />
       </body>
     </html>
   );

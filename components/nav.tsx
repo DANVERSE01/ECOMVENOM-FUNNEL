@@ -8,6 +8,7 @@ import { useGSAP } from "@gsap/react";
 import { CtaLink } from "./ui/button";
 import { ScrollProgressIndicator } from "./ui/ScrollProgressIndicator";
 import { CTA_LABEL, CTA_SUB } from "@/lib/content";
+import { cn } from "@/lib/cn";
 import { gsap, ScrollTrigger, reducedMotion } from "@/lib/gsap";
 import { scrambleText } from "@/lib/motion";
 
@@ -18,6 +19,7 @@ function displaySceneLabel(label?: string) {
 export function Nav() {
   const pathname = usePathname();
   const [scene, setScene] = useState("SYSTEM ONLINE");
+  const [compressed, setCompressed] = useState(false);
   const sceneLabelRef = useRef<HTMLSpanElement>(null);
   const firstRender = useRef(true);
 
@@ -70,12 +72,59 @@ export function Nav() {
     scrambleText(el, scene, { duration: 0.45 });
   }, [scene]);
 
+  useEffect(() => {
+    let lastY = window.scrollY;
+    let ticking = false;
+
+    const update = () => {
+      const currentY = window.scrollY;
+      const delta = currentY - lastY;
+
+      if (currentY < 24) {
+        setCompressed(false);
+      } else if (delta > 6) {
+        setCompressed(true);
+      } else if (delta < -6) {
+        setCompressed(false);
+      }
+
+      lastY = currentY;
+      ticking = false;
+    };
+
+    const handleScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(update);
+        ticking = true;
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
     <>
-      <header className="fixed left-0 right-0 top-0 z-[9000] isolate border-b border-white/[0.06] bg-black/72 backdrop-blur-md backdrop-saturate-125">
-        <div className="mx-auto grid h-14 max-w-[1440px] grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3 px-4 sm:px-6">
+      <header
+        data-compressed={compressed}
+        className={cn(
+          "fixed left-0 right-0 top-0 z-[9000] isolate border-b border-white/[0.06] bg-black/72 backdrop-blur-md backdrop-saturate-125 transition-[background-color,border-color] duration-300 ease-out",
+          compressed && "border-white/[0.09] bg-black/82",
+        )}
+      >
+        <div
+          className={cn(
+            "mx-auto grid h-[72px] max-w-[1440px] grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3 px-4 transition-[height] duration-300 ease-out sm:px-6",
+            compressed && "h-14",
+          )}
+        >
           <Link href="/" aria-label="ECOMVENOM home" className="relative z-40 flex min-h-11 min-w-0 items-center gap-3">
-            <span className="relative block h-11 w-40 overflow-hidden">
+            <span
+              className={cn(
+                "relative block h-12 w-44 origin-left overflow-hidden transition-transform duration-300 ease-out",
+                compressed && "scale-90",
+              )}
+            >
               <Image
                 src="/brand/ecomvenom-logo-final.png"
                 alt="ECOMVENOM"
