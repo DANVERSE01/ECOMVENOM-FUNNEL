@@ -89,7 +89,7 @@ export function Scene03Roadmap() {
   );
 
   return (
-    <ScrollFilmScene id="roadmap" scene="03" title="ROADMAP" className="py-28">
+    <ScrollFilmScene id="roadmap" scene="03" title="ROADMAP" className="py-16 sm:py-28">
       <span className="scene-ghost top-8 right-8">03</span>
       <div className="absolute inset-0">
         <Image src={GENERATED_STILLS.roadmapBg} alt="" fill sizes="100vw" className="object-cover opacity-[0.18]" />
@@ -116,7 +116,7 @@ export function Scene03Roadmap() {
               <path
                 ref={svgPathRef}
                 d="M8 0 L8 400"
-                stroke="#B8FF2E"
+                stroke="var(--c-venom)"
                 strokeWidth="1.5"
                 strokeOpacity="0.45"
                 fill="none"
@@ -134,7 +134,7 @@ export function Scene03Roadmap() {
                   <ul className="mt-4 list-none space-y-1.5">
                     {module.bullets.map((bullet) => (
                       <li key={bullet} className="flex gap-2 text-xs leading-relaxed text-ash/70 transition-colors duration-200 group-hover:text-bone/80">
-                        <span aria-hidden className="mt-[0.45em] h-1 w-1 shrink-0 rounded-full bg-venom/50" />
+                        <span aria-hidden className="mt-1 h-1 w-1 shrink-0 rounded-full bg-venom/50" />
                         <span>{bullet}</span>
                       </li>
                     ))}

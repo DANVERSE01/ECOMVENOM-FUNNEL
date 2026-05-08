@@ -11,8 +11,8 @@ function CrossMark({ className }: { className: string }) {
         width: 16,
         height: 16,
         background: [
-          "linear-gradient(to right, transparent calc(50% - 0.5px), #B8FF2E calc(50% - 0.5px), #B8FF2E calc(50% + 0.5px), transparent calc(50% + 0.5px))",
-          "linear-gradient(to bottom, transparent calc(50% - 0.5px), #B8FF2E calc(50% - 0.5px), #B8FF2E calc(50% + 0.5px), transparent calc(50% + 0.5px))",
+          "linear-gradient(to right, transparent calc(50% - 0.5px), var(--c-venom) calc(50% - 0.5px), var(--c-venom) calc(50% + 0.5px), transparent calc(50% + 0.5px))",
+          "linear-gradient(to bottom, transparent calc(50% - 0.5px), var(--c-venom) calc(50% - 0.5px), var(--c-venom) calc(50% + 0.5px), transparent calc(50% + 0.5px))",
         ].join(", "),
       }}
     />

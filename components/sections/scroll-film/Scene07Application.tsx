@@ -114,7 +114,7 @@ export function Scene07Application() {
   );
 
   return (
-    <ScrollFilmScene id="application-flow" scene="07" title="APPLY" className="py-28">
+    <ScrollFilmScene id="application-flow" scene="07" title="APPLY" className="py-16 sm:py-28">
       <span className="scene-ghost bottom-8 left-8">07</span>
       <div className="absolute inset-0">
         <Image src={HIGGSFIELD_STILLS.storePortal} alt="" fill sizes="100vw" className="object-cover opacity-[0.10]" />
@@ -151,13 +151,13 @@ export function Scene07Application() {
               viewBox="0 0 16 300"
               preserveAspectRatio="none"
             >
-              <circle cx="8" cy="0" r="3" fill="#B8FF2E" fillOpacity="0.4" />
-              <circle cx="8" cy="150" r="3" fill="#B8FF2E" fillOpacity="0.4" />
-              <circle cx="8" cy="300" r="3" fill="#B8FF2E" fillOpacity="0.4" />
+              <circle cx="8" cy="0" r="3" fill="var(--c-venom)" fillOpacity="0.4" />
+              <circle cx="8" cy="150" r="3" fill="var(--c-venom)" fillOpacity="0.4" />
+              <circle cx="8" cy="300" r="3" fill="var(--c-venom)" fillOpacity="0.4" />
               <path
                 ref={svgPathRef}
                 d="M8 0 L8 300"
-                stroke="#B8FF2E"
+                stroke="var(--c-venom)"
                 strokeWidth="1"
                 strokeOpacity="0.3"
                 fill="none"

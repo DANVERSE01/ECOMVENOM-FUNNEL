@@ -8,7 +8,7 @@ import { curriculum } from "@/lib/content";
 
 export function Curriculum() {
   return (
-    <section className="py-20 sm:py-28">
+    <section className="py-16 sm:py-28">
       <Container>
         <Reveal className="max-w-3xl">
           <SectionEyebrow>STEP-BY-STEP</SectionEyebrow>

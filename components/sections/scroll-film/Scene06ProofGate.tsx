@@ -78,7 +78,7 @@ export function Scene06ProofGate() {
   );
 
   return (
-    <ScrollFilmScene id="proof-gate" scene="06" title="RESULTS" className="py-28">
+    <ScrollFilmScene id="proof-gate" scene="06" title="RESULTS" className="py-16 sm:py-28">
       <span className="scene-ghost bottom-8 right-8">06</span>
       <div className="absolute inset-0">
         <Image src={GENERATED_STILLS.proofBg} alt="" fill sizes="100vw" className="object-cover opacity-[0.12]" />

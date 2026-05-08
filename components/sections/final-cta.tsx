@@ -104,9 +104,9 @@ export function FinalCta() {
   );
 
   return (
-    <section ref={sectionRef} className="py-20 sm:py-28">
+    <section ref={sectionRef} className="py-16 sm:py-28">
       <Container>
-        <div className="rounded-2xl border border-venom/30 bg-gradient-to-b from-ink-3 to-ink-2 p-10 sm:p-14 text-center">
+        <div className="rounded-xl border border-venom/30 bg-gradient-to-b from-ink-3 to-ink-2 p-10 sm:p-14 text-center">
           <h2
             ref={headlineRef}
             className="font-display text-3xl sm:text-5xl uppercase leading-[1.1] tracking-tightest"

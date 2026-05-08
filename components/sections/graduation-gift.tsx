@@ -4,7 +4,7 @@ import { graduationGift } from "@/lib/content";
 
 export function GraduationGift() {
   return (
-    <section className="py-20 sm:py-28 bg-ink-2/40 border-y border-white/5">
+    <section className="py-16 sm:py-28 bg-ink-2/40 border-y border-white/5">
       <Container>
         <Reveal className="max-w-4xl mx-auto text-center">
           <p className="text-xs sm:text-sm tracking-[0.12em] text-venom font-semibold">
@@ -25,7 +25,7 @@ export function GraduationGift() {
           {graduationGift.options.map((o) => (
             <div
               key={o.label}
-              className="rounded-2xl border border-white/8 bg-ink-3/60 p-6 text-center"
+              className="rounded-xl border border-white/8 bg-ink-3/60 p-6 text-center"
             >
               <div className="text-3xl">{o.flag}</div>
               <p className="mt-2 text-xs tracking-[0.12em] text-venom font-semibold">

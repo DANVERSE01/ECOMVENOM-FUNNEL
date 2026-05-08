@@ -169,7 +169,7 @@ export function Hero() {
           </div>
 
           <div ref={mediaRef} className="relative">
-            <div className="relative aspect-[9/16] sm:aspect-[3/4] lg:aspect-[9/16] max-w-sm mx-auto lg:max-w-none rounded-2xl overflow-hidden border border-white/10 bg-ink-3">
+            <div className="relative aspect-[9/16] sm:aspect-[3/4] lg:aspect-[9/16] max-w-sm mx-auto lg:max-w-none rounded-xl overflow-hidden border border-white/10 bg-ink-3">
               <Image
                 src="/posters/wistia-poster.jpg"
                 alt="Youssef Adel — ECOMVENOM founder, intro video poster"

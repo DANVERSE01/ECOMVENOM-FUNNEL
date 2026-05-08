@@ -143,7 +143,7 @@ export function ScheduleBoard() {
               className={[
                 "tap-target border px-3 py-2 text-sm transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-venom",
                 slot === t
-                  ? "border-venom bg-venom text-ink shadow-[0_0_24px_rgba(184,255,46,0.18)]"
+                  ? "border-venom bg-venom text-ink"
                   : "border-white/10 bg-ink-2 text-bone hover:border-venom/50 hover:bg-venom/10 hover:text-venom",
               ].join(" ")}
             >

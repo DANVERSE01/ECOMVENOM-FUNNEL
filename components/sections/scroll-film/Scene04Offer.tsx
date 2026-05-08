@@ -100,7 +100,7 @@ export function Scene04Offer() {
   const marqueeText = "FREE STORE BUILD · 2 WINNING PRODUCTS · US MARKET · SAUDI MARKET · ";
 
   return (
-    <ScrollFilmScene id="offer" scene="04" title="THE OFFER" className="min-h-screen py-28">
+    <ScrollFilmScene id="offer" scene="04" title="THE OFFER" className="min-h-screen py-16 sm:py-28">
       <span className="scene-ghost bottom-8 left-8">04</span>
       <div className="absolute inset-0">
         <Image src={HIGGSFIELD_STILLS.storePortal} alt="" fill sizes="100vw" className="object-cover opacity-[0.28]" />

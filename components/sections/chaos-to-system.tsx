@@ -131,16 +131,16 @@ export function ChaosToSystem() {
     <section
       ref={sectionRef}
       aria-labelledby="chaos-system-heading"
-      className="relative py-20 sm:py-28 border-y border-white/5 bg-ink-2/30 overflow-hidden"
+      className="relative py-16 sm:py-28 border-y border-white/5 bg-ink-2/30 overflow-hidden"
     >
       <Container>
         <div className="grid gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
           <div className="relative">
             <div
               ref={panelRef}
-              className="relative aspect-video w-full max-w-2xl mx-auto lg:mx-0 rounded-[8px] border border-venom/20 bg-black p-2 sm:p-3"
+              className="relative aspect-video w-full max-w-2xl mx-auto lg:mx-0 rounded-lg border border-venom/20 bg-black p-2 sm:p-3"
             >
-              <div className="relative h-full w-full overflow-hidden rounded-[4px] bg-black">
+              <div className="relative h-full w-full overflow-hidden rounded-md bg-black">
                 <video
                   ref={videoRef}
                   className="block h-full w-full object-cover"
@@ -175,7 +175,7 @@ export function ChaosToSystem() {
                   key={label}
                   className="inline-flex items-center gap-2 border border-white/8 bg-black/50 px-3 py-2 font-mono"
                 >
-                  <span className="system-status-dot h-1.5 w-1.5 rounded-full bg-venom shadow-[0_0_8px_rgba(184,255,46,0.7)]" />
+                  <span className="system-status-dot h-1.5 w-1.5 rounded-full bg-venom" />
                   {label}
                 </span>
               ))}

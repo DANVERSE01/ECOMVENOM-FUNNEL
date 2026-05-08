@@ -89,11 +89,11 @@ export function Founder() {
   );
 
   return (
-    <section ref={sectionRef} className="py-20 sm:py-28">
+    <section ref={sectionRef} className="py-16 sm:py-28">
       <Container>
         <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
           <Reveal className="order-2 lg:order-1 relative">
-            <div className="relative aspect-[4/5] max-w-md mx-auto lg:mx-0 rounded-2xl overflow-hidden border border-white/10 bg-ink-3">
+            <div className="relative aspect-[4/5] max-w-md mx-auto lg:mx-0 rounded-xl overflow-hidden border border-white/10 bg-ink-3">
               <div ref={imageRef} className="absolute inset-0">
                 <Image
                   src="/founder/youssef-adel.jpg"

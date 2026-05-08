@@ -64,7 +64,7 @@ export function Faq() {
   return (
     <section
       ref={sectionRef}
-      className="py-20 sm:py-28 bg-ink-2/40 border-y border-white/5"
+      className="py-16 sm:py-28 bg-ink-2/40 border-y border-white/5"
     >
       <Container>
         <Reveal className="max-w-3xl">

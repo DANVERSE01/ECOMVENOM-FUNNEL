@@ -4,7 +4,7 @@ import { testimonials } from "@/lib/content";
 
 export function Testimonials() {
   return (
-    <section className="py-20 sm:py-28 bg-ink-2/40 border-y border-white/5">
+    <section className="py-16 sm:py-28 bg-ink-2/40 border-y border-white/5">
       <Container>
         <Reveal className="max-w-3xl">
           <h2 className="font-display text-3xl sm:text-5xl uppercase leading-[1.1] tracking-tightest">

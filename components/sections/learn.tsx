@@ -7,7 +7,7 @@ import { learn } from "@/lib/content";
 
 export function Learn() {
   return (
-    <section className="py-20 sm:py-28">
+    <section className="py-16 sm:py-28">
       <Container>
         <Reveal className="max-w-3xl">
           <SectionEyebrow>WHAT YOU GET</SectionEyebrow>

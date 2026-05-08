@@ -88,7 +88,7 @@ export function Nav() {
           </Link>
 
           <div className="relative z-10 hidden max-w-[min(36vw,24rem)] items-center justify-center gap-3 overflow-hidden border-x border-white/10 px-5 font-heading text-[10px] uppercase tracking-normal text-ash lg:flex">
-            <span className="system-status-dot h-1.5 w-1.5 rounded-full bg-venom shadow-[0_0_12px_rgba(184,255,46,0.8)]" />
+            <span className="system-status-dot h-1.5 w-1.5 rounded-full bg-venom" />
             <span ref={sceneLabelRef} className="truncate" />
           </div>
 
@@ -101,7 +101,7 @@ export function Nav() {
             <Link
               href="/apply"
               aria-current={pathname === "/apply" ? "page" : undefined}
-              className="nav-link-draw relative z-40 inline-flex h-11 min-w-16 items-center justify-center rounded-[8px] border border-venom/45 bg-ink-2/80 px-3 font-heading text-[10px] uppercase tracking-normal text-venom shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] transition-colors hover:bg-venom hover:text-ink focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-venom sm:hidden"
+              className="nav-link-draw relative z-40 inline-flex h-11 min-w-16 items-center justify-center rounded-lg border border-venom/45 bg-ink-2/80 px-3 font-heading text-[10px] uppercase tracking-normal text-venom transition-colors hover:bg-venom hover:text-ink focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-venom sm:hidden"
             >
               Apply
             </Link>

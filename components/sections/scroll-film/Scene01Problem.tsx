@@ -83,7 +83,7 @@ export function Scene01Problem() {
   );
 
   return (
-    <ScrollFilmScene id="chaos-input" scene="01" title="THE PROBLEM" className="min-h-screen py-28">
+    <ScrollFilmScene id="chaos-input" scene="01" title="THE PROBLEM" className="min-h-screen py-16 sm:py-28">
       <span className="scene-ghost bottom-8 right-8">01</span>
       <div className="absolute inset-0">
         <Image src={HIGGSFIELD_STILLS.cartChaos} alt="" fill sizes="100vw" className="object-cover opacity-[0.35]" />

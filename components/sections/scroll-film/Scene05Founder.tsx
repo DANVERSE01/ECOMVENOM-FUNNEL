@@ -90,7 +90,7 @@ export function Scene05Founder() {
   );
 
   return (
-    <ScrollFilmScene id="operator" scene="05" title="FOUNDER" className="py-28">
+    <ScrollFilmScene id="operator" scene="05" title="FOUNDER" className="py-16 sm:py-28">
       <span className="scene-ghost top-8 left-8">05</span>
       <div className="absolute inset-0">
         <Image src={HIGGSFIELD_STILLS.productWireframe} alt="" fill sizes="100vw" className="object-cover opacity-[0.14]" />

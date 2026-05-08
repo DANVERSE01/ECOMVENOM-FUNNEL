@@ -109,7 +109,7 @@ export function Scene08FinalCTA() {
         <div className="pointer-events-none absolute inset-x-0 top-0 z-[3] h-32 bg-gradient-to-b from-black to-transparent" />
       </div>
 
-      <div ref={sectionRef} className="relative z-10 grid min-h-screen place-items-center px-5 py-28 text-center sm:px-8 lg:px-12">
+      <div ref={sectionRef} className="relative z-10 grid min-h-screen place-items-center px-5 py-16 text-center sm:px-8 sm:py-28 lg:px-12">
         {/* Scene ghost */}
         <span
           className="pointer-events-none absolute inset-0 flex items-center justify-center font-display text-bone/0 select-none"
@@ -155,9 +155,9 @@ export function Scene08FinalCTA() {
             />
             <defs>
               <linearGradient id="venomGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" stopColor="#B8FF2E" stopOpacity="0" />
-                <stop offset="50%" stopColor="#B8FF2E" stopOpacity="0.4" />
-                <stop offset="100%" stopColor="#B8FF2E" stopOpacity="0" />
+                <stop offset="0%" stopColor="var(--c-venom)" stopOpacity="0" />
+                <stop offset="50%" stopColor="var(--c-venom)" stopOpacity="0.4" />
+                <stop offset="100%" stopColor="var(--c-venom)" stopOpacity="0" />
               </linearGradient>
             </defs>
           </svg>
