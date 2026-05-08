@@ -7,6 +7,7 @@ import { ScrollFilmScene } from "@/components/cinematic/ScrollFilmScene";
 import { SceneEyebrow } from "@/components/cinematic/SceneEyebrow";
 import { SystemOverlay } from "@/components/cinematic/SystemOverlay";
 import { CinematicPanel } from "@/components/ui/CinematicPanel";
+import { CountUpNumber } from "@/components/ui/count-up";
 import { HoverGrid, HoverGridItem } from "@/components/ui/HoverGrid";
 import { GENERATED_STILLS } from "@/lib/frameManifest";
 import { curriculum, learn } from "@/lib/content";
@@ -125,7 +126,9 @@ export function Scene03Roadmap() {
             <HoverGrid className="sm:grid-cols-2">
               {curriculum.modules.map((module) => (
                 <HoverGridItem key={module.n} className="system-module border border-white/6 bg-ink-3/70 p-5 backdrop-blur-sm">
-                  <p className="font-display text-5xl uppercase leading-none text-venom/70">{module.n}</p>
+                  <p className="font-display text-5xl uppercase leading-none text-venom/70">
+                    <CountUpNumber value={Number(module.n)} pad={2} />
+                  </p>
                   <p className="mt-2 font-heading text-[10px] uppercase tracking-caps text-ash-2">Module</p>
                   <h3 className="mt-3 font-display text-2xl uppercase leading-tight text-bone">{module.title}</h3>
                   <ul className="mt-4 list-none space-y-1.5">
@@ -159,7 +162,7 @@ export function Scene03Roadmap() {
                 className="system-module hover-grid-item group border border-steel/15 bg-steel/5 p-5"
               >
                 <p className="font-heading text-[10px] uppercase tracking-caps text-venom">
-                  Skill {String(index + 1).padStart(2, "0")}
+                  Skill <CountUpNumber value={index + 1} pad={2} />
                 </p>
                 <h4 className="mt-3 font-display text-xl uppercase text-bone">{card.title}</h4>
                 <p className="mt-3 text-sm leading-relaxed text-ash">{card.body}</p>

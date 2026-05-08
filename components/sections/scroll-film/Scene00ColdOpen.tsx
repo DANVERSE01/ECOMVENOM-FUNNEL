@@ -29,6 +29,13 @@ const HERO_MEDIA = {
   purpose: "homepage-hero-vsl",
 } as const;
 const HERO_VSL_SESSION_KEY = "ecomvenom.heroVslIntro.seen";
+const HERO_HEADLINE_LINES = [
+  [{ text: "BUILD" }, { text: "A" }],
+  [{ text: "PROFITABLE", className: "text-venom" }, { text: "DROPSHIPPING" }],
+  [{ text: "SYSTEM", className: "text-venom" }],
+  [{ text: "IN" }, { text: "45" }, { text: "DAYS" }],
+  [{ text: "ZERO", className: "text-venom" }, { text: "EXPERIENCE", className: "text-venom" }],
+] as const;
 
 type OverlayPhase = "opening" | "closing";
 type LaunchMode = "auto" | "manual";
@@ -69,20 +76,28 @@ export function Scene00ColdOpen() {
       const vslCard = vslCardRef.current;
       if (!eyebrow || !headline || !support || !vslCard) return;
 
-      const headlineLines = Array.from(
-        headline.querySelectorAll<HTMLElement>("[data-headline-line]"),
+      const headlineWords = Array.from(
+        headline.querySelectorAll<HTMLElement>("[data-hero-word]"),
       );
+      const cta = support.querySelector<HTMLElement>("[data-hero-cta]");
+      const subheadline = support.querySelector<HTMLElement>("[data-hero-sub]");
 
       if (reduced) {
-        gsap.set([eyebrow, support, vslCard, ...headlineLines], { opacity: 1, y: 0, yPercent: 0 });
+        gsap.set([eyebrow, cta, subheadline, vslCard, ...headlineWords], {
+          opacity: 1,
+          y: 0,
+          yPercent: 0,
+          scale: 1,
+        });
         return;
       }
 
       const eyebrowText = eyebrow.textContent ?? "";
 
       gsap.set(eyebrow, { opacity: 0, y: 10 });
-      gsap.set(headlineLines, { yPercent: 110, rotation: 0.6 });
-      gsap.set(support, { opacity: 0, y: 22 });
+      gsap.set(headlineWords, { yPercent: 112, rotation: 0.5 });
+      if (subheadline) gsap.set(subheadline, { opacity: 0, y: 18 });
+      if (cta) gsap.set(cta, { opacity: 0, y: 14, scale: 0.95 });
       gsap.set(vslCard, { opacity: 0, y: 34, scale: 0.96 });
 
       gsap
@@ -94,12 +109,13 @@ export function Scene00ColdOpen() {
           onStart: () => scrambleText(eyebrow, eyebrowText, { duration: 0.55 }),
         }, 0.15)
         .to(
-          headlineLines,
-          { yPercent: 0, rotation: 0, duration: 1.05, stagger: 0.09, ease: "filmDrop" },
+          headlineWords,
+          { yPercent: 0, rotation: 0, duration: 0.78, stagger: 0.055, ease: "filmDrop" },
           0.35,
         )
-        .to(support, { opacity: 1, y: 0, duration: 0.65 }, 0.96)
-        .to(vslCard, { opacity: 1, y: 0, scale: 1, duration: 0.8, ease: "filmDrop" }, 1.02);
+        .to(subheadline, { opacity: 1, y: 0, duration: 0.72 }, 1.55)
+        .to(cta, { opacity: 1, y: 0, scale: 1, duration: 0.62 }, 1.75)
+        .to(vslCard, { opacity: 1, y: 0, scale: 1, duration: 0.8, ease: "filmDrop" }, 1.75);
 
       if (tunnel) {
         gsap.to(tunnel, {
@@ -292,27 +308,31 @@ export function Scene00ColdOpen() {
               ref={headlineRef}
               className="mt-4 max-w-[62rem] font-display text-[2.35rem] uppercase leading-[0.86] tracking-normal text-bone sm:text-[3.05rem] lg:text-[3.05rem] xl:text-[3.75rem] 2xl:text-[4.2rem]"
             >
-              <span data-headline-line className="block overflow-hidden">
-                <span className="block">BUILD A</span>
-              </span>
-              <span data-headline-line className="block overflow-hidden">
-                <span className="block"><span className="text-venom">PROFITABLE</span> DROPSHIPPING</span>
-              </span>
-              <span data-headline-line className="block overflow-hidden text-venom">
-                <span className="block">SYSTEM</span>
-              </span>
-              <span data-headline-line className="block overflow-hidden">
-                <span className="block">IN 45 DAYS</span>
-              </span>
-              <span data-headline-line className="block overflow-hidden text-venom">
-                <span className="block">ZERO EXPERIENCE</span>
-              </span>
+              {HERO_HEADLINE_LINES.map((line, lineIndex) => (
+                <span key={lineIndex} data-headline-line className="block overflow-hidden">
+                  <span className="block">
+                    {line.map((word, wordIndex) => (
+                      <span key={`${word.text}-${wordIndex}`}>
+                        <span
+                          data-hero-word
+                          className={`inline-block${"className" in word ? ` ${word.className}` : ""}`}
+                        >
+                          {word.text}
+                        </span>
+                        {wordIndex < line.length - 1 ? " " : null}
+                      </span>
+                    ))}
+                  </span>
+                </span>
+              ))}
             </h1>
             <div ref={supportRef} className="relative z-30 mt-6 flex max-w-3xl flex-col gap-5 sm:flex-row sm:items-center">
-              <CtaLink href="/apply" sub={CTA_SUB} className="cinematic-command min-w-[min(100%,16rem)]">
-                {CTA_LABEL}
-              </CtaLink>
-              <p className="max-w-xl text-sm leading-relaxed text-ash sm:text-[13px]">
+              <span data-hero-cta className="inline-flex max-w-full">
+                <CtaLink href="/apply" sub={CTA_SUB} className="cinematic-command min-w-[min(100%,16rem)]">
+                  {CTA_LABEL}
+                </CtaLink>
+              </span>
+              <p data-hero-sub className="max-w-xl text-sm leading-relaxed text-ash sm:text-[13px]">
                 {hero.sub}
               </p>
             </div>

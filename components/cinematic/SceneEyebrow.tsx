@@ -1,43 +1,35 @@
 "use client";
 
-import { useRef } from "react";
-import { useGSAP } from "@gsap/react";
-import { gsap } from "@/lib/gsap";
+import { useEffect, useRef } from "react";
 import { scrambleText } from "@/lib/motion";
 import { useReducedMotion } from "@/lib/useReducedMotion";
 import { cn } from "@/lib/cn";
+import { useInViewOnce } from "@/hooks/useInViewOnce";
 
 export function SceneEyebrow({ label, className }: { label: string; className?: string }) {
   const labelRef = useRef<HTMLSpanElement>(null);
   const wrapRef = useRef<HTMLDivElement>(null);
   const reduced = useReducedMotion();
+  const visible = useInViewOnce(wrapRef, { rootMargin: "0px 0px -20% 0px", threshold: 0.2 });
 
-  useGSAP(
-    () => {
-      const el = labelRef.current;
-      const wrap = wrapRef.current;
-      if (!el || !wrap || reduced) return;
-
-      gsap.from(el, {
-        opacity: 0,
-        duration: 0.3,
-        scrollTrigger: {
-          trigger: wrap,
-          start: "top 88%",
-          once: true,
-          onEnter: () => {
-            scrambleText(el, label, { duration: 0.45 });
-          },
-        },
-      });
-    },
-    { scope: wrapRef, dependencies: [label, reduced] },
-  );
+  useEffect(() => {
+    const el = labelRef.current;
+    if (!el || !visible || reduced) return;
+    scrambleText(el, label, { duration: 0.45 });
+  }, [label, reduced, visible]);
 
   return (
-    <div ref={wrapRef} className={cn("scene-eyebrow flex items-center gap-3", className)}>
+    <div
+      ref={wrapRef}
+      className={cn("scene-eyebrow flex items-center gap-3", className)}
+      style={{
+        opacity: visible || reduced ? 1 : 0,
+        transform: visible || reduced ? "translate3d(0,0,0)" : "translate3d(-16px,0,0)",
+        transition: "opacity 300ms ease-out, transform 300ms ease-out",
+      }}
+    >
       <span className="scene-eyebrow__mark" />
-      <span ref={labelRef} className="font-heading text-[10px] uppercase tracking-[0.12em] text-ash">
+      <span ref={labelRef} className="font-heading text-[11px] uppercase tracking-[0.12em] text-ash">
         {label}
       </span>
     </div>
