@@ -22,9 +22,8 @@ import { gsap } from "@/lib/gsap";
 import { scrambleText } from "@/lib/motion";
 import { useReducedMotion } from "@/lib/useReducedMotion";
 
-const ORIGINAL_HERO_VIDEO_SRC = "/media/hero-vsl.mp4";
 const HERO_MEDIA = {
-  videoSrc: ORIGINAL_HERO_VIDEO_SRC,
+  embedSrc: "https://www.youtube.com/embed/xMU-aAw4UP8",
   posterSrc: "/media/hero-vsl-poster.jpg",
   orientation: "landscape",
   purpose: "homepage-hero-vsl",
@@ -33,7 +32,6 @@ const HERO_VSL_SESSION_KEY = "ecomvenom.heroVslIntro.seen";
 
 type OverlayPhase = "opening" | "closing";
 type LaunchMode = "auto" | "manual";
-type PlaybackState = "starting" | "playing" | "playing-muted" | "blocked";
 type CollapseVars = CSSProperties & {
   "--collapse-x"?: string;
   "--collapse-y"?: string;
@@ -49,16 +47,17 @@ export function Scene00ColdOpen() {
   const spotlightRef = useRef<HTMLDivElement | null>(null);
   const vslCardRef = useRef<HTMLDivElement | null>(null);
   const overlayPanelRef = useRef<HTMLDivElement | null>(null);
-  const overlayVideoRef = useRef<HTMLVideoElement | null>(null);
   const closeTimerRef = useRef<number | null>(null);
   const reduced = useReducedMotion();
 
   const [overlayOpen, setOverlayOpen] = useState(false);
   const [overlayPhase, setOverlayPhase] = useState<OverlayPhase>("opening");
   const [launchMode, setLaunchMode] = useState<LaunchMode>("auto");
-  const [playbackState, setPlaybackState] = useState<PlaybackState>("starting");
-  const [videoMuted, setVideoMuted] = useState(true);
   const [collapseStyle, setCollapseStyle] = useState<CollapseVars>({});
+
+  const heroEmbedSrc = `${HERO_MEDIA.embedSrc}?autoplay=1&playsinline=1&rel=0&modestbranding=1${
+    launchMode === "auto" ? "&mute=1" : ""
+  }`;
 
   useGSAP(
     () => {
@@ -134,9 +133,6 @@ export function Scene00ColdOpen() {
   );
 
   const closeOverlay = useCallback(() => {
-    const video = overlayVideoRef.current;
-    video?.pause();
-
     if (closeTimerRef.current) {
       window.clearTimeout(closeTimerRef.current);
       closeTimerRef.current = null;
@@ -174,7 +170,7 @@ export function Scene00ColdOpen() {
   }, [reduced]);
 
   useEffect(() => {
-    if (!HERO_MEDIA.videoSrc || reduced || overlayOpen) return;
+    if (!HERO_MEDIA.embedSrc || reduced || overlayOpen) return;
 
     const mobileQuery = window.matchMedia("(max-width: 767px)");
     if (mobileQuery.matches) return;
@@ -193,7 +189,6 @@ export function Scene00ColdOpen() {
       }
 
       setLaunchMode("auto");
-      setPlaybackState("starting");
       setOverlayPhase("opening");
       setCollapseStyle({});
       setOverlayOpen(true);
@@ -203,7 +198,7 @@ export function Scene00ColdOpen() {
   }, [overlayOpen, reduced]);
 
   useEffect(() => {
-    if (!HERO_MEDIA.videoSrc || !overlayOpen) return;
+    if (!HERO_MEDIA.embedSrc || !overlayOpen) return;
 
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
@@ -223,34 +218,13 @@ export function Scene00ColdOpen() {
   }, [closeOverlay, overlayOpen]);
 
   useEffect(() => {
-    if (!overlayOpen) return;
-
-    const video = overlayVideoRef.current;
-    if (!video) return;
-
-    const startMuted = launchMode === "auto";
-    video.currentTime = 0;
-    video.muted = startMuted;
-    setVideoMuted(startMuted);
-    video.playsInline = true;
-    setPlaybackState("starting");
-
-    const attempt = video.play();
-    if (!attempt) return;
-
-    attempt
-      .then(() => setPlaybackState(startMuted ? "playing-muted" : "playing"))
-      .catch(() => setPlaybackState("blocked"));
-  }, [launchMode, overlayOpen]);
-
-  useEffect(() => {
     return () => {
       if (closeTimerRef.current) window.clearTimeout(closeTimerRef.current);
     };
   }, []);
 
   const openManualVsl = useCallback(() => {
-    if (!HERO_MEDIA.videoSrc) return;
+    if (!HERO_MEDIA.embedSrc) return;
 
     try {
       window.sessionStorage.setItem(HERO_VSL_SESSION_KEY, "1");
@@ -259,31 +233,9 @@ export function Scene00ColdOpen() {
     }
 
     setLaunchMode("manual");
-    setPlaybackState("starting");
     setOverlayPhase("opening");
     setCollapseStyle({});
     setOverlayOpen(true);
-  }, []);
-
-  const handleTapToPlay = useCallback(() => {
-    const video = overlayVideoRef.current;
-    if (!video) return;
-
-    video.muted = false;
-    setVideoMuted(false);
-    video
-      .play()
-      .then(() => setPlaybackState("playing"))
-      .catch(() => setPlaybackState("blocked"));
-  }, []);
-
-  const handleSoundOn = useCallback(() => {
-    const video = overlayVideoRef.current;
-    if (!video) return;
-
-    video.muted = false;
-    setVideoMuted(false);
-    setPlaybackState("playing");
   }, []);
 
   const handleOverlayBackdropClick = (event: MouseEvent<HTMLDivElement>) => {
@@ -395,7 +347,7 @@ export function Scene00ColdOpen() {
                 <p className="font-heading text-[10px] uppercase tracking-normal text-venom">Founder VSL</p>
                 <p className="mt-1 font-mono text-[10px] text-ash">Preview</p>
               </div>
-              {HERO_MEDIA.videoSrc ? (
+              {HERO_MEDIA.embedSrc ? (
                 <button
                   type="button"
                   onClick={openManualVsl}
@@ -420,7 +372,7 @@ export function Scene00ColdOpen() {
         </div>
       </div>
 
-      {overlayOpen && HERO_MEDIA.videoSrc && typeof document !== "undefined" && createPortal((
+      {overlayOpen && HERO_MEDIA.embedSrc && typeof document !== "undefined" && createPortal((
         <div
           role="dialog"
           aria-modal="true"
@@ -440,38 +392,18 @@ export function Scene00ColdOpen() {
             <div className="hero-vsl-overlay__meta">
               <span>Founder VSL</span>
               <span>Youssef Adel</span>
-              <span>{playbackState === "playing-muted" ? "Muted autoplay" : "Opening sequence"}</span>
+              <span>{launchMode === "auto" ? "Muted autoplay" : "Opening sequence"}</span>
             </div>
 
-            <video
-              ref={overlayVideoRef}
-              controls
-              muted={videoMuted}
-              playsInline
-              preload="metadata"
-              poster={HERO_MEDIA.posterSrc}
+            <iframe
+              key={heroEmbedSrc}
+              src={heroEmbedSrc}
+              title="Founder VSL"
               className="hero-vsl-overlay__video"
-              onEnded={closeOverlay}
-            >
-              <source src={HERO_MEDIA.videoSrc} type="video/mp4" />
-            </video>
-
-            {playbackState === "blocked" && (
-              <button type="button" onClick={handleTapToPlay} className="hero-vsl-overlay__play">
-                <span className="hero-vsl-play__icon" aria-hidden>
-                  <svg width="16" height="16" viewBox="0 0 14 14" fill="none">
-                    <path d="M4.5 3.25L10 7L4.5 10.75V3.25Z" fill="currentColor" />
-                  </svg>
-                </span>
-                <span>Tap to play</span>
-              </button>
-            )}
-
-            {playbackState === "playing-muted" && (
-              <button type="button" onClick={handleSoundOn} className="hero-vsl-overlay__sound">
-                Sound on
-              </button>
-            )}
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerPolicy="strict-origin-when-cross-origin"
+              allowFullScreen
+            />
 
             <button
               type="button"
