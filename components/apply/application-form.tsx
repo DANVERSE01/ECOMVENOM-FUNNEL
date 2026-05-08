@@ -139,14 +139,14 @@ export function ApplicationForm() {
           <legend className="font-mono text-[10px] uppercase tracking-[0.22em] text-venom">
             Step 03 / Commitment
           </legend>
-          <label className="grid gap-2">
-            <span className="text-xs tracking-[0.18em] uppercase text-ash">
+          <label className="form-field grid gap-2">
+            <span className="form-field__label text-xs tracking-[0.18em] uppercase text-ash">
               Biggest dropshipping challenge?
             </span>
             <textarea
               name="message"
               rows={4}
-              className="border border-white/10 bg-ink-3/60 px-4 py-3 text-sm text-bone transition-colors focus:border-venom focus:outline-none focus:ring-2 focus:ring-venom/15"
+              className="form-control border border-white/10 bg-ink-3/60 px-4 py-3 text-sm text-bone transition-colors focus:border-venom focus:outline-none focus:ring-2 focus:ring-venom/15"
             />
           </label>
           <div>
@@ -199,8 +199,8 @@ function Field({
   const errorId = error && fieldId ? `${fieldId}-error` : undefined;
 
   return (
-    <label htmlFor={fieldId} className="grid gap-2">
-      <span className="text-xs tracking-[0.18em] uppercase text-ash">
+    <label htmlFor={fieldId} className={cn("form-field grid gap-2", error && "form-field--error")}>
+      <span className="form-field__label text-xs tracking-[0.18em] uppercase text-ash">
         {label}
       </span>
       <input
@@ -209,7 +209,7 @@ function Field({
         aria-invalid={Boolean(error)}
         aria-describedby={errorId}
         className={cn(
-          "tap-target border bg-ink-3/60 px-4 py-3 text-sm text-bone transition-colors focus:border-venom focus:outline-none focus:ring-2 focus:ring-venom/15",
+          "form-control tap-target border bg-ink-3/60 px-4 py-3 text-sm text-bone transition-colors focus:border-venom focus:outline-none focus:ring-2 focus:ring-venom/15",
           error ? "border-alert" : "border-white/10",
         )}
       />
@@ -232,15 +232,15 @@ function Select({
   const errorId = error ? `${name}-error` : undefined;
 
   return (
-    <label htmlFor={name} className="grid gap-2">
-      <span className="text-xs tracking-[0.18em] uppercase text-ash">{label}</span>
+    <label htmlFor={name} className={cn("form-field grid gap-2", error && "form-field--error")}>
+      <span className="form-field__label text-xs tracking-[0.18em] uppercase text-ash">{label}</span>
       <select
         id={name}
         name={name}
         aria-invalid={Boolean(error)}
         aria-describedby={errorId}
         className={cn(
-          "tap-target border bg-ink-3/60 px-4 py-3 text-sm text-bone transition-colors focus:border-venom focus:outline-none focus:ring-2 focus:ring-venom/15",
+          "form-control tap-target border bg-ink-3/60 px-4 py-3 text-sm text-bone transition-colors focus:border-venom focus:outline-none focus:ring-2 focus:ring-venom/15",
           error ? "border-alert" : "border-white/10",
         )}
         defaultValue=""

@@ -12,8 +12,10 @@ export function useMagnetic<T extends HTMLElement = HTMLDivElement>(strength = 0
       const rect = el.getBoundingClientRect();
       const cx = rect.left + rect.width / 2;
       const cy = rect.top + rect.height / 2;
-      const dx = (e.clientX - cx) * strength;
-      const dy = (e.clientY - cy) * strength;
+      const rawX = (e.clientX - cx) * strength;
+      const rawY = (e.clientY - cy) * strength;
+      const dx = Math.max(-6, Math.min(6, rawX));
+      const dy = Math.max(-6, Math.min(6, rawY));
       gsap.to(el, { x: dx, y: dy, duration: 0.4, ease: "power2.out" });
     };
 

@@ -100,7 +100,8 @@ export function Nav() {
             </div>
             <Link
               href="/apply"
-              className="relative z-40 inline-flex h-11 min-w-16 items-center justify-center rounded-[8px] border border-venom/45 bg-ink-2/80 px-3 font-heading text-[10px] uppercase tracking-normal text-venom shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] transition-colors hover:bg-venom hover:text-ink focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-venom sm:hidden"
+              aria-current={pathname === "/apply" ? "page" : undefined}
+              className="nav-link-draw relative z-40 inline-flex h-11 min-w-16 items-center justify-center rounded-[8px] border border-venom/45 bg-ink-2/80 px-3 font-heading text-[10px] uppercase tracking-normal text-venom shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] transition-colors hover:bg-venom hover:text-ink focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-venom sm:hidden"
             >
               Apply
             </Link>
