@@ -3,9 +3,8 @@
 import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import { CtaButton } from "@/components/ui/button";
-import { schedule } from "@/lib/content";
-
-const WEEKDAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+import { useContent } from "@/lib/useContent";
+import { useLang } from "@/lib/lang-context";
 
 function buildDays(year: number, month: number) {
   const first = new Date(year, month, 1);
@@ -17,19 +16,44 @@ function buildDays(year: number, month: number) {
   return cells;
 }
 
-const MONTH_NAMES = [
-  "January", "February", "March", "April", "May", "June",
-  "July", "August", "September", "October", "November", "December",
-];
-
 export function ScheduleBoard() {
   const router = useRouter();
+  const { schedule } = useContent();
+  const { lang } = useLang();
   const today = useMemo(() => new Date(), []);
   const [year, setYear] = useState(today.getFullYear());
   const [month, setMonth] = useState(today.getMonth());
   const [day, setDay] = useState<number | null>(today.getDate());
   const [slot, setSlot] = useState<string | null>(null);
   const [tz, setTz] = useState<string>("");
+  const locale = lang === "ar" ? "ar-EG" : "en-US";
+  const weekdays = useMemo(
+    () => Array.from({ length: 7 }, (_, index) => new Intl.DateTimeFormat(locale, { weekday: "short" }).format(new Date(2026, 0, 4 + index))),
+    [locale],
+  );
+  const monthNames = useMemo(
+    () => Array.from({ length: 12 }, (_, index) => new Intl.DateTimeFormat(locale, { month: "long" }).format(new Date(2026, index, 1))),
+    [locale],
+  );
+  const copy = lang === "ar"
+    ? {
+        title: "اختر التاريخ والوقت",
+        month: "الشهر",
+        year: "السنة",
+        timezone: "المنطقة الزمنية",
+        windows: "نوافذ استشارة لمدة 20 دقيقة",
+        confirm: "تأكيد الحجز",
+        providerMissing: "تكامل التقويم غير مضبوط بعد. اضبط NEXT_PUBLIC_SCHEDULE_PROVIDER_URL قبل الإطلاق.",
+      }
+    : {
+        title: "Select Date & Time",
+        month: "Month",
+        year: "Year",
+        timezone: "Time zone",
+        windows: "20-minute consultation windows",
+        confirm: "Confirm booking",
+        providerMissing: "Calendar integration not yet configured. Set NEXT_PUBLIC_SCHEDULE_PROVIDER_URL before launch.",
+      };
 
   useEffect(() => {
     setTz(Intl.DateTimeFormat().resolvedOptions().timeZone);
@@ -55,24 +79,24 @@ export function ScheduleBoard() {
             {schedule.card.name} · {schedule.card.duration}
           </p>
           <p className="font-display text-lg sm:text-xl mt-1 text-bone uppercase tracking-tight">
-            Select Date &amp; Time
+            {copy.title}
           </p>
         </div>
         <div className="flex items-center gap-2">
           <select
-            aria-label="Month"
+            aria-label={copy.month}
             value={month}
             onChange={(e) => setMonth(Number(e.target.value))}
             className="tap-target border border-white/10 bg-ink-2 px-3 py-1.5 text-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-venom"
           >
-            {MONTH_NAMES.map((m, i) => (
+            {monthNames.map((m, i) => (
               <option key={m} value={i}>
                 {m}
               </option>
             ))}
           </select>
           <select
-            aria-label="Year"
+            aria-label={copy.year}
             value={year}
             onChange={(e) => setYear(Number(e.target.value))}
             className="tap-target border border-white/10 bg-ink-2 px-3 py-1.5 text-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-venom"
@@ -87,7 +111,7 @@ export function ScheduleBoard() {
       </div>
 
       <div className="mt-6 grid grid-cols-7 gap-0.5 text-center text-xs text-ash sm:gap-1">
-        {WEEKDAYS.map((d) => (
+        {weekdays.map((d) => (
           <div key={d} className="py-1">
             {d}
           </div>
@@ -113,7 +137,7 @@ export function ScheduleBoard() {
               disabled={past}
               onClick={() => setDay(c.day)}
               aria-pressed={selected}
-              aria-label={`${MONTH_NAMES[month]} ${c.day}, ${year}`}
+              aria-label={`${monthNames[month]} ${c.day}, ${year}`}
               className={[
                 "aspect-square min-h-11 text-sm transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-venom",
                 past ? "text-ash/40 cursor-not-allowed" : "text-bone hover:bg-white/5",
@@ -129,10 +153,10 @@ export function ScheduleBoard() {
 
       <div className="mt-6">
         <p className="text-xs tracking-[0.12em] text-ash">
-          Time zone: <span className="text-bone">{tz || "—"}</span>
+          {copy.timezone}: <span className="text-bone">{tz || "—"}</span>
         </p>
         <p className="mt-2 font-mono text-[10px] uppercase tracking-[0.16em] text-steel">
-          20-minute consultation windows
+          {copy.windows}
         </p>
         <div className="mt-3 grid grid-cols-2 sm:grid-cols-4 gap-2 max-h-72 overflow-y-auto pr-1">
           {schedule.slots.map((t) => (
@@ -155,14 +179,13 @@ export function ScheduleBoard() {
 
       <div className="mt-6 flex justify-end">
         <CtaButton type="button" disabled={!day || !slot} onClick={confirm} className="cinematic-command">
-          Confirm booking
+          {copy.confirm}
         </CtaButton>
       </div>
 
       {!provider && (
         <p className="mt-4 text-[11px] text-ash/80">
-          Calendar integration not yet configured.
-          Set <code>NEXT_PUBLIC_SCHEDULE_PROVIDER_URL</code> before launch.
+          {copy.providerMissing}
         </p>
       )}
     </div>

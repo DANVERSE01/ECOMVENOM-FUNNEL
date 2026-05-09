@@ -8,16 +8,17 @@ import { ScrollFilmScene } from "@/components/cinematic/ScrollFilmScene";
 import { SceneEyebrow } from "@/components/cinematic/SceneEyebrow";
 import { SystemOverlay } from "@/components/cinematic/SystemOverlay";
 import { BRAND_VISUALS, HIGGSFIELD_STILLS } from "@/lib/frameManifest";
-import { CTA_LABEL, CTA_SUB, graduationGift, beyond } from "@/lib/content";
 import { gsap, ScrollTrigger } from "@/lib/gsap";
 import { splitText, scrambleText } from "@/lib/motion";
 import { useReducedMotion } from "@/lib/useReducedMotion";
+import { useContent } from "@/lib/useContent";
 
-function marketCode(market: string) {
-  return market.toLowerCase().includes("saudi") ? "KSA" : "USA";
+function marketCode(market: string, codes: { saudi: string; default: string }) {
+  return market.toLowerCase().includes("saudi") ? codes.saudi : codes.default;
 }
 
 export function Scene04Offer() {
+  const { CTA_LABEL, CTA_SUB, graduationGift, beyond, offerScene } = useContent();
   const sectionRef = useRef<HTMLDivElement | null>(null);
   const headlineRef = useRef<HTMLHeadingElement | null>(null);
   const beyondHeadingRef = useRef<HTMLHeadingElement | null>(null);
@@ -97,10 +98,10 @@ export function Scene04Offer() {
     { scope: sectionRef, dependencies: [reduced], revertOnUpdate: true },
   );
 
-  const marqueeText = "FREE STORE BUILD · 2 WINNING PRODUCTS · US MARKET · SAUDI MARKET · ";
+  const marqueeText = offerScene.marquee;
 
   return (
-    <ScrollFilmScene id="offer" scene="04" title="THE OFFER" className="min-h-screen py-16 sm:py-28">
+    <ScrollFilmScene id="offer" scene="04" title={offerScene.sceneTitle} className="min-h-screen py-16 sm:py-28">
       <span className="scene-ghost bottom-8 left-8">04</span>
       <div className="absolute inset-0">
         <Image src={HIGGSFIELD_STILLS.storePortal} alt="" fill sizes="100vw" className="object-cover opacity-[0.28]" />
@@ -117,7 +118,7 @@ export function Scene04Offer() {
       <div ref={sectionRef} className="relative z-10 mx-auto max-w-measure px-5 sm:px-8 lg:px-12">
         <div className="grid min-h-[70vh] items-center gap-10 lg:grid-cols-[1fr_0.82fr]">
           <div>
-            <SceneEyebrow label="THE OFFER" />
+            <SceneEyebrow label={offerScene.eyebrow} />
             <h2
               ref={headlineRef}
               className="mt-6 font-display text-[clamp(3rem,7vw,7rem)] uppercase leading-[1.02] tracking-tightest"
@@ -138,7 +139,7 @@ export function Scene04Offer() {
                 <p className="font-heading text-[10px] uppercase tracking-caps text-ash-2">{option.label}</p>
                 <p className="mt-4 flex items-center gap-3 font-display text-3xl uppercase leading-tight text-bone sm:text-4xl">
                   <span className="market-terminal">
-                    {marketCode(option.market)}
+                    {marketCode(option.market, offerScene.marketCodes)}
                   </span>
                   {option.market}
                 </p>

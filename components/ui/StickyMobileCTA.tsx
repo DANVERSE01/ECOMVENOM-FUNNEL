@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import { CtaLink } from "@/components/ui/button";
 import { useReducedMotion } from "@/lib/useReducedMotion";
+import { useContent } from "@/lib/useContent";
 
 const HIDDEN_ROUTES = ["/apply", "/schedule", "/confirmation"];
 
@@ -12,6 +13,7 @@ export function StickyMobileCTA() {
   const barRef = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
   const reduced = useReducedMotion();
+  const { stickyCta } = useContent();
 
   const hidden = HIDDEN_ROUTES.includes(pathname);
 
@@ -42,9 +44,9 @@ export function StickyMobileCTA() {
     >
       <div className="px-4 py-3 flex flex-col items-center gap-1">
         <CtaLink href="/apply" className="w-full max-w-sm text-center">
-          APPLY FOR THE PROGRAM
+          {stickyCta.label}
         </CtaLink>
-        <p className="font-heading text-[10px] uppercase tracking-caps text-ash">Free 20-minute consultation</p>
+        <p className="font-heading text-[10px] uppercase tracking-caps text-ash">{stickyCta.sub}</p>
       </div>
     </div>
   );

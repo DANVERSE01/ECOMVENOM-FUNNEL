@@ -7,35 +7,13 @@ import { MaterialField } from "@/components/cinematic/MaterialField";
 import { SceneProgress } from "@/components/cinematic/SceneProgress";
 import { SceneEyebrow } from "@/components/cinematic/SceneEyebrow";
 import { HIGGSFIELD_FRAME_COUNT, HIGGSFIELD_FRAMES, HIGGSFIELD_STILLS } from "@/lib/frameManifest";
-import { chaosToSystem } from "@/lib/content";
 import { gsap, ScrollTrigger } from "@/lib/gsap";
 import { splitText } from "@/lib/motion";
 import { useReducedMotion } from "@/lib/useReducedMotion";
-
-const checkpoints = [
-  {
-    t: "00-20%",
-    label: "System wakes",
-    body: "The operator view opens. Inputs are still loose, but the frame establishes control.",
-  },
-  {
-    t: "20-45%",
-    label: "Chaos enters",
-    body: "Carts, products, panels, and random signals move through the dark field.",
-  },
-  {
-    t: "45-70%",
-    label: "Frames align",
-    body: "The conversion engine stops drifting and starts arranging decisions into a repeatable path.",
-  },
-  {
-    t: "70-100%",
-    label: "Operating mode",
-    body: "Store, roadmap, booking, and ECOMVENOM lockup resolve into one command state.",
-  },
-];
+import { useContent } from "@/lib/useContent";
 
 export function Scene02ChaosToSystem() {
+  const { chaosToSystem, systemScene } = useContent();
   const sectionRef = useRef<HTMLElement | null>(null);
   const pinRef = useRef<HTMLDivElement | null>(null);
   const headlineRef = useRef<HTMLHeadingElement | null>(null);
@@ -169,7 +147,7 @@ export function Scene02ChaosToSystem() {
     <section
       id="chaos-system-scroll-film"
       ref={sectionRef}
-      data-scene-title="THE SYSTEM"
+      data-scene-title={systemScene.sceneTitle}
       data-scene-n="02"
       data-frame-scrub-scene
       className="relative h-[330vh] bg-black text-bone"
@@ -187,7 +165,7 @@ export function Scene02ChaosToSystem() {
         <div className="pointer-events-none absolute inset-x-0 bottom-0 z-[6] h-40 bg-gradient-to-b from-transparent via-black/30 to-black" />
         <div className="relative z-10 flex h-full flex-col justify-between px-5 py-20 sm:px-8 lg:px-12">
           <div className="mx-auto w-full max-w-wide pt-8">
-            <SceneEyebrow label="THE SYSTEM" />
+            <SceneEyebrow label={systemScene.eyebrow} />
             <h2
               ref={headlineRef}
               className="mt-5 max-w-4xl font-display text-[clamp(2.9rem,6vw,6.6rem)] uppercase leading-[1.02] tracking-tightest"
@@ -207,7 +185,7 @@ export function Scene02ChaosToSystem() {
           </div>
 
           <div className="mx-auto grid w-full max-w-wide gap-4 pb-6 lg:grid-cols-4">
-            {checkpoints.map((checkpoint, i) => (
+            {systemScene.checkpoints.map((checkpoint, i) => (
               <div
                 key={checkpoint.t}
                 className="checkpoint-panel scene-panel-elevated border-t border-white/8 p-4 transition-colors duration-300"

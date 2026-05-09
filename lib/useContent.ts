@@ -19,6 +19,273 @@ import {
   footer as enFooter,
 } from "@/lib/content";
 
+type HeroHeadlineToken = {
+  text: string;
+  className?: string;
+};
+
+type HeroHeadlineLine = readonly HeroHeadlineToken[];
+
+const enHeroHeadline: readonly HeroHeadlineLine[] = [
+  [{ text: "BUILD" }, { text: "A" }],
+  [{ text: "PROFITABLE", className: "text-venom" }, { text: "DROPSHIPPING" }],
+  [{ text: "SYSTEM", className: "text-venom" }],
+  [{ text: "IN" }, { text: "45" }, { text: "DAYS" }],
+  [{ text: "ZERO", className: "text-venom" }, { text: "EXPERIENCE", className: "text-venom" }],
+] as const;
+
+const arHeroHeadline: readonly HeroHeadlineLine[] = [
+  [{ text: "ابنِ" }],
+  [{ text: "نظام", className: "text-venom" }, { text: "دروبشيبينغ" }, { text: "مربح", className: "text-venom" }],
+  [{ text: "خلال" }, { text: "45", className: "text-venom" }, { text: "يوماً" }],
+  [{ text: "مع" }, { text: "صفر", className: "text-venom" }, { text: "خبرة", className: "text-venom" }],
+] as const;
+
+const enProblem = {
+  sceneTitle: "THE PROBLEM",
+  eyebrow: "THE PROBLEM",
+  headline: "Random inputs create expensive chaos.",
+  body: "Most people who try dropshipping operate on guesswork. The system you're about to see replaces that chaos with a structured operating path.",
+  signalLabel: "Signal",
+  signalState: "Uncontrolled",
+  signals: [
+    { label: "Random tutorials", detail: "Hours of YouTube videos, contradicting advice, no clear path forward" },
+    { label: "Random products", detail: "Testing blindly, burning budget on items nobody wants to buy" },
+    { label: "Random ad spend", detail: "Money leaving your account with zero idea what's working or why" },
+  ],
+};
+
+const arProblem = {
+  sceneTitle: "المشكلة",
+  eyebrow: "المشكلة",
+  headline: "المدخلات العشوائية تصنع فوضى مكلفة.",
+  body: "معظم من يدخل الدروبشيبينغ يعمل بالتخمين. النظام الذي ستراه الآن يستبدل تلك الفوضى بمسار تشغيل منظم.",
+  signalLabel: "إشارة",
+  signalState: "غير منضبط",
+  signals: [
+    { label: "دروس عشوائية", detail: "ساعات من فيديوهات يوتيوب ونصائح متناقضة ولا مسار واضح للتنفيذ" },
+    { label: "منتجات عشوائية", detail: "تجارب عمياء تستهلك الميزانية على منتجات لا يريدها السوق أصلًا" },
+    { label: "إنفاق إعلاني عشوائي", detail: "المال يخرج من حسابك دون فهم واضح لما ينجح أو لماذا" },
+  ],
+};
+
+const enSystemScene = {
+  sceneTitle: "THE SYSTEM",
+  eyebrow: "THE SYSTEM",
+  checkpoints: [
+    {
+      t: "00-20%",
+      label: "System wakes",
+      body: "The operator view opens. Inputs are still loose, but the frame establishes control.",
+    },
+    {
+      t: "20-45%",
+      label: "Chaos enters",
+      body: "Carts, products, panels, and random signals move through the dark field.",
+    },
+    {
+      t: "45-70%",
+      label: "Frames align",
+      body: "The conversion engine stops drifting and starts arranging decisions into a repeatable path.",
+    },
+    {
+      t: "70-100%",
+      label: "Operating mode",
+      body: "Store, roadmap, booking, and ECOMVENOM lockup resolve into one command state.",
+    },
+  ],
+};
+
+const arSystemScene = {
+  sceneTitle: "النظام",
+  eyebrow: "النظام",
+  checkpoints: [
+    {
+      t: "00-20%",
+      label: "استيقاظ النظام",
+      body: "واجهة التشغيل تظهر أولًا. المدخلات ما زالت غير مستقرة، لكن الإطار يبدأ فرض السيطرة.",
+    },
+    {
+      t: "20-45%",
+      label: "دخول الفوضى",
+      body: "العربات والمنتجات واللوحات والإشارات العشوائية تتحرك داخل الحقل الداكن.",
+    },
+    {
+      t: "45-70%",
+      label: "اصطفاف الإطارات",
+      body: "محرك التحويل يتوقف عن التشتت ويبدأ ترتيب القرارات داخل مسار قابل للتكرار.",
+    },
+    {
+      t: "70-100%",
+      label: "وضع التشغيل",
+      body: "المتجر والخارطة والحجز وشعار ECOMVENOM يتماسك كله في حالة تشغيل واحدة.",
+    },
+  ],
+};
+
+const enOfferScene = {
+  sceneTitle: "THE OFFER",
+  eyebrow: "THE OFFER",
+  marquee: "FREE STORE BUILD · 2 WINNING PRODUCTS · US MARKET · SAUDI MARKET · ",
+  marketCodes: { saudi: "KSA", default: "USA" },
+};
+
+const arOfferScene = {
+  sceneTitle: "العرض",
+  eyebrow: "العرض",
+  marquee: "بناء متجر مجاني · منتجان رابحان · السوق الأمريكي · السوق السعودي · ",
+  marketCodes: { saudi: "KSA", default: "USA" },
+};
+
+const enProofScene = {
+  sceneTitle: "RESULTS",
+  eyebrow: "RESULTS",
+  cardLabel: "VERIFIED STUDENT",
+  imageNotes: [
+    "Direct screenshot from student account",
+    "Unedited progress capture",
+    "Real platform results",
+  ],
+  transparencyLabel: "Transparency Note",
+};
+
+const arProofScene = {
+  sceneTitle: "النتائج",
+  eyebrow: "النتائج",
+  cardLabel: "طالب موثّق",
+  imageNotes: [
+    "لقطة مباشرة من حساب طالب حقيقي",
+    "توثيق تقدم غير معدل",
+    "نتائج فعلية من المنصة",
+  ],
+  transparencyLabel: "ملاحظة شفافية",
+};
+
+const enApplicationScene = {
+  sceneTitle: "APPLY",
+  eyebrow: "APPLY",
+  headline: "Enter the operating system.",
+  body: "The funnel stays simple: submit your application, confirm fit, then choose a consultation time. No fake scarcity, no hidden endpoint.",
+  support: "Applications are reviewed for fit before scheduling.",
+  faqHeading: enFaq.heading,
+  steps: [
+    {
+      title: "Application",
+      body: "Send the details needed to understand fit before the call.",
+    },
+    {
+      title: "Schedule",
+      body: "Choose a 20-minute consultation window that works for your time zone.",
+    },
+    {
+      title: "Confirmation",
+      body: "Watch the pre-call video and arrive prepared with your questions.",
+    },
+  ],
+  stepLabel: "Step",
+};
+
+const enFinalScene = {
+  sceneTitle: "START",
+  eyebrow: "START",
+  headlineLead: "Your system is",
+  headlineAccent: "waiting.",
+  body: "A 45-day roadmap. A free store build. Two winning products. Dual-market strategies. And a mentor who won't leave you behind.",
+};
+
+const arFinalScene = {
+  sceneTitle: "ابدأ",
+  eyebrow: "ابدأ",
+  headlineLead: "نظامك",
+  headlineAccent: "ينتظرك.",
+  body: "خارطة طريق لـ 45 يومًا. بناء متجر مجاني. منتجان رابحان. استراتيجيات مزدوجة للسوقين. ومرشد لا يتركك خلفه.",
+};
+
+const enApplyPage = {
+  step: "STEP 1 OF 2",
+  heading: "Apply for the program",
+  body: "Tell us about you. If we're a fit, you'll book a call on the next step.",
+  duration: "Application takes ~2 minutes",
+};
+
+const arApplyPage = {
+  step: "الخطوة 1 من 2",
+  heading: "قدّم للبرنامج",
+  body: "احكِ لنا عنك. إذا كانت هناك ملاءمة، ستنتقل لحجز المكالمة في الخطوة التالية.",
+  duration: "الطلب يستغرق حوالي دقيقتين",
+};
+
+const enNav = {
+  defaultScene: "SYSTEM ONLINE",
+  homeScene: "SYSTEM ONLINE",
+  routeLabels: {
+    apply: "APPLY",
+    schedule: "START",
+    confirmation: "CONFIRMED",
+  },
+};
+
+const arNav = {
+  defaultScene: "النظام يعمل",
+  homeScene: "النظام يعمل",
+  routeLabels: {
+    apply: "تقدّم",
+    schedule: "ابدأ",
+    confirmation: "تم التأكيد",
+  },
+};
+
+const enStickyCta = {
+  label: "APPLY FOR THE PROGRAM",
+  sub: "Free 20-minute consultation",
+};
+
+const arStickyCta = {
+  label: "قدّم طلبك للبرنامج",
+  sub: "استشارة مجانية لمدة 20 دقيقة",
+};
+
+const enSceneLabels = {
+  roadmap: "ROADMAP",
+  learn: "WHAT YOU LEARN",
+  coach: "THE COACH",
+};
+
+const arSceneLabels = {
+  roadmap: "الخارطة",
+  learn: "ماذا ستتعلم",
+  coach: "المدرّب",
+};
+
+const enContent = {
+  CTA_LABEL: enCTA_LABEL,
+  CTA_SUB: enCTA_SUB,
+  hero: enHero,
+  heroHeadline: enHeroHeadline,
+  learn: enLearn,
+  promise: enPromise,
+  chaosToSystem: enChaosToSystem,
+  curriculum: enCurriculum,
+  graduationGift: enGraduationGift,
+  beyond: enBeyond,
+  testimonials: enTestimonials,
+  faq: enFaq,
+  founder: enFounder,
+  schedule: enSchedule,
+  confirmation: enConfirmation,
+  footer: enFooter,
+  problem: enProblem,
+  systemScene: enSystemScene,
+  offerScene: enOfferScene,
+  proofScene: enProofScene,
+  applicationScene: enApplicationScene,
+  finalScene: enFinalScene,
+  applyPage: enApplyPage,
+  nav: enNav,
+  stickyCta: enStickyCta,
+  sceneLabels: enSceneLabels,
+};
+
 // ─── Arabic content (mirrors exact shape of content.ts) ──────────────────────
 
 const arCTA_LABEL = "قدّم طلبك للبرنامج";
@@ -173,6 +440,30 @@ const arFaq = {
     "نحن ملتزمون بنجاحك. إذا كنت مستعداً للعمل، لن نتركك خلفنا. ندعمك في كل خطوة حتى تحقق النتائج التي تسعى إليها.",
 };
 
+const arApplicationScene = {
+  sceneTitle: "التقديم",
+  eyebrow: "التقديم",
+  headline: "ادخل نظام التشغيل.",
+  body: "الفانل هنا بسيط وواضح: قدّم طلبك، تأكد من الملاءمة، ثم اختر وقت الاستشارة. بلا ندرة مزيفة ولا نهاية مخفية.",
+  support: "يتم مراجعة الطلبات أولًا قبل فتح الحجز.",
+  faqHeading: arFaq.heading,
+  steps: [
+    {
+      title: "الطلب",
+      body: "أرسل التفاصيل الأساسية حتى نفهم الملاءمة قبل المكالمة.",
+    },
+    {
+      title: "الحجز",
+      body: "اختر نافذة استشارة مدتها 20 دقيقة تناسب توقيتك.",
+    },
+    {
+      title: "التأكيد",
+      body: "شاهد فيديو ما قبل المكالمة وادخل مستعدًا بأسئلتك.",
+    },
+  ],
+  stepLabel: "الخطوة",
+};
+
 const arFounder = {
   eyebrow: "المدرّب",
   heading: "تعرّف على يوسف عادل",
@@ -209,6 +500,7 @@ const arSchedule = {
   sub: "تهانينا على اتخاذ الخطوة الأولى! لإنهاء طلبك، يرجى تحديد وقت مناسب أدناه لمكالمة الاستشارة المجانية.",
   cta: "اختر وقت استشارتك المجانية",
   card: { name: "مكالمة استكشافية مجانية", duration: "٢٠ دقيقة" },
+  slots: enSchedule.slots,
 };
 
 const arConfirmation = {
@@ -238,46 +530,44 @@ const arFooter = {
   copyright: "© ٢٠٢٦ إيكوم فينوم. جميع الحقوق محفوظة.",
 };
 
+const arContent = {
+  CTA_LABEL: arCTA_LABEL,
+  CTA_SUB: arCTA_SUB,
+  hero: arHero,
+  heroHeadline: arHeroHeadline,
+  learn: arLearn,
+  promise: arPromise,
+  chaosToSystem: arChaosToSystem,
+  curriculum: arCurriculum,
+  graduationGift: arGraduationGift,
+  beyond: arBeyond,
+  testimonials: arTestimonials,
+  faq: arFaq,
+  founder: arFounder,
+  schedule: arSchedule,
+  confirmation: arConfirmation,
+  footer: arFooter,
+  problem: arProblem,
+  systemScene: arSystemScene,
+  offerScene: arOfferScene,
+  proofScene: arProofScene,
+  applicationScene: arApplicationScene,
+  finalScene: arFinalScene,
+  applyPage: arApplyPage,
+  nav: arNav,
+  stickyCta: arStickyCta,
+  sceneLabels: arSceneLabels,
+};
+
+export type AppContent = typeof enContent;
+
+export function getContentForLang(lang: "en" | "ar"): AppContent {
+  return lang === "ar" ? arContent : enContent;
+}
+
 // ─── Hook ────────────────────────────────────────────────────────────────────
 
 export function useContent() {
   const { lang } = useLang();
-
-  if (lang === "ar") {
-    return {
-      CTA_LABEL: arCTA_LABEL,
-      CTA_SUB: arCTA_SUB,
-      hero: arHero,
-      learn: arLearn,
-      promise: arPromise,
-      chaosToSystem: arChaosToSystem,
-      curriculum: arCurriculum,
-      graduationGift: arGraduationGift,
-      beyond: arBeyond,
-      testimonials: arTestimonials,
-      faq: arFaq,
-      founder: arFounder,
-      schedule: arSchedule,
-      confirmation: arConfirmation,
-      footer: arFooter,
-    };
-  }
-
-  return {
-    CTA_LABEL: enCTA_LABEL,
-    CTA_SUB: enCTA_SUB,
-    hero: enHero,
-    learn: enLearn,
-    promise: enPromise,
-    chaosToSystem: enChaosToSystem,
-    curriculum: enCurriculum,
-    graduationGift: enGraduationGift,
-    beyond: enBeyond,
-    testimonials: enTestimonials,
-    faq: enFaq,
-    founder: enFounder,
-    schedule: enSchedule,
-    confirmation: enConfirmation,
-    footer: enFooter,
-  };
+  return getContentForLang(lang);
 }

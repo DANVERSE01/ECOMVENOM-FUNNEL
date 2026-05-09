@@ -8,12 +8,13 @@ import { SceneEyebrow } from "@/components/cinematic/SceneEyebrow";
 import { ResponsiveMediaFrame } from "@/components/cinematic/ResponsiveMediaFrame";
 import { SystemOverlay } from "@/components/cinematic/SystemOverlay";
 import { HIGGSFIELD_STILLS } from "@/lib/frameManifest";
-import { founder } from "@/lib/content";
 import { gsap } from "@/lib/gsap";
 import { splitText } from "@/lib/motion";
 import { useReducedMotion } from "@/lib/useReducedMotion";
+import { useContent } from "@/lib/useContent";
 
 export function Scene05Founder() {
+  const { founder, sceneLabels } = useContent();
   const sectionRef = useRef<HTMLDivElement | null>(null);
   const quoteRef = useRef<HTMLParagraphElement | null>(null);
   const portraitRef = useRef<HTMLDivElement | null>(null);
@@ -90,7 +91,7 @@ export function Scene05Founder() {
   );
 
   return (
-    <ScrollFilmScene id="operator" scene="05" title="FOUNDER" className="py-16 sm:py-28">
+    <ScrollFilmScene id="operator" scene="05" title={sceneLabels.coach} className="py-16 sm:py-28">
       <span className="scene-ghost top-8 left-8">05</span>
       <div className="absolute inset-0">
         <Image src={HIGGSFIELD_STILLS.productWireframe} alt="" fill sizes="100vw" className="object-cover opacity-[0.14]" />
@@ -111,7 +112,7 @@ export function Scene05Founder() {
         </ResponsiveMediaFrame>
 
         <div className="self-center">
-          <SceneEyebrow label="THE COACH" />
+          <SceneEyebrow label={sceneLabels.coach} />
           <h2 className="mt-5 font-display text-[clamp(3rem,6vw,6rem)] uppercase leading-[1.02] tracking-tightest">
             {founder.heading}
           </h2>

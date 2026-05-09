@@ -11,14 +11,10 @@ import { HIGGSFIELD_STILLS } from "@/lib/frameManifest";
 import { gsap } from "@/lib/gsap";
 import { splitText } from "@/lib/motion";
 import { useReducedMotion } from "@/lib/useReducedMotion";
-
-const signals = [
-  { label: "Random tutorials", detail: "Hours of YouTube videos, contradicting advice, no clear path forward" },
-  { label: "Random products", detail: "Testing blindly, burning budget on items nobody wants to buy" },
-  { label: "Random ad spend", detail: "Money leaving your account with zero idea what's working or why" },
-];
+import { useContent } from "@/lib/useContent";
 
 export function Scene01Problem() {
+  const { problem } = useContent();
   const sectionRef = useRef<HTMLDivElement | null>(null);
   const headlineRef = useRef<HTMLHeadingElement | null>(null);
   const bodyRef = useRef<HTMLParagraphElement | null>(null);
@@ -83,7 +79,7 @@ export function Scene01Problem() {
   );
 
   return (
-    <ScrollFilmScene id="chaos-input" scene="01" title="THE PROBLEM" className="min-h-screen py-16 sm:py-28">
+    <ScrollFilmScene id="chaos-input" scene="01" title={problem.sceneTitle} className="min-h-screen py-16 sm:py-28">
       <span className="scene-ghost bottom-8 right-8">01</span>
       <div className="absolute inset-0">
         <Image src={HIGGSFIELD_STILLS.cartChaos} alt="" fill sizes="100vw" className="object-cover opacity-[0.35]" />
@@ -92,16 +88,16 @@ export function Scene01Problem() {
       </div>
       <div ref={sectionRef} className="relative z-10 mx-auto grid min-h-[70vh] max-w-[1200px] items-center gap-10 px-5 sm:px-8 lg:grid-cols-[0.8fr_1.2fr] lg:px-12">
         <div>
-          <SceneEyebrow label="THE PROBLEM" />
+          <SceneEyebrow label={problem.eyebrow} />
           <h2
             ref={headlineRef}
             className="mt-6 font-display text-[clamp(3rem,7vw,7rem)] uppercase leading-[1.02] tracking-tightest"
           >
-            Random inputs create expensive chaos.
+            {problem.headline}
           </h2>
         </div>
         <div className="space-y-4">
-          {signals.map((signal, index) => (
+          {problem.signals.map((signal, index) => (
             <div
               key={signal.label}
               className="chaos-signal scene-panel-elevated border-l-2 border-l-alert/40 p-5"
@@ -109,9 +105,9 @@ export function Scene01Problem() {
               <div className="flex items-center justify-between gap-4 font-heading text-[10px] uppercase tracking-caps text-ash">
                 <span className="flex items-center gap-2">
                   <span className="signal-glyph signal-glyph--alert" aria-hidden />
-                  Signal {String(index + 1).padStart(2, "0")}
+                  {problem.signalLabel} {String(index + 1).padStart(2, "0")}
                 </span>
-                <span className="text-alert/80">Uncontrolled</span>
+                <span className="text-alert/80">{problem.signalState}</span>
               </div>
               <p className="mt-3 font-display text-2xl uppercase text-bone">{signal.label}</p>
               <p className="mt-2 text-sm leading-relaxed text-ash-2">{signal.detail}</p>
@@ -119,7 +115,7 @@ export function Scene01Problem() {
           ))}
           <SceneHairline />
           <p ref={bodyRef} className="max-w-xl text-base leading-relaxed text-ash">
-            Most people who try dropshipping operate on guesswork. The system you&apos;re about to see replaces that chaos with a structured operating path.
+            {problem.body}
           </p>
         </div>
       </div>

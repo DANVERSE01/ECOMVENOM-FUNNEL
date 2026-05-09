@@ -1,7 +1,11 @@
-import { confirmation } from "@/lib/content";
+"use client";
+
 import { PreCallVideo } from "./pre-call-video";
+import { useContent } from "@/lib/useContent";
 
 export function PreCallSteps() {
+  const { confirmation } = useContent();
+
   return (
     <ol className="grid gap-6">
       {confirmation.steps.map((s, i) => (

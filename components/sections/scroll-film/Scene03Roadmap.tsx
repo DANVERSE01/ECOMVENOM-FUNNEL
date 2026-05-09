@@ -10,12 +10,13 @@ import { CinematicPanel } from "@/components/ui/CinematicPanel";
 import { CountUpNumber } from "@/components/ui/count-up";
 import { HoverGrid, HoverGridItem } from "@/components/ui/HoverGrid";
 import { GENERATED_STILLS } from "@/lib/frameManifest";
-import { curriculum, learn } from "@/lib/content";
 import { gsap, ScrollTrigger } from "@/lib/gsap";
 import { scrambleText, getStrokeLength } from "@/lib/motion";
 import { useReducedMotion } from "@/lib/useReducedMotion";
+import { useContent } from "@/lib/useContent";
 
 export function Scene03Roadmap() {
+  const { curriculum, learn, sceneLabels } = useContent();
   const sectionRef = useRef<HTMLDivElement | null>(null);
   const learnHeadingRef = useRef<HTMLHeadingElement | null>(null);
   const svgPathRef = useRef<SVGPathElement | null>(null);
@@ -89,7 +90,7 @@ export function Scene03Roadmap() {
   );
 
   return (
-    <ScrollFilmScene id="roadmap" scene="03" title="ROADMAP" className="py-16 sm:py-28">
+    <ScrollFilmScene id="roadmap" scene="03" title={sceneLabels.roadmap} className="py-16 sm:py-28">
       <span className="scene-ghost top-8 right-8">03</span>
       <div className="absolute inset-0">
         <Image src={GENERATED_STILLS.roadmapBg} alt="" fill sizes="100vw" className="object-cover opacity-[0.18]" />
@@ -98,7 +99,7 @@ export function Scene03Roadmap() {
       <div ref={sectionRef} className="relative z-10 mx-auto max-w-wide px-5 sm:px-8 lg:px-12">
         <div className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr]">
           <div>
-            <SceneEyebrow label="ROADMAP" />
+            <SceneEyebrow label={sceneLabels.roadmap} />
             <h2 className="mt-5 font-display text-[clamp(3rem,7vw,7rem)] uppercase leading-[1.02] tracking-tightest">
               {curriculum.heading}
             </h2>
@@ -146,7 +147,7 @@ export function Scene03Roadmap() {
         </div>
 
         <div className="mt-24">
-          <SceneEyebrow label="WHAT YOU LEARN" />
+          <SceneEyebrow label={sceneLabels.learn} />
           <h3
             ref={learnHeadingRef}
             className="mt-4 max-w-4xl font-display text-[clamp(2.6rem,5vw,5rem)] uppercase leading-[1.08] tracking-tightest"

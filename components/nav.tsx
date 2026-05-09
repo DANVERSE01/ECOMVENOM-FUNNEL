@@ -8,34 +8,35 @@ import { useGSAP } from "@gsap/react";
 import { CtaLink } from "./ui/button";
 import { ScrollProgressIndicator } from "./ui/ScrollProgressIndicator";
 import { LangToggle } from "./ui/LangToggle";
-import { CTA_LABEL, CTA_SUB } from "@/lib/content";
 import { cn } from "@/lib/cn";
 import { gsap, ScrollTrigger, reducedMotion } from "@/lib/gsap";
 import { scrambleText } from "@/lib/motion";
 import { useLang } from "@/lib/lang-context";
-
-function displaySceneLabel(label?: string) {
-  return label === "ECOMVENOM" ? "SYSTEM ONLINE" : label ?? "SYSTEM ONLINE";
-}
+import { useContent } from "@/lib/useContent";
 
 export function Nav() {
   const pathname = usePathname();
-  const { lang, setLang, t } = useLang();
-  const [scene, setScene] = useState("SYSTEM ONLINE");
+  const { t } = useLang();
+  const { CTA_LABEL, CTA_SUB, nav } = useContent();
+  const [scene, setScene] = useState(nav.defaultScene);
   const [compressed, setCompressed] = useState(false);
   const sceneLabelRef = useRef<HTMLSpanElement>(null);
   const firstRender = useRef(true);
+
+  const displaySceneLabel = (label?: string) => {
+    return label === "ECOMVENOM" ? nav.homeScene : label ?? nav.defaultScene;
+  };
 
   useGSAP(
     () => {
       const routeLabel =
         pathname === "/apply"
-          ? "APPLY"
+          ? nav.routeLabels.apply
           : pathname === "/schedule"
-            ? "START"
+            ? nav.routeLabels.schedule
             : pathname === "/confirmation"
-              ? "CONFIRMED"
-              : "SYSTEM ONLINE";
+              ? nav.routeLabels.confirmation
+              : nav.defaultScene;
 
       setScene(routeLabel);
 
@@ -54,7 +55,7 @@ export function Nav() {
 
       return;
     },
-    { dependencies: [pathname], revertOnUpdate: true },
+    { dependencies: [nav, pathname], revertOnUpdate: true },
   );
 
   useEffect(() => {
@@ -144,7 +145,7 @@ export function Nav() {
             <span ref={sceneLabelRef} className="truncate" />
           </div>
 
-          <div className="relative z-40 flex items-center gap-2 justify-end justify-self-end">
+          <div data-nav-actions="true" className="relative z-40 flex items-center gap-2 justify-end justify-self-end">
             <LangToggle />
             <div className="hidden sm:block">
               <CtaLink href="/apply" sub={CTA_SUB} className="cinematic-command min-w-[13.5rem] px-5">

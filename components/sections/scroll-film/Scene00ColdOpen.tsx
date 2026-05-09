@@ -17,7 +17,6 @@ import { ResponsiveMediaFrame } from "@/components/cinematic/ResponsiveMediaFram
 import { ScrollFilmScene } from "@/components/cinematic/ScrollFilmScene";
 import { SystemOverlay } from "@/components/cinematic/SystemOverlay";
 import { HIGGSFIELD_LOOPS, HIGGSFIELD_STILLS, GENERATED_STILLS } from "@/lib/frameManifest";
-import { CTA_LABEL, CTA_SUB, hero } from "@/lib/content";
 import { gsap } from "@/lib/gsap";
 import { scrambleText } from "@/lib/motion";
 import type React from "react";
@@ -25,6 +24,8 @@ import { useReducedMotion } from "@/lib/useReducedMotion";
 import { useVslScrollExpansion } from "@/hooks/useVslScrollExpansion";
 import { getCurrentLenis } from "@/lib/lenis";
 import { FloatingVslPlayer } from "@/components/cinematic/FloatingVslPlayer";
+import { useContent } from "@/lib/useContent";
+import { useLang } from "@/lib/lang-context";
 
 const HERO_MEDIA = {
   embedSrc: "https://player.vimeo.com/video/1190366994",
@@ -33,14 +34,6 @@ const HERO_MEDIA = {
   purpose: "homepage-hero-vsl",
 } as const;
 const HERO_VSL_SESSION_KEY = "ecomvenom.heroVslIntro.seen";
-const HERO_HEADLINE_LINES = [
-  [{ text: "BUILD" }, { text: "A" }],
-  [{ text: "PROFITABLE", className: "text-venom" }, { text: "DROPSHIPPING" }],
-  [{ text: "SYSTEM", className: "text-venom" }],
-  [{ text: "IN" }, { text: "45" }, { text: "DAYS" }],
-  [{ text: "ZERO", className: "text-venom" }, { text: "EXPERIENCE", className: "text-venom" }],
-] as const;
-
 type OverlayPhase = "opening" | "closing";
 type LaunchMode = "auto" | "manual";
 type CollapseVars = CSSProperties & {
@@ -50,6 +43,8 @@ type CollapseVars = CSSProperties & {
 };
 
 export function Scene00ColdOpen() {
+  const { lang, t } = useLang();
+  const { hero, heroHeadline, CTA_LABEL, CTA_SUB } = useContent();
   const sectionRef = useRef<HTMLDivElement | null>(null);
   const eyebrowRef = useRef<HTMLParagraphElement | null>(null);
   const headlineRef = useRef<HTMLHeadingElement | null>(null);
@@ -73,6 +68,32 @@ export function Scene00ColdOpen() {
     ? `${HERO_MEDIA.embedSrc}?badge=0&autopause=0&player_id=0&app_id=58479&dnt=1&autoplay=1${launchMode === "auto" ? "&muted=1" : ""}`
     : "";
   const scrollEmbedSrc = `${HERO_MEDIA.embedSrc}?badge=0&autopause=0&player_id=0&app_id=58479&dnt=1&autoplay=1`;
+  const vslCopy = lang === "ar"
+    ? {
+        badge: "VSL المؤسس",
+        preview: "معاينة",
+        previewStatic: "معاينة VSL المؤسس",
+        originalFrame: "الإطار الأصلي",
+        openingLabel: "افتتاح VSL المؤسس",
+        founderName: "يوسف عادل",
+        muted: "تشغيل صامت تلقائي",
+        openingSequence: "تسلسل الافتتاح",
+        skip: "تخطي",
+      }
+    : {
+        badge: "Founder VSL",
+        preview: "Preview",
+        previewStatic: "Founder VSL preview",
+        originalFrame: "Original frame",
+        openingLabel: "Founder VSL opening",
+        founderName: "Youssef Adel",
+        muted: "Muted autoplay",
+        openingSequence: "Opening sequence",
+        skip: "Skip",
+      };
+  const heroCommandRail = lang === "ar"
+    ? ["مسار تشغيل للسوقين الأمريكي والخليجي", "بناء متجر مجاني بعد الإكمال", "التقديم قبل فتح الحجز"]
+    : ["U.S. + Gulf operating path", "Free store build on completion", "Application before scheduling"];
 
   useVslScrollExpansion(
     sectionRef as React.RefObject<HTMLElement>,
@@ -350,14 +371,14 @@ export function Scene00ColdOpen() {
               ref={headlineRef}
               className="mt-4 max-w-[62rem] font-display text-[2.35rem] uppercase leading-[1.02] tracking-normal text-bone sm:text-[3.05rem] lg:text-[3.05rem] xl:text-[3.75rem] 2xl:text-[4.2rem]"
             >
-              {HERO_HEADLINE_LINES.map((line, lineIndex) => (
+              {heroHeadline.map((line, lineIndex) => (
                 <span key={lineIndex} data-headline-line className="block overflow-hidden">
                   <span className="block">
                     {line.map((word, wordIndex) => (
                       <span key={`${word.text}-${wordIndex}`}>
                         <span
                           data-hero-word
-                          className={`inline-block${"className" in word ? ` ${word.className}` : ""}`}
+                          className={`inline-block${word.className ? ` ${word.className}` : ""}`}
                         >
                           {word.text}
                         </span>
@@ -387,10 +408,10 @@ export function Scene00ColdOpen() {
                 {hero.scrollCue}
               </p>
             </div>
-            <div className="hero-command-rail mt-7 hidden sm:grid" aria-label="Program highlights">
-              <span>U.S. + Gulf operating path</span>
-              <span>Free store build on completion</span>
-              <span>Application before scheduling</span>
+            <div className="hero-command-rail mt-7 hidden sm:grid" aria-label={lang === "ar" ? "أبرز مميزات البرنامج" : "Program highlights"}>
+              {heroCommandRail.map((item) => (
+                <span key={item}>{item}</span>
+              ))}
             </div>
           </div>
 
@@ -398,7 +419,7 @@ export function Scene00ColdOpen() {
             <ResponsiveMediaFrame className="hero-vsl-card aspect-video w-[min(82vw,24rem)] bg-ink-3 p-2 sm:w-[min(62vw,28rem)] lg:w-full">
               <Image
                 src={HERO_MEDIA.posterSrc}
-                alt="Youssef Adel founder VSL poster"
+                alt={lang === "ar" ? "بوستر VSL المؤسس يوسف عادل" : "Youssef Adel founder VSL poster"}
                 fill
                 sizes="(min-width: 1024px) 430px, 78vw"
                 className="object-cover"
@@ -406,8 +427,8 @@ export function Scene00ColdOpen() {
               />
               <div className="hero-vsl-card__depth" aria-hidden />
               <div className="absolute left-4 top-4 z-30 border border-white/10 bg-black/70 px-3 py-2 backdrop-blur-sm">
-                <p className="font-heading text-[10px] uppercase tracking-normal text-venom">Founder VSL</p>
-                <p className="mt-1 font-mono text-[10px] text-ash">Preview</p>
+                <p className="font-heading text-[10px] uppercase tracking-normal text-venom">{vslCopy.badge}</p>
+                <p className="mt-1 font-mono text-[10px] text-ash">{vslCopy.preview}</p>
               </div>
               {scrollVideoActive && (
                 <iframe
@@ -424,10 +445,10 @@ export function Scene00ColdOpen() {
                 <button
                   type="button"
                   onClick={openManualVsl}
-                  aria-label="Play founder VSL"
+                  aria-label={t("playVsl")}
                   className="hero-vsl-play absolute bottom-4 left-4 right-4 z-30"
                 >
-                  <span>Watch founder VSL</span>
+                  <span>{t("playVsl")}</span>
                   <span className="hero-vsl-play__icon" aria-hidden>
                     <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
                       <path d="M4.5 3.25L10 7L4.5 10.75V3.25Z" fill="currentColor" />
@@ -436,8 +457,8 @@ export function Scene00ColdOpen() {
                 </button>
               ) : (
                 <div className="hero-vsl-static-label absolute bottom-4 left-4 right-4 z-30">
-                  <span>Founder VSL preview</span>
-                  <span>Original frame</span>
+                  <span>{vslCopy.previewStatic}</span>
+                  <span>{vslCopy.originalFrame}</span>
                 </div>
               )}
             </ResponsiveMediaFrame>
@@ -451,7 +472,7 @@ export function Scene00ColdOpen() {
         <div
           role="dialog"
           aria-modal="true"
-          aria-label="Founder VSL opening"
+          aria-label={vslCopy.openingLabel}
           className="hero-vsl-overlay"
           data-phase={overlayPhase}
           style={collapseStyle}
@@ -465,15 +486,15 @@ export function Scene00ColdOpen() {
             <span className="hero-vsl-bracket hero-vsl-bracket--br" aria-hidden />
 
             <div className="hero-vsl-overlay__meta">
-              <span>Founder VSL</span>
-              <span>Youssef Adel</span>
-              <span>{launchMode === "auto" ? "Muted autoplay" : "Opening sequence"}</span>
+              <span>{vslCopy.badge}</span>
+              <span>{vslCopy.founderName}</span>
+              <span>{launchMode === "auto" ? vslCopy.muted : vslCopy.openingSequence}</span>
             </div>
 
             <iframe
               key={heroEmbedSrc}
               src={heroEmbedSrc}
-              title="Founder VSL"
+              title={vslCopy.badge}
               className="hero-vsl-overlay__video"
               allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media"
               referrerPolicy="strict-origin-when-cross-origin"
@@ -483,7 +504,7 @@ export function Scene00ColdOpen() {
             <button
               type="button"
               onClick={closeOverlay}
-              aria-label="Close founder VSL"
+              aria-label={t("closePlayer")}
               className="hero-vsl-overlay__close"
             >
               <svg width="15" height="15" viewBox="0 0 15 15" fill="none" aria-hidden>
@@ -491,7 +512,7 @@ export function Scene00ColdOpen() {
               </svg>
             </button>
             <button type="button" onClick={closeOverlay} className="hero-vsl-overlay__skip">
-              Skip
+              {vslCopy.skip}
             </button>
           </div>
         </div>

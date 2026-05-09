@@ -8,28 +8,14 @@ import { ScrollFilmScene } from "@/components/cinematic/ScrollFilmScene";
 import { SceneEyebrow } from "@/components/cinematic/SceneEyebrow";
 import { SceneHairline } from "@/components/cinematic/SceneHairline";
 import { SystemOverlay } from "@/components/cinematic/SystemOverlay";
-import { CTA_LABEL, CTA_SUB, faq } from "@/lib/content";
 import { HIGGSFIELD_STILLS } from "@/lib/frameManifest";
 import { gsap } from "@/lib/gsap";
 import { splitText, getStrokeLength } from "@/lib/motion";
 import { useReducedMotion } from "@/lib/useReducedMotion";
-
-const steps = [
-  {
-    title: "Application",
-    body: "Send the details needed to understand fit before the call.",
-  },
-  {
-    title: "Schedule",
-    body: "Choose a 20-minute consultation window that works for your time zone.",
-  },
-  {
-    title: "Confirmation",
-    body: "Watch the pre-call video and arrive prepared with your questions.",
-  },
-];
+import { useContent } from "@/lib/useContent";
 
 export function Scene07Application() {
+  const { CTA_LABEL, CTA_SUB, faq, applicationScene } = useContent();
   const sectionRef = useRef<HTMLDivElement | null>(null);
   const headlineRef = useRef<HTMLHeadingElement | null>(null);
   const stepCardsRef = useRef<HTMLDivElement | null>(null);
@@ -114,24 +100,24 @@ export function Scene07Application() {
   );
 
   return (
-    <ScrollFilmScene id="application-flow" scene="07" title="APPLY" className="py-16 sm:py-28">
+    <ScrollFilmScene id="application-flow" scene="07" title={applicationScene.sceneTitle} className="py-16 sm:py-28">
       <span className="scene-ghost bottom-8 left-8">07</span>
       <div className="absolute inset-0">
         <Image src={HIGGSFIELD_STILLS.storePortal} alt="" fill sizes="100vw" loading="eager" className="object-cover opacity-[0.10]" />
         <SystemOverlay />
       </div>
       <div ref={sectionRef} className="relative z-10 mx-auto max-w-measure px-5 sm:px-8 lg:px-12">
-        <SceneEyebrow label="APPLY" />
+        <SceneEyebrow label={applicationScene.eyebrow} />
         <div className="mt-8 grid gap-10 lg:grid-cols-[0.9fr_1.1fr]">
           <div>
             <h2
               ref={headlineRef}
               className="font-display text-[clamp(3rem,6vw,6rem)] uppercase leading-[1.02] tracking-tightest"
             >
-              Enter the operating system.
+              {applicationScene.headline}
             </h2>
             <p className="mt-5 max-w-xl text-lg leading-relaxed text-ash">
-              The funnel stays simple: submit your application, confirm fit, then choose a consultation time. No fake scarcity, no hidden endpoint.
+              {applicationScene.body}
             </p>
             <div className="relative z-30 mt-8">
               <CtaLink href="/apply" sub={CTA_SUB} className="cinematic-command">
@@ -139,7 +125,7 @@ export function Scene07Application() {
               </CtaLink>
             </div>
             <p className="mt-4 max-w-md font-heading text-[10px] uppercase leading-relaxed tracking-label text-ash/70">
-              Applications are reviewed for fit before scheduling.
+              {applicationScene.support}
             </p>
           </div>
 
@@ -165,10 +151,10 @@ export function Scene07Application() {
             </svg>
 
             <div className="grid gap-3">
-              {steps.map((step, index) => (
+              {applicationScene.steps.map((step, index) => (
                 <div key={step.title} className="step-card scene-panel-elevated p-5">
                   <p className="font-heading text-[10px] uppercase tracking-caps text-venom">
-                    Step {String(index + 1).padStart(2, "0")}
+                    {applicationScene.stepLabel} {String(index + 1).padStart(2, "0")}
                   </p>
                   <h3 className="mt-2 font-display text-2xl uppercase text-bone">{step.title}</h3>
                   <p className="mt-2 text-sm leading-relaxed text-ash">{step.body}</p>
@@ -182,7 +168,7 @@ export function Scene07Application() {
 
         {/* FAQ */}
         <div>
-          <h3 className="font-display text-4xl uppercase tracking-tightest">{faq.heading}</h3>
+          <h3 className="font-display text-4xl uppercase tracking-tightest">{applicationScene.faqHeading}</h3>
           <div className="mt-6 grid gap-3 lg:grid-cols-2">
             {faq.items.map((item, index) => (
               <div

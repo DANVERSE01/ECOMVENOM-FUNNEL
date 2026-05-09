@@ -4,16 +4,101 @@ import { useState, FormEvent } from "react";
 import { useRouter } from "next/navigation";
 import { CtaButton } from "@/components/ui/button";
 import { cn } from "@/lib/cn";
+import { useLang } from "@/lib/lang-context";
 
 const ENDPOINT = process.env.NEXT_PUBLIC_FORM_ENDPOINT;
 
 export function ApplicationForm() {
   const router = useRouter();
+  const { lang } = useLang();
   const [step, setStep] = useState(0);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
   const isFinalStep = step === 2;
+  const copy = lang === "ar"
+    ? {
+        progressAria: "خطوة الطلب",
+        progress: ["الهوية", "السوق", "الالتزام"],
+        step1: "الخطوة 01 / الهوية",
+        step2: "الخطوة 02 / السوق",
+        step3: "الخطوة 03 / الالتزام",
+        labels: {
+          name: "الاسم الكامل",
+          email: "البريد الإلكتروني",
+          phone: "رقم واتساب مع مفتاح الدولة",
+          experience: "مستوى الخبرة",
+          market: "السوق المستهدف",
+          budget: "ميزانية البداية الشهرية",
+          challenge: "ما أكبر تحدٍ لديك في الدروبشيبينغ؟",
+        },
+        placeholders: {
+          phone: "+20 1XX XXX XXXX",
+          select: "اختر خيارًا",
+        },
+        options: {
+          experience: ["صفر خبرة", "جرّبت من قبل", "أبيع بالفعل"],
+          market: ["السوق الأمريكي", "السوق السعودي/الخليجي", "كلا السوقين"],
+          budget: ["ميزانية محدودة", "ميزانية متوسطة", "جاهز للاستثمار"],
+        },
+        commitmentLabel: "أفهم أن هذا نظام عمل حقيقي وأنا مستعد للالتزام بالخارطة.",
+        advisorNote: "بمجرد التقديم فإنك توافق على التواصل معك من قبل مستشار.",
+        back: "رجوع",
+        continue: "استمرار",
+        submit: "إرسال الطلب",
+        submitting: "جارٍ الإرسال...",
+        validation: {
+          nameRequired: "الاسم الكامل مطلوب.",
+          emailRequired: "البريد الإلكتروني مطلوب.",
+          emailInvalid: "أدخل بريدًا إلكترونيًا صحيحًا.",
+          phoneRequired: "رقم واتساب مطلوب.",
+          selectOne: "اختر خيارًا واحدًا.",
+          commitment: "أكد أنك جاهز للالتزام بالخارطة.",
+          completeRequired: "أكمل الحقول المطلوبة قبل المتابعة.",
+          submitFailed: "فشل الإرسال. حاول مرة أخرى.",
+        },
+      }
+    : {
+        progressAria: "Application step",
+        progress: ["Identity", "Market", "Commitment"],
+        step1: "Step 01 / Identity",
+        step2: "Step 02 / Market",
+        step3: "Step 03 / Commitment",
+        labels: {
+          name: "Full name",
+          email: "Email",
+          phone: "WhatsApp number (with country code)",
+          experience: "Experience level",
+          market: "Target market",
+          budget: "Monthly starting budget",
+          challenge: "Biggest dropshipping challenge?",
+        },
+        placeholders: {
+          phone: "+20 1XX XXX XXXX",
+          select: "Select one",
+        },
+        options: {
+          experience: ["Zero experience", "Tried before", "Already selling"],
+          market: ["U.S. Market", "Saudi/Gulf Market", "Both markets"],
+          budget: ["Limited budget", "Moderate budget", "Ready to invest"],
+        },
+        commitmentLabel: "I understand this is a business system and I am ready to follow the roadmap.",
+        advisorNote: "By applying you agree to be contacted by an advisor.",
+        back: "Back",
+        continue: "Continue",
+        submit: "Submit application",
+        submitting: "Submitting...",
+        validation: {
+          nameRequired: "Full name is required.",
+          emailRequired: "Email is required.",
+          emailInvalid: "Enter a valid email.",
+          phoneRequired: "WhatsApp number is required.",
+          selectOne: "Select one option.",
+          commitment: "Confirm you are ready to follow the roadmap.",
+          completeRequired: "Complete the required fields before continuing.",
+          submitFailed: "Submission failed. Please try again.",
+        },
+      };
 
   function validateCurrentStep(form: HTMLFormElement) {
     const data = new FormData(form);
@@ -23,24 +108,24 @@ export function ApplicationForm() {
       const name = String(data.get("name") ?? "").trim();
       const email = String(data.get("email") ?? "").trim();
       const phone = String(data.get("phone") ?? "").trim();
-      if (!name) nextErrors.name = "Full name is required.";
-      if (!email) nextErrors.email = "Email is required.";
-      if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) nextErrors.email = "Enter a valid email.";
-      if (!phone) nextErrors.phone = "WhatsApp number is required.";
+      if (!name) nextErrors.name = copy.validation.nameRequired;
+      if (!email) nextErrors.email = copy.validation.emailRequired;
+      if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) nextErrors.email = copy.validation.emailInvalid;
+      if (!phone) nextErrors.phone = copy.validation.phoneRequired;
     }
 
     if (step === 1) {
       ["experience", "market", "budget"].forEach((field) => {
-        if (!String(data.get(field) ?? "").trim()) nextErrors[field] = "Select one option.";
+        if (!String(data.get(field) ?? "").trim()) nextErrors[field] = copy.validation.selectOne;
       });
     }
 
     if (step === 2 && data.get("commitment") !== "yes") {
-      nextErrors.commitment = "Confirm you are ready to follow the roadmap.";
+      nextErrors.commitment = copy.validation.commitment;
     }
 
     setFieldErrors(nextErrors);
-    setError(Object.keys(nextErrors).length ? "Complete the required fields before continuing." : null);
+    setError(Object.keys(nextErrors).length ? copy.validation.completeRequired : null);
     return Object.keys(nextErrors).length === 0;
   }
 
@@ -79,7 +164,7 @@ export function ApplicationForm() {
       setError(
         err instanceof Error
           ? err.message
-          : "Submission failed. Please try again.",
+          : copy.validation.submitFailed,
       );
       setSubmitting(false);
     }
@@ -93,8 +178,8 @@ export function ApplicationForm() {
       className="scene-panel grid gap-5 p-5 sm:p-6"
       noValidate
     >
-      <div className="grid grid-cols-3 gap-2" aria-label={`Application step ${step + 1} of 3`}>
-        {["Identity", "Market", "Commitment"].map((label, index) => (
+      <div className="grid grid-cols-3 gap-2" aria-label={lang === "ar" ? `${copy.progressAria} ${step + 1} من 3` : `${copy.progressAria} ${step + 1} of 3`}>
+        {copy.progress.map((label, index) => (
           <div key={label} className="grid gap-2" aria-current={step === index ? "step" : undefined}>
             <span className="truncate font-mono text-[9px] uppercase tracking-[0.14em] text-ash/70">
               {label}
@@ -111,16 +196,16 @@ export function ApplicationForm() {
 
       <fieldset className={step === 0 ? "grid gap-5" : "hidden"}>
           <legend className="font-mono text-[11px] uppercase tracking-[0.12em] text-venom">
-            Step 01 / Identity
+            {copy.step1}
           </legend>
-          <Field label="Full name" name="name" type="text" autoComplete="name" error={fieldErrors.name} required />
-          <Field label="Email" name="email" type="email" autoComplete="email" error={fieldErrors.email} required />
+          <Field label={copy.labels.name} name="name" type="text" autoComplete="name" error={fieldErrors.name} required />
+          <Field label={copy.labels.email} name="email" type="email" autoComplete="email" error={fieldErrors.email} required />
           <Field
-            label="WhatsApp number (with country code)"
+            label={copy.labels.phone}
             name="phone"
             type="tel"
             autoComplete="tel"
-            placeholder="+20 1XX XXX XXXX"
+            placeholder={copy.placeholders.phone}
             error={fieldErrors.phone}
             required
           />
@@ -128,20 +213,20 @@ export function ApplicationForm() {
 
       <fieldset className={step === 1 ? "grid gap-5" : "hidden"}>
           <legend className="font-mono text-[11px] uppercase tracking-[0.12em] text-venom">
-            Step 02 / Market
+            {copy.step2}
           </legend>
-          <Select label="Experience level" name="experience" error={fieldErrors.experience} options={["Zero experience", "Tried before", "Already selling"]} />
-          <Select label="Target market" name="market" error={fieldErrors.market} options={["U.S. Market", "Saudi/Gulf Market", "Both markets"]} />
-          <Select label="Monthly starting budget" name="budget" error={fieldErrors.budget} options={["Limited budget", "Moderate budget", "Ready to invest"]} />
+          <Select label={copy.labels.experience} name="experience" error={fieldErrors.experience} options={copy.options.experience} placeholder={copy.placeholders.select} />
+          <Select label={copy.labels.market} name="market" error={fieldErrors.market} options={copy.options.market} placeholder={copy.placeholders.select} />
+          <Select label={copy.labels.budget} name="budget" error={fieldErrors.budget} options={copy.options.budget} placeholder={copy.placeholders.select} />
       </fieldset>
 
       <fieldset className={step === 2 ? "grid gap-5" : "hidden"}>
           <legend className="font-mono text-[11px] uppercase tracking-[0.12em] text-venom">
-            Step 03 / Commitment
+            {copy.step3}
           </legend>
           <label className="form-field grid gap-2">
             <span className="form-field__label text-xs tracking-[0.12em] uppercase text-ash">
-              Biggest dropshipping challenge?
+              {copy.labels.challenge}
             </span>
             <textarea
               name="message"
@@ -152,7 +237,7 @@ export function ApplicationForm() {
           <div>
             <label className="flex gap-3 text-sm leading-relaxed text-ash">
               <input name="commitment" type="checkbox" value="yes" className="mt-1 h-5 w-5 accent-venom focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-venom" required />
-              I understand this is a business system and I am ready to follow the roadmap.
+              {copy.commitmentLabel}
             </label>
             {fieldErrors.commitment && <p className="mt-2 text-xs text-alert">{fieldErrors.commitment}</p>}
           </div>
@@ -166,7 +251,7 @@ export function ApplicationForm() {
 
       <div className="flex flex-col gap-4 pt-2 sm:flex-row sm:items-center sm:justify-between">
         <p className="text-xs leading-relaxed text-ash">
-          By applying you agree to be contacted by an advisor.
+          {copy.advisorNote}
         </p>
         <div className="grid gap-3 sm:flex">
           {step > 0 && (
@@ -175,11 +260,11 @@ export function ApplicationForm() {
               className="tap-target border border-white/10 px-4 py-3 font-mono text-[11px] uppercase tracking-[0.12em] text-ash transition-colors hover:border-white/25 hover:text-bone focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-venom"
               onClick={() => setStep((current) => Math.max(0, current - 1))}
             >
-              Back
+              {copy.back}
             </button>
           )}
           <CtaButton type="submit" disabled={submitting} className="cinematic-command w-full sm:w-auto">
-            {submitting ? "Submitting..." : isFinalStep ? "Submit application" : "Continue"}
+            {submitting ? copy.submitting : isFinalStep ? copy.submit : copy.continue}
           </CtaButton>
         </div>
       </div>
@@ -223,11 +308,13 @@ function Select({
   name,
   error,
   options,
+  placeholder,
 }: {
   label: string;
   name: string;
   error?: string;
   options: string[];
+  placeholder: string;
 }) {
   const errorId = error ? `${name}-error` : undefined;
 
@@ -247,7 +334,7 @@ function Select({
         required
       >
         <option value="" disabled>
-          Select one
+          {placeholder}
         </option>
         {options.map((option) => (
           <option key={option} value={option}>

@@ -24,8 +24,8 @@ const LangContext = createContext<LangContextValue>({
   t: (key) => key,
 });
 
-export function LanguageProvider({ children }: { children: ReactNode }) {
-  const [lang, setLangState] = useState<Lang>(defaultLang);
+export function LanguageProvider({ children, initialLang = defaultLang }: { children: ReactNode; initialLang?: Lang }) {
+  const [lang, setLangState] = useState<Lang>(initialLang);
 
   // Hydrate from localStorage on mount
   useEffect(() => {
@@ -44,15 +44,16 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
     const html = document.documentElement;
     html.lang = lang;
     html.dir = lang === "ar" ? "rtl" : "ltr";
+    try {
+      localStorage.setItem(STORAGE_KEY, lang);
+    } catch {
+      // Ignore storage errors
+    }
+    document.cookie = `${STORAGE_KEY}=${lang}; path=/; max-age=31536000; samesite=lax`;
   }, [lang]);
 
   const setLang = useCallback((next: Lang) => {
     setLangState(next);
-    try {
-      localStorage.setItem(STORAGE_KEY, next);
-    } catch {
-      // Ignore storage errors
-    }
   }, []);
 
   const t = useCallback(

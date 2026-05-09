@@ -8,21 +8,21 @@ import { SceneEyebrow } from "@/components/cinematic/SceneEyebrow";
 import { ResponsiveMediaFrame } from "@/components/cinematic/ResponsiveMediaFrame";
 import { SystemOverlay } from "@/components/cinematic/SystemOverlay";
 import { FINAL_FUNNEL_IMAGES, GENERATED_STILLS } from "@/lib/frameManifest";
-import { testimonials } from "@/lib/content";
 import { gsap } from "@/lib/gsap";
 import { splitText } from "@/lib/motion";
 import { useReducedMotion } from "@/lib/useReducedMotion";
-
-const testimonialImages = [
-  { src: FINAL_FUNNEL_IMAGES[0], label: "VERIFIED STUDENT", note: "Direct screenshot from student account" },
-  { src: FINAL_FUNNEL_IMAGES[1], label: "VERIFIED STUDENT", note: "Unedited progress capture" },
-  { src: FINAL_FUNNEL_IMAGES[2], label: "VERIFIED STUDENT", note: "Real platform results" },
-];
+import { useContent } from "@/lib/useContent";
 
 export function Scene06ProofGate() {
+  const { testimonials, proofScene } = useContent();
   const sectionRef = useRef<HTMLDivElement | null>(null);
   const headlineRef = useRef<HTMLHeadingElement | null>(null);
   const reduced = useReducedMotion();
+  const testimonialImages = FINAL_FUNNEL_IMAGES.slice(0, 3).map((src, index) => ({
+    src,
+    label: proofScene.cardLabel,
+    note: proofScene.imageNotes[index] ?? proofScene.imageNotes[0],
+  }));
 
   useGSAP(
     () => {
@@ -78,7 +78,7 @@ export function Scene06ProofGate() {
   );
 
   return (
-    <ScrollFilmScene id="proof-gate" scene="06" title="RESULTS" className="py-16 sm:py-28">
+    <ScrollFilmScene id="proof-gate" scene="06" title={proofScene.sceneTitle} className="py-16 sm:py-28">
       <span className="scene-ghost bottom-8 right-8">06</span>
       <div className="absolute inset-0">
         <Image src={GENERATED_STILLS.proofBg} alt="" fill sizes="100vw" loading="eager" className="object-cover opacity-[0.12]" />
@@ -86,7 +86,7 @@ export function Scene06ProofGate() {
         <div className="scene-material-wash" data-tone="value" aria-hidden />
       </div>
       <div ref={sectionRef} className="relative z-10 mx-auto max-w-measure px-5 sm:px-8 lg:px-12">
-        <SceneEyebrow label="RESULTS" />
+        <SceneEyebrow label={proofScene.eyebrow} />
 
         {/* Header section */}
         <div className="mt-8 grid gap-6 lg:grid-cols-[1fr_1fr] lg:items-end">
@@ -147,7 +147,7 @@ export function Scene06ProofGate() {
           </svg>
           <div>
             <p className="font-heading text-sm font-semibold uppercase tracking-label text-steel">
-              Transparency Note
+              {proofScene.transparencyLabel}
             </p>
             <p className="mt-1.5 text-sm leading-relaxed text-ash">
               {testimonials.honestNote}

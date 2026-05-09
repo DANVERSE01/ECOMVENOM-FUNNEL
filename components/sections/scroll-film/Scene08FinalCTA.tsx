@@ -8,12 +8,13 @@ import { ScrollFilmScene } from "@/components/cinematic/ScrollFilmScene";
 import { SceneEyebrow } from "@/components/cinematic/SceneEyebrow";
 import { SystemOverlay } from "@/components/cinematic/SystemOverlay";
 import { GENERATED_STILLS } from "@/lib/frameManifest";
-import { CTA_LABEL, CTA_SUB } from "@/lib/content";
 import { gsap } from "@/lib/gsap";
 import { splitText, getStrokeLength } from "@/lib/motion";
 import { useReducedMotion } from "@/lib/useReducedMotion";
+import { useContent } from "@/lib/useContent";
 
 export function Scene08FinalCTA() {
+  const { CTA_LABEL, CTA_SUB, finalScene } = useContent();
   const sectionRef = useRef<HTMLDivElement | null>(null);
   const headlineRef = useRef<HTMLHeadingElement | null>(null);
   const applySpanRef = useRef<HTMLSpanElement | null>(null);
@@ -98,7 +99,7 @@ export function Scene08FinalCTA() {
   );
 
   return (
-    <ScrollFilmScene id="book-the-call" scene="08" title="START" className="min-h-screen">
+    <ScrollFilmScene id="book-the-call" scene="08" title={finalScene.sceneTitle} className="min-h-screen">
       <div className="absolute inset-0">
         <Image src={GENERATED_STILLS.ctaBg} alt="" fill sizes="100vw" loading="eager" className="object-cover opacity-[0.16]" />
         <div className="clean-system-bg absolute inset-0" aria-hidden />
@@ -120,19 +121,19 @@ export function Scene08FinalCTA() {
         </span>
 
         <div className="max-w-5xl">
-          <SceneEyebrow label="START" />
+          <SceneEyebrow label={finalScene.eyebrow} />
           <h2
             ref={headlineRef}
             className="mt-6 font-display text-[clamp(3.4rem,8vw,8rem)] uppercase leading-[1.02] tracking-tightest"
           >
-            Your system is{" "}
-            <span ref={applySpanRef} className="inline-block text-venom">waiting.</span>
+            {finalScene.headlineLead}{" "}
+            <span ref={applySpanRef} className="inline-block text-venom">{finalScene.headlineAccent}</span>
           </h2>
           <p
             ref={subtextRef}
             className="mx-auto mt-5 max-w-2xl text-lg leading-relaxed text-ash"
           >
-            A 45-day roadmap. A free store build. Two winning products. Dual-market strategies. And a mentor who won&apos;t leave you behind.
+            {finalScene.body}
           </p>
           <div ref={ctaWrapRef} className="relative z-30 mt-9 flex justify-center">
             <CtaLink href="/apply" sub={CTA_SUB} className="cinematic-command">

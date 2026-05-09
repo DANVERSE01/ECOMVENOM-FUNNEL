@@ -1,8 +1,12 @@
+"use client";
+
 import Image from "next/image";
 import { Container } from "./ui/container";
-import { footer } from "@/lib/content";
+import { useContent } from "@/lib/useContent";
 
 export function Footer() {
+  const { footer } = useContent();
+
   return (
     <footer className="relative border-t border-white/6 bg-ink py-12">
       {/* Venom hairline accent */}
@@ -18,6 +22,9 @@ export function Footer() {
           />
         </span>
         <div className="flex flex-col gap-2 text-sm text-ash sm:items-end">
+          <p className="font-heading text-[10px] uppercase tracking-label text-ash/55">
+            {footer.legal}
+          </p>
           <p className="font-heading text-xs uppercase tracking-label text-ash-2">
             {footer.copyright}
           </p>

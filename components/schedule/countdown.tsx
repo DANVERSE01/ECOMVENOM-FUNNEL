@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useLang } from "@/lib/lang-context";
 
 function pad(n: number) {
   return n.toString().padStart(2, "0");
@@ -8,6 +9,7 @@ function pad(n: number) {
 
 export function Countdown({ initialSeconds = 9 * 60 + 44 }: { initialSeconds?: number }) {
   const [seconds, setSeconds] = useState(initialSeconds);
+  const { lang } = useLang();
 
   useEffect(() => {
     if (seconds <= 0) return;
@@ -20,6 +22,10 @@ export function Countdown({ initialSeconds = 9 * 60 + 44 }: { initialSeconds?: n
   const h = Math.floor(seconds / 3600);
   const m = Math.floor((seconds % 3600) / 60);
   const s = seconds % 60;
+  const label =
+    lang === "ar"
+      ? `${h} ساعة ${pad(m)} دقيقة ${pad(s)} ثانية`
+      : `${h} hour${h === 1 ? "" : "s"} ${pad(m)} minute${m === 1 ? "" : "s"} ${pad(s)} seconds`;
 
   return (
     <div
@@ -28,9 +34,7 @@ export function Countdown({ initialSeconds = 9 * 60 + 44 }: { initialSeconds?: n
       aria-live="polite"
     >
       <span aria-hidden className="h-2 w-2 rounded-full bg-alert animate-pulse" />
-      <span className="text-bone">
-        {h} hour{h === 1 ? "" : "s"} {pad(m)} minute{m === 1 ? "" : "s"} {pad(s)} seconds
-      </span>
+      <span className="text-bone">{label}</span>
     </div>
   );
 }
