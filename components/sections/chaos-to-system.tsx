@@ -2,7 +2,6 @@
 
 import { useEffect, useRef } from "react";
 import { useGSAP } from "@gsap/react";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Container } from "@/components/ui/container";
 import { DeviceFrame } from "@/components/cinematic/DeviceFrame";
 import { chaosToSystem } from "@/lib/content";
@@ -106,10 +105,11 @@ export function ChaosToSystem() {
         if (frameShell) {
           gsap.fromTo(
             frameShell,
-            { rotateX: 8, scale: 0.7 },
+            { rotateX: 8, scale: 0.7, transformPerspective: 1200 },
             {
               rotateX: 0,
               scale: 1.05,
+              transformPerspective: 1200,
               ease: "none",
               scrollTrigger: {
                 trigger: frameShell,
