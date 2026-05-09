@@ -8,6 +8,8 @@ import { faq } from "@/lib/content";
 import { cn } from "@/lib/cn";
 import { gsap } from "@/lib/gsap";
 import { useReducedMotion } from "@/lib/useReducedMotion";
+import { useStaggerReveal } from "@/hooks/useStaggerReveal";
+import { useSplitHeading } from "@/hooks/useSplitHeading";
 
 export function Faq() {
   const sectionRef = useRef<HTMLElement | null>(null);
@@ -15,6 +17,8 @@ export function Faq() {
   const openIndexRef = useRef<number | null>(null);
   const [openIndex, setOpenIndex] = useState<number | null>(null);
   const reduced = useReducedMotion();
+  const staggerRef = useStaggerReveal<HTMLDivElement>("[data-stagger-item]");
+  const headingRef = useSplitHeading<HTMLHeadingElement>();
 
   const { contextSafe } = useGSAP(
     (ctx) => {
@@ -68,15 +72,15 @@ export function Faq() {
     >
       <Container>
         <Reveal className="max-w-3xl">
-          <h2 className="font-display text-3xl sm:text-5xl uppercase leading-[1.1] tracking-tightest">
+          <h2 ref={headingRef} className="font-display text-3xl sm:text-5xl uppercase leading-[1.1] tracking-tightest">
             {faq.heading}
           </h2>
           <p className="mt-4 text-ash text-base sm:text-lg">{faq.sub}</p>
         </Reveal>
 
-        <Reveal className="mt-10 max-w-3xl divide-y divide-white/8 rounded-xl border border-white/8 bg-ink-3/40">
+        <div ref={staggerRef} className="mt-10 max-w-3xl divide-y divide-white/8 rounded-xl border border-white/8 bg-ink-3/40">
           {faq.items.map((item, i) => (
-            <div key={i} className="p-5">
+            <div key={i} data-stagger-item className="p-5">
               <button
                 type="button"
                 aria-expanded={openIndex === i}
@@ -110,7 +114,7 @@ export function Faq() {
               </div>
             </div>
           ))}
-        </Reveal>
+        </div>
 
         <Reveal className="max-w-3xl mt-8">
           <p className="text-sm text-ash leading-relaxed">{faq.closing}</p>
