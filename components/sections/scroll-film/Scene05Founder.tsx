@@ -53,6 +53,20 @@ export function Scene05Founder() {
         );
       }
 
+      // Portrait clip-path reveal
+      if (portraitRef.current) {
+        gsap.fromTo(
+          portraitRef.current,
+          { clipPath: "polygon(0 100%, 100% 100%, 100% 100%, 0 100%)" },
+          {
+            clipPath: "polygon(0 0%, 100% 0%, 100% 100%, 0 100%)",
+            duration: 0.9,
+            ease: "filmDrop",
+            scrollTrigger: { trigger: portraitRef.current, start: "top 72%", once: true },
+          },
+        );
+      }
+
       // Trait cards — staggered entrance with slight scale
       gsap.from(traits, {
         opacity: 0,
@@ -93,6 +107,14 @@ export function Scene05Founder() {
   return (
     <ScrollFilmScene id="operator" scene="05" title={sceneLabels.coach} className="py-16 sm:py-28">
       <span className="scene-ghost top-8 left-8">05</span>
+      {/* Decorative background number */}
+      <span
+        aria-hidden
+        className="text-outline pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 select-none font-display text-[clamp(14rem,30vw,26rem)] uppercase leading-none"
+        style={{ opacity: 0.03 }}
+      >
+        05
+      </span>
       <div className="absolute inset-0">
         <Image src={HIGGSFIELD_STILLS.productWireframe} alt="" fill sizes="100vw" className="object-cover opacity-[0.14]" />
         <SystemOverlay />

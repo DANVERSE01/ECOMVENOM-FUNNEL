@@ -45,7 +45,14 @@ export function SceneHairline({
 
   return (
     <svg className={cn("h-px w-full overflow-visible", className)} viewBox="0 0 1000 1" preserveAspectRatio="none" aria-hidden>
-      <line ref={ref} x1="0" y1="0.5" x2="1000" y2="0.5" stroke={color} strokeWidth="1" />
+      <defs>
+        <linearGradient id="hairlineGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stopColor="var(--c-venom)" stopOpacity="0.8" />
+          <stop offset="50%" stopColor="var(--c-crimson, #FF1744)" stopOpacity="0.6" />
+          <stop offset="100%" stopColor="transparent" stopOpacity="0" />
+        </linearGradient>
+      </defs>
+      <line ref={ref} x1="0" y1="0.5" x2="1000" y2="0.5" stroke="url(#hairlineGrad)" strokeWidth="1" />
     </svg>
   );
 }

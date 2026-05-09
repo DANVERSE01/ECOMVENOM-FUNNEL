@@ -73,6 +73,13 @@ export function Scene01Problem() {
           start: "top 70%",
           once: true,
         },
+        onComplete: () => {
+          // Pulse the signal glyphs after reveal
+          const glyphs = gsap.utils.toArray<HTMLElement>(".signal-glyph--alert", section);
+          if (glyphs.length) {
+            gsap.to(glyphs, { opacity: 0.6, duration: 1.2, ease: "power1.inOut", yoyo: true, repeat: -1, stagger: 0.4 });
+          }
+        },
       });
     },
     { scope: sectionRef, dependencies: [reduced], revertOnUpdate: true },
@@ -100,14 +107,14 @@ export function Scene01Problem() {
           {problem.signals.map((signal, index) => (
             <div
               key={signal.label}
-              className="chaos-signal scene-panel-elevated border-l-2 border-l-alert/40 p-5"
+              className="chaos-signal scene-panel-elevated border-l-2 border-l-crimson/40 p-5"
             >
               <div className="flex items-center justify-between gap-4 font-heading text-[10px] uppercase tracking-caps text-ash">
                 <span className="flex items-center gap-2">
                   <span className="signal-glyph signal-glyph--alert" aria-hidden />
                   {problem.signalLabel} {String(index + 1).padStart(2, "0")}
                 </span>
-                <span className="text-alert/80">{problem.signalState}</span>
+                <span className="text-crimson/80">{problem.signalState}</span>
               </div>
               <p className="mt-3 font-display text-2xl uppercase text-bone">{signal.label}</p>
               <p className="mt-2 text-sm leading-relaxed text-ash-2">{signal.detail}</p>

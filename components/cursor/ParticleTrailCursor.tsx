@@ -15,11 +15,13 @@ interface Particle {
 export function ParticleTrailCursor() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const dotRef = useRef<HTMLDivElement>(null);
+  const ringRef = useRef<HTMLDivElement>(null);
   const rafRef = useRef(0);
   const runningRef = useRef(false);
   const lastMoveRef = useRef(0);
   const mouseRef = useRef({ x: -100, y: -100 });
   const dotPosRef = useRef({ x: -100, y: -100 });
+  const ringPosRef = useRef({ x: -100, y: -100 });
   const particlesRef = useRef<Particle[]>([]);
 
   useEffect(() => {
@@ -27,12 +29,14 @@ export function ParticleTrailCursor() {
 
     const canvas = canvasRef.current;
     const dot = dotRef.current;
-    if (!canvas || !dot) return;
+    const ring = ringRef.current;
+    if (!canvas || !dot || !ring) return;
 
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
     const canvasEl = canvas;
     const dotEl = dot;
+    const ringEl = ring;
     const context = ctx;
 
     const resize = () => {
@@ -52,10 +56,33 @@ export function ParticleTrailCursor() {
       rafRef.current = requestAnimationFrame(loop);
     };
 
+    // hover targets
+    const handleHoverIn = (e: MouseEvent) => {
+      const t = e.target as Element;
+      if (!t || !ringEl) return;
+      if (t.closest("a, button")) {
+        ringEl.style.width = "36px";
+        ringEl.style.height = "36px";
+        ringEl.style.borderColor = "rgba(184,255,46,0.6)";
+      } else if (t.closest("h1, h2, h3")) {
+        ringEl.style.width = "48px";
+        ringEl.style.height = "28px";
+        ringEl.style.borderColor = "rgba(255,255,255,0.3)";
+      }
+    };
+    const handleHoverOut = () => {
+      ringEl.style.width = "24px";
+      ringEl.style.height = "24px";
+      ringEl.style.borderColor = "rgba(255,255,255,0.25)";
+    };
+    document.addEventListener("mouseover", handleHoverIn, { passive: true });
+    document.addEventListener("mouseout", handleHoverOut, { passive: true });
+
     const onMouseMove = (e: MouseEvent) => {
       mouseRef.current = { x: e.clientX, y: e.clientY };
       lastMoveRef.current = performance.now();
       dotEl.style.opacity = "1";
+      ringEl.style.opacity = "1";
       if (particlesRef.current.length < 34) {
         particlesRef.current.push({
           x: e.clientX,
@@ -76,6 +103,13 @@ export function ParticleTrailCursor() {
       dotPosRef.current.x += (mouseRef.current.x - dotPosRef.current.x) * 0.18;
       dotPosRef.current.y += (mouseRef.current.y - dotPosRef.current.y) * 0.18;
       dotEl.style.transform = `translate3d(${dotPosRef.current.x - 6}px, ${dotPosRef.current.y - 6}px, 0)`;
+
+      // ring follows at slower lerp
+      const rw = parseInt(ringEl.style.width || "24") / 2;
+      const rh = parseInt(ringEl.style.height || "24") / 2;
+      ringPosRef.current.x += (mouseRef.current.x - ringPosRef.current.x) * 0.12;
+      ringPosRef.current.y += (mouseRef.current.y - ringPosRef.current.y) * 0.12;
+      ringEl.style.transform = `translate3d(${ringPosRef.current.x - rw}px, ${ringPosRef.current.y - rh}px, 0)`;
 
       context.globalCompositeOperation = "screen";
       particlesRef.current = particlesRef.current.filter((p) => p.life > 0);
@@ -108,6 +142,8 @@ export function ParticleTrailCursor() {
       cancelAnimationFrame(rafRef.current);
       window.removeEventListener("resize", resize);
       window.removeEventListener("mousemove", onMouseMove);
+      document.removeEventListener("mouseover", handleHoverIn);
+      document.removeEventListener("mouseout", handleHoverOut);
     };
   }, []);
 
@@ -122,6 +158,20 @@ export function ParticleTrailCursor() {
         className="particle-cursor fixed top-0 left-0 z-[9999] pointer-events-none w-3 h-3 rounded-full bg-venom mix-blend-screen"
         style={{ boxShadow: "0 0 12px rgba(184,255,46,0.8)", opacity: 0, transform: "translate3d(-100px,-100px,0)" }}
       />
+      <div
+        ref={ringRef}
+        className="particle-cursor fixed top-0 left-0 z-[9998] pointer-events-none"
+        style={{
+          width: "24px",
+          height: "24px",
+          borderRadius: "50%",
+          border: "1px solid rgba(255,255,255,0.25)",
+          opacity: 0,
+          transform: "translate3d(-100px,-100px,0)",
+          transition: "width 0.25s ease, height 0.25s ease, border-color 0.25s ease",
+        }}
+      />
     </>
   );
 }
+

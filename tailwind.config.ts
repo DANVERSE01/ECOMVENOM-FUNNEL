@@ -11,6 +11,8 @@ const config: Config = {
 				venom: { DEFAULT: "#B8FF2E", 2: "#9AE600", 3: "#CCFF66", dim: "rgba(184,255,46,0.12)", glow: "rgba(184,255,46,0.06)" },
 				steel: { DEFAULT: "#5A9AAD", 2: "#4D8A9E" },
 				gold: { DEFAULT: "#D4A45A", 2: "#C99A52" },
+				crimson: { DEFAULT: "#FF1744", 2: "#D50000", 3: "#FF5566", glow: "rgba(255,23,68,0.12)", dim: "rgba(255,23,68,0.06)" },
+				violet: { DEFAULT: "#6C00FF", 2: "#4A00C4", glow: "rgba(108,0,255,0.10)" },
 				alert: "#FF3344", info: "#3B82F6", success: "#22C55E",
 			},
 			fontFamily: {
@@ -36,6 +38,9 @@ const config: Config = {
 				marquee: "marquee 28s linear infinite",
 				"digit-roll": "digit-roll 0.4s cubic-bezier(0.22,1,0.36,1) both",
 				float: "float 6s ease-in-out infinite",
+				"geometric-float": "geometric-float 28s ease-in-out infinite",
+				"crimson-pulse": "crimson-pulse 3s ease-in-out infinite",
+				"gradient-shift": "gradient-shift 8s ease infinite",
 			},
 			keyframes: {
 				"venom-pulse": { "0%,100%": { opacity: "0.45", transform: "scale(0.82)" }, "50%": { opacity: "1", transform: "scale(1)" } },
@@ -43,6 +48,9 @@ const config: Config = {
 				marquee: { from: { transform: "translateX(0)" }, to: { transform: "translateX(-50%)" } },
 				"digit-roll": { from: { transform: "translateY(1.2em)", opacity: "0" }, to: { transform: "translateY(0)", opacity: "1" } },
 				float: { "0%,100%": { transform: "translateY(0)" }, "50%": { transform: "translateY(-8px)" } },
+				"geometric-float": { "0%,100%": { transform: "translateY(0px)" }, "50%": { transform: "translateY(-18px)" } },
+				"crimson-pulse": { "0%,100%": { opacity: "0.6" }, "50%": { opacity: "1" } },
+				"gradient-shift": { "0%": { backgroundPosition: "0% 50%" }, "50%": { backgroundPosition: "100% 50%" }, "100%": { backgroundPosition: "0% 50%" } },
 			},
 		},
 	},

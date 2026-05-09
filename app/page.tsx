@@ -8,10 +8,12 @@ import { Scene06ProofGate } from "@/components/sections/scroll-film/Scene06Proof
 import { Scene07Application } from "@/components/sections/scroll-film/Scene07Application";
 import { Scene08FinalCTA } from "@/components/sections/scroll-film/Scene08FinalCTA";
 import { SceneHairline } from "@/components/cinematic/SceneHairline";
+import { SceneObserver } from "@/components/cinematic/SceneObserver";
 
 export default function HomePage() {
   return (
     <div className="cinematic-page">
+      <SceneObserver />
       <Scene00ColdOpen />
       <SceneHairline className="relative z-20" />
       <Scene01Problem />

@@ -150,7 +150,7 @@ export function Hero() {
               className="font-display text-4xl uppercase leading-[1.02] tracking-tightest text-bone sm:text-6xl lg:text-7xl"
             >
               {hero.headlineLead}{" "}
-              <span className="text-venom">{hero.headlineHighlight}</span>{" "}
+              <span className="text-gradient">{hero.headlineHighlight}</span>{" "}
               {hero.headlineTail}{" "}
               <span className="text-venom">{hero.headlineHighlight2}</span>
             </h1>

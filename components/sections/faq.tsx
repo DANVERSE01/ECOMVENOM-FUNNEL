@@ -25,7 +25,7 @@ export function Faq() {
     (ctx) => {
       answerRefs.current.forEach((answer) => {
         if (!answer) return;
-        gsap.set(answer, { height: 0, opacity: 0, overflow: "hidden" });
+        gsap.set(answer, { height: 0, overflow: "hidden" });
       });
 
       return () => ctx.revert();
@@ -41,8 +41,7 @@ export function Faq() {
     if (currentAnswer) {
       gsap.to(currentAnswer, {
         height: 0,
-        opacity: 0,
-        duration: reduced ? 0 : 0.25,
+        duration: reduced ? 0 : 0.3,
         ease: "power2.in",
       });
     }
@@ -56,9 +55,8 @@ export function Faq() {
     if (nextAnswer) {
       gsap.to(nextAnswer, {
         height: "auto",
-        opacity: 1,
-        duration: reduced ? 0 : 0.35,
-        ease: "power2.out",
+        duration: reduced ? 0 : 0.4,
+        ease: "power3.out",
       });
     }
 

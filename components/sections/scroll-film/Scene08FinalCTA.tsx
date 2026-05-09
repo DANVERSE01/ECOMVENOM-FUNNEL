@@ -127,7 +127,7 @@ export function Scene08FinalCTA() {
             className="mt-6 font-display text-[clamp(3.4rem,8vw,8rem)] uppercase leading-[1.02] tracking-tightest"
           >
             {finalScene.headlineLead}{" "}
-            <span ref={applySpanRef} className="inline-block text-venom">{finalScene.headlineAccent}</span>
+            <span ref={applySpanRef} className="inline-block text-gradient">{finalScene.headlineAccent}</span>
           </h2>
           <p
             ref={subtextRef}
