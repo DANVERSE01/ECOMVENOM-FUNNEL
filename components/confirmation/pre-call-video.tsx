@@ -1,7 +1,7 @@
 "use client";
 
 const CONFIRMATION_EMBED_SRC =
-  "https://www.youtube.com/embed/A0cTmbQKA_A?playsinline=1&rel=0&modestbranding=1";
+  "https://player.vimeo.com/video/1190367488?badge=0&autopause=0&player_id=0&app_id=58479&dnt=1";
 
 export function PreCallVideo() {
   return (
@@ -10,7 +10,7 @@ export function PreCallVideo() {
         src={CONFIRMATION_EMBED_SRC}
         title="ECOMVENOM pre-call video"
         className="h-full w-full border-0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media"
         referrerPolicy="strict-origin-when-cross-origin"
         allowFullScreen
       />

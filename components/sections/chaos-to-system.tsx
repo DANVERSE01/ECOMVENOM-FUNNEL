@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import { Container } from "@/components/ui/container";
+import { DeviceFrame } from "@/components/cinematic/DeviceFrame";
 import { chaosToSystem } from "@/lib/content";
 import { gsap } from "@/lib/gsap";
 import { splitText } from "@/lib/motion";
@@ -12,6 +13,7 @@ export function ChaosToSystem() {
   const sectionRef = useRef<HTMLElement | null>(null);
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const panelRef = useRef<HTMLDivElement | null>(null);
+  const frameShellRef = useRef<HTMLDivElement | null>(null);
   const copyRef = useRef<HTMLDivElement | null>(null);
   const eyebrowRef = useRef<HTMLSpanElement | null>(null);
   const headlineRef = useRef<HTMLHeadingElement | null>(null);
@@ -98,6 +100,45 @@ export function ChaosToSystem() {
         .to(body, { opacity: 1, y: 0, duration: 0.55, ease: "power3.out" }, "-=0.15")
         .to(caption, { opacity: 1, y: 0, duration: 0.45, ease: "power3.out" }, "-=0.2");
 
+      if (!reduced) {
+        const frameShell = frameShellRef.current;
+        if (frameShell) {
+          gsap.fromTo(
+            frameShell,
+            { rotateX: 8, scale: 0.7, transformPerspective: 1200 },
+            {
+              rotateX: 0,
+              scale: 1.05,
+              transformPerspective: 1200,
+              ease: "none",
+              scrollTrigger: {
+                trigger: frameShell,
+                scrub: 1.2,
+                start: "top 85%",
+                end: "top 30%",
+              },
+            },
+          );
+          const bezel = frameShell.querySelector(".device-frame-bezel") as HTMLElement | null;
+          if (bezel) {
+            gsap.fromTo(
+              bezel,
+              { opacity: 0 },
+              {
+                opacity: 1,
+                ease: "none",
+                scrollTrigger: {
+                  trigger: frameShell,
+                  scrub: 1,
+                  start: "top 85%",
+                  end: "top 55%",
+                },
+              },
+            );
+          }
+        }
+      }
+
       return () => {
         revertHeadline();
         ctx.revert();
@@ -138,9 +179,9 @@ export function ChaosToSystem() {
           <div className="relative">
             <div
               ref={panelRef}
-              className="relative aspect-video w-full max-w-2xl mx-auto lg:mx-0 rounded-lg border border-venom/20 bg-black p-2 sm:p-3"
+              className="relative w-full max-w-2xl mx-auto lg:mx-0"
             >
-              <div className="relative h-full w-full overflow-hidden rounded-md bg-black">
+              <DeviceFrame ref={frameShellRef}>
                 <video
                   ref={videoRef}
                   className="block h-full w-full object-cover"
@@ -161,12 +202,7 @@ export function ChaosToSystem() {
                       "linear-gradient(90deg, rgba(0,0,0,0.55), transparent 16%, transparent 84%, rgba(0,0,0,0.55)), linear-gradient(180deg, rgba(0,0,0,0.5), transparent 18%, transparent 82%, rgba(0,0,0,0.5))",
                   }}
                 />
-              </div>
-
-              <span aria-hidden className="absolute top-0 left-0 h-4 w-4 border-t border-l border-venom/80" />
-              <span aria-hidden className="absolute top-0 right-0 h-4 w-4 border-t border-r border-venom/80" />
-              <span aria-hidden className="absolute bottom-0 left-0 h-4 w-4 border-b border-l border-venom/80" />
-              <span aria-hidden className="absolute bottom-0 right-0 h-4 w-4 border-b border-r border-venom/80" />
+              </DeviceFrame>
             </div>
 
             <div className="mt-3 grid gap-2 text-[11px] uppercase tracking-[0.12em] text-ash/80 sm:grid-cols-3">

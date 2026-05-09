@@ -1218,3 +1218,60 @@
     padding: 0.9rem 1rem;
   }
 }
+
+/* ── Phase 2: VSL Scroll Expansion ─────────────────────────────────────── */
+.vsl-scroll-card {
+  will-change: transform, border-radius, box-shadow;
+  transform-origin: center center;
+  transition: none;
+}
+.vsl-scroll-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0);
+  pointer-events: none;
+  z-index: 45;
+  transition: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .vsl-scroll-card { will-change: auto; }
+}
+
+/* ── Phase 3: Device Frame Shell ────────────────────────────────────────── */
+.device-frame-shell {
+  position: relative;
+  transform: perspective(1200px) rotateX(8deg) scale(0.7);
+  transform-origin: center bottom;
+  transition: none;
+  will-change: transform;
+}
+.device-frame-bezel {
+  border: 2px solid rgba(184, 255, 46, 0.2);
+  border-radius: 12px;
+  background: rgba(6, 6, 8, 0.95);
+  padding: 12px 12px 32px;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.06), 0 32px 80px rgba(0, 0, 0, 0.7),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  position: relative;
+}
+.device-frame-bezel::after {
+  content: "";
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 48px;
+  height: 4px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.12);
+}
+.device-frame-screen {
+  border-radius: 6px;
+  overflow: hidden;
+  aspect-ratio: 16 / 9;
+  background: #000;
+  position: relative;
+}
+@media (prefers-reduced-motion: reduce) {
+  .device-frame-shell { will-change: auto; transform: none; }
+}
