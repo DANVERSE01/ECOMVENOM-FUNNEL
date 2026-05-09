@@ -16,12 +16,13 @@ import { useContent } from "@/lib/useContent";
 
 export function Nav() {
   const pathname = usePathname();
-  const { t } = useLang();
+  const { t, lang } = useLang();
   const { CTA_LABEL, CTA_SUB, nav } = useContent();
   const [scene, setScene] = useState(nav.defaultScene);
   const [compressed, setCompressed] = useState(false);
   const sceneLabelRef = useRef<HTMLSpanElement>(null);
   const firstRender = useRef(true);
+  const showMobileApply = pathname !== "/";
 
   const displaySceneLabel = (label?: string) => {
     return label === "ECOMVENOM" ? nav.homeScene : label ?? nav.defaultScene;
@@ -140,7 +141,10 @@ export function Nav() {
             </span>
           </Link>
 
-          <div className="relative z-10 hidden max-w-[min(36vw,24rem)] items-center justify-center gap-3 overflow-hidden border-x border-white/10 px-5 font-heading text-[10px] uppercase tracking-normal text-ash lg:flex">
+          <div className={cn(
+            "relative z-10 hidden max-w-[min(36vw,24rem)] items-center justify-center gap-3 overflow-hidden border-x border-white/10 px-5 font-heading text-ash lg:flex",
+            lang === "ar" ? "text-[0.72rem] tracking-[0.02em]" : "text-[10px] uppercase tracking-normal",
+          )}>
             <span className="system-status-dot h-1.5 w-1.5 rounded-full bg-venom" />
             <span ref={sceneLabelRef} className="truncate" />
           </div>
@@ -152,13 +156,18 @@ export function Nav() {
                 {CTA_LABEL}
               </CtaLink>
             </div>
-            <Link
-              href="/apply"
-              aria-current={pathname === "/apply" ? "page" : undefined}
-              className="nav-link-draw relative z-40 inline-flex h-11 min-w-16 items-center justify-center rounded-lg border border-venom/45 bg-ink-2/80 px-3 font-heading text-[10px] uppercase tracking-normal text-venom transition-colors hover:bg-venom hover:text-ink focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-venom sm:hidden"
-            >
-              {t("applyBtn")}
-            </Link>
+            {showMobileApply ? (
+              <Link
+                href="/apply"
+                aria-current={pathname === "/apply" ? "page" : undefined}
+                className={cn(
+                  "nav-link-draw relative z-40 inline-flex h-11 min-w-16 items-center justify-center rounded-lg border border-venom/45 bg-ink-2/80 px-3 font-heading text-venom transition-colors hover:bg-venom hover:text-ink focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-venom sm:hidden",
+                  lang === "ar" ? "text-[0.74rem] tracking-[0.02em]" : "text-[10px] uppercase tracking-normal",
+                )}
+              >
+                {t("applyBtn")}
+              </Link>
+            ) : null}
           </div>
         </div>
       </header>

@@ -17,6 +17,7 @@ import { ResponsiveMediaFrame } from "@/components/cinematic/ResponsiveMediaFram
 import { ScrollFilmScene } from "@/components/cinematic/ScrollFilmScene";
 import { SystemOverlay } from "@/components/cinematic/SystemOverlay";
 import { HIGGSFIELD_LOOPS, HIGGSFIELD_STILLS, GENERATED_STILLS } from "@/lib/frameManifest";
+import { cn } from "@/lib/cn";
 import { gsap } from "@/lib/gsap";
 import { scrambleText } from "@/lib/motion";
 import type React from "react";
@@ -45,6 +46,7 @@ type CollapseVars = CSSProperties & {
 export function Scene00ColdOpen() {
   const { lang, t } = useLang();
   const { hero, heroHeadline, CTA_LABEL, CTA_SUB } = useContent();
+  const isArabic = lang === "ar";
   const sectionRef = useRef<HTMLDivElement | null>(null);
   const eyebrowRef = useRef<HTMLParagraphElement | null>(null);
   const headlineRef = useRef<HTMLHeadingElement | null>(null);
@@ -92,7 +94,7 @@ export function Scene00ColdOpen() {
         skip: "Skip",
       };
   const heroCommandRail = lang === "ar"
-    ? ["مسار تشغيل للسوقين الأمريكي والخليجي", "بناء متجر مجاني بعد الإكمال", "التقديم قبل فتح الحجز"]
+    ? ["منهج واضح للسوق الأمريكي والخليجي", "نجهّز متجرك بعد إتمام البرنامج", "الطلب يُراجع أولاً ثم تُفتح الاستشارة"]
     : ["U.S. + Gulf operating path", "Free store build on completion", "Application before scheduling"];
 
   useVslScrollExpansion(
@@ -112,6 +114,8 @@ export function Scene00ColdOpen() {
       const vslCard = vslCardRef.current;
       if (!eyebrow || !headline || !support || !vslCard) return;
 
+      const compactMotion = window.matchMedia("(max-width: 767px), (pointer: coarse)").matches;
+
       const headlineWords = Array.from(
         headline.querySelectorAll<HTMLElement>("[data-hero-word]"),
       );
@@ -130,30 +134,51 @@ export function Scene00ColdOpen() {
 
       const eyebrowText = eyebrow.textContent ?? "";
 
-      gsap.set(eyebrow, { opacity: 0, y: 10 });
-      gsap.set(headlineWords, { yPercent: 112, rotation: 0.5 });
-      if (subheadline) gsap.set(subheadline, { opacity: 0, y: 18 });
-      if (cta) gsap.set(cta, { opacity: 0, y: 14, scale: 0.95 });
-      gsap.set(vslCard, { opacity: 0, y: 34, scale: 0.96 });
+      gsap.set(eyebrow, { opacity: 0, x: isArabic ? 26 : -26, y: 10 });
+      gsap.set(headlineWords, {
+        opacity: 0,
+        yPercent: 112,
+        x: isArabic ? 18 : 0,
+        rotation: isArabic ? 0 : 0.5,
+        filter: isArabic ? "blur(10px)" : "none",
+      });
+      if (subheadline) gsap.set(subheadline, { opacity: 0, y: compactMotion ? 14 : 18, x: isArabic ? 12 : 0 });
+      if (cta) gsap.set(cta, { opacity: 0, y: compactMotion ? 10 : 14, x: isArabic ? 10 : 0, scale: compactMotion ? 1 : 0.95 });
+      gsap.set(vslCard, { opacity: 0, y: compactMotion ? 22 : 34, scale: compactMotion ? 1 : 0.96 });
 
       gsap
         .timeline({ defaults: { ease: "venom" } })
         .to(eyebrow, {
           opacity: 1,
+          x: 0,
           y: 0,
           duration: 0.55,
-          onStart: () => scrambleText(eyebrow, eyebrowText, { duration: 0.55 }),
+          onStart: () => {
+            if (!isArabic) {
+              scrambleText(eyebrow, eyebrowText, { duration: 0.55 });
+            }
+          },
         }, 0.15)
         .to(
           headlineWords,
-          { yPercent: 0, rotation: 0, duration: 0.78, stagger: 0.055, ease: "filmDrop" },
+          {
+            opacity: 1,
+            yPercent: 0,
+            x: 0,
+            rotation: 0,
+            filter: "blur(0px)",
+            duration: compactMotion ? 0.68 : 0.78,
+            stagger: compactMotion ? 0.04 : 0.055,
+            ease: "filmDrop",
+            ...(isArabic ? { clearProps: "filter" } : {}),
+          },
           0.35,
         )
-        .to(subheadline, { opacity: 1, y: 0, duration: 0.72 }, 1.55)
-        .to(cta, { opacity: 1, y: 0, scale: 1, duration: 0.62 }, 1.75)
-        .to(vslCard, { opacity: 1, y: 0, scale: 1, duration: 0.8, ease: "filmDrop" }, 1.75);
+        .to(subheadline, { opacity: 1, x: 0, y: 0, duration: 0.72 }, compactMotion ? 1.08 : 1.55)
+        .to(cta, { opacity: 1, x: 0, y: 0, scale: 1, duration: 0.62 }, compactMotion ? 1.18 : 1.75)
+        .to(vslCard, { opacity: 1, y: 0, scale: 1, duration: compactMotion ? 0.62 : 0.8, ease: "filmDrop" }, compactMotion ? 1.18 : 1.75);
 
-      if (tunnel) {
+      if (!compactMotion && tunnel) {
         gsap.to(tunnel, {
           y: "-12%",
           scale: 1.08,
@@ -167,7 +192,7 @@ export function Scene00ColdOpen() {
         });
       }
 
-      if (spotlight) {
+      if (!compactMotion && spotlight) {
         gsap.to(spotlight, {
           opacity: 0.34,
           scale: 1.35,
@@ -363,13 +388,21 @@ export function Scene00ColdOpen() {
           <div className="max-w-[58rem] pt-2 sm:pt-4 lg:pt-0">
             <p
               ref={eyebrowRef}
-              className="max-w-2xl font-heading text-[0.68rem] uppercase leading-relaxed tracking-normal text-ash sm:text-xs"
+              className={cn(
+                "max-w-2xl font-heading leading-relaxed text-ash",
+                isArabic ? "text-[0.78rem] tracking-[0.015em] sm:text-[0.92rem]" : "text-[0.68rem] uppercase tracking-normal sm:text-xs",
+              )}
             >
               {hero.eyebrow}
             </p>
             <h1
               ref={headlineRef}
-              className="mt-4 max-w-[62rem] font-display text-[2.35rem] uppercase leading-[1.02] tracking-normal text-bone sm:text-[3.05rem] lg:text-[3.05rem] xl:text-[3.75rem] 2xl:text-[4.2rem]"
+              className={cn(
+                "mt-4 font-display text-bone [text-wrap:balance]",
+                isArabic
+                  ? "max-w-[15ch] text-[2.55rem] leading-[1.12] tracking-[-0.03em] sm:text-[3.35rem] lg:text-[4.75rem]"
+                  : "max-w-[62rem] text-[2.35rem] uppercase leading-[1.02] tracking-normal sm:text-[3.05rem] lg:text-[3.05rem] xl:text-[3.75rem] 2xl:text-[4.2rem]",
+              )}
             >
               {heroHeadline.map((line, lineIndex) => (
                 <span key={lineIndex} data-headline-line className="block overflow-hidden">
@@ -389,15 +422,21 @@ export function Scene00ColdOpen() {
                 </span>
               ))}
             </h1>
-            <div ref={supportRef} className="relative z-30 mt-6 flex max-w-3xl flex-col gap-5 sm:flex-row sm:items-center">
+            <div ref={supportRef} className={cn("relative z-30 mt-6 flex max-w-3xl flex-col gap-4 sm:flex-row sm:items-center", isArabic && "sm:items-start")}>
               <span data-hero-cta className="inline-flex max-w-full">
                 <CtaLink href="/apply" sub={CTA_SUB} className="cinematic-command min-w-[min(100%,16rem)]">
                   {CTA_LABEL}
                 </CtaLink>
               </span>
-              <p data-hero-sub className="max-w-xl text-sm leading-relaxed text-ash sm:text-[13px]">
+              <p data-hero-sub className={cn("max-w-xl leading-relaxed text-ash", isArabic ? "text-[0.95rem] sm:text-[1.02rem]" : "text-sm sm:text-[13px]")}>
                 {hero.sub}
               </p>
+            </div>
+
+            <div className="hero-command-rail hero-command-rail--mobile mt-6 sm:hidden" aria-label={lang === "ar" ? "أبرز مميزات البرنامج" : "Program highlights"}>
+              {heroCommandRail.map((item) => (
+                <span key={item}>{item}</span>
+              ))}
             </div>
 
             <div className="mt-8 hidden items-center gap-3 opacity-45 sm:flex">
@@ -434,7 +473,7 @@ export function Scene00ColdOpen() {
                 <iframe
                   key={scrollEmbedSrc}
                   src={scrollEmbedSrc}
-                  title="Founder VSL"
+                  title={isArabic ? "فيديو المؤسس" : "Founder VSL"}
                   className="absolute inset-0 h-full w-full border-0"
                   allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media"
                   referrerPolicy="strict-origin-when-cross-origin"
@@ -494,7 +533,7 @@ export function Scene00ColdOpen() {
             <iframe
               key={heroEmbedSrc}
               src={heroEmbedSrc}
-              title={vslCopy.badge}
+              title={isArabic ? "فيديو تعريف المؤسس" : vslCopy.badge}
               className="hero-vsl-overlay__video"
               allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media"
               referrerPolicy="strict-origin-when-cross-origin"

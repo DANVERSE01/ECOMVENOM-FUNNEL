@@ -190,6 +190,21 @@ export function splitText(
  * Animates text by scrambling characters and progressively revealing the final text.
  * Uses gsap core onUpdate for frame-synced updates.
  */
+const LATIN_SCRAMBLE_CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+const ARABIC_SCRAMBLE_CHARS = "ابتثجحخدذرزسشصضطظعغفقكلمنهويءةى0123456789";
+
+function inferScrambleChars(finalText: string, chars?: string) {
+  if (chars) return Array.from(chars);
+
+  const isArabic = /[\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF]/u.test(finalText);
+  const fallback = isArabic ? ARABIC_SCRAMBLE_CHARS : LATIN_SCRAMBLE_CHARS;
+  const derived = Array.from(new Set(
+    Array.from(finalText.normalize("NFKC")).filter((char) => !/[\s\p{P}\p{S}]/u.test(char)),
+  ));
+
+  return [...derived, ...Array.from(fallback).filter((char) => !derived.includes(char))];
+}
+
 export function scrambleText(
   el: HTMLElement,
   finalText: string,
@@ -201,11 +216,13 @@ export function scrambleText(
 ) {
   const {
     duration = 0.6,
-    chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",
+    chars,
     onComplete,
   } = opts;
 
-  const len = finalText.length;
+  const finalSymbols = Array.from(finalText);
+  const scrambleSymbols = inferScrambleChars(finalText, chars);
+  const len = finalSymbols.length;
   let startTime: number | null = null;
   const durationMs = duration * 1000;
 
@@ -219,12 +236,11 @@ export function scrambleText(
     let result = "";
 
     for (let i = 0; i < len; i++) {
-      if (i < revealed) {
-        result += finalText[i];
-      } else if (finalText[i] === " ") {
-        result += " ";
+      const symbol = finalSymbols[i];
+      if (i < revealed || /[\s\p{P}\p{S}]/u.test(symbol)) {
+        result += symbol;
       } else {
-        result += chars[Math.floor(Math.random() * chars.length)];
+        result += scrambleSymbols[Math.floor(Math.random() * scrambleSymbols.length)] ?? symbol;
       }
     }
 
@@ -233,7 +249,7 @@ export function scrambleText(
     if (progress < 1) {
       requestAnimationFrame(update);
     } else {
-      el.textContent = finalText;
+      el.textContent = finalSymbols.join("");
       onComplete?.();
     }
   }

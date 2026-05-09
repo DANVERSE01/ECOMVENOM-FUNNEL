@@ -9,13 +9,17 @@ import { SceneHairline } from "@/components/cinematic/SceneHairline";
 import { SystemOverlay } from "@/components/cinematic/SystemOverlay";
 import { HIGGSFIELD_STILLS } from "@/lib/frameManifest";
 import { gsap } from "@/lib/gsap";
+import { useLang } from "@/lib/lang-context";
 import { splitText } from "@/lib/motion";
 import { useReducedMotion } from "@/lib/useReducedMotion";
 import { useContent } from "@/lib/useContent";
 
 export function Scene01Problem() {
+  const { lang } = useLang();
   const { problem } = useContent();
+  const isArabic = lang === "ar";
   const sectionRef = useRef<HTMLDivElement | null>(null);
+  const statusRef = useRef<HTMLDivElement | null>(null);
   const headlineRef = useRef<HTMLHeadingElement | null>(null);
   const bodyRef = useRef<HTMLParagraphElement | null>(null);
   const reduced = useReducedMotion();
@@ -23,6 +27,7 @@ export function Scene01Problem() {
   useGSAP(
     () => {
       const section = sectionRef.current;
+      const status = statusRef.current;
       const headline = headlineRef.current;
       const body = bodyRef.current;
       if (!section) return;
@@ -31,8 +36,20 @@ export function Scene01Problem() {
 
       if (reduced) {
         gsap.set(items, { opacity: 1, x: 0, scaleX: 1 });
+        if (status) gsap.set(status, { opacity: 1, x: 0, y: 0 });
         if (headline) gsap.set(headline, { opacity: 1, yPercent: 0 });
         return;
+      }
+
+      if (status) {
+        gsap.from(status, {
+          opacity: 0,
+          x: isArabic ? 16 : -16,
+          y: 10,
+          duration: 0.55,
+          ease: "venom",
+          scrollTrigger: { trigger: status, start: "top 80%", once: true },
+        });
       }
 
       // Headline SplitText mask
@@ -61,10 +78,11 @@ export function Scene01Problem() {
       }
 
       // Signal cards keep the wipe feel with transform instead of clip-path.
-      gsap.set(items, { scaleX: 0.96, transformOrigin: "left center", opacity: 0 });
+      gsap.set(items, { scaleX: 0.96, transformOrigin: isArabic ? "right center" : "left center", opacity: 0, y: 18 });
       gsap.to(items, {
         scaleX: 1,
         opacity: 1,
+        y: 0,
         duration: 0.65,
         stagger: 0.15,
         ease: "venom",
@@ -82,7 +100,7 @@ export function Scene01Problem() {
         },
       });
     },
-    { scope: sectionRef, dependencies: [reduced], revertOnUpdate: true },
+    { scope: sectionRef, dependencies: [isArabic, reduced], revertOnUpdate: true },
   );
 
   return (
@@ -96,6 +114,12 @@ export function Scene01Problem() {
       <div ref={sectionRef} className="relative z-10 mx-auto grid min-h-[70vh] max-w-[1200px] items-center gap-10 px-5 sm:px-8 lg:grid-cols-[0.8fr_1.2fr] lg:px-12">
         <div>
           <SceneEyebrow label={problem.eyebrow} />
+          <div ref={statusRef} className="chaos-status mt-5">
+            <span className="chaos-status__pulse" aria-hidden />
+            <span>{isArabic ? "حالة المشهد" : "SCENE STATUS"}</span>
+            <span className="chaos-status__divider" aria-hidden />
+            <span>{isArabic ? "فوضى مرصودة" : "CHAOS DETECTED"}</span>
+          </div>
           <h2
             ref={headlineRef}
             className="mt-6 font-display text-[clamp(3rem,7vw,7rem)] uppercase leading-[1.02] tracking-tightest"
@@ -109,14 +133,14 @@ export function Scene01Problem() {
               key={signal.label}
               className="chaos-signal scene-panel-elevated border-l-2 border-l-crimson/40 p-5"
             >
-              <div className="flex items-center justify-between gap-4 font-heading text-[10px] uppercase tracking-caps text-ash">
-                <span className="flex items-center gap-2">
+              <div className="chaos-signal__header font-heading text-[10px] uppercase tracking-caps text-ash">
+                <span className="chaos-signal__label flex items-center gap-2">
                   <span className="signal-glyph signal-glyph--alert" aria-hidden />
                   {problem.signalLabel} {String(index + 1).padStart(2, "0")}
                 </span>
-                <span className="text-crimson/80">{problem.signalState}</span>
+                <span className="chaos-signal__state">{problem.signalState}</span>
               </div>
-              <p className="mt-3 font-display text-2xl uppercase text-bone">{signal.label}</p>
+              <p className="chaos-signal__title mt-3 font-display text-2xl uppercase text-bone">{signal.label}</p>
               <p className="mt-2 text-sm leading-relaxed text-ash-2">{signal.detail}</p>
             </div>
           ))}

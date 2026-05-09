@@ -3,71 +3,71 @@
 // go.ecomvenom.com-page-text-forms-links-2026-05-05T00-07-23-625Z.json
 // and ...-confirmation-extract-...json
 
-export const CTA_LABEL = "APPLY FOR THE PROGRAM";
-export const CTA_SUB = "LIMITED SPOTS*";
+export const CTA_LABEL = "START YOUR APPLICATION";
+export const CTA_SUB = "LIMITED INTAKE*";
 
 export const hero = {
   eyebrow:
-    "FOR SERIOUS LEARNERS WHO WANT TO BUILD A SUSTAINABLE, CONSISTENT BUSINESS",
+    "FOR PEOPLE WHO WANT A REAL SYSTEM, NOT RANDOM EFFORT DISGUISED AS BUSINESS",
   headlineLead: "BUILD A",
   headlineHighlight: "PROFITABLE DROPSHIPPING SYSTEM",
   headlineTail: "IN 45 DAYS WITH",
   headlineHighlight2: "ZERO EXPERIENCE",
-  sub: "A complete A-Z roadmap for U.S. and Saudi/Gulf markets. No wasted money. No random tutorials. No fluff.",
-  scrollCue: "Scroll to see the system",
+  sub: "A practical path for the U.S. and Gulf markets covering product selection, offer structure, store build, and ad execution with less waste and more control.",
+  scrollCue: "Scroll into the system",
 };
 
 export const learn = {
-  heading: "WHAT YOU WILL LEARN",
-  sub: "Master the skills needed to build a sustainable dropshipping business.",
+  heading: "WHAT YOU WILL ACTUALLY MASTER",
+  sub: "Execution skills that help you launch cleaner, read numbers faster, and make better decisions under pressure.",
   cards: [
     {
       title: "Winning Product Research",
-      body: "Learn how to identify high-potential products that solve real problems. Stop guessing and start selling what people actually want to buy.",
+      body: "Identify products with real demand before they become crowded, using signals you can validate instead of instincts you cannot.",
     },
     {
       title: "U.S. Market Strategies",
-      body: "Master the American market. Get access to the best suppliers, platforms like PlusBase, and payment gateways tailored for U.S. customers.",
+      body: "Build an offer that fits the U.S. buyer, from supplier quality to store trust and a checkout flow that removes friction.",
     },
     {
       title: "Saudi & Gulf Expansion",
-      body: "A complete breakdown of the Saudi market: local suppliers, specific payment methods, and TikTok Ads strategies targeting the Gulf audience.",
+      body: "Adapt product, positioning, and advertising to the Saudi and Gulf customer instead of blindly copying what works in the U.S.",
     },
     {
       title: "Advanced Marketing Tactics",
-      body: "Learn to sell without breaking the bank. We teach Ambassador Marketing, Influencer collaboration, and Content Marketing strategies.",
+      body: "Use creators, ambassadors, and content with a clear commercial purpose, not vanity reach that burns budget.",
     },
     {
       title: "Financial & Budget Mastery",
-      body: "Overcome the challenge of limited capital. Learn exactly how to manage your budget, calculate your ROAS, and scale effectively without wasting money.",
+      body: "Read the numbers that matter, control spend, and know when to scale or stop before your testing budget starts bleeding.",
     },
     {
       title: "Store Creation & Automation",
-      body: "Step-by-step guidance on building high-converting stores. Plus, receive a free store build service upon course completion.",
+      body: "Build a store that feels credible, loads cleanly, and converts with intent. On completion, we also help you launch faster with a free store build.",
     },
     {
       title: "Building a Trustworthy Brand",
-      body: "Learn to build trust before selling. Move beyond basic dropshipping to create a recognizable brand that retains customers and encourages repeat buying.",
+      body: "Move beyond disposable storefronts and build a brand structure that earns trust, repeat orders, and better economics over time.",
     },
     {
       title: "The Business Mindset",
-      body: "Dropshipping is a system, not a lottery. Learn to treat it like a real business, manage cash flow, and avoid the mistakes that cause beginners to fail.",
+      body: "Operate with the discipline of a business owner: steadier decisions, cleaner tests, and fewer beginner mistakes disguised as ambition.",
     },
   ],
 };
 
 export const promise = {
-  headline: "We Don’t Just Teach Dropshipping — We Build Careers.",
-  sub: "Learn How We Helped Other Students Hit Their Goals With Our Complete Step-By-Step Dropshipping Guide.",
+  headline: "This is not motivational content. It is an operating method.",
+  sub: "The goal is simple: replace reactive decisions with a system you can understand, run, and improve.",
 };
 
 // Phrasing is grounded in Youssef's own founder copy ("Dropshipping isn't luck;
 // it's a precise business system"). No metrics, no claims, no fabricated proof.
 export const chaosToSystem = {
   eyebrow: "CHAOS → SYSTEM",
-  headline: "Stop guessing. Start operating.",
-  body: "Most people who try dropshipping run on guesswork — random tutorials, random products, random ad spend. The result is chaos. The roadmap inside is the opposite: a precise operating system for finding products, building stores, and running ads, applied the same way every time.",
-  caption: "Operating-system view — restrained motion, no autoplay sound, fully muted.",
+  headline: "Stop reacting. Work from a system.",
+  body: "When the process is fragmented, budget disappears into random tests, copied ads, and stores with no conversion logic. The sequence here shows the opposite: one system for choosing the product, shaping the offer, building the store, and reading the ad.",
+  caption: "The sequence opens cold, expands with scroll, then reveals the method.",
 };
 
 export const curriculum = {
@@ -84,117 +84,117 @@ export const curriculum = {
 };
 
 export const graduationGift = {
-  ribbon: "★ EXCLUSIVE GRADUATION GIFT ★",
-  title: "We Build Your Store For Free",
-  sub: "Pre-Loaded with 2 Winning Products",
-  body: "We want to ensure you start on the right foot. After completing the course, our team will build a professional dropshipping store for you. You simply choose your target audience:",
+  ribbon: "★ COMPLETION ADVANTAGE ★",
+  title: "We Build Your Store For You",
+  sub: "With 2 products ready for testing",
+  body: "After finishing the program, our team helps remove the slowest part of the launch. We build the store for you. You choose the market:",
   options: [
     { flag: "🇺🇸", label: "OPTION A", market: "The U.S. Market" },
     { flag: "🇸🇦", label: "OPTION B", market: "The Saudi Market" },
   ],
-  outro: "Everything You Need To Build A Sustainable Business",
+  outro: "A cleaner start, built on execution instead of improvisation.",
 };
 
 export const beyond = {
-  heading: "BEYOND THE VIDEO",
-  sub: "This isn't just a course; it's a partnership. Here is the standard we hold ourselves to.",
+  heading: "BEYOND THE LESSONS",
+  sub: "This is not a folder of videos and a goodbye. This is the standard behind the program.",
   pillars: [
     {
-      title: "TOTAL COMMITMENT",
-      body: "“I will not leave you behind.” If you are committed to success, we provide unwavering support every step of the way until you achieve outstanding results.",
+      title: "SERIOUS FOLLOW-THROUGH",
+      body: "If you commit to execution, you are not left alone with the details. There is guidance, accountability, and course correction when needed.",
     },
     {
-      title: "ZERO FLUFF, ALL ACTION",
-      body: "We prefer practical, hands-on learning over boring theory. We focus purely on modern sales strategies and store building techniques you can use immediately.",
+      title: "EXECUTION OVER THEORY",
+      body: "We focus on what moves the business: product choice, offer quality, store trust, and marketing that serves the goal.",
     },
     {
-      title: "SUSTAINABLE GROWTH",
-      body: "We strictly avoid “black-hat” methods or shortcuts that risk your reputation. We teach you how to build a legitimate brand designed for long-term survival.",
+      title: "LONG-TERM BUILDING",
+      body: "No shortcuts that damage trust. The aim is to build an asset you can keep improving, not a fragile setup that collapses after one trend.",
     },
     {
-      title: "4-8 WEEKS ROADMAP",
-      body: "No fake “get rich quick” promises. Students who apply our strategies consistently can realistically expect to see meaningful results within 4 to 8 weeks.",
+      title: "A REALISTIC WINDOW",
+      body: "No fantasy timelines. Students who apply consistently can expect meaningful movement within 4 to 8 weeks.",
     },
   ],
 };
 
 export const testimonials = {
   heading: "VERIFIED RESULTS",
-  subheading: "Real students. Real screenshots. Nothing fabricated.",
+  subheading: "Real students. Real screenshots. No manufactured success theatre.",
   // Source page contains this heading but no embedded testimonial copy that
   // could be verified. We refuse to fabricate quotes / faces / metrics.
   honestNote:
-    "All evidence shown is captured directly from student accounts. We do not fabricate quotes, inflate metrics, or use stock imagery.",
+    "Every asset shown is taken directly from student accounts or real platform captures. We do not invent quotes, inflate numbers, or lean on stock imagery.",
 };
 
 export const faq = {
-  heading: "FREQUENTLY ASKED QUESTIONS",
-  sub: "Have questions? We have answers. Everything you need to know before joining.",
+  heading: "QUESTIONS PEOPLE ASK BEFORE JOINING",
+  sub: "Clear answers to the practical questions that matter before you decide.",
   items: [
     {
       q: "Do I need previous experience to start?",
-      a: "No. The roadmap assumes zero experience and walks you from picking a product through running ads. If you can follow steps and put in the hours, the system covers the rest.",
+      a: "No. The roadmap is built for people starting from zero and takes you from product selection to store build to ads. What it does require is serious execution.",
     },
     {
       q: "How quickly can I expect to see results?",
-      a: "Students who apply the strategies consistently can realistically expect to see meaningful results within 4 to 8 weeks. There are no “get rich quick” promises.",
+      a: "If you apply the system consistently, 4 to 8 weeks is a realistic window for meaningful movement. There are no fantasy promises here.",
     },
     {
       q: "Do I need a large budget to start?",
-      a: "No. The Financial & Budget Mastery module is built around limited capital — calculating ROAS, managing cash flow, and scaling without wasting money.",
+      a: "No. A core part of the program is learning how to test with limited capital, read ROAS correctly, and scale without waste.",
     },
     {
       q: "Does this work for the Saudi Market?",
-      a: "Yes. There is a dedicated Saudi & Gulf module covering local suppliers, payment methods, and TikTok Ads strategy for the Gulf audience.",
+      a: "Yes. There is a dedicated Saudi and Gulf path covering local suppliers, payment methods, and ad logic that fits the market instead of copying U.S. behaviour.",
     },
     {
       q: "Is the store setup really free?",
-      a: "Yes. Upon course completion, our team builds a professional dropshipping store for you, pre-loaded with 2 winning products. You choose either the U.S. or the Saudi market.",
+      a: "Yes. Once you complete the program, our team builds your store and prepares it with two products ready for testing. You choose the U.S. or Saudi market.",
     },
     {
       q: "What if I get stuck? Is there support?",
-      a: "We are committed to your success. If you are willing to put in the work, we will not leave you behind. We support you every step of the way until you achieve the results you are aiming for.",
+      a: "If you are willing to do the work, you will not be left in the middle of the process. There is guidance, support, and correction when you hit friction.",
     },
   ],
   closing:
-    "We are committed to your success. If you are willing to put in the work, we will not leave you behind. We support you every step of the way until you achieve the results you are aiming for.",
+    "If you are serious about execution, you will get clarity, guidance, and accountability instead of empty motivation.",
 };
 
 export const founder = {
   eyebrow: "THE COACH",
   heading: "Meet Youssef Adel",
   paragraphs: [
-    "I didn't start with success. I started like many of you—experimenting, losing money on ads, and realizing that the “get rich quick” promises online were a lie. I learned the hard way that Dropshipping isn't luck; it's a precise business system that requires a specific roadmap.",
-    "Instead of giving up, I obsessed over the details. I mastered the differences between the U.S. and Saudi markets, decoded consumer psychology, and built a strategy focused on sustainable growth rather than quick wins. Now, I teach that exact system to ensure you don't make the same mistakes I did.",
+    "I did not start with momentum. I started the way many people do: testing, losing money, and trying to understand why effort was not turning into results. That is when it became obvious that most online promises about fast success were noise.",
+    "Instead of quitting, I went deeper into the mechanics: how people choose, why they trust, and what makes an offer convert in the U.S. versus Saudi and Gulf markets. The system I teach now was built from that work, so you do not have to repeat the same expensive mistakes.",
   ],
   traits: [
     {
       title: "DUAL-MARKET EXPERT",
-      body: "Specialized strategies for dominating both the U.S. Global Market and the local Saudi/Gulf sector.",
+      body: "Clear operating strategies for both the U.S. market and the Saudi/Gulf customer, with the differences between them taken seriously.",
     },
     {
       title: "SYSTEM OVER HYPE",
-      body: "Rejects “fake guru” promises. Teaches dropshipping as a structured, long-term business model.",
+      body: "Treats dropshipping as a business model with systems, numbers, and decisions, not as performance marketing theatre.",
     },
     {
       title: "MARKETING FIRST",
-      body: "Mastery in Influencer, Ambassador, and Content Marketing to build trust before asking for the sale.",
+      body: "Uses creators, content, and trust-building marketing as part of conversion, not as decoration around it.",
     },
     {
       title: "ZERO-FLUFF MENTOR",
-      body: "Created this course to fill the gap in Arabic education with practical, 100% actionable steps.",
+      body: "Built this program to replace vague education with practical steps that can be executed inside a real business.",
     },
   ],
-  pullquote: "“I decided to understand why I failed, not just how to succeed.”",
+  pullquote: "“The shift happened when I stopped chasing luck and started building a system I could measure.”",
   signature: "Youssef Adel",
   signatureRole: "FOUNDER & LEAD INSTRUCTOR",
 };
 
 export const schedule = {
   eyebrow: "FINAL STEP:",
-  heading: "Required to Complete Your Application",
-  sub: "Congratulations on taking the first step! To finalize your application, please select a time below for your FREE consultation call.",
-  cta: "Choose your free consultation time",
+  heading: "Complete Your Application",
+  sub: "You are one step away from finishing the process. Choose the consultation slot that fits you best.",
+  cta: "Choose your consultation time",
   card: {
     name: "Free Discovery Call",
     duration: "20 min",
@@ -222,15 +222,15 @@ export const confirmation = {
     },
     {
       title: "Step 2: Check Your WhatsApp",
-      body: "We are going to send you the call details in WhatsApp. You will get reminders before the call then you will get a link for the call.",
+      body: "We will send the call details to your WhatsApp, along with reminders before the meeting and the access link itself.",
     },
     {
       title: "Step 3: Punctuality",
-      body: "Join your call early and in a quiet environment. Your advisor will give you their undivided attention, and we expect the same from you.",
+      body: "Join on time and from a quiet setting. Your advisor will give you focused attention, and the call works best when you do the same.",
     },
     {
       title: "Step 4: Questions",
-      body: "We want to answer any question on your mind to clear the fog and make everything crystal clear.",
+      body: "Bring your real questions. The goal is to remove uncertainty and leave the conversation with clarity.",
     },
   ],
 };

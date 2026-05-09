@@ -18,11 +18,26 @@ export function StickyMobileCTA() {
   const hidden = HIDDEN_ROUTES.includes(pathname);
 
   useEffect(() => {
-    if (hidden) return;
-
-    if (reduced) {
-      setVisible(true);
+    if (hidden) {
+      setVisible(false);
       return;
+    }
+
+    const heroCta = document.querySelector<HTMLElement>('#system-boot [data-hero-cta]');
+
+    if (heroCta) {
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          setVisible(!entry.isIntersecting);
+        },
+        {
+          threshold: 0.01,
+          rootMargin: "-88px 0px 0px 0px",
+        },
+      );
+
+      observer.observe(heroCta);
+      return () => observer.disconnect();
     }
 
     const onScroll = () => setVisible(window.scrollY > window.innerHeight * 0.35);

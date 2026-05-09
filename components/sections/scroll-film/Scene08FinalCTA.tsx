@@ -8,14 +8,22 @@ import { ScrollFilmScene } from "@/components/cinematic/ScrollFilmScene";
 import { SceneEyebrow } from "@/components/cinematic/SceneEyebrow";
 import { SystemOverlay } from "@/components/cinematic/SystemOverlay";
 import { GENERATED_STILLS } from "@/lib/frameManifest";
+import { cn } from "@/lib/cn";
 import { gsap } from "@/lib/gsap";
 import { splitText, getStrokeLength } from "@/lib/motion";
+import { useLang } from "@/lib/lang-context";
 import { useReducedMotion } from "@/lib/useReducedMotion";
 import { useContent } from "@/lib/useContent";
 
 export function Scene08FinalCTA() {
+  const { lang } = useLang();
   const { CTA_LABEL, CTA_SUB, finalScene } = useContent();
+  const isArabic = lang === "ar";
+  const finalStatusItems = isArabic
+    ? ["خارطة 45 يوماً", "متجر يُجهّز لك", "أمريكا + الخليج"]
+    : ["45-DAY ROADMAP", "STORE BUILD INCLUDED", "U.S. + GULF"];
   const sectionRef = useRef<HTMLDivElement | null>(null);
+  const statusRef = useRef<HTMLDivElement | null>(null);
   const headlineRef = useRef<HTMLHeadingElement | null>(null);
   const applySpanRef = useRef<HTMLSpanElement | null>(null);
   const ctaWrapRef = useRef<HTMLDivElement | null>(null);
@@ -26,15 +34,28 @@ export function Scene08FinalCTA() {
   useGSAP(
     () => {
       const section = sectionRef.current;
+      const status = statusRef.current;
       const headline = headlineRef.current;
       const subtext = subtextRef.current;
       const ctaWrap = ctaWrapRef.current;
       if (!section) return;
 
       if (reduced) {
+        if (status) gsap.set(status, { opacity: 1, x: 0, y: 0 });
         if (headline) gsap.set(headline, { opacity: 1, yPercent: 0 });
         gsap.set([subtext, ctaWrap], { opacity: 1, y: 0 });
         return;
+      }
+
+      if (status) {
+        gsap.from(status.children, {
+          opacity: 0,
+          y: 16,
+          duration: 0.5,
+          stagger: 0.08,
+          ease: "venom",
+          scrollTrigger: { trigger: status, start: "top 82%", once: true },
+        });
       }
 
       // Headline SplitText — lines with yPercent + rotation
@@ -95,7 +116,7 @@ export function Scene08FinalCTA() {
 
       return undefined;
     },
-    { scope: sectionRef, dependencies: [reduced], revertOnUpdate: true },
+    { scope: sectionRef, dependencies: [isArabic, reduced], revertOnUpdate: true },
   );
 
   return (
@@ -122,20 +143,29 @@ export function Scene08FinalCTA() {
 
         <div className="max-w-5xl">
           <SceneEyebrow label={finalScene.eyebrow} />
+          <div ref={statusRef} className="final-scene__status mt-5" aria-label={isArabic ? "ملخص العرض النهائي" : "Final offer summary"}>
+            <span className="final-scene__status-dot" aria-hidden />
+            {finalStatusItems.map((item, index) => (
+              <span key={item} className="final-scene__status-chip">
+                {index > 0 ? <span className="final-scene__status-divider" aria-hidden /> : null}
+                <span>{item}</span>
+              </span>
+            ))}
+          </div>
           <h2
             ref={headlineRef}
-            className="mt-6 font-display text-[clamp(3.4rem,8vw,8rem)] uppercase leading-[1.02] tracking-tightest"
+            className={cn("mt-6 font-display leading-[1.02]", isArabic ? "text-[clamp(2.8rem,10vw,5.9rem)] tracking-[-0.03em]" : "text-[clamp(3.4rem,8vw,8rem)] uppercase tracking-tightest")}
           >
             {finalScene.headlineLead}{" "}
-            <span ref={applySpanRef} className="inline-block text-gradient">{finalScene.headlineAccent}</span>
+            <span ref={applySpanRef} data-text={finalScene.headlineAccent} className="final-scene__accent inline-block text-gradient">{finalScene.headlineAccent}</span>
           </h2>
           <p
             ref={subtextRef}
-            className="mx-auto mt-5 max-w-2xl text-lg leading-relaxed text-ash"
+            className={cn("mx-auto mt-5 max-w-2xl leading-relaxed text-ash", isArabic ? "text-base sm:text-xl" : "text-lg")}
           >
             {finalScene.body}
           </p>
-          <div ref={ctaWrapRef} className="relative z-30 mt-9 flex justify-center">
+          <div ref={ctaWrapRef} className="final-scene__cta-wrap relative z-30 mt-9 flex justify-center">
             <CtaLink href="/apply" sub={CTA_SUB} className="cinematic-command">
               {CTA_LABEL}
             </CtaLink>

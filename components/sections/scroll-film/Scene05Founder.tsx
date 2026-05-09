@@ -8,13 +8,17 @@ import { SceneEyebrow } from "@/components/cinematic/SceneEyebrow";
 import { ResponsiveMediaFrame } from "@/components/cinematic/ResponsiveMediaFrame";
 import { SystemOverlay } from "@/components/cinematic/SystemOverlay";
 import { HIGGSFIELD_STILLS } from "@/lib/frameManifest";
+import { cn } from "@/lib/cn";
 import { gsap } from "@/lib/gsap";
 import { splitText } from "@/lib/motion";
+import { useLang } from "@/lib/lang-context";
 import { useReducedMotion } from "@/lib/useReducedMotion";
 import { useContent } from "@/lib/useContent";
 
 export function Scene05Founder() {
+  const { lang } = useLang();
   const { founder, sceneLabels } = useContent();
+  const isArabic = lang === "ar";
   const sectionRef = useRef<HTMLDivElement | null>(null);
   const quoteRef = useRef<HTMLParagraphElement | null>(null);
   const portraitRef = useRef<HTMLDivElement | null>(null);
@@ -90,18 +94,20 @@ export function Scene05Founder() {
         });
       });
 
-      // Quote chars use opacity/transform only for lighter paint.
-      const { elements } = splitText(quote, "chars");
-      gsap.from(elements, {
+      const { elements: quoteElements } = splitText(quote, isArabic ? "words" : "chars");
+      gsap.from(quoteElements, {
         opacity: 0,
-        x: 4,
-        duration: 0.35,
-        stagger: 0.014,
+        x: isArabic ? -10 : 4,
+        y: isArabic ? 8 : 0,
+        filter: isArabic ? "blur(8px)" : "none",
+        duration: isArabic ? 0.42 : 0.35,
+        stagger: isArabic ? 0.05 : 0.014,
         ease: "venom",
+        ...(isArabic ? { clearProps: "filter" } : {}),
         scrollTrigger: { trigger: quote, start: "top 84%", once: true },
       });
     },
-    { scope: sectionRef, dependencies: [reduced], revertOnUpdate: true },
+    { scope: sectionRef, dependencies: [isArabic, reduced], revertOnUpdate: true },
   );
 
   return (
@@ -125,7 +131,7 @@ export function Scene05Founder() {
           <div ref={portraitImgRef} className="absolute inset-0">
             <Image
               src="/founder/youssef-adel.jpg"
-              alt="Youssef Adel, founder and lead instructor of ECOMVENOM"
+              alt={isArabic ? "يوسف عادل، مؤسس ومدرّب إيكوم فينوم" : "Youssef Adel, founder and lead instructor of ECOMVENOM"}
               fill
               sizes="(min-width: 1024px) 440px, 90vw"
               className="object-cover"
@@ -135,7 +141,7 @@ export function Scene05Founder() {
 
         <div className="self-center">
           <SceneEyebrow label={sceneLabels.coach} />
-          <h2 className="mt-5 font-display text-[clamp(3rem,6vw,6rem)] uppercase leading-[1.02] tracking-tightest">
+          <h2 className={cn("mt-5 font-display leading-[1.02]", isArabic ? "text-[clamp(2.7rem,7vw,5.4rem)] tracking-[-0.03em]" : "text-[clamp(3rem,6vw,6rem)] uppercase tracking-tightest")}>
             {founder.heading}
           </h2>
           {founder.paragraphs.map((paragraph) => (
@@ -152,12 +158,12 @@ export function Scene05Founder() {
               </div>
             ))}
           </div>
-          <blockquote className="mt-8 border-l-2 border-steel pl-5">
-            <p ref={quoteRef} className="font-display text-2xl uppercase leading-tight text-bone">
+          <blockquote className={cn("mt-8", isArabic ? "border-r-2 border-steel pr-5" : "border-l-2 border-steel pl-5")}>
+            <p ref={quoteRef} className={cn("font-display text-2xl leading-tight text-bone", isArabic ? "tracking-[-0.025em]" : "uppercase")}>
               {founder.pullquote}
-              <span className="founder-cursor ml-1 font-heading text-venom">|</span>
+              <span className={cn("founder-cursor font-heading text-venom", isArabic ? "mr-1" : "ml-1")}>|</span>
             </p>
-            <footer className="mt-3 font-heading text-[10px] uppercase tracking-caps text-ash">
+            <footer className={cn("mt-3 font-heading text-ash", isArabic ? "text-[0.72rem] tracking-[0.02em]" : "text-[10px] uppercase tracking-caps")}>
               {founder.signature} / {founder.signatureRole}
             </footer>
           </blockquote>

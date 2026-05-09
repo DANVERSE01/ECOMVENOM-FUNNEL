@@ -4,11 +4,15 @@ import { useEffect } from "react";
 
 // Maps scene element IDs to data-scene attribute values for ambient CSS
 const SCENE_MAP: Record<string, string> = {
+  "system-boot": "boot",
   "chaos-input": "problem",
+  "chaos-system-scroll-film": "system",
+  roadmap: "roadmap",
   operator: "founder",
-  "book-the-call": "final",
   "proof-gate": "proof",
   offer: "offer",
+  "application-flow": "application",
+  "book-the-call": "final",
 };
 
 export function SceneObserver() {

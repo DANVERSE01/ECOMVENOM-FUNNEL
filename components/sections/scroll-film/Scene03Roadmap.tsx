@@ -11,12 +11,16 @@ import { CountUpNumber } from "@/components/ui/count-up";
 import { HoverGrid, HoverGridItem } from "@/components/ui/HoverGrid";
 import { GENERATED_STILLS } from "@/lib/frameManifest";
 import { gsap, ScrollTrigger } from "@/lib/gsap";
+import { useLang } from "@/lib/lang-context";
 import { scrambleText, getStrokeLength } from "@/lib/motion";
 import { useReducedMotion } from "@/lib/useReducedMotion";
 import { useContent } from "@/lib/useContent";
 
 export function Scene03Roadmap() {
+  const { lang } = useLang();
   const { curriculum, learn, sceneLabels } = useContent();
+  const moduleLabel = lang === "ar" ? "الوحدة" : "Module";
+  const skillLabel = lang === "ar" ? "المهارة" : "Skill";
   const sectionRef = useRef<HTMLDivElement | null>(null);
   const learnHeadingRef = useRef<HTMLHeadingElement | null>(null);
   const svgPathRef = useRef<SVGPathElement | null>(null);
@@ -130,7 +134,7 @@ export function Scene03Roadmap() {
                   <p className="font-display text-5xl uppercase leading-none text-venom/70">
                     <CountUpNumber value={Number(module.n)} pad={2} />
                   </p>
-                  <p className="mt-2 font-heading text-[10px] uppercase tracking-caps text-ash-2">Module</p>
+                  <p className="mt-2 font-heading text-[10px] uppercase tracking-caps text-ash-2">{moduleLabel}</p>
                   <h3 className="mt-3 font-display text-2xl uppercase leading-tight text-bone">{module.title}</h3>
                   <ul className="mt-4 list-none space-y-1.5">
                     {module.bullets.map((bullet) => (
@@ -163,7 +167,7 @@ export function Scene03Roadmap() {
                 className="system-module hover-grid-item group border border-steel/15 bg-steel/5 p-5"
               >
                 <p className="font-heading text-[10px] uppercase tracking-caps text-venom">
-                  Skill <CountUpNumber value={index + 1} pad={2} />
+                  {skillLabel} <CountUpNumber value={index + 1} pad={2} />
                 </p>
                 <h4 className="mt-3 font-display text-xl uppercase text-bone">{card.title}</h4>
                 <p className="mt-3 text-sm leading-relaxed text-ash">{card.body}</p>
