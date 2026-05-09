@@ -1218,3 +1218,21 @@
     padding: 0.9rem 1rem;
   }
 }
+
+/* ── Phase 2: VSL Scroll Expansion ─────────────────────────────────────── */
+.vsl-scroll-card {
+  will-change: transform, border-radius, box-shadow;
+  transform-origin: center center;
+  transition: none;
+}
+.vsl-scroll-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0);
+  pointer-events: none;
+  z-index: 45;
+  transition: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .vsl-scroll-card { will-change: auto; }
+}

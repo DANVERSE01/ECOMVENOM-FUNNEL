@@ -20,7 +20,9 @@ import { HIGGSFIELD_LOOPS, HIGGSFIELD_STILLS, GENERATED_STILLS } from "@/lib/fra
 import { CTA_LABEL, CTA_SUB, hero } from "@/lib/content";
 import { gsap } from "@/lib/gsap";
 import { scrambleText } from "@/lib/motion";
+import type React from "react";
 import { useReducedMotion } from "@/lib/useReducedMotion";
+import { useVslScrollExpansion } from "@/hooks/useVslScrollExpansion";
 
 const HERO_MEDIA = {
   embedSrc: "https://player.vimeo.com/video/1190366994",
@@ -54,6 +56,7 @@ export function Scene00ColdOpen() {
   const spotlightRef = useRef<HTMLDivElement | null>(null);
   const vslCardRef = useRef<HTMLDivElement | null>(null);
   const overlayPanelRef = useRef<HTMLDivElement | null>(null);
+  const scrollOverlayRef = useRef<HTMLDivElement | null>(null);
   const closeTimerRef = useRef<number | null>(null);
   const reduced = useReducedMotion();
 
@@ -61,10 +64,19 @@ export function Scene00ColdOpen() {
   const [overlayPhase, setOverlayPhase] = useState<OverlayPhase>("opening");
   const [launchMode, setLaunchMode] = useState<LaunchMode>("auto");
   const [collapseStyle, setCollapseStyle] = useState<CollapseVars>({});
+  const [scrollVideoActive, setScrollVideoActive] = useState(false);
 
   const heroEmbedSrc = overlayOpen
     ? `${HERO_MEDIA.embedSrc}?badge=0&autopause=0&player_id=0&app_id=58479&dnt=1&autoplay=1${launchMode === "auto" ? "&muted=1" : ""}`
     : "";
+  const scrollEmbedSrc = `${HERO_MEDIA.embedSrc}?badge=0&autopause=0&player_id=0&app_id=58479&dnt=1&autoplay=1`;
+
+  useVslScrollExpansion(
+    sectionRef as React.RefObject<HTMLElement>,
+    vslCardRef as React.RefObject<HTMLElement>,
+    scrollOverlayRef as React.RefObject<HTMLElement>,
+    setScrollVideoActive,
+  );
 
   useGSAP(
     () => {
@@ -352,7 +364,7 @@ export function Scene00ColdOpen() {
             </div>
           </div>
 
-          <div ref={vslCardRef} className="hero-vsl-stage justify-self-center lg:justify-self-end">
+          <div ref={vslCardRef} className="hero-vsl-stage vsl-scroll-card justify-self-center lg:justify-self-end">
             <ResponsiveMediaFrame className="hero-vsl-card aspect-video w-[min(82vw,24rem)] bg-ink-3 p-2 sm:w-[min(62vw,28rem)] lg:w-full">
               <Image
                 src={HERO_MEDIA.posterSrc}
@@ -367,7 +379,18 @@ export function Scene00ColdOpen() {
                 <p className="font-heading text-[10px] uppercase tracking-normal text-venom">Founder VSL</p>
                 <p className="mt-1 font-mono text-[10px] text-ash">Preview</p>
               </div>
-              {HERO_MEDIA.embedSrc ? (
+              {scrollVideoActive && (
+                <iframe
+                  key={scrollEmbedSrc}
+                  src={scrollEmbedSrc}
+                  title="Founder VSL"
+                  className="absolute inset-0 h-full w-full border-0"
+                  allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media"
+                  referrerPolicy="strict-origin-when-cross-origin"
+                  allowFullScreen
+                />
+              )}
+              {!scrollVideoActive && HERO_MEDIA.embedSrc ? (
                 <button
                   type="button"
                   onClick={openManualVsl}
@@ -391,6 +414,8 @@ export function Scene00ColdOpen() {
           </div>
         </div>
       </div>
+
+      <div ref={scrollOverlayRef} className="vsl-scroll-overlay" aria-hidden />
 
       {overlayOpen && HERO_MEDIA.embedSrc && typeof document !== "undefined" && createPortal((
         <div
