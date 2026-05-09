@@ -5,12 +5,13 @@ import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import { Container } from "@/components/ui/container";
 import { CtaLink } from "@/components/ui/button";
-import { hero, CTA_LABEL, CTA_SUB } from "@/lib/content";
+import { useContent } from "@/lib/useContent";
 import { gsap, ScrollTrigger } from "@/lib/gsap";
 import { splitText } from "@/lib/motion";
 import { useReducedMotion } from "@/lib/useReducedMotion";
 
 export function Hero() {
+  const { hero, CTA_LABEL, CTA_SUB } = useContent();
   const sectionRef = useRef<HTMLElement | null>(null);
   const innerRef = useRef<HTMLDivElement | null>(null);
   const logoRef = useRef<HTMLDivElement | null>(null);

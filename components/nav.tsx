@@ -7,6 +7,7 @@ import { useState, useRef, useEffect } from "react";
 import { useGSAP } from "@gsap/react";
 import { CtaLink } from "./ui/button";
 import { ScrollProgressIndicator } from "./ui/ScrollProgressIndicator";
+import { LangToggle } from "./ui/LangToggle";
 import { CTA_LABEL, CTA_SUB } from "@/lib/content";
 import { cn } from "@/lib/cn";
 import { gsap, ScrollTrigger, reducedMotion } from "@/lib/gsap";
@@ -144,14 +145,7 @@ export function Nav() {
           </div>
 
           <div className="relative z-40 flex items-center gap-2 justify-end justify-self-end">
-            <button
-              type="button"
-              onClick={() => setLang(lang === "en" ? "ar" : "en")}
-              aria-label={lang === "en" ? "Switch to Arabic" : "Switch to English"}
-              className="hidden sm:inline-flex h-8 items-center rounded border border-white/20 bg-ink-2/60 px-2.5 font-heading text-[9px] uppercase tracking-normal text-ash transition-colors hover:border-venom/50 hover:text-venom focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-venom"
-            >
-              {t("langToggle")}
-            </button>
+            <LangToggle />
             <div className="hidden sm:block">
               <CtaLink href="/apply" sub={CTA_SUB} className="cinematic-command min-w-[13.5rem] px-5">
                 {CTA_LABEL}

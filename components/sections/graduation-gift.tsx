@@ -1,8 +1,10 @@
+"use client";
 import { Container } from "@/components/ui/container";
 import { Reveal } from "@/components/ui/reveal";
-import { graduationGift } from "@/lib/content";
+import { useContent } from "@/lib/useContent";
 
 export function GraduationGift() {
+  const { graduationGift } = useContent();
   return (
     <section className="py-16 sm:py-28 bg-ink-2/40 border-y border-white/5">
       <Container>

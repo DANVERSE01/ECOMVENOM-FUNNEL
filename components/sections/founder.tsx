@@ -6,13 +6,14 @@ import { useGSAP } from "@gsap/react";
 import { Container } from "@/components/ui/container";
 import { Reveal } from "@/components/ui/reveal";
 import { SectionEyebrow } from "@/components/ui/section-eyebrow";
-import { founder } from "@/lib/content";
+import { useContent } from "@/lib/useContent";
 import { gsap } from "@/lib/gsap";
 import { splitText } from "@/lib/motion";
 import { useReducedMotion } from "@/lib/useReducedMotion";
 import { useSplitHeading } from "@/hooks/useSplitHeading";
 
 export function Founder() {
+  const { founder } = useContent();
   const sectionRef = useRef<HTMLElement | null>(null);
   const imageRef = useRef<HTMLDivElement | null>(null);
   const traitsRef = useRef<HTMLUListElement | null>(null);

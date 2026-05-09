@@ -4,7 +4,7 @@ import { useRef, useState } from "react";
 import { useGSAP } from "@gsap/react";
 import { Container } from "@/components/ui/container";
 import { Reveal } from "@/components/ui/reveal";
-import { faq } from "@/lib/content";
+import { useContent } from "@/lib/useContent";
 import { cn } from "@/lib/cn";
 import { gsap } from "@/lib/gsap";
 import { useReducedMotion } from "@/lib/useReducedMotion";
@@ -12,6 +12,7 @@ import { useStaggerReveal } from "@/hooks/useStaggerReveal";
 import { useSplitHeading } from "@/hooks/useSplitHeading";
 
 export function Faq() {
+  const { faq } = useContent();
   const sectionRef = useRef<HTMLElement | null>(null);
   const answerRefs = useRef<Array<HTMLDivElement | null>>([]);
   const openIndexRef = useRef<number | null>(null);

@@ -1,10 +1,11 @@
 "use client";
 import { Container } from "@/components/ui/container";
 import { Reveal } from "@/components/ui/reveal";
-import { testimonials } from "@/lib/content";
+import { useContent } from "@/lib/useContent";
 import { useSplitHeading } from "@/hooks/useSplitHeading";
 
 export function Testimonials() {
+  const { testimonials } = useContent();
   const headingRef = useSplitHeading<HTMLHeadingElement>();
   return (
     <section className="py-16 sm:py-28 bg-ink-2/40 border-y border-white/5">

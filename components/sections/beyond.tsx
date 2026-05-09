@@ -3,11 +3,12 @@
 import { Container } from "@/components/ui/container";
 import { Reveal } from "@/components/ui/reveal";
 import { SectionEyebrow } from "@/components/ui/section-eyebrow";
-import { beyond } from "@/lib/content";
+import { useContent } from "@/lib/useContent";
 import { useStaggerReveal } from "@/hooks/useStaggerReveal";
 import { useSplitHeading } from "@/hooks/useSplitHeading";
 
 export function Beyond() {
+  const { beyond } = useContent();
   const staggerRef = useStaggerReveal<HTMLDivElement>("[data-stagger-item]");
   const headingRef = useSplitHeading<HTMLHeadingElement>();
   return (

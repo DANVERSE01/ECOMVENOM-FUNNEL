@@ -1,8 +1,10 @@
+"use client";
 import { Container } from "@/components/ui/container";
 import { Reveal } from "@/components/ui/reveal";
-import { promise } from "@/lib/content";
+import { useContent } from "@/lib/useContent";
 
 export function Promise() {
+  const { promise } = useContent();
   return (
     <section className="py-16 sm:py-28 border-y border-white/5 bg-ink-2/40">
       <Container>

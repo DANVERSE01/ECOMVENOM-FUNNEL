@@ -4,12 +4,13 @@ import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import { Container } from "@/components/ui/container";
 import { CtaLink } from "@/components/ui/button";
-import { CTA_LABEL, CTA_SUB } from "@/lib/content";
+import { useContent } from "@/lib/useContent";
 import { gsap, ScrollTrigger } from "@/lib/gsap";
 import { splitText } from "@/lib/motion";
 import { useReducedMotion } from "@/lib/useReducedMotion";
 
 export function FinalCta() {
+  const { CTA_LABEL, CTA_SUB } = useContent();
   const sectionRef = useRef<HTMLElement | null>(null);
   const headlineRef = useRef<HTMLHeadingElement | null>(null);
   const supportRef = useRef<HTMLDivElement | null>(null);

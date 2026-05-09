@@ -4,12 +4,13 @@ import { useEffect, useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import { Container } from "@/components/ui/container";
 import { DeviceFrame } from "@/components/cinematic/DeviceFrame";
-import { chaosToSystem } from "@/lib/content";
+import { useContent } from "@/lib/useContent";
 import { gsap } from "@/lib/gsap";
 import { splitText } from "@/lib/motion";
 import { useReducedMotion } from "@/lib/useReducedMotion";
 
 export function ChaosToSystem() {
+  const { chaosToSystem } = useContent();
   const sectionRef = useRef<HTMLElement | null>(null);
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const panelRef = useRef<HTMLDivElement | null>(null);
