@@ -23,7 +23,7 @@ import { scrambleText } from "@/lib/motion";
 import { useReducedMotion } from "@/lib/useReducedMotion";
 
 const HERO_MEDIA = {
-  embedSrc: "https://www.youtube.com/embed/xMU-aAw4UP8",
+  embedSrc: "https://player.vimeo.com/video/1190366994",
   posterSrc: "/media/hero-vsl-poster.jpg",
   orientation: "landscape",
   purpose: "homepage-hero-vsl",
@@ -62,9 +62,9 @@ export function Scene00ColdOpen() {
   const [launchMode, setLaunchMode] = useState<LaunchMode>("auto");
   const [collapseStyle, setCollapseStyle] = useState<CollapseVars>({});
 
-  const heroEmbedSrc = `${HERO_MEDIA.embedSrc}?autoplay=1&playsinline=1&rel=0&modestbranding=1${
-    launchMode === "auto" ? "&mute=1" : ""
-  }`;
+  const heroEmbedSrc = overlayOpen
+    ? `${HERO_MEDIA.embedSrc}?badge=0&autopause=0&player_id=0&app_id=58479&dnt=1&autoplay=1${launchMode === "auto" ? "&muted=1" : ""}`
+    : "";
 
   useGSAP(
     () => {
@@ -420,7 +420,7 @@ export function Scene00ColdOpen() {
               src={heroEmbedSrc}
               title="Founder VSL"
               className="hero-vsl-overlay__video"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media"
               referrerPolicy="strict-origin-when-cross-origin"
               allowFullScreen
             />
