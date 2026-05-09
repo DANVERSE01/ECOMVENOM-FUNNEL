@@ -1333,3 +1333,35 @@
 @media (prefers-reduced-motion: reduce) {
   .device-frame-shell { will-change: auto; transform: none; }
 }
+
+/* ─── Arabic RTL i18n ─────────────────────────────────────────── */
+[lang="ar"],
+[dir="rtl"] {
+  font-family: var(--font-arabic, sans-serif);
+  letter-spacing: 0;
+}
+
+[dir="rtl"] .nav-link-draw,
+[dir="rtl"] .cinematic-command {
+  letter-spacing: 0;
+}
+
+/* Flip horizontal layouts for RTL */
+[dir="rtl"] .hero-command-rail,
+[dir="rtl"] .premium-card-hover {
+  direction: rtl;
+}
+
+/* Flip inline flex gap spacing for RTL */
+[dir="rtl"] header .flex {
+  flex-direction: row-reverse;
+}
+
+/* Preserve LTR for code-like elements */
+[dir="rtl"] .font-mono,
+[dir="rtl"] [data-scene-title],
+[dir="rtl"] .system-status-dot ~ span {
+  direction: ltr;
+  unicode-bidi: embed;
+}
+
