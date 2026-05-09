@@ -10,6 +10,7 @@ import { founder } from "@/lib/content";
 import { gsap } from "@/lib/gsap";
 import { splitText } from "@/lib/motion";
 import { useReducedMotion } from "@/lib/useReducedMotion";
+import { useSplitHeading } from "@/hooks/useSplitHeading";
 
 export function Founder() {
   const sectionRef = useRef<HTMLElement | null>(null);
@@ -17,6 +18,7 @@ export function Founder() {
   const traitsRef = useRef<HTMLUListElement | null>(null);
   const quoteRef = useRef<HTMLParagraphElement | null>(null);
   const reduced = useReducedMotion();
+  const headingRef = useSplitHeading<HTMLHeadingElement>();
 
   useGSAP(
     (ctx) => {
@@ -108,7 +110,7 @@ export function Founder() {
 
           <Reveal className="order-1 lg:order-2">
             <SectionEyebrow>{founder.eyebrow}</SectionEyebrow>
-            <h2 className="font-display text-3xl sm:text-5xl uppercase tracking-tightest leading-[1.1] mt-3">
+            <h2 ref={headingRef} className="font-display text-3xl sm:text-5xl uppercase tracking-tightest leading-[1.1] mt-3">
               {founder.heading}
             </h2>
             {founder.paragraphs.map((p, i) => (

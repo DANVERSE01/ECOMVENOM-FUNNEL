@@ -134,7 +134,7 @@ export function Scene04Offer() {
           </div>
           <div className="grid gap-4">
             {graduationGift.options.map((option) => (
-              <div key={option.label} className="option-card scene-panel-feature border-gold/15 p-6">
+              <div key={option.label} className="option-card premium-card-hover scene-panel-feature border-gold/15 p-6">
                 <p className="font-heading text-[10px] uppercase tracking-caps text-ash-2">{option.label}</p>
                 <p className="mt-4 flex items-center gap-3 font-display text-3xl uppercase leading-tight text-bone sm:text-4xl">
                   <span className="market-terminal">
@@ -169,7 +169,7 @@ export function Scene04Offer() {
           <p className="mt-4 max-w-2xl text-ash">{beyond.sub}</p>
           <div className="mt-10 grid gap-3 sm:grid-cols-2">
             {beyond.pillars.map((pillar) => (
-              <div key={pillar.title} className="beyond-card scene-panel-elevated border-t border-t-gold/25 p-5">
+              <div key={pillar.title} className="beyond-card premium-card-hover scene-panel-elevated border-t border-t-gold/25 p-5">
                 <h4 className="font-display text-xl uppercase text-gold">{pillar.title}</h4>
                 <p className="mt-2 text-sm leading-relaxed text-ash">{pillar.body}</p>
               </div>

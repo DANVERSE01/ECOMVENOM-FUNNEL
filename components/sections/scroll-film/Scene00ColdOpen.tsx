@@ -23,6 +23,8 @@ import { scrambleText } from "@/lib/motion";
 import type React from "react";
 import { useReducedMotion } from "@/lib/useReducedMotion";
 import { useVslScrollExpansion } from "@/hooks/useVslScrollExpansion";
+import { getCurrentLenis } from "@/lib/lenis";
+import { FloatingVslPlayer } from "@/components/cinematic/FloatingVslPlayer";
 
 const HERO_MEDIA = {
   embedSrc: "https://player.vimeo.com/video/1190366994",
@@ -65,6 +67,7 @@ export function Scene00ColdOpen() {
   const [launchMode, setLaunchMode] = useState<LaunchMode>("auto");
   const [collapseStyle, setCollapseStyle] = useState<CollapseVars>({});
   const [scrollVideoActive, setScrollVideoActive] = useState(false);
+  const [floatSrc, setFloatSrc] = useState<string | null>(null);
 
   const heroEmbedSrc = overlayOpen
     ? `${HERO_MEDIA.embedSrc}?badge=0&autopause=0&player_id=0&app_id=58479&dnt=1&autoplay=1${launchMode === "auto" ? "&muted=1" : ""}`
@@ -196,6 +199,33 @@ export function Scene00ColdOpen() {
     setOverlayPhase("opening");
     setCollapseStyle({});
   }, [reduced]);
+
+  const floatToMini = useCallback(() => {
+    if (closeTimerRef.current) {
+      window.clearTimeout(closeTimerRef.current);
+      closeTimerRef.current = null;
+    }
+    const src = `${HERO_MEDIA.embedSrc}?badge=0&autopause=0&player_id=0&app_id=58479&dnt=1&autoplay=1`;
+    setFloatSrc(src);
+    setOverlayOpen(false);
+    setOverlayPhase("opening");
+    setCollapseStyle({});
+  }, []);
+
+  useEffect(() => {
+    if (!overlayOpen) return;
+    if (typeof window === "undefined") return;
+    const mq = window.matchMedia("(max-width: 767px)");
+    if (mq.matches) return;
+    const lenis = getCurrentLenis();
+    if (!lenis) return;
+
+    const onScroll = ({ scroll }: { scroll: number }) => {
+      if (scroll > 100) floatToMini();
+    };
+    lenis.on("scroll", onScroll);
+    return () => { lenis.off("scroll", onScroll); };
+  }, [overlayOpen, floatToMini]);
 
   useEffect(() => {
     if (!HERO_MEDIA.embedSrc || reduced || overlayOpen) return;
@@ -466,6 +496,10 @@ export function Scene00ColdOpen() {
           </div>
         </div>
       ), document.body)}
+
+      {floatSrc && (
+        <FloatingVslPlayer src={floatSrc} onClose={() => setFloatSrc(null)} />
+      )}
     </ScrollFilmScene>
   );
 }

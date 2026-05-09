@@ -34,6 +34,8 @@ export function ScrollFilmScene({
         transform: visible || reduced ? "translate3d(0,0,0)" : "translate3d(0,20px,0)",
         transition:
           "opacity 400ms cubic-bezier(0.16,1,0.3,1), transform 400ms cubic-bezier(0.16,1,0.3,1)",
+        contentVisibility: "auto",
+        containIntrinsicSize: "0 800px",
       }}
     >
       <MaterialField scene={scene} />
