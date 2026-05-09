@@ -26,7 +26,7 @@ export function Beyond() {
             <article
               key={p.title}
               data-stagger-item
-              className="learn-card rounded-xl border border-white/8 bg-ink-3/60 p-6"
+              className="learn-card rounded-xl border border-white/8 bg-ink-3/60 p-6 hover:border-venom/30 transition-colors duration-200"
             >
               <h3 className="font-display uppercase text-lg tracking-wide text-venom">
                 {p.title}

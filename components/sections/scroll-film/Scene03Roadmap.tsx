@@ -125,7 +125,7 @@ export function Scene03Roadmap() {
 
             <HoverGrid className="sm:grid-cols-2">
               {curriculum.modules.map((module) => (
-                <HoverGridItem key={module.n} className="system-module border border-white/6 bg-ink-3/70 p-5 backdrop-blur-sm">
+                <HoverGridItem key={module.n} className="system-module premium-card-hover border border-white/6 bg-ink-3/70 p-5 backdrop-blur-sm">
                   <p className="font-display text-5xl uppercase leading-none text-venom/70">
                     <CountUpNumber value={Number(module.n)} pad={2} />
                   </p>
