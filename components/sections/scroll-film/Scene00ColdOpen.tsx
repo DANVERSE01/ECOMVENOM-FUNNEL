@@ -332,7 +332,7 @@ export function Scene00ColdOpen() {
       <div ref={sectionRef} className="absolute inset-0" />
 
       <div className="absolute inset-0">
-        <Image src={GENERATED_STILLS.heroBg} alt="" fill sizes="100vw" quality={70} className="object-cover opacity-[0.12]" />
+        <Image src={GENERATED_STILLS.heroBg} alt="" fill sizes="100vw" quality={70} priority className="object-cover opacity-[0.12]" />
         <CinematicLoopVideo
           src={HIGGSFIELD_LOOPS.systemWake}
           poster={HIGGSFIELD_STILLS.systemIntro}

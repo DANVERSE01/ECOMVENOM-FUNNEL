@@ -140,7 +140,7 @@ export function Scene07Application() {
     <ScrollFilmScene id="application-flow" scene="07" title={applicationScene.sceneTitle} className="py-16 sm:py-28">
       <span className="scene-ghost bottom-8 left-8">07</span>
       <div className="absolute inset-0">
-        <Image src={HIGGSFIELD_STILLS.storePortal} alt="" fill sizes="100vw" loading="eager" className="object-cover opacity-[0.10]" />
+        <Image src={HIGGSFIELD_STILLS.storePortal} alt="" fill sizes="100vw" className="object-cover opacity-[0.10]" />
         <SystemOverlay />
       </div>
       <div ref={sectionRef} className="relative z-10 mx-auto max-w-measure px-5 sm:px-8 lg:px-12">

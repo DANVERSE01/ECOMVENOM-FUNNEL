@@ -97,7 +97,7 @@ export function Scene06ProofGate() {
     <ScrollFilmScene id="proof-gate" scene="06" title={proofScene.sceneTitle} className="py-16 sm:py-28">
       <span className="scene-ghost bottom-8 right-8">06</span>
       <div className="absolute inset-0">
-        <Image src={GENERATED_STILLS.proofBg} alt="" fill sizes="100vw" loading="eager" className="object-cover opacity-[0.12]" />
+        <Image src={GENERATED_STILLS.proofBg} alt="" fill sizes="100vw" className="object-cover opacity-[0.12]" />
         <SystemOverlay />
         <div className="scene-material-wash" data-tone="value" aria-hidden />
       </div>
@@ -169,7 +169,6 @@ export function Scene06ProofGate() {
                   alt={`${t.label} ${i + 1}`}
                   fill
                   sizes="(min-width: 640px) 33vw, 100vw"
-                  loading="eager"
                   className="object-cover transition-transform duration-700 ease-venom group-hover:scale-[1.04]"
                 />
                 {/* Gradient overlay */}

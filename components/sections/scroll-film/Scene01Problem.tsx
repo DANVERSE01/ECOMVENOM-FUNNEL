@@ -141,7 +141,8 @@ export function Scene01Problem() {
                 <span className="chaos-signal__state">{problem.signalState}</span>
               </div>
               <p className="chaos-signal__title mt-3 font-display text-2xl uppercase text-bone">{signal.label}</p>
-              <p className="mt-2 text-sm leading-relaxed text-ash-2">{signal.detail}</p>
+              {/* Bumped from text-ash-2 (3.7:1) to text-ash (5.6:1) — WCAG AA body text */}
+              <p className="mt-2 text-sm leading-relaxed text-ash">{signal.detail}</p>
             </div>
           ))}
           <SceneHairline />
