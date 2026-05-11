@@ -20,6 +20,8 @@ export function Scene07Application() {
   const headlineRef = useRef<HTMLHeadingElement | null>(null);
   const stepCardsRef = useRef<HTMLDivElement | null>(null);
   const svgPathRef = useRef<SVGPathElement | null>(null);
+  const gateRef = useRef<HTMLDivElement | null>(null);
+  const gateBracketsRef = useRef<HTMLSpanElement | null>(null);
   const contentRefs = useRef<(HTMLDivElement | null)[]>([]);
   const [openIndex, setOpenIndex] = useState<number | null>(null);
   const reduced = useReducedMotion();
@@ -95,6 +97,41 @@ export function Scene07Application() {
           scrollTrigger: { trigger: stepCardsRef.current, start: "top 70%", once: true },
         });
       }
+
+      // SIGNATURE INTERACTION (Batch 2 Phase 2h):
+      // Gate-open metaphor — 4 corner brackets sequentially draw around the apply
+      // CTA cluster as the section enters view. Marks the action as a sealed gate
+      // that opens for the user, reinforcing the "application before scheduling" framing.
+      const gateBrackets = gateBracketsRef.current;
+      const gate = gateRef.current;
+      if (gateBrackets && gate) {
+        const brackets = Array.from(
+          gateBrackets.querySelectorAll<SVGPathElement>("[data-gate-bracket]"),
+        );
+        brackets.forEach((bracket) => {
+          const length = getStrokeLength(bracket);
+          bracket.style.strokeDasharray = `${length}`;
+          bracket.style.strokeDashoffset = `${length}`;
+        });
+        gsap.to(brackets, {
+          strokeDashoffset: 0,
+          duration: 0.7,
+          stagger: 0.12,
+          ease: "venom",
+          scrollTrigger: { trigger: gate, start: "top 78%", once: true },
+        });
+        // Subtle gate glow rises with the brackets
+        gsap.fromTo(
+          gate,
+          { "--gate-glow": 0 } as gsap.TweenVars,
+          {
+            "--gate-glow": 1,
+            duration: 1.0,
+            ease: "venom",
+            scrollTrigger: { trigger: gate, start: "top 78%", once: true },
+          } as gsap.TweenVars,
+        );
+      }
     },
     { scope: sectionRef, dependencies: [reduced], revertOnUpdate: true },
   );
@@ -119,7 +156,36 @@ export function Scene07Application() {
             <p className="mt-5 max-w-xl text-lg leading-relaxed text-ash">
               {applicationScene.body}
             </p>
-            <div className="relative z-30 mt-8">
+            {/* Apply CTA inside the gate frame — Batch 2 Phase 2h */}
+            <div
+              ref={gateRef}
+              className="apply-gate relative z-30 mt-8 max-w-md px-4 py-5 sm:px-6 sm:py-6"
+              style={{
+                ["--gate-glow" as string]: "0",
+                background: "radial-gradient(120% 80% at 50% 0%, rgba(184,255,46,calc(0.06 * var(--gate-glow))) 0%, transparent 65%)",
+              } as React.CSSProperties}
+            >
+              {/* 4 corner brackets — drawn sequentially on scroll entry.
+                  Four small SVGs (not one with percentage transforms) for
+                  cross-browser reliability incl. iOS Safari. */}
+              <span ref={gateBracketsRef} className="pointer-events-none absolute inset-0" aria-hidden>
+                {/* Top-left */}
+                <svg className="absolute left-0 top-0" width="22" height="22" viewBox="0 0 22 22" fill="none">
+                  <path data-gate-bracket d="M0 22 L0 0 L22 0" stroke="var(--c-venom)" strokeWidth="1.4" strokeOpacity="0.75" />
+                </svg>
+                {/* Top-right */}
+                <svg className="absolute right-0 top-0" width="22" height="22" viewBox="0 0 22 22" fill="none">
+                  <path data-gate-bracket d="M0 0 L22 0 L22 22" stroke="var(--c-venom)" strokeWidth="1.4" strokeOpacity="0.75" />
+                </svg>
+                {/* Bottom-left */}
+                <svg className="absolute bottom-0 left-0" width="22" height="22" viewBox="0 0 22 22" fill="none">
+                  <path data-gate-bracket d="M0 0 L0 22 L22 22" stroke="var(--c-venom)" strokeWidth="1.4" strokeOpacity="0.75" />
+                </svg>
+                {/* Bottom-right */}
+                <svg className="absolute bottom-0 right-0" width="22" height="22" viewBox="0 0 22 22" fill="none">
+                  <path data-gate-bracket d="M22 0 L22 22 L0 22" stroke="var(--c-venom)" strokeWidth="1.4" strokeOpacity="0.75" />
+                </svg>
+              </span>
               <CtaLink href="/apply" sub={CTA_SUB} className="cinematic-command">
                 {CTA_LABEL}
               </CtaLink>

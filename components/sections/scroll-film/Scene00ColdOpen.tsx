@@ -45,7 +45,7 @@ type CollapseVars = CSSProperties & {
 
 export function Scene00ColdOpen() {
   const { lang, t } = useLang();
-  const { hero, heroHeadline, CTA_LABEL, CTA_SUB } = useContent();
+  const { hero, heroHeadline, heroVsl, CTA_LABEL, CTA_SUB } = useContent();
   const isArabic = lang === "ar";
   const sectionRef = useRef<HTMLDivElement | null>(null);
   const eyebrowRef = useRef<HTMLParagraphElement | null>(null);
@@ -70,32 +70,7 @@ export function Scene00ColdOpen() {
     ? `${HERO_MEDIA.embedSrc}?badge=0&autopause=0&player_id=0&app_id=58479&dnt=1&autoplay=1${launchMode === "auto" ? "&muted=1" : ""}`
     : "";
   const scrollEmbedSrc = `${HERO_MEDIA.embedSrc}?badge=0&autopause=0&player_id=0&app_id=58479&dnt=1&autoplay=1`;
-  const vslCopy = lang === "ar"
-    ? {
-        badge: "VSL المؤسس",
-        preview: "معاينة",
-        previewStatic: "معاينة VSL المؤسس",
-        originalFrame: "الإطار الأصلي",
-        openingLabel: "افتتاح VSL المؤسس",
-        founderName: "يوسف عادل",
-        muted: "تشغيل صامت تلقائي",
-        openingSequence: "تسلسل الافتتاح",
-        skip: "تخطي",
-      }
-    : {
-        badge: "Founder VSL",
-        preview: "Preview",
-        previewStatic: "Founder VSL preview",
-        originalFrame: "Original frame",
-        openingLabel: "Founder VSL opening",
-        founderName: "Youssef Adel",
-        muted: "Muted autoplay",
-        openingSequence: "Opening sequence",
-        skip: "Skip",
-      };
-  const heroCommandRail = lang === "ar"
-    ? ["منهج واضح للسوق الأمريكي والخليجي", "نجهّز متجرك بعد إتمام البرنامج", "الطلب يُراجع أولاً ثم تُفتح الاستشارة"]
-    : ["U.S. + Gulf operating path", "Free store build on completion", "Application before scheduling"];
+  // vslCopy migrated to useContent.ts → heroVsl (EN + AR parity, single source)
 
   useVslScrollExpansion(
     sectionRef as React.RefObject<HTMLElement>,
@@ -432,26 +407,13 @@ export function Scene00ColdOpen() {
                 {hero.sub}
               </p>
             </div>
-
-            <div className="hero-command-rail hero-command-rail--mobile mt-6 sm:hidden" aria-label={lang === "ar" ? "أبرز مميزات البرنامج" : "Program highlights"}>
-              {heroCommandRail.map((item) => (
-                <span key={item}>{item}</span>
-              ))}
-            </div>
-
-            <div className="mt-8 hidden items-center gap-3 opacity-45 sm:flex">
-              <div className="relative h-9 w-px overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-b from-venom/70 to-transparent animate-float" />
-              </div>
-              <p className="font-heading text-[9px] uppercase tracking-normal text-ash-2">
-                {hero.scrollCue}
-              </p>
-            </div>
-            <div className="hero-command-rail mt-7 hidden sm:grid" aria-label={lang === "ar" ? "أبرز مميزات البرنامج" : "Program highlights"}>
-              {heroCommandRail.map((item) => (
-                <span key={item}>{item}</span>
-              ))}
-            </div>
+            {/*
+              Density reduction (CTO recovery Batch 2 — Phase 2a):
+              Removed mobile command rail, desktop scroll cue, and desktop command rail.
+              Above-fold targets reduced from 10+ → 4 (eyebrow → headline → CTA+sub → VSL).
+              The 3 program-highlight items live in Scene04 Offer and Scene01 Problem.
+              The scroll cue is implicit in the VSL card visibility + cinematic field motion.
+            */}
           </div>
 
           <div ref={vslCardRef} className="hero-vsl-stage vsl-scroll-card justify-self-center lg:justify-self-end">
@@ -466,8 +428,8 @@ export function Scene00ColdOpen() {
               />
               <div className="hero-vsl-card__depth" aria-hidden />
               <div className="absolute left-4 top-4 z-30 border border-white/10 bg-black/70 px-3 py-2 backdrop-blur-sm">
-                <p className="font-heading text-[10px] uppercase tracking-normal text-venom">{vslCopy.badge}</p>
-                <p className="mt-1 font-mono text-[10px] text-ash">{vslCopy.preview}</p>
+                <p className="font-heading text-[10px] uppercase tracking-normal text-venom">{heroVsl.badge}</p>
+                <p className="mt-1 font-mono text-[10px] text-ash">{heroVsl.preview}</p>
               </div>
               {scrollVideoActive && (
                 <iframe
@@ -496,8 +458,8 @@ export function Scene00ColdOpen() {
                 </button>
               ) : (
                 <div className="hero-vsl-static-label absolute bottom-4 left-4 right-4 z-30">
-                  <span>{vslCopy.previewStatic}</span>
-                  <span>{vslCopy.originalFrame}</span>
+                  <span>{heroVsl.previewStatic}</span>
+                  <span>{heroVsl.originalFrame}</span>
                 </div>
               )}
             </ResponsiveMediaFrame>
@@ -511,7 +473,7 @@ export function Scene00ColdOpen() {
         <div
           role="dialog"
           aria-modal="true"
-          aria-label={vslCopy.openingLabel}
+          aria-label={heroVsl.openingLabel}
           className="hero-vsl-overlay"
           data-phase={overlayPhase}
           style={collapseStyle}
@@ -525,15 +487,15 @@ export function Scene00ColdOpen() {
             <span className="hero-vsl-bracket hero-vsl-bracket--br" aria-hidden />
 
             <div className="hero-vsl-overlay__meta">
-              <span>{vslCopy.badge}</span>
-              <span>{vslCopy.founderName}</span>
-              <span>{launchMode === "auto" ? vslCopy.muted : vslCopy.openingSequence}</span>
+              <span>{heroVsl.badge}</span>
+              <span>{heroVsl.founderName}</span>
+              <span>{launchMode === "auto" ? heroVsl.muted : heroVsl.openingSequence}</span>
             </div>
 
             <iframe
               key={heroEmbedSrc}
               src={heroEmbedSrc}
-              title={isArabic ? "فيديو تعريف المؤسس" : vslCopy.badge}
+              title={isArabic ? "فيديو تعريف المؤسس" : heroVsl.badge}
               className="hero-vsl-overlay__video"
               allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media"
               referrerPolicy="strict-origin-when-cross-origin"
@@ -551,7 +513,7 @@ export function Scene00ColdOpen() {
               </svg>
             </button>
             <button type="button" onClick={closeOverlay} className="hero-vsl-overlay__skip">
-              {vslCopy.skip}
+              {heroVsl.skip}
             </button>
           </div>
         </div>
