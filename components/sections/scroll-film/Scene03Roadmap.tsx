@@ -24,7 +24,6 @@ export function Scene03Roadmap() {
   const sectionRef = useRef<HTMLDivElement | null>(null);
   const learnHeadingRef = useRef<HTMLHeadingElement | null>(null);
   const svgPathRef = useRef<SVGPathElement | null>(null);
-  const railRef = useRef<HTMLDivElement | null>(null);
   const reduced = useReducedMotion();
 
   useGSAP(
@@ -34,61 +33,39 @@ export function Scene03Roadmap() {
 
       const cards = gsap.utils.toArray<HTMLElement>(".system-module", section);
       const learnHeading = learnHeadingRef.current;
-      const rail = railRef.current;
 
       if (reduced) {
         gsap.set(cards, { opacity: 1, scaleY: 1 });
-        // Reduced motion: show the spine fully activated immediately
-        if (rail) rail.style.setProperty("--cp-progress", "1");
-        gsap.set(cards, { "--cp-a": 1 } as gsap.TweenVars);
         return;
       }
 
-      // Module cards: per-card --cp-a CSS variable drives node + border activation
-      gsap.set(cards, {
-        scaleY: 0.97,
-        transformOrigin: "top center",
-        opacity: 0,
-        "--cp-a": 0,
-      } as gsap.TweenVars);
-
+      // Module cards use a transform wipe instead of clip-path for smoother paints.
+      gsap.set(cards, { scaleY: 0.97, transformOrigin: "top center", opacity: 0 });
       const triggers = ScrollTrigger.batch(cards, {
         onEnter: (elements) => {
           gsap.to(elements, {
             scaleY: 1,
             opacity: 1,
-            "--cp-a": 1,
             ease: "venom",
             duration: 0.7,
             stagger: 0.055,
-          } as gsap.TweenVars);
+          });
         },
         start: "top 86%",
         once: true,
       });
 
-      // SIGNATURE INTERACTION (CTO recovery Batch 2 — Phase 2d):
-      // Replace once-triggered draw with scroll-scrubbed progress fill.
-      // Spine fills as user scrolls through the roadmap; SCSS bound --cp-progress
-      // drives the dasharray reveal and the rail's node-fill gradient.
-      const path = svgPathRef.current;
-      if (path && rail) {
+      // SVG connector — stroke-dashoffset animation (replaces DrawSVG)
+      if (svgPathRef.current) {
+        const path = svgPathRef.current;
         const length = getStrokeLength(path);
         path.style.strokeDasharray = `${length}`;
         path.style.strokeDashoffset = `${length}`;
         gsap.to(path, {
           strokeDashoffset: 0,
-          ease: "none",
-          scrollTrigger: {
-            trigger: rail,
-            start: "top 78%",
-            end: "bottom 32%",
-            scrub: 0.6,
-            onUpdate: (self) => {
-              // Mirror progress into a CSS variable for node tinting / glow
-              rail.style.setProperty("--cp-progress", String(self.progress));
-            },
-          },
+          duration: 1.2,
+          ease: "venom",
+          scrollTrigger: { trigger: section, start: "top 60%", once: true },
         });
       }
 
@@ -133,53 +110,27 @@ export function Scene03Roadmap() {
             <p className="mt-5 max-w-lg text-lg leading-relaxed text-ash">{curriculum.sub}</p>
           </div>
 
-          {/* Module cards with scroll-scrubbed OS spine — Batch 2 Phase 2d */}
-          <div ref={railRef} className="relative" data-cp-rail style={{ ["--cp-progress" as string]: "0" } as React.CSSProperties}>
-            {/* Vertical OS spine — desktop only */}
+          {/* Module cards with connector */}
+          <div className="relative">
+            {/* Vertical connector */}
             <svg
               className="pointer-events-none absolute -left-4 top-0 hidden h-full w-4 lg:block"
               viewBox="0 0 16 400"
               preserveAspectRatio="none"
-              aria-hidden
             >
-              {/* Background rail */}
-              <path
-                d="M8 0 L8 400"
-                stroke="rgba(184,255,46,0.14)"
-                strokeWidth="1.5"
-                fill="none"
-              />
-              {/* Foreground venom fill — animated via stroke-dashoffset */}
               <path
                 ref={svgPathRef}
                 d="M8 0 L8 400"
                 stroke="var(--c-venom)"
                 strokeWidth="1.5"
-                strokeOpacity="0.92"
+                strokeOpacity="0.45"
                 fill="none"
               />
             </svg>
 
             <HoverGrid className="sm:grid-cols-2">
               {curriculum.modules.map((module) => (
-                <HoverGridItem
-                  key={module.n}
-                  data-cp-node
-                  className="system-module premium-card-hover relative border border-white/6 bg-ink-3/70 p-5 backdrop-blur-sm"
-                  style={{
-                    borderColor: "rgba(255,255,255,calc(0.06 + 0.10 * var(--cp-a, 0)))",
-                    boxShadow: "0 0 0 1px rgba(184,255,46,calc(0.18 * var(--cp-a, 0))) inset",
-                  }}
-                >
-                  {/* Node dot — desktop only, hugs the spine. Fills with --cp-a. */}
-                  <span
-                    aria-hidden
-                    className="pointer-events-none absolute -left-[1.4rem] top-6 hidden h-2.5 w-2.5 -translate-x-1/2 rounded-full lg:block"
-                    style={{
-                      background: "rgba(184,255,46,calc(0.18 + 0.82 * var(--cp-a, 0)))",
-                      boxShadow: "0 0 0 calc(2px * var(--cp-a, 0)) rgba(184,255,46,0.18)",
-                    }}
-                  />
+                <HoverGridItem key={module.n} className="system-module premium-card-hover glow-track border border-white/6 bg-ink-3/70 p-5 backdrop-blur-sm">
                   <p className="font-display text-5xl uppercase leading-none text-venom/70">
                     <CountUpNumber value={Number(module.n)} pad={2} />
                   </p>

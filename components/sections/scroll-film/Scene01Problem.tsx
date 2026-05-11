@@ -13,6 +13,7 @@ import { useLang } from "@/lib/lang-context";
 import { splitText } from "@/lib/motion";
 import { useReducedMotion } from "@/lib/useReducedMotion";
 import { useContent } from "@/lib/useContent";
+import { useGlowTrack } from "@/hooks/useGlowTrack";
 
 export function Scene01Problem() {
   const { lang } = useLang();
@@ -23,6 +24,7 @@ export function Scene01Problem() {
   const headlineRef = useRef<HTMLHeadingElement | null>(null);
   const bodyRef = useRef<HTMLParagraphElement | null>(null);
   const reduced = useReducedMotion();
+  const glowRef = useGlowTrack<HTMLDivElement>();
 
   useGSAP(
     () => {
@@ -127,11 +129,11 @@ export function Scene01Problem() {
             {problem.headline}
           </h2>
         </div>
-        <div className="space-y-4">
+        <div ref={glowRef} className="space-y-4">
           {problem.signals.map((signal, index) => (
             <div
               key={signal.label}
-              className="chaos-signal scene-panel-elevated border-l-2 border-l-crimson/40 p-5"
+              className="chaos-signal scene-panel-elevated glow-track border-l-2 border-l-crimson/40 p-5"
             >
               <div className="chaos-signal__header font-heading text-[10px] uppercase tracking-caps text-ash">
                 <span className="chaos-signal__label flex items-center gap-2">

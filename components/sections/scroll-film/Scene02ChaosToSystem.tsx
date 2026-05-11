@@ -350,7 +350,7 @@ export function Scene02ChaosToSystem() {
             {systemScene.checkpoints.map((checkpoint, i) => (
               <div
                 key={checkpoint.t}
-                className="checkpoint-panel scene-panel-elevated border-t border-white/8 p-4 transition-colors duration-300"
+                className="checkpoint-panel scene-panel-elevated glow-track border-t border-white/8 p-4 transition-colors duration-300"
               >
                 <p className="font-heading text-[10px] uppercase tracking-caps text-venom/70">
                   {checkpoint.t}
