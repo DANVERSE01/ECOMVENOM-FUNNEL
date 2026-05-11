@@ -122,7 +122,7 @@ export function Scene08FinalCTA() {
   return (
     <ScrollFilmScene id="book-the-call" scene="08" title={finalScene.sceneTitle} className="min-h-screen">
       <div className="absolute inset-0">
-        <Image src={GENERATED_STILLS.ctaBg} alt="" fill sizes="100vw" loading="eager" className="object-cover opacity-[0.16]" />
+        <Image src={GENERATED_STILLS.ctaBg} alt="" fill sizes="100vw" className="object-cover opacity-[0.16]" />
         <div className="clean-system-bg absolute inset-0" aria-hidden />
         <SystemOverlay />
         <div className="absolute inset-0 bg-[linear-gradient(120deg,rgba(184,255,46,0.08),transparent_34%,rgba(0,0,0,0.88)_74%)]" />

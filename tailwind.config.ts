@@ -5,21 +5,69 @@ const config: Config = {
 	theme: {
 		extend: {
 			colors: {
-				ink: { DEFAULT: "#060608", 2: "#0A0A0E", 3: "#101016", 4: "#18181F", 5: "#222230" },
-				bone: { DEFAULT: "#F0EDE6", 2: "#D8D4CC" },
-				ash: { DEFAULT: "#8A8A94", 2: "#6B6B75", 3: "#3D3D47" },
-				venom: { DEFAULT: "#B8FF2E", 2: "#9AE600", 3: "#CCFF66", dim: "rgba(184,255,46,0.12)", glow: "rgba(184,255,46,0.06)" },
-				steel: { DEFAULT: "#5A9AAD", 2: "#4D8A9E" },
-				gold: { DEFAULT: "#D4A45A", 2: "#C99A52" },
-				crimson: { DEFAULT: "#FF1744", 2: "#D50000", 3: "#FF5566", glow: "rgba(255,23,68,0.12)", dim: "rgba(255,23,68,0.06)" },
-				violet: { DEFAULT: "#6C00FF", 2: "#4A00C4", glow: "rgba(108,0,255,0.10)" },
+				// Primitive tokens — values defined once in globals.css :root via RGB channels
+				ink: {
+					DEFAULT: "rgb(var(--c-ink-rgb) / <alpha-value>)",
+					2: "rgb(var(--c-ink-2-rgb) / <alpha-value>)",
+					3: "rgb(var(--c-ink-3-rgb) / <alpha-value>)",
+					4: "rgb(var(--c-ink-4-rgb) / <alpha-value>)",
+					5: "rgb(var(--c-ink-5-rgb) / <alpha-value>)",
+				},
+				bone: {
+					DEFAULT: "rgb(var(--c-bone-rgb) / <alpha-value>)",
+					2: "rgb(var(--c-bone-2-rgb) / <alpha-value>)",
+				},
+				ash: {
+					DEFAULT: "rgb(var(--c-ash-rgb) / <alpha-value>)",
+					2: "rgb(var(--c-ash-2-rgb) / <alpha-value>)",
+					3: "rgb(var(--c-ash-3-rgb) / <alpha-value>)",
+				},
+				venom: {
+					DEFAULT: "rgb(var(--c-venom-rgb) / <alpha-value>)",
+					2: "rgb(var(--c-venom-2-rgb) / <alpha-value>)",
+					3: "rgb(var(--c-venom-3-rgb) / <alpha-value>)",
+					dim: "rgba(184,255,46,0.12)",
+					glow: "rgba(184,255,46,0.06)",
+				},
+				steel: {
+					DEFAULT: "rgb(var(--c-steel-rgb) / <alpha-value>)",
+					2: "rgb(var(--c-steel-2-rgb) / <alpha-value>)",
+				},
+				gold: {
+					DEFAULT: "rgb(var(--c-gold-rgb) / <alpha-value>)",
+					2: "rgb(var(--c-gold-2-rgb) / <alpha-value>)",
+				},
+				crimson: {
+					DEFAULT: "rgb(var(--c-crimson-rgb) / <alpha-value>)",
+					2: "rgb(var(--c-crimson-2-rgb) / <alpha-value>)",
+					3: "rgb(var(--c-crimson-3-rgb) / <alpha-value>)",
+					glow: "rgba(255,23,68,0.12)",
+					dim: "rgba(255,23,68,0.06)",
+				},
+				// violet removed — zero usage confirmed in full codebase audit
 				alert: "#FF3344", info: "#3B82F6", success: "#22C55E",
+				// Semantic aliases — Batch 2+ work uses these for layout/component tokens
+				bg: {
+					DEFAULT: "rgb(var(--c-ink-rgb) / <alpha-value>)",
+					raised: "rgb(var(--c-ink-3-rgb) / <alpha-value>)",
+					overlay: "rgb(var(--c-ink-2-rgb) / <alpha-value>)",
+				},
+				fg: {
+					DEFAULT: "rgb(var(--c-bone-rgb) / <alpha-value>)",
+					muted: "rgb(var(--c-ash-rgb) / <alpha-value>)",
+					subtle: "rgb(var(--c-ash-2-rgb) / <alpha-value>)",
+				},
+				accent: "rgb(var(--c-venom-rgb) / <alpha-value>)",
+				danger: "rgb(var(--c-crimson-rgb) / <alpha-value>)",
 			},
 			fontFamily: {
 				display: ["var(--font-syne)", "Impact", "ui-sans-serif"],
+				// Space Grotesk removed — --font-space aliases Inter in LTR, Arabic display in RTL
 				heading: ["var(--font-space)", "ui-sans-serif"],
-				sans: ["var(--font-inter)", "var(--font-space)", "ui-sans-serif", "system-ui"],
-				mono: ["var(--font-mono)", "JetBrains Mono", "ui-monospace", "monospace"],
+				// font-sans no longer falls back to --font-space (was redundant after Inter loads)
+				sans: ["var(--font-inter)", "ui-sans-serif", "system-ui"],
+				// JetBrains Mono removed — var(--font-mono) resolves to system stack via :root
+				mono: ["var(--font-mono)", "ui-monospace", "monospace"],
 			},
 			letterSpacing: {
 				tightest: "-0.04em", tighter: "-0.02em", tight: "-0.01em",

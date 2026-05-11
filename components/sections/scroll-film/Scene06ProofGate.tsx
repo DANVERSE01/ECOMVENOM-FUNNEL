@@ -7,6 +7,7 @@ import { ScrollFilmScene } from "@/components/cinematic/ScrollFilmScene";
 import { SceneEyebrow } from "@/components/cinematic/SceneEyebrow";
 import { ResponsiveMediaFrame } from "@/components/cinematic/ResponsiveMediaFrame";
 import { SystemOverlay } from "@/components/cinematic/SystemOverlay";
+import { CountUpNumber } from "@/components/ui/count-up";
 import { FINAL_FUNNEL_IMAGES, GENERATED_STILLS } from "@/lib/frameManifest";
 import { gsap } from "@/lib/gsap";
 import { splitText } from "@/lib/motion";
@@ -62,6 +63,21 @@ export function Scene06ProofGate() {
         scrollTrigger: { trigger: section, start: "top 58%", once: true },
       });
 
+      // SIGNATURE INTERACTION (Batch 2 Phase 2g):
+      // Verification ledger entry — metrics cells rise with a hairline reveal.
+      // Count-up itself is handled by CountUpNumber via its own in-view hook.
+      const ledgerCells = gsap.utils.toArray<HTMLElement>(".ledger-cell", section);
+      if (ledgerCells.length) {
+        gsap.from(ledgerCells, {
+          opacity: 0,
+          y: 18,
+          duration: 0.6,
+          stagger: 0.1,
+          ease: "venom",
+          scrollTrigger: { trigger: ledgerCells[0], start: "top 82%", once: true },
+        });
+      }
+
       // Honesty note fade
       const note = section.querySelector(".honesty-note");
       if (note) {
@@ -81,7 +97,7 @@ export function Scene06ProofGate() {
     <ScrollFilmScene id="proof-gate" scene="06" title={proofScene.sceneTitle} className="py-16 sm:py-28">
       <span className="scene-ghost bottom-8 right-8">06</span>
       <div className="absolute inset-0">
-        <Image src={GENERATED_STILLS.proofBg} alt="" fill sizes="100vw" loading="eager" className="object-cover opacity-[0.12]" />
+        <Image src={GENERATED_STILLS.proofBg} alt="" fill sizes="100vw" className="object-cover opacity-[0.12]" />
         <SystemOverlay />
         <div className="scene-material-wash" data-tone="value" aria-hidden />
       </div>
@@ -103,6 +119,43 @@ export function Scene06ProofGate() {
           </div>
         </div>
 
+        {/*
+          Verification ledger — Batch 2 Phase 2g.
+          Honest metrics only: counts derived from real product state (3 visible
+          captures, 100% direct screenshots per honesty note, 45-day program).
+          No fabricated student counts or revenue claims.
+        */}
+        <div
+          className="mt-10 border-y border-venom/14 bg-ink-2/40 py-6"
+          aria-label={proofScene.metricsHeading}
+        >
+          <p className="font-heading text-[10px] uppercase tracking-caps text-venom/80">
+            {proofScene.metricsHeading}
+          </p>
+          <dl className="mt-4 grid grid-cols-3 gap-4 sm:gap-8">
+            {proofScene.metrics.map((metric) => (
+              <div key={metric.label} className="ledger-cell relative">
+                <dt className="sr-only">{metric.label}</dt>
+                <dd className="flex items-baseline gap-0.5 font-display text-[clamp(2.4rem,5vw,4rem)] leading-none tracking-tightest text-bone">
+                  <CountUpNumber value={metric.value} />
+                  {metric.suffix ? (
+                    <span className="text-venom">{metric.suffix}</span>
+                  ) : null}
+                </dd>
+                <p className="mt-2 text-[11px] uppercase leading-tight tracking-[0.08em] text-ash sm:text-xs">
+                  {metric.label}
+                </p>
+                {/* Hairline divider — desktop only, between cells */}
+                <span
+                  aria-hidden
+                  className="pointer-events-none absolute right-[-1rem] top-1/2 hidden h-10 w-px -translate-y-1/2 bg-venom/15 sm:block"
+                  style={{ display: "var(--ledger-divider, block)" }}
+                />
+              </div>
+            ))}
+          </dl>
+        </div>
+
         {/* Evidence Grid — 3 cards with premium treatment */}
         <div className="mt-12 grid gap-5 sm:grid-cols-3">
           {testimonialImages.map((t, i) => (
@@ -116,7 +169,6 @@ export function Scene06ProofGate() {
                   alt={`${t.label} ${i + 1}`}
                   fill
                   sizes="(min-width: 640px) 33vw, 100vw"
-                  loading="eager"
                   className="object-cover transition-transform duration-700 ease-venom group-hover:scale-[1.04]"
                 />
                 {/* Gradient overlay */}

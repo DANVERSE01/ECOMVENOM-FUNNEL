@@ -147,6 +147,13 @@ const enProofScene = {
     "Real platform results",
   ],
   transparencyLabel: "Transparency Note",
+  // Verification ledger — every value is literally true (no fabricated metrics)
+  metricsHeading: "Verification ledger",
+  metrics: [
+    { value: 3, suffix: "", label: "Verified result captures below" },
+    { value: 100, suffix: "%", label: "Direct platform screenshots" },
+    { value: 45, suffix: "", label: "Day operating program" },
+  ],
 };
 
 const arProofScene = {
@@ -159,6 +166,12 @@ const arProofScene = {
     "نتائج فعلية من المنصة",
   ],
   transparencyLabel: "ملاحظة شفافية",
+  metricsHeading: "سجل التوثيق",
+  metrics: [
+    { value: 3, suffix: "", label: "لقطات موثّقة مرئية أدناه" },
+    { value: 100, suffix: "%", label: "لقطات مباشرة من المنصة" },
+    { value: 45, suffix: "", label: "يوماً تشغيلياً" },
+  ],
 };
 
 const enApplicationScene = {
@@ -257,6 +270,31 @@ const arSceneLabels = {
   coach: "المدرّب",
 };
 
+// Hero VSL chrome — migrated from inline dict in Scene00ColdOpen for translation parity
+const enHeroVsl = {
+  badge: "Founder VSL",
+  preview: "Preview",
+  previewStatic: "Founder VSL preview",
+  originalFrame: "Original frame",
+  openingLabel: "Founder VSL opening",
+  founderName: "Youssef Adel",
+  muted: "Muted autoplay",
+  openingSequence: "Opening sequence",
+  skip: "Skip",
+};
+
+const arHeroVsl = {
+  badge: "VSL المؤسس",
+  preview: "معاينة",
+  previewStatic: "معاينة VSL المؤسس",
+  originalFrame: "الإطار الأصلي",
+  openingLabel: "افتتاح VSL المؤسس",
+  founderName: "يوسف عادل",
+  muted: "تشغيل صامت تلقائي",
+  openingSequence: "تسلسل الافتتاح",
+  skip: "تخطي",
+};
+
 const enContent = {
   CTA_LABEL: enCTA_LABEL,
   CTA_SUB: enCTA_SUB,
@@ -284,6 +322,7 @@ const enContent = {
   nav: enNav,
   stickyCta: enStickyCta,
   sceneLabels: enSceneLabels,
+  heroVsl: enHeroVsl,
 };
 
 // ─── Arabic content (mirrors exact shape of content.ts) ──────────────────────
@@ -556,6 +595,7 @@ const arContent = {
   nav: arNav,
   stickyCta: arStickyCta,
   sceneLabels: arSceneLabels,
+  heroVsl: arHeroVsl,
 };
 
 export type AppContent = typeof enContent;

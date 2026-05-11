@@ -60,10 +60,49 @@
     --ls-body: 0;
     --ls-label: 0.12em;
     --ls-caps: 0.10em;
+    /* ─── RGB channels — enables Tailwind opacity modifiers + CSS opacity math ─── */
+    --c-ink-rgb: 6 6 8;
+    --c-ink-2-rgb: 10 10 14;
+    --c-ink-3-rgb: 16 16 22;
+    --c-ink-4-rgb: 24 24 31;
+    --c-ink-5-rgb: 34 34 48;
+    --c-bone-rgb: 240 237 230;
+    --c-bone-2-rgb: 216 212 204;
+    --c-ash-rgb: 138 138 148;
+    --c-ash-2-rgb: 107 107 117;
+    --c-ash-3-rgb: 61 61 71;
+    --c-venom-rgb: 184 255 46;
+    --c-venom-2-rgb: 154 230 0;
+    --c-venom-3-rgb: 204 255 102;
+    --c-steel-rgb: 90 154 173;
+    --c-steel-2-rgb: 77 138 158;
+    --c-gold-rgb: 212 164 90;
+    --c-gold-2-rgb: 201 154 82;
+    --c-crimson-rgb: 255 23 68;
+    --c-crimson-2-rgb: 213 0 0;
+    --c-crimson-3-rgb: 255 85 102;
+    /* ─── Semantic layer — components should reference these, not raw primitives ─── */
+    --s-bg: var(--c-ink);
+    --s-bg-raised: var(--c-ink-3);
+    --s-bg-overlay: var(--c-ink-2);
+    --s-fg: var(--c-bone);
+    --s-fg-muted: var(--c-ash);
+    --s-fg-subtle: var(--c-ash-2);
+    --s-border: rgba(var(--c-bone-rgb) / 0.06);
+    --s-border-strong: rgba(var(--c-bone-rgb) / 0.14);
+    --s-accent: var(--c-venom);
+    --s-accent-rgb: 184 255 46;
+    --s-danger: var(--c-crimson);
+    /* ─── Font aliases — stops loading Space Grotesk + JetBrains Mono ─── */
+    /* Space Grotesk removed: --font-space now aliases Inter in LTR.
+       RTL rule below overrides to Arabic display. */
+    --font-space: var(--font-inter);
+    /* JetBrains Mono removed: --font-mono resolves to system mono stack. */
+    --font-mono: ui-monospace, "Courier New", monospace;
   }
   html, body { background-color: var(--c-ink); color: var(--c-bone); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
   body {
-    font-family: var(--font-inter), var(--font-space), ui-sans-serif;
+    font-family: var(--font-inter), ui-sans-serif, system-ui;
     font-feature-settings: "ss01","cv11","liga","kern";
     background:
       linear-gradient(115deg, rgba(184,255,46,0.032), transparent 22%, rgba(90,154,173,0.028) 58%, transparent 82%),
