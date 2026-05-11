@@ -86,6 +86,8 @@ export function Preloader() {
       ref={elRef}
       className="fixed inset-0 z-[10000] bg-ink flex flex-col items-center justify-center overflow-hidden"
     >
+      <div className="preloader-scanline" aria-hidden />
+      <div className="preloader-vignette" aria-hidden />
       <CrossMark className="top-4 left-4" />
       <CrossMark className="top-4 right-4" />
       <CrossMark className="bottom-4 left-4" />
@@ -112,7 +114,7 @@ export function Preloader() {
         ref={logoRef}
         className="mt-6 font-mono text-[10px] tracking-[0.3em] uppercase text-ash opacity-0"
       >
-        ECOMVENOM
+        ECOMVENOM — SYSTEM BOOT
       </span>
     </div>
   );

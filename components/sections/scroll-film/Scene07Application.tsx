@@ -152,7 +152,7 @@ export function Scene07Application() {
 
             <div className="grid gap-3">
               {applicationScene.steps.map((step, index) => (
-                <div key={step.title} className="step-card scene-panel-elevated p-5">
+                <div key={step.title} className="step-card scene-panel-elevated glow-track p-5">
                   <p className="font-heading text-[10px] uppercase tracking-caps text-venom">
                     {applicationScene.stepLabel} {String(index + 1).padStart(2, "0")}
                   </p>

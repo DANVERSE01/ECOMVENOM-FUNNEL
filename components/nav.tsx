@@ -113,7 +113,7 @@ export function Nav() {
       <header
         data-compressed={compressed}
         className={cn(
-          "fixed left-0 right-0 top-0 z-[9000] isolate border-b border-white/[0.06] bg-black/72 backdrop-blur-md backdrop-saturate-125 transition-[background-color,border-color] duration-300 ease-out",
+          "fixed left-0 right-0 top-0 z-[9000] isolate border-b border-white/[0.06] bg-black/72 backdrop-blur-md backdrop-saturate-150 transition-[background-color,border-color] duration-300 ease-out",
           compressed && "border-white/[0.09] bg-black/82",
         )}
       >

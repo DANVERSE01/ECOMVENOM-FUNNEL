@@ -7,6 +7,7 @@ import { Footer } from "@/components/footer";
 import { SmoothScroll } from "@/components/providers/SmoothScroll";
 import { Preloader } from "@/components/ui/Preloader";
 import { ParticleTrailCursor } from "@/components/cursor/ParticleTrailCursor";
+import { FilmGrain } from "@/components/effects/FilmGrain";
 import { StickyMobileCTA } from "@/components/ui/StickyMobileCTA";
 import { BackToTop } from "@/components/ui/BackToTop";
 import { LanguageProvider } from "@/lib/lang-context";
@@ -43,6 +44,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <a href="#main-content" className="skip-to-content">Skip to content</a>
         <Preloader />
         <ParticleTrailCursor />
+        <FilmGrain />
         <LanguageProvider initialLang={initialLang}>
           <SmoothScroll>
             <Nav />

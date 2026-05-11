@@ -108,7 +108,7 @@ export function Scene06ProofGate() {
           {testimonialImages.map((t, i) => (
             <div
               key={i}
-              className="proof-card premium-card-hover proof-evidence group relative overflow-hidden"
+              className="proof-card premium-card-hover proof-evidence glow-track group relative overflow-hidden"
             >
               <ResponsiveMediaFrame className="aspect-[3/4]">
                 <Image

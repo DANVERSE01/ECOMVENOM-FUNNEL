@@ -23,8 +23,13 @@ import { scrambleText } from "@/lib/motion";
 import type React from "react";
 import { useReducedMotion } from "@/lib/useReducedMotion";
 import { useVslScrollExpansion } from "@/hooks/useVslScrollExpansion";
+import { useSplitReveal } from "@/hooks/useSplitReveal";
+import { useScrollChoreography } from "@/hooks/useScrollChoreography";
 import { getCurrentLenis } from "@/lib/lenis";
 import { FloatingVslPlayer } from "@/components/cinematic/FloatingVslPlayer";
+import { PlasmaAtmosphere } from "@/components/effects/PlasmaAtmosphere";
+import { HeroCursorSpotlight } from "@/components/effects/HeroCursorSpotlight";
+import { BorderBeam } from "@/components/effects/BorderBeam";
 import { useContent } from "@/lib/useContent";
 import { useLang } from "@/lib/lang-context";
 
@@ -58,6 +63,22 @@ export function Scene00ColdOpen() {
   const scrollOverlayRef = useRef<HTMLDivElement | null>(null);
   const closeTimerRef = useRef<number | null>(null);
   const reduced = useReducedMotion();
+
+  // Enhanced reveal hooks
+  const headlineRevealRef = useSplitReveal<HTMLHeadingElement>({
+    animation: "clip-up",
+    stagger: 0.055,
+    duration: 0.8,
+    delay: 0.35,
+    ease: "power4.out"
+  });
+
+  const choreographyRef = useScrollChoreography({
+    stagger: 0.08,
+    distance: 60,
+    blur: 12,
+    once: true
+  });
 
   const [overlayOpen, setOverlayOpen] = useState(false);
   const [overlayPhase, setOverlayPhase] = useState<OverlayPhase>("opening");
@@ -356,8 +377,15 @@ export function Scene00ColdOpen() {
       <span className="scene-ghost top-4 right-8">00</span>
       <div ref={sectionRef} className="absolute inset-0" />
 
-      <div className="absolute inset-0">
+      <div className="absolute inset-0" data-background>
         <Image src={GENERATED_STILLS.heroBg} alt="" fill sizes="100vw" quality={70} className="object-cover opacity-[0.12]" />
+        <PlasmaAtmosphere
+          className="opacity-60"
+          intensity={0.28}
+          speed={0.4}
+          mouseDistortion={0.15}
+          colorStops={["#B8FF2E", "#5A9AAD", "#0A0A0B"]}
+        />
         <CinematicLoopVideo
           src={HIGGSFIELD_LOOPS.systemWake}
           poster={HIGGSFIELD_STILLS.systemIntro}
@@ -365,6 +393,7 @@ export function Scene00ColdOpen() {
           hideOnMobile
           className="opacity-35"
         />
+        <HeroCursorSpotlight />
         <div ref={tunnelRef} className="hero-tunnel-field" aria-hidden />
         <SystemOverlay className="opacity-65" />
         <div
@@ -383,11 +412,12 @@ export function Scene00ColdOpen() {
         <div className="pointer-events-none absolute inset-x-0 bottom-0 z-[3] h-44 bg-gradient-to-b from-transparent via-black/46 to-black" />
       </div>
 
-      <div className="relative z-10 grid min-h-[100svh] px-5 pb-10 pt-20 sm:px-8 sm:pb-12 sm:pt-24 lg:px-12 lg:pb-14 lg:pt-24 xl:pt-28">
+      <div ref={choreographyRef} className="relative z-10 grid min-h-[100svh] px-5 pb-10 pt-20 sm:px-8 sm:pb-12 sm:pt-24 lg:px-12 lg:pb-14 lg:pt-24 xl:pt-28">
         <div className="mx-auto grid w-full max-w-[1360px] gap-7 self-start lg:grid-cols-[minmax(0,0.95fr)_minmax(18rem,27rem)] lg:items-start lg:gap-9">
           <div className="max-w-[58rem] pt-2 sm:pt-4 lg:pt-0">
             <p
               ref={eyebrowRef}
+              data-choreography
               className={cn(
                 "max-w-2xl font-heading leading-relaxed text-ash",
                 isArabic ? "text-[0.78rem] tracking-[0.015em] sm:text-[0.92rem]" : "text-[0.68rem] uppercase tracking-normal sm:text-xs",
@@ -396,7 +426,8 @@ export function Scene00ColdOpen() {
               {hero.eyebrow}
             </p>
             <h1
-              ref={headlineRef}
+              ref={headlineRevealRef}
+              data-choreography
               className={cn(
                 "mt-4 font-display text-bone [text-wrap:balance]",
                 isArabic
@@ -423,12 +454,12 @@ export function Scene00ColdOpen() {
               ))}
             </h1>
             <div ref={supportRef} className={cn("relative z-30 mt-6 flex max-w-3xl flex-col gap-4 sm:flex-row sm:items-center", isArabic && "sm:items-start")}>
-              <span data-hero-cta className="inline-flex max-w-full">
+              <span data-hero-cta data-choreography className="inline-flex max-w-full">
                 <CtaLink href="/apply" sub={CTA_SUB} className="cinematic-command min-w-[min(100%,16rem)]">
                   {CTA_LABEL}
                 </CtaLink>
               </span>
-              <p data-hero-sub className={cn("max-w-xl leading-relaxed text-ash", isArabic ? "text-[0.95rem] sm:text-[1.02rem]" : "text-sm sm:text-[13px]")}>
+              <p data-hero-sub data-choreography className={cn("max-w-xl leading-relaxed text-ash", isArabic ? "text-[0.95rem] sm:text-[1.02rem]" : "text-sm sm:text-[13px]")}>
                 {hero.sub}
               </p>
             </div>
@@ -454,8 +485,9 @@ export function Scene00ColdOpen() {
             </div>
           </div>
 
-          <div ref={vslCardRef} className="hero-vsl-stage vsl-scroll-card justify-self-center lg:justify-self-end">
-            <ResponsiveMediaFrame className="hero-vsl-card aspect-video w-[min(82vw,24rem)] bg-ink-3 p-2 sm:w-[min(62vw,28rem)] lg:w-full">
+          <div ref={vslCardRef} data-choreography className="hero-vsl-stage vsl-scroll-card justify-self-center lg:justify-self-end">
+            <ResponsiveMediaFrame className="hero-vsl-card glass-enhanced aspect-video w-[min(82vw,24rem)] bg-ink-3 p-2 sm:w-[min(62vw,28rem)] lg:w-full">
+              <BorderBeam size={140} duration={8} delay={2} />
               <Image
                 src={HERO_MEDIA.posterSrc}
                 alt={lang === "ar" ? "بوستر VSL المؤسس يوسف عادل" : "Youssef Adel founder VSL poster"}

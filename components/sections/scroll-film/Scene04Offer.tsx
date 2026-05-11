@@ -125,7 +125,7 @@ export function Scene04Offer() {
             >
               {graduationGift.title}
             </h2>
-            <p className="mt-5 font-display text-3xl uppercase text-venom">{graduationGift.sub}</p>
+            <p className="mt-5 font-display text-3xl uppercase text-venom-gradient">{graduationGift.sub}</p>
             <p className="mt-5 max-w-2xl text-lg leading-relaxed text-ash">{graduationGift.body}</p>
             <div className="mt-8">
               <CtaLink href="/apply" sub={CTA_SUB} className="cinematic-command">
@@ -135,7 +135,7 @@ export function Scene04Offer() {
           </div>
           <div className="grid gap-4">
             {graduationGift.options.map((option) => (
-              <div key={option.label} className="option-card premium-card-hover scene-panel-feature border-gold/15 p-6">
+              <div key={option.label} className="option-card premium-card-hover scene-panel-feature glow-track border-gold/15 p-6">
                 <p className="font-heading text-[10px] uppercase tracking-caps text-ash-2">{option.label}</p>
                 <p className="mt-4 flex items-center gap-3 font-display text-3xl uppercase leading-tight text-bone sm:text-4xl">
                   <span className="market-terminal">

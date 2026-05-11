@@ -8,6 +8,7 @@ import { ScrollFilmScene } from "@/components/cinematic/ScrollFilmScene";
 import { SceneEyebrow } from "@/components/cinematic/SceneEyebrow";
 import { SystemOverlay } from "@/components/cinematic/SystemOverlay";
 import { GENERATED_STILLS } from "@/lib/frameManifest";
+import { BorderBeam } from "@/components/effects/BorderBeam";
 import { cn } from "@/lib/cn";
 import { gsap } from "@/lib/gsap";
 import { splitText, getStrokeLength } from "@/lib/motion";
@@ -165,7 +166,8 @@ export function Scene08FinalCTA() {
           >
             {finalScene.body}
           </p>
-          <div ref={ctaWrapRef} className="final-scene__cta-wrap relative z-30 mt-9 flex justify-center">
+          <div ref={ctaWrapRef} className="final-scene__cta-wrap relative z-30 mt-9 flex justify-center rounded-xl">
+            <BorderBeam size={160} duration={5} color="rgba(255,23,68,0.5)" />
             <CtaLink href="/apply" sub={CTA_SUB} className="cinematic-command">
               {CTA_LABEL}
             </CtaLink>
