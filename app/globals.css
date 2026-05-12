@@ -2240,24 +2240,53 @@ body::after {
    This layer sits LAST so it wins specificity ties without rewriting upstream.
    ============================================================================ */
 
+/* ─── Aeonik + IBM Plex Mono (Lusion typographic system, self-hosted) ─── */
+@font-face {
+  font-family: 'Aeonik';
+  src: url('/fonts/Aeonik-Regular.woff2') format('woff2');
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'Aeonik';
+  src: url('/fonts/Aeonik-Medium.woff2') format('woff2');
+  font-weight: 500; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'Aeonik';
+  src: url('/fonts/Aeonik-RegularItalic.woff2') format('woff2');
+  font-weight: 400; font-style: italic; font-display: swap;
+}
+@font-face {
+  font-family: 'IBMPlexMono';
+  src: url('/fonts/IBMPlexMono-Regular.woff2') format('woff2');
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'IBMPlexMono';
+  src: url('/fonts/IBMPlexMono-Medium.woff2') format('woff2');
+  font-weight: 500; font-style: normal; font-display: swap;
+}
+
 :root {
   /* Editorial palette — pure black, restrained whites, single yellow dot */
   --ev-black: #000000;
   --ev-near-black: #050505;
   --ev-white: #FFFFFF;
-  --ev-mute: rgba(255,255,255,0.45);
-  --ev-mute-2: rgba(255,255,255,0.30);
+  --ev-mute: rgba(255,255,255,0.55);
+  --ev-mute-2: rgba(255,255,255,0.35);
   --ev-mute-3: rgba(255,255,255,0.18);
   --ev-hairline: rgba(255,255,255,0.08);
   --ev-hairline-hot: rgba(255,255,255,0.16);
   --ev-accent-dot: #F9FF00;
-  /* Engineering-precise easings — Framer Motion canonical curves */
+  /* Lusion-canonical motion curves */
   --ev-ease-out: cubic-bezier(0.22, 1, 0.36, 1);
   --ev-ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
   --ev-ease-emphatic: cubic-bezier(0.16, 1, 0.3, 1);
-  /* Fonts now wired via next/font in app/layout.tsx — variables: --font-michroma, --font-inter-tight */
-  --font-display-editorial: var(--font-michroma), 'Syne', ui-sans-serif;
-  --font-body-editorial: var(--font-inter-tight), var(--font-inter), 'Inter', ui-sans-serif;
+  --ev-ease-lusion: cubic-bezier(0.4, 0, 0.1, 1);
+  /* Typography stacks — every role mapped */
+  --font-display-editorial: 'Aeonik', var(--font-michroma), 'Syne', ui-sans-serif;
+  --font-body-editorial: 'Aeonik', var(--font-inter-tight), var(--font-inter), ui-sans-serif;
+  --font-mono-editorial: 'IBMPlexMono', var(--font-mono), ui-monospace, monospace;
 }
 
 /* Flat unified background — kills navy/venom layered gradients */
@@ -2317,7 +2346,12 @@ canvas.particle-trail { display: none !important; }
 .border-beam,
 [class*="border-beam"] { display: none !important; }
 
-/* ─── Editorial Typography ─────────────────────────────────────────────── */
+/* ─── Editorial Typography — each role has a dedicated voice ─────────────
+   Display = Aeonik 400 (heroes, scene titles, key statements)
+   Display-italic = Aeonik 400 italic (emphasis words, pull quotes)
+   Body = Aeonik 400 (paragraphs, descriptions)
+   Mono = IBM Plex Mono (system labels, timestamps, technical metadata)
+   ────────────────────────────────────────────────────────────────────── */
 .editorial-headline {
   font-family: var(--font-display-editorial);
   font-weight: 400;
@@ -2326,27 +2360,45 @@ canvas.particle-trail { display: none !important; }
   text-transform: uppercase;
   color: var(--ev-white);
 }
+/* Eyebrow / scene-label: mono — gives a "system terminal" voice */
 .editorial-eyebrow {
-  font-family: var(--font-body-editorial);
+  font-family: var(--font-mono-editorial);
   font-weight: 400;
-  font-size: 0.75rem;
+  font-size: 0.72rem;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--ev-mute);
 }
+/* Sub-headline / body copy: Aeonik regular */
 .editorial-sub {
   font-family: var(--font-body-editorial);
   font-weight: 400;
-  letter-spacing: -0.01em;
-  line-height: 1.42;
+  letter-spacing: -0.005em;
+  line-height: 1.48;
   color: var(--ev-mute);
 }
+/* Metadata / chip labels: mono — technical voice */
 .editorial-meta {
-  font-family: var(--font-body-editorial);
+  font-family: var(--font-mono-editorial);
   font-weight: 400;
-  font-size: 0.78rem;
-  letter-spacing: 0.04em;
+  font-size: 0.74rem;
+  letter-spacing: 0.06em;
   color: var(--ev-mute-2);
+  text-transform: uppercase;
+}
+/* Italic emphasis — for "real" / "actually" / "now" type phrases */
+.editorial-emph {
+  font-family: var(--font-display-editorial);
+  font-style: italic;
+  font-weight: 400;
+}
+/* Section number / index — mono large */
+.editorial-index {
+  font-family: var(--font-mono-editorial);
+  font-weight: 500;
+  font-size: 0.78rem;
+  letter-spacing: 0.18em;
+  color: var(--ev-accent-dot);
 }
 
 /* ─── Hairline System ─────────────────────────────────────────────────── */
@@ -2688,12 +2740,119 @@ body::after {
   padding: 0.5rem 0.8rem;
 }
 
+/* ─── Unified one-page background canvas (Lusion architecture) ─────────
+   Fixed-position layer that stays put while sections scroll over it.
+   Gives "single continuous page" feel — no background break between scenes. */
+.ev-unified-canvas {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 0%, rgba(255,255,255,0.025) 0%, transparent 60%),
+    radial-gradient(ellipse 70% 50% at 50% 100%, rgba(255,255,255,0.018) 0%, transparent 60%),
+    var(--ev-black);
+}
+.ev-unified-canvas::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(circle at 50% 50%, rgba(255,255,255,0.22) 0 0.5px, transparent 0.65px);
+  background-size: 3px 3px;
+  opacity: 0.012;
+  mix-blend-mode: overlay;
+}
+/* Make all sections transparent so the unified canvas shows through */
+section[id],
+.scroll-film-scene,
+.cinematic-page > * {
+  background-color: transparent !important;
+}
+.cinematic-page {
+  background: transparent !important;
+}
+
 /* Hero — kill ALL atmospheric images entirely (we want pure black hero) */
 .hero-cold-open [data-background] > img,
 .hero-cold-open [data-background] > video,
 .hero-cold-open [data-background] > canvas {
   opacity: 0 !important;
   display: none !important;
+}
+
+/* ─── Mac Desktop Frame — Lusion-style reel container ──────────────────
+   Wraps content in a macOS window chrome with traffic-light buttons + URL bar.
+   Combines with useVslScrollExpansion for the scroll-driven scale expansion. */
+.mac-frame {
+  position: relative;
+  isolate: isolate;
+  background: linear-gradient(180deg, #1c1c1e 0%, #0a0a0a 100%);
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,0.06),
+    0 24px 64px rgba(0,0,0,0.65),
+    0 80px 140px rgba(0,0,0,0.45);
+  will-change: transform;
+  transform-style: preserve-3d;
+}
+.mac-frame__chrome {
+  height: 28px;
+  background: linear-gradient(180deg, #2a2a2c 0%, #1a1a1c 100%);
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  display: flex;
+  align-items: center;
+  padding: 0 14px;
+  gap: 8px;
+  font-family: var(--font-mono-editorial);
+}
+.mac-frame__dots {
+  display: flex;
+  gap: 7px;
+}
+.mac-frame__dot {
+  width: 11px;
+  height: 11px;
+  border-radius: 100%;
+  background: rgba(255,255,255,0.16);
+}
+.mac-frame__dot:nth-child(1) { background: #ff5f57; }
+.mac-frame__dot:nth-child(2) { background: #febc2e; }
+.mac-frame__dot:nth-child(3) { background: #28c840; }
+.mac-frame__url {
+  flex: 1;
+  text-align: center;
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  color: rgba(255,255,255,0.4);
+  text-transform: uppercase;
+  font-family: var(--font-mono-editorial);
+}
+.mac-frame__viewport {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #000;
+  overflow: hidden;
+}
+/* Scroll-driven scale wrapper — controlled by GSAP scrub */
+.mac-frame-stage {
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  perspective: 2200px;
+  transform-style: preserve-3d;
+}
+.mac-frame-stage[data-scroll-state="cold"] .mac-frame {
+  transform: scale(0.62) translateY(0) rotateX(8deg);
+}
+.mac-frame-stage[data-scroll-state="expanding"] .mac-frame {
+  transform: scale(0.85) rotateX(3deg);
+}
+.mac-frame-stage[data-scroll-state="full"] .mac-frame {
+  transform: scale(1.06) rotateX(0deg);
 }
 
 /* Non-hero scenes — desaturate all images for monochrome editorial fit (preserves storytelling content) */

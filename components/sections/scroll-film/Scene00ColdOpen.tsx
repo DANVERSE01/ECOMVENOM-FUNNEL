@@ -14,6 +14,7 @@ import { useGSAP } from "@gsap/react";
 import { CtaLink } from "@/components/ui/button";
 import { ResponsiveMediaFrame } from "@/components/cinematic/ResponsiveMediaFrame";
 import { ScrollFilmScene } from "@/components/cinematic/ScrollFilmScene";
+import { MacDesktopFrame } from "@/components/cinematic/MacDesktopFrame";
 import { cn } from "@/lib/cn";
 import { gsap } from "@/lib/gsap";
 import { scrambleText } from "@/lib/motion";
@@ -188,6 +189,30 @@ export function Scene00ColdOpen() {
         .to(subheadline, { opacity: 1, x: 0, y: 0, duration: 0.72 }, compactMotion ? 1.08 : 1.55)
         .to(cta, { opacity: 1, x: 0, y: 0, scale: 1, duration: 0.62 }, compactMotion ? 1.18 : 1.75)
         .to(vslCard, { opacity: 1, y: 0, scale: 1, duration: compactMotion ? 0.62 : 0.8, ease: "filmDrop" }, compactMotion ? 1.18 : 1.75);
+
+      /* Lusion-style scrubbed scale on the Mac frame inside the VSL card —
+         starts as cold view (0.78 scale, slight Y tilt) then expands as you scroll. */
+      if (!compactMotion) {
+        const macFrame = vslCard.querySelector(".mac-frame");
+        if (macFrame) {
+          gsap.fromTo(
+            macFrame,
+            { scale: 0.78, y: 24, rotateX: 8, transformOrigin: "center 65%" },
+            {
+              scale: 1.02,
+              y: -8,
+              rotateX: 0,
+              ease: "none",
+              scrollTrigger: {
+                trigger: sectionRef.current,
+                start: "top top",
+                end: "bottom 30%",
+                scrub: 1.4,
+              },
+            },
+          );
+        }
+      }
     },
     { scope: sectionRef, dependencies: [reduced], revertOnUpdate: true },
   );
@@ -420,21 +445,20 @@ export function Scene00ColdOpen() {
             </div>
           </div>
 
-          {/* VSL card — RIGHT column on desktop, below on mobile */}
-          <div ref={vslCardRef} data-choreography className="hero-vsl-stage vsl-scroll-card w-full max-w-[min(88vw,34rem)] lg:max-w-full lg:justify-self-end">
-            <ResponsiveMediaFrame className="hero-vsl-card aspect-video w-[min(82vw,24rem)] bg-black sm:w-[min(62vw,28rem)] lg:w-full" style={{ border: "1px solid rgba(255,255,255,0.08)" }}>
+          {/* VSL inside Lusion-style Mac desktop frame — RIGHT column, scrolls to expand */}
+          <div ref={vslCardRef} data-choreography className="hero-vsl-stage vsl-scroll-card mac-frame-stage w-full max-w-[min(88vw,34rem)] lg:max-w-full lg:justify-self-end">
+            <MacDesktopFrame url={isArabic ? "ECOMVENOM.SYSTEM // فيديو المؤسس" : "ECOMVENOM.SYSTEM // FOUNDER VSL"}>
               <Image
                 src={HERO_MEDIA.posterSrc}
                 alt={lang === "ar" ? "بوستر VSL المؤسس يوسف عادل" : "Youssef Adel founder VSL poster"}
                 fill
-                sizes="(min-width: 1024px) 430px, 78vw"
+                sizes="(min-width: 1024px) 560px, 78vw"
                 className="object-cover"
                 priority
               />
-              <div className="hero-vsl-card__depth" aria-hidden />
-              <div className="absolute left-4 top-4 z-30 border border-white/10 bg-black/70 px-3 py-2 backdrop-blur-sm">
-                <p className="font-heading text-[10px] uppercase tracking-normal text-venom">{vslCopy.badge}</p>
-                <p className="mt-1 font-mono text-[10px] text-ash">{vslCopy.preview}</p>
+              <div className="absolute left-3 top-3 z-30 flex items-center gap-2 border border-white/10 bg-black/65 px-2.5 py-1.5 backdrop-blur-sm">
+                <span className="h-1.5 w-1.5 rounded-full" style={{ background: "#F9FF00", boxShadow: "0 0 6px rgba(249,255,0,0.6)" }} />
+                <p style={{ fontFamily: "var(--font-mono-editorial)" }} className="text-[10px] uppercase tracking-[0.12em] text-white/85">{vslCopy.badge}</p>
               </div>
               {scrollVideoActive && (
                 <iframe
@@ -452,22 +476,21 @@ export function Scene00ColdOpen() {
                   type="button"
                   onClick={openManualVsl}
                   aria-label={t("playVsl")}
-                  className="hero-vsl-play absolute bottom-4 left-4 right-4 z-30"
+                  className="absolute bottom-4 left-1/2 -translate-x-1/2 z-30 inline-flex items-center gap-2 rounded-full bg-white px-5 py-2.5 text-black transition-all duration-300 hover:bg-black hover:text-white hover:ring-1 hover:ring-white"
+                  style={{ fontFamily: "var(--font-body-editorial)", fontWeight: 500, fontSize: "0.8rem", letterSpacing: "0.04em", textTransform: "uppercase" }}
                 >
+                  <svg width="11" height="11" viewBox="0 0 14 14" fill="none" aria-hidden>
+                    <path d="M4.5 3.25L10 7L4.5 10.75V3.25Z" fill="currentColor" />
+                  </svg>
                   <span>{t("playVsl")}</span>
-                  <span className="hero-vsl-play__icon" aria-hidden>
-                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                      <path d="M4.5 3.25L10 7L4.5 10.75V3.25Z" fill="currentColor" />
-                    </svg>
-                  </span>
                 </button>
               ) : (
-                <div className="hero-vsl-static-label absolute bottom-4 left-4 right-4 z-30">
-                  <span>{vslCopy.previewStatic}</span>
-                  <span>{vslCopy.originalFrame}</span>
+                <div className="absolute bottom-4 left-4 right-4 z-30 flex items-center justify-between" style={{ fontFamily: "var(--font-mono-editorial)" }}>
+                  <span className="text-[10px] uppercase tracking-[0.12em] text-white/60">{vslCopy.previewStatic}</span>
+                  <span className="text-[10px] uppercase tracking-[0.12em] text-white/40">{vslCopy.originalFrame}</span>
                 </div>
               )}
-            </ResponsiveMediaFrame>
+            </MacDesktopFrame>
           </div>
       </div>
 

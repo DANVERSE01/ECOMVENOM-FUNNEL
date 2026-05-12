@@ -44,6 +44,8 @@ export default async function RootLayout({ children }: { children: React.ReactNo
     <html lang={initialLang} dir={initialLang === "ar" ? "rtl" : "ltr"} className={`${syne.variable} ${spaceGrotesk.variable} ${inter.variable} ${jetbrainsMono.variable} ${alexandria.variable} ${cairo.variable} ${michroma.variable} ${interTight.variable}`}>
       <body className="font-sans antialiased min-h-screen flex flex-col">
         <a href="#main-content" className="skip-to-content">Skip to content</a>
+        {/* Unified one-page canvas — fixed black surface behind all scenes (Lusion architecture) */}
+        <div className="ev-unified-canvas" aria-hidden />
         <Preloader />
         <ParticleTrailCursor />
         <FilmGrain />
