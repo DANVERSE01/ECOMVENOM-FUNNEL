@@ -9,7 +9,7 @@ import { Scene07Application } from "@/components/sections/scroll-film/Scene07App
 import { Scene08FinalCTA } from "@/components/sections/scroll-film/Scene08FinalCTA";
 import { SceneHairline } from "@/components/cinematic/SceneHairline";
 import { SceneObserver } from "@/components/cinematic/SceneObserver";
-import { DanMarquee } from "@/components/ui/DanMarquee";
+import { EditorialMarquee } from "@/components/ui/EditorialMarquee";
 
 export default function HomePage() {
   return (
@@ -17,19 +17,19 @@ export default function HomePage() {
       <SceneObserver />
       <Scene00ColdOpen />
       {/* DANVERSE signature marquee strip — visual identity band */}
-      <DanMarquee className="relative z-20" />
+      <EditorialMarquee className="relative z-20" />
       <Scene01Problem />
       <SceneHairline className="relative z-20" />
       <Scene02ChaosToSystem />
       <SceneHairline className="relative z-20" />
       <Scene03Roadmap />
-      <DanMarquee className="relative z-20" />
+      <EditorialMarquee className="relative z-20" />
       <Scene04Offer />
       <SceneHairline className="relative z-20" />
       <Scene05Founder />
       <SceneHairline className="relative z-20" />
       <Scene06ProofGate />
-      <DanMarquee className="relative z-20" />
+      <EditorialMarquee className="relative z-20" />
       <Scene07Application />
       <SceneHairline className="relative z-20" />
       <Scene08FinalCTA />

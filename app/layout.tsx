@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { cookies } from "next/headers";
-import { Syne, Space_Grotesk, Inter, JetBrains_Mono, Alexandria, Cairo } from "next/font/google";
+import { Syne, Space_Grotesk, Inter, JetBrains_Mono, Alexandria, Cairo, Michroma, Inter_Tight } from "next/font/google";
 import "./globals.css";
 import { Nav } from "@/components/nav";
 import { Footer } from "@/components/footer";
@@ -19,6 +19,8 @@ const inter = Inter({ subsets: ["latin"], weight: ["400", "500"], variable: "--f
 const jetbrainsMono = JetBrains_Mono({ subsets: ["latin"], weight: ["400", "500"], variable: "--font-mono", display: "swap" });
 const alexandria = Alexandria({ subsets: ["arabic"], weight: ["600", "700", "800"], variable: "--font-arabic-display", display: "swap" });
 const cairo = Cairo({ subsets: ["arabic"], weight: ["400", "500", "600", "700"], variable: "--font-arabic-body", display: "swap" });
+const michroma = Michroma({ subsets: ["latin"], weight: ["400"], variable: "--font-michroma", display: "swap" });
+const interTight = Inter_Tight({ subsets: ["latin"], weight: ["300", "400", "500", "600", "700", "800", "900"], variable: "--font-inter-tight", display: "swap" });
 
 export const metadata: Metadata = {
   title: "ECOMVENOM — Become a Profitable Dropshipper in 45 Days",
@@ -39,7 +41,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   const initialLang: Lang = savedLang === "ar" || savedLang === "en" ? savedLang : defaultLang;
 
   return (
-    <html lang={initialLang} dir={initialLang === "ar" ? "rtl" : "ltr"} className={`${syne.variable} ${spaceGrotesk.variable} ${inter.variable} ${jetbrainsMono.variable} ${alexandria.variable} ${cairo.variable}`}>
+    <html lang={initialLang} dir={initialLang === "ar" ? "rtl" : "ltr"} className={`${syne.variable} ${spaceGrotesk.variable} ${inter.variable} ${jetbrainsMono.variable} ${alexandria.variable} ${cairo.variable} ${michroma.variable} ${interTight.variable}`}>
       <body className="font-sans antialiased min-h-screen flex flex-col">
         <a href="#main-content" className="skip-to-content">Skip to content</a>
         <Preloader />

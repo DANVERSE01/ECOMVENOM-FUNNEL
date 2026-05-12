@@ -12,11 +12,8 @@ import {
 import { createPortal } from "react-dom";
 import { useGSAP } from "@gsap/react";
 import { CtaLink } from "@/components/ui/button";
-import { CinematicLoopVideo } from "@/components/cinematic/CinematicLoopVideo";
 import { ResponsiveMediaFrame } from "@/components/cinematic/ResponsiveMediaFrame";
 import { ScrollFilmScene } from "@/components/cinematic/ScrollFilmScene";
-import { SystemOverlay } from "@/components/cinematic/SystemOverlay";
-import { HIGGSFIELD_LOOPS, HIGGSFIELD_STILLS, GENERATED_STILLS } from "@/lib/frameManifest";
 import { cn } from "@/lib/cn";
 import { gsap } from "@/lib/gsap";
 import { scrambleText } from "@/lib/motion";
@@ -27,9 +24,6 @@ import { useSplitReveal } from "@/hooks/useSplitReveal";
 import { useScrollChoreography } from "@/hooks/useScrollChoreography";
 import { getCurrentLenis } from "@/lib/lenis";
 import { FloatingVslPlayer } from "@/components/cinematic/FloatingVslPlayer";
-import { PlasmaAtmosphere } from "@/components/effects/PlasmaAtmosphere";
-import { HeroCursorSpotlight } from "@/components/effects/HeroCursorSpotlight";
-import { BorderBeam } from "@/components/effects/BorderBeam";
 import { useContent } from "@/lib/useContent";
 import { useLang } from "@/lib/lang-context";
 
@@ -56,8 +50,6 @@ export function Scene00ColdOpen() {
   const eyebrowRef = useRef<HTMLParagraphElement | null>(null);
   const headlineRef = useRef<HTMLHeadingElement | null>(null);
   const supportRef = useRef<HTMLDivElement | null>(null);
-  const tunnelRef = useRef<HTMLDivElement | null>(null);
-  const spotlightRef = useRef<HTMLDivElement | null>(null);
   const vslCardRef = useRef<HTMLDivElement | null>(null);
   const overlayPanelRef = useRef<HTMLDivElement | null>(null);
   const scrollOverlayRef = useRef<HTMLDivElement | null>(null);
@@ -130,8 +122,6 @@ export function Scene00ColdOpen() {
       const eyebrow = eyebrowRef.current;
       const headline = headlineRef.current;
       const support = supportRef.current;
-      const tunnel = tunnelRef.current;
-      const spotlight = spotlightRef.current;
       const vslCard = vslCardRef.current;
       if (!eyebrow || !headline || !support || !vslCard) return;
 
@@ -198,34 +188,6 @@ export function Scene00ColdOpen() {
         .to(subheadline, { opacity: 1, x: 0, y: 0, duration: 0.72 }, compactMotion ? 1.08 : 1.55)
         .to(cta, { opacity: 1, x: 0, y: 0, scale: 1, duration: 0.62 }, compactMotion ? 1.18 : 1.75)
         .to(vslCard, { opacity: 1, y: 0, scale: 1, duration: compactMotion ? 0.62 : 0.8, ease: "filmDrop" }, compactMotion ? 1.18 : 1.75);
-
-      if (!compactMotion && tunnel) {
-        gsap.to(tunnel, {
-          y: "-12%",
-          scale: 1.08,
-          ease: "none",
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: "top top",
-            end: "bottom top",
-            scrub: 2,
-          },
-        });
-      }
-
-      if (!compactMotion && spotlight) {
-        gsap.to(spotlight, {
-          opacity: 0.34,
-          scale: 1.35,
-          ease: "none",
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: "top top",
-            end: "bottom top",
-            scrub: 1.5,
-          },
-        });
-      }
     },
     { scope: sectionRef, dependencies: [reduced], revertOnUpdate: true },
   );
@@ -377,63 +339,31 @@ export function Scene00ColdOpen() {
       <span className="scene-ghost top-4 right-8">00</span>
       <div ref={sectionRef} className="absolute inset-0" />
 
-      <div className="absolute inset-0" data-background>
-        <Image src={GENERATED_STILLS.heroBg} alt="" fill sizes="100vw" quality={70} className="object-cover opacity-[0.12]" />
-        <PlasmaAtmosphere
-          className="opacity-60"
-          intensity={0.28}
-          speed={0.4}
-          mouseDistortion={0.15}
-          colorStops={["#B8FF2E", "#5A9AAD", "#0A0A0B"]}
-        />
-        <CinematicLoopVideo
-          src={HIGGSFIELD_LOOPS.systemWake}
-          poster={HIGGSFIELD_STILLS.systemIntro}
-          preload="metadata"
-          hideOnMobile
-          className="opacity-35"
-        />
-        <HeroCursorSpotlight />
-        <div ref={tunnelRef} className="hero-tunnel-field" aria-hidden />
-        <SystemOverlay className="opacity-65" />
-        <div
-          ref={spotlightRef}
-          className="pointer-events-none absolute left-[56%] top-[38%] z-[1] -translate-x-1/2 -translate-y-1/2"
-          style={{
-            width: "74rem",
-            maxWidth: "96vw",
-            aspectRatio: "1",
-            background: "radial-gradient(circle, rgba(184,255,46,0.07) 0%, rgba(90,154,173,0.03) 30%, transparent 62%)",
-            opacity: 0.18,
-          }}
-          aria-hidden
-        />
-        <div className="pointer-events-none absolute inset-x-0 top-0 z-[3] h-36 bg-gradient-to-b from-black via-black/72 to-transparent" />
-        <div className="pointer-events-none absolute inset-x-0 bottom-0 z-[3] h-44 bg-gradient-to-b from-transparent via-black/46 to-black" />
+      {/* Editorial transplant — flat black, no atmospheric noise. Single subtle vignette only. */}
+      <div className="absolute inset-0 bg-black" data-background aria-hidden>
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-48 bg-gradient-to-b from-transparent to-black/40" />
       </div>
 
-      {/* DANVERSE-style: centered column, massive typography */}
-      <div ref={choreographyRef} className="relative z-10 flex min-h-[100svh] flex-col items-center justify-center px-5 pb-12 pt-24 sm:px-8 sm:pb-14 sm:pt-28 lg:px-12 lg:pb-16 lg:pt-28 xl:pt-32">
-        <div className="mx-auto flex w-full max-w-[1360px] flex-col items-center gap-8 lg:gap-10">
-          <div className={cn("w-full text-center", isArabic ? "max-w-[72rem]" : "max-w-full")}>
-            <p
-              ref={eyebrowRef}
-              data-choreography
-              className={cn(
-                "mx-auto font-heading leading-relaxed text-ash",
-                isArabic ? "max-w-2xl text-[0.78rem] tracking-[0.015em] sm:text-[0.92rem]" : "max-w-3xl text-[0.72rem] uppercase tracking-widest sm:text-xs",
-              )}
-            >
-              {hero.eyebrow}
-            </p>
+      {/* Editorial asymmetric hero — headline LEFT (60%), VSL card RIGHT (40%) on desktop */}
+      <div ref={choreographyRef} className="relative z-10 editorial-hero-grid w-full">
+          <div className={cn("flex flex-col justify-end text-left", isArabic && "text-right")}>
+            <div className="flex items-center gap-3 mb-6" data-choreography>
+              <span className="editorial-status-dot" aria-hidden />
+              <p
+                ref={eyebrowRef}
+                className="editorial-eyebrow"
+              >
+                {hero.eyebrow}
+              </p>
+            </div>
             <h1
               ref={headlineRevealRef}
               data-choreography
               className={cn(
-                "mt-5 font-display text-bone [text-wrap:balance]",
+                "[text-wrap:balance]",
                 isArabic
-                  ? "text-[2.55rem] leading-[1.1] tracking-[-0.03em] sm:text-[3.5rem] lg:text-[5.5rem]"
-                  : "dan-heading text-[clamp(2.8rem,9vw,8.5rem)]",
+                  ? "font-display text-bone text-[2.6rem] leading-[1.06] tracking-[-0.025em] sm:text-[3.6rem] lg:text-[5.4rem]"
+                  : "editorial-section-title-large",
               )}
             >
               {heroHeadline.map((line, lineIndex) => (
@@ -455,45 +385,44 @@ export function Scene00ColdOpen() {
               ))}
             </h1>
             <div ref={supportRef} className={cn(
-              "relative z-30 mt-8 flex flex-col items-center gap-4 sm:flex-row sm:justify-center",
-              isArabic && "sm:flex-row-reverse sm:justify-center",
+              "relative z-30 mt-10 flex flex-col items-start gap-6 sm:flex-row sm:items-center",
+              isArabic && "sm:flex-row-reverse",
             )}>
-              <span data-hero-cta data-choreography className="inline-flex max-w-full">
-                <CtaLink href="/apply" sub={CTA_SUB} className="cinematic-command min-w-[min(100%,18rem)]">
+              <span data-hero-cta data-choreography className="inline-flex">
+                <CtaLink href="/apply" sub={CTA_SUB} className="cinematic-command">
                   {CTA_LABEL}
                 </CtaLink>
               </span>
-              <p data-hero-sub data-choreography className={cn("max-w-lg text-center leading-relaxed text-ash", isArabic ? "text-[0.95rem] sm:text-[1.02rem]" : "text-sm sm:text-[13px]")}>
+              <p data-hero-sub data-choreography className={cn("editorial-sub max-w-md", isArabic ? "text-[0.98rem]" : "text-[0.92rem]")}>
                 {hero.sub}
               </p>
             </div>
 
-            <div className="hero-command-rail hero-command-rail--mobile mx-auto mt-7 sm:hidden" aria-label={lang === "ar" ? "أبرز مميزات البرنامج" : "Program highlights"}>
-              {heroCommandRail.map((item) => (
-                <span key={item}>{item}</span>
+            {/* Editorial command rail — hairline-separated meta points, NO ornaments */}
+            <div
+              className="mt-12 hidden sm:flex flex-wrap items-center gap-x-6 gap-y-2 border-t border-white/[0.08] pt-6"
+              aria-label={lang === "ar" ? "أبرز مميزات البرنامج" : "Program highlights"}
+            >
+              {heroCommandRail.map((item, i) => (
+                <span key={item} className="flex items-center gap-3 editorial-meta">
+                  {i > 0 && <span className="inline-block w-1 h-1 rounded-full bg-white/30" aria-hidden />}
+                  <span>{item}</span>
+                </span>
               ))}
             </div>
-
-            <div className="hero-command-rail mx-auto mt-8 hidden sm:grid max-w-[40rem]" aria-label={lang === "ar" ? "أبرز مميزات البرنامج" : "Program highlights"}>
+            <div
+              className="mt-10 flex flex-col gap-2 sm:hidden border-t border-white/[0.08] pt-5"
+              aria-label={lang === "ar" ? "أبرز مميزات البرنامج" : "Program highlights"}
+            >
               {heroCommandRail.map((item) => (
-                <span key={item}>{item}</span>
+                <span key={item} className="editorial-meta">{item}</span>
               ))}
-            </div>
-
-            <div className="mt-8 hidden items-center justify-center gap-3 opacity-40 sm:flex">
-              <div className="relative h-9 w-px overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-b from-venom/70 to-transparent animate-float" />
-              </div>
-              <p className="font-heading text-[9px] uppercase tracking-widest text-ash-2">
-                {hero.scrollCue}
-              </p>
             </div>
           </div>
 
-          {/* VSL card — centered below headline, DANVERSE-style */}
-          <div ref={vslCardRef} data-choreography className="hero-vsl-stage vsl-scroll-card mx-auto w-full max-w-[min(88vw,34rem)] lg:max-w-[min(70vw,42rem)]">
-            <ResponsiveMediaFrame className="hero-vsl-card glass-enhanced aspect-video w-[min(82vw,24rem)] bg-ink-3 p-2 sm:w-[min(62vw,28rem)] lg:w-full">
-              <BorderBeam size={140} duration={8} delay={2} />
+          {/* VSL card — RIGHT column on desktop, below on mobile */}
+          <div ref={vslCardRef} data-choreography className="hero-vsl-stage vsl-scroll-card w-full max-w-[min(88vw,34rem)] lg:max-w-full lg:justify-self-end">
+            <ResponsiveMediaFrame className="hero-vsl-card aspect-video w-[min(82vw,24rem)] bg-black sm:w-[min(62vw,28rem)] lg:w-full" style={{ border: "1px solid rgba(255,255,255,0.08)" }}>
               <Image
                 src={HERO_MEDIA.posterSrc}
                 alt={lang === "ar" ? "بوستر VSL المؤسس يوسف عادل" : "Youssef Adel founder VSL poster"}
@@ -540,7 +469,6 @@ export function Scene00ColdOpen() {
               )}
             </ResponsiveMediaFrame>
           </div>
-        </div>
       </div>
 
       <div ref={scrollOverlayRef} className="vsl-scroll-overlay" aria-hidden />

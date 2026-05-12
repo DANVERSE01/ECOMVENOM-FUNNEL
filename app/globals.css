@@ -2231,3 +2231,487 @@ body::after {
   }
 }
 
+/* ============================================================================
+   EDITORIAL TRANSPLANT — gustavoparis.co design language (FINAL OVERRIDE LAYER)
+   --------------------------------------------------------------------------
+   Mandate: unified flat-black background, editorial typography (Michroma display
+   + Inter body), single yellow-dot accent, hairline rules, asymmetric layouts,
+   engineering-precise motion. Awwwards / Framer-level restraint.
+   This layer sits LAST so it wins specificity ties without rewriting upstream.
+   ============================================================================ */
+
+:root {
+  /* Editorial palette — pure black, restrained whites, single yellow dot */
+  --ev-black: #000000;
+  --ev-near-black: #050505;
+  --ev-white: #FFFFFF;
+  --ev-mute: rgba(255,255,255,0.45);
+  --ev-mute-2: rgba(255,255,255,0.30);
+  --ev-mute-3: rgba(255,255,255,0.18);
+  --ev-hairline: rgba(255,255,255,0.08);
+  --ev-hairline-hot: rgba(255,255,255,0.16);
+  --ev-accent-dot: #F9FF00;
+  /* Engineering-precise easings — Framer Motion canonical curves */
+  --ev-ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ev-ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --ev-ease-emphatic: cubic-bezier(0.16, 1, 0.3, 1);
+  /* Fonts now wired via next/font in app/layout.tsx — variables: --font-michroma, --font-inter-tight */
+  --font-display-editorial: var(--font-michroma), 'Syne', ui-sans-serif;
+  --font-body-editorial: var(--font-inter-tight), var(--font-inter), 'Inter', ui-sans-serif;
+}
+
+/* Flat unified background — kills navy/venom layered gradients */
+html, body {
+  background-color: var(--ev-black) !important;
+  color: var(--ev-white);
+}
+body {
+  background-image: none !important;
+}
+body::before {
+  /* Soften the existing grain to barely-there editorial film */
+  opacity: 0.018 !important;
+  background-image:
+    radial-gradient(circle at 50% 50%, rgba(255,255,255,0.20) 0 0.5px, transparent 0.65px) !important;
+  background-size: 3px 3px !important;
+  mix-blend-mode: overlay !important;
+}
+.cinematic-page {
+  background: var(--ev-black) !important;
+  background-image: none !important;
+}
+
+/* Hero — strip ALL atmospheric noise (grids, glows, plasma, spotlights) */
+.hero-cold-open {
+  background: var(--ev-black) !important;
+}
+.hero-cold-open::before,
+.hero-cold-open::after {
+  display: none !important;
+}
+.hero-tunnel-field,
+.system-overlay,
+.hero-cursor-spotlight,
+.hero-tunnel-field *,
+[data-background] > .opacity-65,
+[data-background] > [aria-hidden][style*="radial-gradient"] {
+  display: none !important;
+}
+.hero-cold-open [data-background] img { opacity: 0 !important; }
+.hero-cold-open [data-background] video { display: none !important; }
+.hero-cold-open [data-background] canvas { display: none !important; }
+.hero-cold-open [data-background] .opacity-65 { display: none !important; }
+/* Keep only the bottom-vignette gradient for typography legibility */
+.hero-cold-open [data-background] .bg-gradient-to-b {
+  display: none !important;
+}
+
+/* Particle trail cursor — silence venom glow */
+.particle-trail-cursor,
+canvas.particle-trail { display: none !important; }
+
+/* DanMarquee neutralized — replaced by EditorialMarquee */
+.dan-marquee-strip { display: none !important; }
+
+/* Border beam — kill venom ring on VSL card */
+.border-beam,
+[class*="border-beam"] { display: none !important; }
+
+/* ─── Editorial Typography ─────────────────────────────────────────────── */
+.editorial-headline {
+  font-family: var(--font-display-editorial);
+  font-weight: 400;
+  letter-spacing: -0.04em;
+  line-height: 0.86;
+  text-transform: uppercase;
+  color: var(--ev-white);
+}
+.editorial-eyebrow {
+  font-family: var(--font-body-editorial);
+  font-weight: 400;
+  font-size: 0.75rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ev-mute);
+}
+.editorial-sub {
+  font-family: var(--font-body-editorial);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  line-height: 1.42;
+  color: var(--ev-mute);
+}
+.editorial-meta {
+  font-family: var(--font-body-editorial);
+  font-weight: 400;
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+  color: var(--ev-mute-2);
+}
+
+/* ─── Hairline System ─────────────────────────────────────────────────── */
+.editorial-rule {
+  display: block;
+  width: 100%;
+  height: 1px;
+  background: var(--ev-hairline);
+  border: 0;
+}
+
+/* ─── Inverted Minimal CTA — overrides .btn-primary venom system ─────── */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
+  min-height: 3.4rem;
+  background: var(--ev-white) !important;
+  color: var(--ev-black) !important;
+  font-family: var(--font-body-editorial);
+  font-weight: 500 !important;
+  letter-spacing: 0.04em !important;
+  text-transform: uppercase;
+  font-size: 0.82rem;
+  padding: 1rem 2rem;
+  border-radius: 999px;
+  border: 1px solid var(--ev-white) !important;
+  box-shadow: none !important;
+  transition: background 220ms var(--ev-ease-out), color 220ms var(--ev-ease-out), transform 220ms var(--ev-ease-out);
+  position: relative;
+  overflow: hidden;
+}
+.btn-primary:hover {
+  background: var(--ev-black) !important;
+  color: var(--ev-white) !important;
+  transform: translateY(-1px);
+  box-shadow: 0 0 0 1px var(--ev-white) !important;
+}
+.btn-primary span,
+.btn-primary > span {
+  font-family: var(--font-body-editorial) !important;
+  font-weight: 500 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.04em !important;
+}
+
+/* Secondary / ghost CTA in nav */
+.editorial-link {
+  font-family: var(--font-body-editorial);
+  font-weight: 400;
+  font-size: 0.86rem;
+  letter-spacing: 0.02em;
+  color: var(--ev-white);
+  text-decoration: none;
+  position: relative;
+  transition: opacity 200ms var(--ev-ease-out);
+}
+.editorial-link:hover { opacity: 0.6; }
+
+/* ─── Editorial Marquee — section header ──────────────────────────────── */
+.editorial-marquee {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  padding: clamp(2.5rem, 5vw, 4.5rem) 0;
+  background: var(--ev-black);
+  border-top: 1px solid var(--ev-hairline);
+  border-bottom: 1px solid var(--ev-hairline);
+}
+.editorial-marquee__track {
+  display: flex;
+  align-items: center;
+  gap: 3.5rem;
+  animation: editorial-scroll 32s linear infinite;
+  will-change: transform;
+  white-space: nowrap;
+}
+.editorial-marquee__item {
+  font-family: var(--font-display-editorial);
+  font-weight: 400;
+  font-size: clamp(2.4rem, 6vw, 5.4rem);
+  letter-spacing: -0.02em;
+  line-height: 1;
+  text-transform: uppercase;
+  color: var(--ev-mute-3);
+  flex-shrink: 0;
+}
+.editorial-marquee__dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 100%;
+  background: var(--ev-accent-dot);
+  flex-shrink: 0;
+}
+@keyframes editorial-scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .editorial-marquee__track { animation: none; }
+}
+
+/* ─── Editorial Card ──────────────────────────────────────────────────── */
+.editorial-card {
+  background: transparent;
+  border: 1px solid var(--ev-hairline);
+  border-radius: 4px;
+  padding: clamp(1.5rem, 3vw, 2.5rem);
+  transition: border-color 280ms var(--ev-ease-out), transform 280ms var(--ev-ease-out);
+}
+.editorial-card:hover {
+  border-color: var(--ev-hairline-hot);
+  transform: translateY(-2px);
+}
+
+/* ─── Suppress legacy ornament systems on hero only (preserve elsewhere) ─ */
+.hero-cold-open .scene-ghost { display: none; }
+.hero-cold-open .hero-command-rail span {
+  border-color: var(--ev-hairline) !important;
+  background: transparent !important;
+  color: var(--ev-mute) !important;
+  font-family: var(--font-body-editorial) !important;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.66rem;
+}
+
+/* ─── Nav minimalism — kill loud venom CTA in sticky bar ──────────────── */
+.nav-sticky-cta,
+header .btn-primary[data-nav-cta] {
+  background: transparent !important;
+  color: var(--ev-white) !important;
+  border: 1px solid var(--ev-hairline-hot) !important;
+  min-height: 2.4rem !important;
+  font-size: 0.7rem !important;
+  padding: 0.55rem 1rem !important;
+  box-shadow: none !important;
+}
+.nav-sticky-cta:hover,
+header .btn-primary[data-nav-cta]:hover {
+  background: var(--ev-white) !important;
+  color: var(--ev-black) !important;
+  border-color: var(--ev-white) !important;
+}
+
+/* ─── Editorial section title (replaces dan-heading) ──────────────────── */
+.editorial-section-title {
+  font-family: var(--font-display-editorial);
+  font-weight: 400;
+  font-size: clamp(2.6rem, 7vw, 7rem);
+  letter-spacing: -0.035em;
+  line-height: 0.9;
+  text-transform: uppercase;
+  color: var(--ev-white);
+}
+.editorial-section-title-large {
+  font-family: var(--font-display-editorial);
+  font-weight: 400;
+  font-size: clamp(3.2rem, 10vw, 11rem);
+  letter-spacing: -0.045em;
+  line-height: 0.84;
+  text-transform: uppercase;
+  color: var(--ev-white);
+}
+
+/* Force the dan-heading (legacy from the prior attempt) to editorial */
+.dan-heading {
+  font-family: var(--font-display-editorial) !important;
+  font-weight: 400 !important;
+  letter-spacing: -0.04em !important;
+  line-height: 0.86 !important;
+  text-transform: uppercase !important;
+}
+
+/* Engineering-precise scroll choreography — replaces stagger w/ clip reveal */
+[data-choreography] {
+  /* base styles set by hook — extending visual quality */
+  transition-timing-function: var(--ev-ease-emphatic);
+}
+
+/* RTL editorial respect: Arabic uses Alexandria, not Michroma */
+[dir="rtl"] .editorial-headline,
+[dir="rtl"] .editorial-section-title,
+[dir="rtl"] .editorial-section-title-large,
+[dir="rtl"] .dan-heading {
+  font-family: var(--font-arabic-display), 'Alexandria', ui-sans-serif !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.02em !important;
+  text-transform: none !important;
+}
+
+/* Yellow status indicator — accent dot for live/system signals */
+.editorial-status-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 100%;
+  background: var(--ev-accent-dot);
+  vertical-align: middle;
+  margin: 0 0.5em;
+  box-shadow: 0 0 6px rgba(249,255,0,0.5);
+}
+
+/* Asymmetric hero grid — editorial split */
+.editorial-hero-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  align-items: end;
+  min-height: 100svh;
+  padding: clamp(5rem, 8vw, 8rem) clamp(1.5rem, 4vw, 4rem) clamp(3rem, 6vw, 5rem);
+}
+@media (min-width: 1024px) {
+  .editorial-hero-grid {
+    grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+    gap: 4rem;
+    align-items: end;
+  }
+}
+
+/* Mute legacy hero-vsl venom badges */
+.hero-vsl-card .text-venom,
+.hero-vsl-card [class*="venom"] {
+  color: var(--ev-accent-dot) !important;
+}
+
+/* Neutralize venom-green word highlights inside editorial headlines —
+   pure editorial restraint: all words white, scale carries the weight */
+.editorial-section-title-large .text-venom,
+.editorial-section-title .text-venom,
+.editorial-headline .text-venom,
+h1.editorial-section-title-large .text-venom,
+h1.editorial-section-title-large [class*="text-venom"] {
+  color: var(--ev-white) !important;
+}
+
+/* Smooth fades for scenes — calm not loud */
+.scroll-film-scene {
+  background: var(--ev-black) !important;
+}
+/* Kill ALL atmospheric/grid/glow backgrounds across scenes */
+.scroll-film-scene::before,
+.scroll-film-scene::after,
+.scene-atmosphere,
+.scene-grid,
+.scene-glow,
+.crimson-glow,
+.venom-glow,
+[class*="-glow"]:not(.editorial-status-dot),
+[class*="atmosphere"]:not(.editorial-marquee),
+.scene-divider,
+.system-grid,
+.grid-overlay,
+.pattern-grid,
+.scene-vignette {
+  display: none !important;
+  background: transparent !important;
+}
+/* Kill body-level fixed grain to a single subtle layer */
+body::after {
+  display: none !important;
+}
+
+/* Strip all crimson + venom GLOW backgrounds globally (preserve text colors only) */
+[class*="bg-crimson"],
+[class*="bg-venom"]:not(.btn-primary):not(.editorial-marquee__dot),
+[class*="bg-violet"],
+[class*="bg-gold"],
+.crimson-pulse,
+.venom-pulse {
+  background-color: transparent !important;
+}
+
+/* Section titles across all scenes — Michroma editorial */
+.scroll-film-scene h2,
+.scroll-film-scene h3 {
+  font-family: var(--font-display-editorial) !important;
+  font-weight: 400 !important;
+  letter-spacing: -0.035em !important;
+  line-height: 0.92 !important;
+  text-transform: uppercase !important;
+  color: var(--ev-white) !important;
+}
+[dir="rtl"] .scroll-film-scene h2,
+[dir="rtl"] .scroll-film-scene h3 {
+  font-family: var(--font-arabic-display), 'Alexandria', ui-sans-serif !important;
+  font-weight: 700 !important;
+  text-transform: none !important;
+  letter-spacing: -0.02em !important;
+}
+
+/* Cards across all scenes — editorial hairline minimal */
+.scene-panel,
+.scene-panel-elevated,
+.scene-panel-feature,
+.learn-card,
+.premium-card,
+.premium-card-hover,
+[class*="card-base"] {
+  background: transparent !important;
+  background-color: transparent !important;
+  border: 1px solid var(--ev-hairline) !important;
+  box-shadow: none !important;
+  border-radius: 4px !important;
+}
+.scene-panel:hover,
+.scene-panel-elevated:hover,
+.scene-panel-feature:hover,
+.learn-card:hover,
+.premium-card:hover,
+.premium-card-hover:hover {
+  border-color: var(--ev-hairline-hot) !important;
+  background: rgba(255,255,255,0.02) !important;
+}
+
+/* Body text inside scenes — Inter Tight */
+.scroll-film-scene p,
+.scroll-film-scene li {
+  font-family: var(--font-body-editorial) !important;
+  color: var(--ev-mute) !important;
+}
+.scroll-film-scene .text-bone,
+.scroll-film-scene .text-white {
+  color: var(--ev-white) !important;
+}
+
+/* Eyebrow / scene chip labels — yellow dot + uppercase tracking */
+.scene-chip,
+.scene-eyebrow,
+[data-scene-eyebrow] {
+  background: transparent !important;
+  border: 1px solid var(--ev-hairline) !important;
+  color: var(--ev-mute) !important;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-family: var(--font-body-editorial) !important;
+  font-size: 0.7rem;
+  padding: 0.5rem 0.8rem;
+}
+
+/* Hero — kill ALL atmospheric images entirely (we want pure black hero) */
+.hero-cold-open [data-background] > img,
+.hero-cold-open [data-background] > video,
+.hero-cold-open [data-background] > canvas {
+  opacity: 0 !important;
+  display: none !important;
+}
+
+/* Non-hero scenes — desaturate all images for monochrome editorial fit (preserves storytelling content) */
+section[id]:not(#system-boot) img,
+section[id]:not(#system-boot) video {
+  filter: grayscale(100%) contrast(1.05) brightness(0.85) !important;
+}
+/* Keep the editorial marquee + nav logo color-correct (those are deliberate brand elements) */
+.editorial-marquee img,
+header img,
+.hero-vsl-card img,
+.hero-vsl-overlay img {
+  filter: none !important;
+}
+
+/* Kill any radial-gradient/spotlight panels across scenes */
+section [aria-hidden][style*="radial-gradient"] {
+  display: none !important;
+}
+
+
