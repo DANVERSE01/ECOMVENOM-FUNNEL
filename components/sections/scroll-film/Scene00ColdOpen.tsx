@@ -412,15 +412,16 @@ export function Scene00ColdOpen() {
         <div className="pointer-events-none absolute inset-x-0 bottom-0 z-[3] h-44 bg-gradient-to-b from-transparent via-black/46 to-black" />
       </div>
 
-      <div ref={choreographyRef} className="relative z-10 grid min-h-[100svh] px-5 pb-10 pt-20 sm:px-8 sm:pb-12 sm:pt-24 lg:px-12 lg:pb-14 lg:pt-24 xl:pt-28">
-        <div className="mx-auto grid w-full max-w-[1360px] gap-7 self-start lg:grid-cols-[minmax(0,0.95fr)_minmax(18rem,27rem)] lg:items-start lg:gap-9">
-          <div className="max-w-[58rem] pt-2 sm:pt-4 lg:pt-0">
+      {/* DANVERSE-style: centered column, massive typography */}
+      <div ref={choreographyRef} className="relative z-10 flex min-h-[100svh] flex-col items-center justify-center px-5 pb-12 pt-24 sm:px-8 sm:pb-14 sm:pt-28 lg:px-12 lg:pb-16 lg:pt-28 xl:pt-32">
+        <div className="mx-auto flex w-full max-w-[1360px] flex-col items-center gap-8 lg:gap-10">
+          <div className={cn("w-full text-center", isArabic ? "max-w-[72rem]" : "max-w-full")}>
             <p
               ref={eyebrowRef}
               data-choreography
               className={cn(
-                "max-w-2xl font-heading leading-relaxed text-ash",
-                isArabic ? "text-[0.78rem] tracking-[0.015em] sm:text-[0.92rem]" : "text-[0.68rem] uppercase tracking-normal sm:text-xs",
+                "mx-auto font-heading leading-relaxed text-ash",
+                isArabic ? "max-w-2xl text-[0.78rem] tracking-[0.015em] sm:text-[0.92rem]" : "max-w-3xl text-[0.72rem] uppercase tracking-widest sm:text-xs",
               )}
             >
               {hero.eyebrow}
@@ -429,10 +430,10 @@ export function Scene00ColdOpen() {
               ref={headlineRevealRef}
               data-choreography
               className={cn(
-                "mt-4 font-display text-bone [text-wrap:balance]",
+                "mt-5 font-display text-bone [text-wrap:balance]",
                 isArabic
-                  ? "max-w-[15ch] text-[2.55rem] leading-[1.12] tracking-[-0.03em] sm:text-[3.35rem] lg:text-[4.75rem]"
-                  : "max-w-[62rem] text-[2.35rem] uppercase leading-[1.02] tracking-normal sm:text-[3.05rem] lg:text-[3.05rem] xl:text-[3.75rem] 2xl:text-[4.2rem]",
+                  ? "text-[2.55rem] leading-[1.1] tracking-[-0.03em] sm:text-[3.5rem] lg:text-[5.5rem]"
+                  : "dan-heading text-[clamp(2.8rem,9vw,8.5rem)]",
               )}
             >
               {heroHeadline.map((line, lineIndex) => (
@@ -453,39 +454,44 @@ export function Scene00ColdOpen() {
                 </span>
               ))}
             </h1>
-            <div ref={supportRef} className={cn("relative z-30 mt-6 flex max-w-3xl flex-col gap-4 sm:flex-row sm:items-center", isArabic && "sm:items-start")}>
+            <div ref={supportRef} className={cn(
+              "relative z-30 mt-8 flex flex-col items-center gap-4 sm:flex-row sm:justify-center",
+              isArabic && "sm:flex-row-reverse sm:justify-center",
+            )}>
               <span data-hero-cta data-choreography className="inline-flex max-w-full">
-                <CtaLink href="/apply" sub={CTA_SUB} className="cinematic-command min-w-[min(100%,16rem)]">
+                <CtaLink href="/apply" sub={CTA_SUB} className="cinematic-command min-w-[min(100%,18rem)]">
                   {CTA_LABEL}
                 </CtaLink>
               </span>
-              <p data-hero-sub data-choreography className={cn("max-w-xl leading-relaxed text-ash", isArabic ? "text-[0.95rem] sm:text-[1.02rem]" : "text-sm sm:text-[13px]")}>
+              <p data-hero-sub data-choreography className={cn("max-w-lg text-center leading-relaxed text-ash", isArabic ? "text-[0.95rem] sm:text-[1.02rem]" : "text-sm sm:text-[13px]")}>
                 {hero.sub}
               </p>
             </div>
 
-            <div className="hero-command-rail hero-command-rail--mobile mt-6 sm:hidden" aria-label={lang === "ar" ? "أبرز مميزات البرنامج" : "Program highlights"}>
+            <div className="hero-command-rail hero-command-rail--mobile mx-auto mt-7 sm:hidden" aria-label={lang === "ar" ? "أبرز مميزات البرنامج" : "Program highlights"}>
               {heroCommandRail.map((item) => (
                 <span key={item}>{item}</span>
               ))}
             </div>
 
-            <div className="mt-8 hidden items-center gap-3 opacity-45 sm:flex">
+            <div className="hero-command-rail mx-auto mt-8 hidden sm:grid max-w-[40rem]" aria-label={lang === "ar" ? "أبرز مميزات البرنامج" : "Program highlights"}>
+              {heroCommandRail.map((item) => (
+                <span key={item}>{item}</span>
+              ))}
+            </div>
+
+            <div className="mt-8 hidden items-center justify-center gap-3 opacity-40 sm:flex">
               <div className="relative h-9 w-px overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-b from-venom/70 to-transparent animate-float" />
               </div>
-              <p className="font-heading text-[9px] uppercase tracking-normal text-ash-2">
+              <p className="font-heading text-[9px] uppercase tracking-widest text-ash-2">
                 {hero.scrollCue}
               </p>
             </div>
-            <div className="hero-command-rail mt-7 hidden sm:grid" aria-label={lang === "ar" ? "أبرز مميزات البرنامج" : "Program highlights"}>
-              {heroCommandRail.map((item) => (
-                <span key={item}>{item}</span>
-              ))}
-            </div>
           </div>
 
-          <div ref={vslCardRef} data-choreography className="hero-vsl-stage vsl-scroll-card justify-self-center lg:justify-self-end">
+          {/* VSL card — centered below headline, DANVERSE-style */}
+          <div ref={vslCardRef} data-choreography className="hero-vsl-stage vsl-scroll-card mx-auto w-full max-w-[min(88vw,34rem)] lg:max-w-[min(70vw,42rem)]">
             <ResponsiveMediaFrame className="hero-vsl-card glass-enhanced aspect-video w-[min(82vw,24rem)] bg-ink-3 p-2 sm:w-[min(62vw,28rem)] lg:w-full">
               <BorderBeam size={140} duration={8} delay={2} />
               <Image

@@ -8,9 +8,9 @@
     --grid-gap: clamp(12px, 2vw, 24px);
     --base-px: clamp(20px, 5vw, 80px);
     --base-py: clamp(24px, 4vw, 56px);
-    --c-black: #000; --c-bg-top: #030403; --c-bg-mid: #070809; --c-bg-bottom: #010101;
-    --c-hero-top: #020303; --c-hero-mid: #06100a; --c-hero-bottom: #010202; --c-panel-black: #020302;
-    --c-ink: #060608; --c-ink-2: #0A0A0E; --c-ink-3: #101016; --c-ink-4: #18181F; --c-ink-5: #222230;
+    --c-black: #020408; --c-bg-top: #060a14; --c-bg-mid: #0a0f1a; --c-bg-bottom: #08101e;
+    --c-hero-top: #070b18; --c-hero-mid: #0c1626; --c-hero-bottom: #070c14; --c-panel-black: #050810;
+    --c-ink: #070c16; --c-ink-2: #0c1220; --c-ink-3: #121b2e; --c-ink-4: #1a2336; --c-ink-5: #242f42;
     --c-bone: #F0EDE6; --c-bone-2: #D8D4CC;
     --c-ash: #8A8A94; --c-ash-2: #6B6B75; --c-ash-3: #3D3D47;
     --c-venom: #B8FF2E; --c-venom-2: #9AE600; --c-venom-3: #CCFF66; --c-venom-highlight: #E4FF9D;
@@ -66,8 +66,8 @@
     font-family: var(--font-inter), var(--font-space), ui-sans-serif;
     font-feature-settings: "ss01","cv11","liga","kern";
     background:
-      linear-gradient(115deg, rgba(184,255,46,0.032), transparent 22%, rgba(90,154,173,0.028) 58%, transparent 82%),
-      linear-gradient(180deg, var(--c-bg-top) 0%, var(--c-bg-mid) 42%, var(--c-bg-bottom) 100%);
+      linear-gradient(115deg, rgba(184,255,46,0.04) 0%, transparent 20%, rgba(15,23,42,0.45) 55%, transparent 80%),
+      linear-gradient(180deg, var(--c-bg-top) 0%, var(--c-bg-mid) 35%, #0d1628 65%, var(--c-bg-bottom) 100%);
   }
   h1 {
     font-feature-settings: "kern" 1, "liga" 1;
@@ -117,19 +117,20 @@
   /* ──────────────────────────────────────────────────────────
      CINEMATIC PAGE FOUNDATION
      ────────────────────────────────────────────────────────── */
-  .cinematic-page { background: var(--c-black); position: relative; overflow:hidden; }
+  /* DANVERSE deep navy page foundation */
+  .cinematic-page { background: var(--c-bg-mid); position: relative; overflow:hidden; }
   .cinematic-page::before {
     content:""; position:absolute; inset:0; z-index:0; pointer-events:none;
     background:
-      linear-gradient(90deg, rgba(240,237,230,0.012) 1px, transparent 1px),
-      linear-gradient(180deg, rgba(184,255,46,0.012) 1px, transparent 1px),
-      linear-gradient(115deg, transparent 0 38%, rgba(90,154,173,0.03) 42%, transparent 46% 100%);
+      linear-gradient(90deg, rgba(184,255,46,0.016) 1px, transparent 1px),
+      linear-gradient(180deg, rgba(90,154,173,0.012) 1px, transparent 1px),
+      linear-gradient(115deg, transparent 0 38%, rgba(15,23,42,0.22) 42%, transparent 46% 100%);
     background-size: clamp(72px, 8vw, 120px) clamp(72px, 8vw, 120px), clamp(72px, 8vw, 120px) clamp(72px, 8vw, 120px), 180% 100%;
     mask-image: linear-gradient(to bottom, transparent, black 8%, black 92%, transparent);
   }
   .cinematic-page::after {
     content:""; position:absolute; inset:0; z-index:0; pointer-events:none;
-    background:linear-gradient(90deg, rgba(0,0,0,0.7), transparent 18%, transparent 82%, rgba(0,0,0,0.7));
+    background:linear-gradient(90deg, rgba(6,10,20,0.62), transparent 18%, transparent 82%, rgba(6,10,20,0.62));
   }
 
   /* ──────────────────────────────────────────────────────────
@@ -355,59 +356,58 @@
   /* ──────────────────────────────────────────────────────────
      CTA BUTTON SYSTEM — TIERED PREMIUM HIERARCHY
      ────────────────────────────────────────────────────────── */
+  /* ─── DANVERSE-style button — bold, solid, uppercase, rounded ─── */
   .btn-primary {
-    display:inline-flex; align-items:center; justify-content:center; gap:0.72rem;
-    min-height:3.25rem; max-width:100%;
-    background:
-      linear-gradient(180deg, rgba(255,255,255,0.2), transparent 34%),
-      linear-gradient(135deg, var(--c-venom), var(--c-venom-2) 68%, var(--c-venom-highlight));
+    display:inline-flex; align-items:center; justify-content:center; gap:0.65rem;
+    min-height:3.75rem; max-width:100%;
+    background: var(--c-venom);
     color:var(--c-ink);
-    font-weight:700; font-family:var(--font-space),ui-sans-serif; letter-spacing:0.04em;
-    padding:0.95rem 1.25rem 0.95rem 1.65rem; border-radius:var(--radius-button); text-align:center;
-    transition:transform 200ms var(--ease-spring),background-color 200ms,box-shadow 200ms,border-color 200ms;
-    box-shadow:var(--shadow-sm), 0 1px 0 rgba(255,255,255,0.08), inset 0 1px 0 rgba(255,255,255,0.26), inset 0 -12px 20px rgba(6,6,8,0.12);
+    font-weight:900; font-family:var(--font-display),var(--font-space),ui-sans-serif; letter-spacing:0.07em;
+    text-transform:uppercase;
+    padding:1.1rem 2.2rem; border-radius:10px; text-align:center;
+    transition:transform 220ms var(--ease-spring),background 220ms,box-shadow 220ms;
+    box-shadow:0 0 0 2px rgba(184,255,46,0.35), 0 8px 36px rgba(184,255,46,0.18), var(--shadow-sm);
     position:relative; z-index:40; isolation:isolate; overflow:hidden;
     transform:translateZ(0);
-    border: 1px solid rgba(184,255,46,0.6);
+    border: 2px solid rgba(184,255,46,0.5);
   }
   .btn-primary::before {
     content:""; position:absolute; inset:-1px; z-index:0;
-    background:linear-gradient(110deg, transparent 0%, rgba(255,255,255,0.28) 46%, transparent 54%);
-    transform:translateX(-120%); transition:transform 520ms var(--ease-out-expo); pointer-events:none;
+    background:linear-gradient(110deg, transparent 0%, rgba(255,255,255,0.22) 46%, transparent 54%);
+    transform:translateX(-120%); transition:transform 500ms var(--ease-out-expo); pointer-events:none;
   }
   .btn-primary__material {
     position:absolute !important;
-    inset:4px;
+    inset:3px;
     z-index:0 !important;
-    border-radius:calc(var(--radius-button) - 2px);
-    border:1px solid rgba(0,0,0,0.14);
-    background:
-      linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent) 0 0 / 220% 100% no-repeat,
-      linear-gradient(180deg, rgba(255,255,255,0.13), transparent);
-    opacity:0.68;
+    border-radius:7px;
+    border:1px solid rgba(0,0,0,0.1);
+    background: linear-gradient(180deg, rgba(255,255,255,0.18), transparent);
+    opacity:0.55;
     pointer-events:none;
   }
   .btn-primary__glyph {
     display:grid;
-    width:2.1rem;
-    height:2.1rem;
+    width:2.25rem;
+    height:2.25rem;
     flex:0 0 auto;
     place-items:center;
     border-radius:999px;
-    background:rgba(6,6,8,0.9);
+    background:rgba(7,12,22,0.88);
     color:var(--c-venom);
-    box-shadow:inset 0 1px 0 rgba(255,255,255,0.12);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,0.1);
     transition:transform 240ms var(--ease-venom), background 240ms var(--ease-venom), color 240ms var(--ease-venom);
   }
   .btn-primary > span { position:relative; z-index:1; }
   .btn-primary:hover {
-    transform:translateY(-1px);
-    box-shadow:var(--shadow-md), 0 1px 0 rgba(255,255,255,0.08), inset 0 1px 0 rgba(255,255,255,0.2);
+    transform:translateY(-3px) scale(1.03);
+    box-shadow:0 0 0 2px rgba(184,255,46,0.65), 0 18px 52px rgba(184,255,46,0.28), var(--shadow-lg);
+    background: var(--c-venom-3);
   }
   .btn-primary:hover::before { transform:translateX(120%); }
-  .btn-primary:hover .btn-primary__material { background-position:100% 0; }
-  .btn-primary:hover .btn-primary__glyph { transform:translateX(4px); background:var(--c-ink); color:var(--c-bone); }
-  .btn-primary:active { transform:translateY(0) scale(0.97); box-shadow:var(--shadow-sm), inset 0 1px 0 rgba(255,255,255,0.14); transition-duration: 80ms; }
+  .btn-primary:hover .btn-primary__material { opacity:0.35; }
+  .btn-primary:hover .btn-primary__glyph { transform:translateX(5px); background:rgba(7,12,22,0.96); color:var(--c-venom); }
+  .btn-primary:active { transform:translateY(0) scale(0.97); box-shadow:0 0 0 2px rgba(184,255,46,0.4), 0 4px 16px rgba(184,255,46,0.14); transition-duration: 80ms; }
   .btn-primary:focus-visible { outline:2px solid var(--c-bone); outline-offset:3px; }
 
   /* Enhanced magnetic button with glow tracking */
@@ -843,11 +843,12 @@
     opacity: 0.65;
   }
 
-  /* Hero VSL opening */
+  /* Hero VSL opening — DANVERSE deep navy treatment */
   .hero-cold-open {
     background:
-      radial-gradient(ellipse at 72% 18%, rgba(184,255,46,0.07), transparent 32%),
-      radial-gradient(ellipse at 16% 72%, rgba(90,154,173,0.055), transparent 38%),
+      radial-gradient(ellipse at 72% 18%, rgba(184,255,46,0.09), transparent 34%),
+      radial-gradient(ellipse at 16% 72%, rgba(10,20,50,0.72), transparent 44%),
+      radial-gradient(ellipse at 50% 60%, rgba(12,18,40,0.38), transparent 58%),
       linear-gradient(180deg, var(--c-hero-top) 0%, var(--c-hero-mid) 46%, var(--c-hero-bottom) 100%);
   }
   .hero-cold-open::after {
@@ -1651,6 +1652,165 @@
     animation: border-rotate 6s linear infinite;
   }
   @keyframes border-rotate { to { --border-angle: 360deg; } }
+
+  /* ─── DANVERSE TRANSPLANT: Visual Shell Classes ─────────────────────────── */
+
+  /* DANVERSE-style mega heading — enormous, bold, uppercase */
+  .dan-heading {
+    font-size: clamp(3rem, 10vw, 9rem);
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: -0.04em;
+    line-height: 1.0;
+    text-wrap: balance;
+    font-family: var(--font-display), Impact, ui-sans-serif;
+  }
+
+  /* DANVERSE-style section title */
+  .dan-section-title {
+    font-size: clamp(2.5rem, 7vw, 6.5rem);
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: -0.035em;
+    line-height: 1.05;
+    font-family: var(--font-display), Impact, ui-sans-serif;
+  }
+
+  /* DANVERSE marquee text band */
+  .dan-marquee-strip {
+    overflow: hidden;
+    white-space: nowrap;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    padding: 1.25rem 0;
+    background: rgba(7,12,22,0.94);
+  }
+  .dan-marquee-strip__inner {
+    display: inline-flex;
+    gap: 0;
+    animation: dan-marquee 26s linear infinite;
+    will-change: transform;
+  }
+  .dan-marquee-strip__item {
+    font-size: clamp(2rem, 5vw, 4.5rem);
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: -0.03em;
+    line-height: 1.0;
+    font-family: var(--font-display), Impact, ui-sans-serif;
+    padding-inline: 2rem;
+    white-space: nowrap;
+    color: var(--c-bone);
+  }
+  .dan-marquee-strip__item--accent { color: var(--c-venom); }
+  @keyframes dan-marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  /* DANVERSE-style glass card (deep navy tint) */
+  .dan-glass-card {
+    background: rgba(7, 12, 22, 0.84);
+    backdrop-filter: blur(18px) saturate(130%);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 14px;
+    box-shadow: 0 24px 64px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.06);
+  }
+
+  /* DANVERSE-style navy section background */
+  .dan-section-bg {
+    background:
+      radial-gradient(ellipse at 50% 0%, rgba(10,20,55,0.6), transparent 58%),
+      linear-gradient(180deg, #060a14, #0a0f1a 40%, #0c1220 70%, #06090e);
+  }
+
+  /* DANVERSE fullscreen nav overlay */
+  .dan-nav-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 8999;
+    background: rgba(6,10,20,0.97);
+    backdrop-filter: blur(24px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 350ms var(--ease-out-expo);
+  }
+  .dan-nav-overlay[data-open="true"] {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .dan-nav-menu {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .dan-nav-menu__item {
+    font-size: clamp(2.5rem, 8vw, 5.5rem);
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: -0.04em;
+    line-height: 1.0;
+    color: var(--c-bone);
+    font-family: var(--font-display), Impact, ui-sans-serif;
+    transition: color 200ms var(--ease-venom), transform 220ms var(--ease-spring);
+    display: block;
+    padding: 0.25rem 0;
+  }
+  .dan-nav-menu__item:hover {
+    color: var(--c-venom);
+    transform: scale(1.03);
+  }
+
+  /* DANVERSE hamburger button */
+  .dan-hamburger {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    border: 2px solid rgba(184,255,46,0.4);
+    border-radius: 8px;
+    background: rgba(184,255,46,0.08);
+    color: var(--c-venom);
+    transition: background 220ms var(--ease-venom), border-color 220ms, transform 220ms var(--ease-spring);
+    flex-shrink: 0;
+  }
+  .dan-hamburger:hover {
+    background: rgba(184,255,46,0.18);
+    border-color: rgba(184,255,46,0.72);
+    transform: scale(1.06);
+  }
+
+  /* DANVERSE cinematic-page — navy-blue grid overlay */
+  .dan-grid-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background:
+      linear-gradient(90deg, rgba(184,255,46,0.015) 1px, transparent 1px),
+      linear-gradient(180deg, rgba(90,154,173,0.01) 1px, transparent 1px);
+    background-size: clamp(60px,6vw,100px) clamp(60px,6vw,100px);
+    mask-image: linear-gradient(to bottom, transparent, black 12%, black 88%, transparent);
+    opacity: 0.7;
+  }
+
+  /* DANVERSE section horizontal divider */
+  .dan-section-rule {
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(184,255,46,0.25) 30%, rgba(184,255,46,0.25) 70%, transparent);
+    margin: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dan-marquee-strip__inner { animation: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {

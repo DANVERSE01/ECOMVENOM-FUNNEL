@@ -20,6 +20,7 @@ export function Nav() {
   const { CTA_LABEL, CTA_SUB, nav } = useContent();
   const [scene, setScene] = useState(nav.defaultScene);
   const [compressed, setCompressed] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
   const sceneLabelRef = useRef<HTMLSpanElement>(null);
   const firstRender = useRef(true);
   const showMobileApply = pathname !== "/";
@@ -108,13 +109,32 @@ export function Nav() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  useEffect(() => {
+    if (menuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => { document.body.style.overflow = ""; };
+  }, [menuOpen]);
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape" && menuOpen) setMenuOpen(false);
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [menuOpen]);
+
   return (
     <>
       <header
         data-compressed={compressed}
         className={cn(
-          "fixed left-0 right-0 top-0 z-[9000] isolate border-b border-white/[0.06] bg-black/72 backdrop-blur-md backdrop-saturate-150 transition-[background-color,border-color] duration-300 ease-out",
-          compressed && "border-white/[0.09] bg-black/82",
+          "fixed left-0 right-0 top-0 z-[9000] isolate transition-[background-color,border-color,backdrop-filter] duration-400 ease-out",
+          compressed
+            ? "border-b border-white/[0.08] bg-[rgba(6,10,20,0.88)] backdrop-blur-xl backdrop-saturate-150"
+            : "bg-transparent backdrop-blur-0",
         )}
       >
         <div
@@ -168,9 +188,69 @@ export function Nav() {
                 {t("applyBtn")}
               </Link>
             ) : null}
+            {/* DANVERSE-style hamburger */}
+            <button
+              type="button"
+              onClick={() => setMenuOpen((v) => !v)}
+              aria-label={menuOpen ? "Close menu" : "Open menu"}
+              aria-expanded={menuOpen}
+              className="dan-hamburger ml-1"
+            >
+              {menuOpen ? (
+                <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden>
+                  <path d="M4 4L14 14M14 4L4 14" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+                </svg>
+              ) : (
+                <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden>
+                  <path d="M3 5H15M3 9H15M3 13H15" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+                </svg>
+              )}
+            </button>
           </div>
         </div>
       </header>
+
+      {/* DANVERSE fullscreen nav overlay */}
+      <div
+        role="dialog"
+        aria-modal="true"
+        aria-label="Navigation menu"
+        className="dan-nav-overlay"
+        data-open={menuOpen ? "true" : "false"}
+        onClick={(e) => { if (e.target === e.currentTarget) setMenuOpen(false); }}
+      >
+        {/* Close button top-right */}
+        <button
+          type="button"
+          onClick={() => setMenuOpen(false)}
+          aria-label="Close menu"
+          className="absolute right-5 top-5 dan-hamburger"
+        >
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden>
+            <path d="M4 4L14 14M14 4L4 14" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+          </svg>
+        </button>
+
+        <nav className="dan-nav-menu" onClick={() => setMenuOpen(false)}>
+          <Link href="/apply" className="dan-nav-menu__item text-venom">
+            {lang === "ar" ? "قدّم الآن" : CTA_LABEL}
+          </Link>
+          <Link href="/" className="dan-nav-menu__item">
+            {lang === "ar" ? "الرئيسية" : "Home"}
+          </Link>
+          <Link href="/apply" className="dan-nav-menu__item">
+            {lang === "ar" ? "سجّل الآن" : "Apply"}
+          </Link>
+        </nav>
+
+        <p className={cn(
+          "absolute bottom-8 font-heading text-ash-2",
+          lang === "ar" ? "text-sm" : "text-xs uppercase tracking-widest",
+        )}>
+          ECOMVENOM — {lang === "ar" ? "نظام التجارة الإلكترونية" : "ECOMMERCE SYSTEM"}
+        </p>
+      </div>
+
       <ScrollProgressIndicator />
     </>
   );
