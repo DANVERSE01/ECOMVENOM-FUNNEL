@@ -63,11 +63,11 @@ export function CtaLink({
         onClick={triggerRipple}
       >
         <span className="btn-primary__material" aria-hidden />
-        <span className="text-center text-sm font-heading font-bold leading-tight whitespace-normal sm:whitespace-nowrap sm:text-base">
+        <span className="text-center font-display font-black uppercase tracking-[0.07em] leading-tight whitespace-normal sm:whitespace-nowrap text-base sm:text-[1.05rem]">
           {children}
         </span>
         {sub && (
-          <span className="text-center font-mono text-[10px] font-semibold leading-none tracking-[0.08em] opacity-70 whitespace-normal sm:whitespace-nowrap">
+          <span className="text-center font-mono text-[9px] font-bold leading-none tracking-[0.1em] uppercase opacity-60 whitespace-normal sm:whitespace-nowrap">
             {sub}
           </span>
         )}

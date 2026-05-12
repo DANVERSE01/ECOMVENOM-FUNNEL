@@ -113,8 +113,10 @@ export function Nav() {
       <header
         data-compressed={compressed}
         className={cn(
-          "fixed left-0 right-0 top-0 z-[9000] isolate border-b border-white/[0.06] bg-black/72 backdrop-blur-md backdrop-saturate-150 transition-[background-color,border-color] duration-300 ease-out",
-          compressed && "border-white/[0.09] bg-black/82",
+          "fixed left-0 right-0 top-0 z-[9000] isolate transition-[background-color,border-color,backdrop-filter] duration-400 ease-out",
+          compressed
+            ? "border-b border-white/[0.08] bg-[rgba(6,10,20,0.88)] backdrop-blur-xl backdrop-saturate-150"
+            : "bg-transparent backdrop-blur-0",
         )}
       >
         <div
@@ -142,17 +144,17 @@ export function Nav() {
           </Link>
 
           <div className={cn(
-            "relative z-10 hidden max-w-[min(36vw,24rem)] items-center justify-center gap-3 overflow-hidden border-x border-white/10 px-5 font-heading text-ash lg:flex",
-            lang === "ar" ? "text-[0.72rem] tracking-[0.02em]" : "text-[10px] uppercase tracking-normal",
+            "relative z-10 hidden max-w-[min(36vw,24rem)] items-center justify-center gap-3 overflow-hidden px-5 lg:flex editorial-meta",
+            lang === "ar" ? "text-[0.72rem] tracking-[0.02em]" : "",
           )}>
-            <span className="system-status-dot h-1.5 w-1.5 rounded-full bg-venom" />
+            <span className="h-1.5 w-1.5 rounded-full" style={{ background: "#F9FF00", boxShadow: "0 0 6px rgba(249,255,0,0.5)" }} aria-hidden />
             <span ref={sceneLabelRef} className="truncate" />
           </div>
 
-          <div data-nav-actions="true" className="relative z-40 flex items-center gap-2 justify-end justify-self-end">
+          <div data-nav-actions="true" className="relative z-40 flex items-center gap-3 justify-end justify-self-end">
             <LangToggle />
             <div className="hidden sm:block">
-              <CtaLink href="/apply" sub={CTA_SUB} className="cinematic-command min-w-[13.5rem] px-5">
+              <CtaLink href="/apply" sub={CTA_SUB} className="nav-sticky-cta">
                 {CTA_LABEL}
               </CtaLink>
             </div>
@@ -161,8 +163,8 @@ export function Nav() {
                 href="/apply"
                 aria-current={pathname === "/apply" ? "page" : undefined}
                 className={cn(
-                  "nav-link-draw relative z-40 inline-flex h-11 min-w-16 items-center justify-center rounded-lg border border-venom/45 bg-ink-2/80 px-3 font-heading text-venom transition-colors hover:bg-venom hover:text-ink focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-venom sm:hidden",
-                  lang === "ar" ? "text-[0.74rem] tracking-[0.02em]" : "text-[10px] uppercase tracking-normal",
+                  "relative z-40 inline-flex h-10 min-w-16 items-center justify-center rounded-full border border-white/20 bg-transparent px-4 text-white transition-colors hover:bg-white hover:text-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white sm:hidden",
+                  lang === "ar" ? "text-[0.74rem] tracking-[0.02em]" : "text-[10px] uppercase tracking-[0.08em]",
                 )}
               >
                 {t("applyBtn")}
@@ -171,6 +173,7 @@ export function Nav() {
           </div>
         </div>
       </header>
+
       <ScrollProgressIndicator />
     </>
   );

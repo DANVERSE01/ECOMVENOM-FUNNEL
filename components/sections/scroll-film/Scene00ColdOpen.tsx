@@ -12,11 +12,9 @@ import {
 import { createPortal } from "react-dom";
 import { useGSAP } from "@gsap/react";
 import { CtaLink } from "@/components/ui/button";
-import { CinematicLoopVideo } from "@/components/cinematic/CinematicLoopVideo";
 import { ResponsiveMediaFrame } from "@/components/cinematic/ResponsiveMediaFrame";
 import { ScrollFilmScene } from "@/components/cinematic/ScrollFilmScene";
-import { SystemOverlay } from "@/components/cinematic/SystemOverlay";
-import { HIGGSFIELD_LOOPS, HIGGSFIELD_STILLS, GENERATED_STILLS } from "@/lib/frameManifest";
+import { MacDesktopFrame } from "@/components/cinematic/MacDesktopFrame";
 import { cn } from "@/lib/cn";
 import { gsap } from "@/lib/gsap";
 import { scrambleText } from "@/lib/motion";
@@ -27,9 +25,6 @@ import { useSplitReveal } from "@/hooks/useSplitReveal";
 import { useScrollChoreography } from "@/hooks/useScrollChoreography";
 import { getCurrentLenis } from "@/lib/lenis";
 import { FloatingVslPlayer } from "@/components/cinematic/FloatingVslPlayer";
-import { PlasmaAtmosphere } from "@/components/effects/PlasmaAtmosphere";
-import { HeroCursorSpotlight } from "@/components/effects/HeroCursorSpotlight";
-import { BorderBeam } from "@/components/effects/BorderBeam";
 import { useContent } from "@/lib/useContent";
 import { useLang } from "@/lib/lang-context";
 
@@ -56,8 +51,6 @@ export function Scene00ColdOpen() {
   const eyebrowRef = useRef<HTMLParagraphElement | null>(null);
   const headlineRef = useRef<HTMLHeadingElement | null>(null);
   const supportRef = useRef<HTMLDivElement | null>(null);
-  const tunnelRef = useRef<HTMLDivElement | null>(null);
-  const spotlightRef = useRef<HTMLDivElement | null>(null);
   const vslCardRef = useRef<HTMLDivElement | null>(null);
   const overlayPanelRef = useRef<HTMLDivElement | null>(null);
   const scrollOverlayRef = useRef<HTMLDivElement | null>(null);
@@ -130,8 +123,6 @@ export function Scene00ColdOpen() {
       const eyebrow = eyebrowRef.current;
       const headline = headlineRef.current;
       const support = supportRef.current;
-      const tunnel = tunnelRef.current;
-      const spotlight = spotlightRef.current;
       const vslCard = vslCardRef.current;
       if (!eyebrow || !headline || !support || !vslCard) return;
 
@@ -199,32 +190,28 @@ export function Scene00ColdOpen() {
         .to(cta, { opacity: 1, x: 0, y: 0, scale: 1, duration: 0.62 }, compactMotion ? 1.18 : 1.75)
         .to(vslCard, { opacity: 1, y: 0, scale: 1, duration: compactMotion ? 0.62 : 0.8, ease: "filmDrop" }, compactMotion ? 1.18 : 1.75);
 
-      if (!compactMotion && tunnel) {
-        gsap.to(tunnel, {
-          y: "-12%",
-          scale: 1.08,
-          ease: "none",
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: "top top",
-            end: "bottom top",
-            scrub: 2,
-          },
-        });
-      }
-
-      if (!compactMotion && spotlight) {
-        gsap.to(spotlight, {
-          opacity: 0.34,
-          scale: 1.35,
-          ease: "none",
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: "top top",
-            end: "bottom top",
-            scrub: 1.5,
-          },
-        });
+      /* Lusion-style scrubbed scale on the Mac frame inside the VSL card —
+         starts as cold view (0.78 scale, slight Y tilt) then expands as you scroll. */
+      if (!compactMotion) {
+        const macFrame = vslCard.querySelector(".mac-frame");
+        if (macFrame) {
+          gsap.fromTo(
+            macFrame,
+            { scale: 0.78, y: 24, rotateX: 8, transformOrigin: "center 65%" },
+            {
+              scale: 1.02,
+              y: -8,
+              rotateX: 0,
+              ease: "none",
+              scrollTrigger: {
+                trigger: sectionRef.current,
+                start: "top top",
+                end: "bottom 30%",
+                scrub: 1.4,
+              },
+            },
+          );
+        }
       }
     },
     { scope: sectionRef, dependencies: [reduced], revertOnUpdate: true },
@@ -377,62 +364,31 @@ export function Scene00ColdOpen() {
       <span className="scene-ghost top-4 right-8">00</span>
       <div ref={sectionRef} className="absolute inset-0" />
 
-      <div className="absolute inset-0" data-background>
-        <Image src={GENERATED_STILLS.heroBg} alt="" fill sizes="100vw" quality={70} className="object-cover opacity-[0.12]" />
-        <PlasmaAtmosphere
-          className="opacity-60"
-          intensity={0.28}
-          speed={0.4}
-          mouseDistortion={0.15}
-          colorStops={["#B8FF2E", "#5A9AAD", "#0A0A0B"]}
-        />
-        <CinematicLoopVideo
-          src={HIGGSFIELD_LOOPS.systemWake}
-          poster={HIGGSFIELD_STILLS.systemIntro}
-          preload="metadata"
-          hideOnMobile
-          className="opacity-35"
-        />
-        <HeroCursorSpotlight />
-        <div ref={tunnelRef} className="hero-tunnel-field" aria-hidden />
-        <SystemOverlay className="opacity-65" />
-        <div
-          ref={spotlightRef}
-          className="pointer-events-none absolute left-[56%] top-[38%] z-[1] -translate-x-1/2 -translate-y-1/2"
-          style={{
-            width: "74rem",
-            maxWidth: "96vw",
-            aspectRatio: "1",
-            background: "radial-gradient(circle, rgba(184,255,46,0.07) 0%, rgba(90,154,173,0.03) 30%, transparent 62%)",
-            opacity: 0.18,
-          }}
-          aria-hidden
-        />
-        <div className="pointer-events-none absolute inset-x-0 top-0 z-[3] h-36 bg-gradient-to-b from-black via-black/72 to-transparent" />
-        <div className="pointer-events-none absolute inset-x-0 bottom-0 z-[3] h-44 bg-gradient-to-b from-transparent via-black/46 to-black" />
+      {/* Editorial transplant — flat black, no atmospheric noise. Single subtle vignette only. */}
+      <div className="absolute inset-0 bg-black" data-background aria-hidden>
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-48 bg-gradient-to-b from-transparent to-black/40" />
       </div>
 
-      <div ref={choreographyRef} className="relative z-10 grid min-h-[100svh] px-5 pb-10 pt-20 sm:px-8 sm:pb-12 sm:pt-24 lg:px-12 lg:pb-14 lg:pt-24 xl:pt-28">
-        <div className="mx-auto grid w-full max-w-[1360px] gap-7 self-start lg:grid-cols-[minmax(0,0.95fr)_minmax(18rem,27rem)] lg:items-start lg:gap-9">
-          <div className="max-w-[58rem] pt-2 sm:pt-4 lg:pt-0">
-            <p
-              ref={eyebrowRef}
-              data-choreography
-              className={cn(
-                "max-w-2xl font-heading leading-relaxed text-ash",
-                isArabic ? "text-[0.78rem] tracking-[0.015em] sm:text-[0.92rem]" : "text-[0.68rem] uppercase tracking-normal sm:text-xs",
-              )}
-            >
-              {hero.eyebrow}
-            </p>
+      {/* Editorial asymmetric hero — headline LEFT (60%), VSL card RIGHT (40%) on desktop */}
+      <div ref={choreographyRef} className="relative z-10 editorial-hero-grid w-full">
+          <div className={cn("flex flex-col justify-end text-left", isArabic && "text-right")}>
+            <div className="flex items-center gap-3 mb-6" data-choreography>
+              <span className="editorial-status-dot" aria-hidden />
+              <p
+                ref={eyebrowRef}
+                className="editorial-eyebrow"
+              >
+                {hero.eyebrow}
+              </p>
+            </div>
             <h1
               ref={headlineRevealRef}
               data-choreography
               className={cn(
-                "mt-4 font-display text-bone [text-wrap:balance]",
+                "[text-wrap:balance]",
                 isArabic
-                  ? "max-w-[15ch] text-[2.55rem] leading-[1.12] tracking-[-0.03em] sm:text-[3.35rem] lg:text-[4.75rem]"
-                  : "max-w-[62rem] text-[2.35rem] uppercase leading-[1.02] tracking-normal sm:text-[3.05rem] lg:text-[3.05rem] xl:text-[3.75rem] 2xl:text-[4.2rem]",
+                  ? "font-display text-bone text-[2.6rem] leading-[1.06] tracking-[-0.025em] sm:text-[3.6rem] lg:text-[5.4rem]"
+                  : "editorial-section-title-large",
               )}
             >
               {heroHeadline.map((line, lineIndex) => (
@@ -453,53 +409,56 @@ export function Scene00ColdOpen() {
                 </span>
               ))}
             </h1>
-            <div ref={supportRef} className={cn("relative z-30 mt-6 flex max-w-3xl flex-col gap-4 sm:flex-row sm:items-center", isArabic && "sm:items-start")}>
-              <span data-hero-cta data-choreography className="inline-flex max-w-full">
-                <CtaLink href="/apply" sub={CTA_SUB} className="cinematic-command min-w-[min(100%,16rem)]">
+            <div ref={supportRef} className={cn(
+              "relative z-30 mt-10 flex flex-col items-start gap-6 sm:flex-row sm:items-center",
+              isArabic && "sm:flex-row-reverse",
+            )}>
+              <span data-hero-cta data-choreography className="inline-flex">
+                <CtaLink href="/apply" sub={CTA_SUB} className="cinematic-command">
                   {CTA_LABEL}
                 </CtaLink>
               </span>
-              <p data-hero-sub data-choreography className={cn("max-w-xl leading-relaxed text-ash", isArabic ? "text-[0.95rem] sm:text-[1.02rem]" : "text-sm sm:text-[13px]")}>
+              <p data-hero-sub data-choreography className={cn("editorial-sub max-w-md", isArabic ? "text-[0.98rem]" : "text-[0.92rem]")}>
                 {hero.sub}
               </p>
             </div>
 
-            <div className="hero-command-rail hero-command-rail--mobile mt-6 sm:hidden" aria-label={lang === "ar" ? "أبرز مميزات البرنامج" : "Program highlights"}>
-              {heroCommandRail.map((item) => (
-                <span key={item}>{item}</span>
+            {/* Editorial command rail — hairline-separated meta points, NO ornaments */}
+            <div
+              className="mt-12 hidden sm:flex flex-wrap items-center gap-x-6 gap-y-2 border-t border-white/[0.08] pt-6"
+              aria-label={lang === "ar" ? "أبرز مميزات البرنامج" : "Program highlights"}
+            >
+              {heroCommandRail.map((item, i) => (
+                <span key={item} className="flex items-center gap-3 editorial-meta">
+                  {i > 0 && <span className="inline-block w-1 h-1 rounded-full bg-white/30" aria-hidden />}
+                  <span>{item}</span>
+                </span>
               ))}
             </div>
-
-            <div className="mt-8 hidden items-center gap-3 opacity-45 sm:flex">
-              <div className="relative h-9 w-px overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-b from-venom/70 to-transparent animate-float" />
-              </div>
-              <p className="font-heading text-[9px] uppercase tracking-normal text-ash-2">
-                {hero.scrollCue}
-              </p>
-            </div>
-            <div className="hero-command-rail mt-7 hidden sm:grid" aria-label={lang === "ar" ? "أبرز مميزات البرنامج" : "Program highlights"}>
+            <div
+              className="mt-10 flex flex-col gap-2 sm:hidden border-t border-white/[0.08] pt-5"
+              aria-label={lang === "ar" ? "أبرز مميزات البرنامج" : "Program highlights"}
+            >
               {heroCommandRail.map((item) => (
-                <span key={item}>{item}</span>
+                <span key={item} className="editorial-meta">{item}</span>
               ))}
             </div>
           </div>
 
-          <div ref={vslCardRef} data-choreography className="hero-vsl-stage vsl-scroll-card justify-self-center lg:justify-self-end">
-            <ResponsiveMediaFrame className="hero-vsl-card glass-enhanced aspect-video w-[min(82vw,24rem)] bg-ink-3 p-2 sm:w-[min(62vw,28rem)] lg:w-full">
-              <BorderBeam size={140} duration={8} delay={2} />
+          {/* VSL inside Lusion-style Mac desktop frame — RIGHT column, scrolls to expand */}
+          <div ref={vslCardRef} data-choreography className="hero-vsl-stage vsl-scroll-card mac-frame-stage w-full max-w-[min(88vw,34rem)] lg:max-w-full lg:justify-self-end">
+            <MacDesktopFrame url={isArabic ? "ECOMVENOM.SYSTEM // فيديو المؤسس" : "ECOMVENOM.SYSTEM // FOUNDER VSL"}>
               <Image
                 src={HERO_MEDIA.posterSrc}
                 alt={lang === "ar" ? "بوستر VSL المؤسس يوسف عادل" : "Youssef Adel founder VSL poster"}
                 fill
-                sizes="(min-width: 1024px) 430px, 78vw"
+                sizes="(min-width: 1024px) 560px, 78vw"
                 className="object-cover"
                 priority
               />
-              <div className="hero-vsl-card__depth" aria-hidden />
-              <div className="absolute left-4 top-4 z-30 border border-white/10 bg-black/70 px-3 py-2 backdrop-blur-sm">
-                <p className="font-heading text-[10px] uppercase tracking-normal text-venom">{vslCopy.badge}</p>
-                <p className="mt-1 font-mono text-[10px] text-ash">{vslCopy.preview}</p>
+              <div className="absolute left-3 top-3 z-30 flex items-center gap-2 border border-white/10 bg-black/65 px-2.5 py-1.5 backdrop-blur-sm">
+                <span className="h-1.5 w-1.5 rounded-full" style={{ background: "#F9FF00", boxShadow: "0 0 6px rgba(249,255,0,0.6)" }} />
+                <p style={{ fontFamily: "var(--font-mono-editorial)" }} className="text-[10px] uppercase tracking-[0.12em] text-white/85">{vslCopy.badge}</p>
               </div>
               {scrollVideoActive && (
                 <iframe
@@ -517,24 +476,22 @@ export function Scene00ColdOpen() {
                   type="button"
                   onClick={openManualVsl}
                   aria-label={t("playVsl")}
-                  className="hero-vsl-play absolute bottom-4 left-4 right-4 z-30"
+                  className="absolute bottom-4 left-1/2 -translate-x-1/2 z-30 inline-flex items-center gap-2 rounded-full bg-white px-5 py-2.5 text-black transition-all duration-300 hover:bg-black hover:text-white hover:ring-1 hover:ring-white"
+                  style={{ fontFamily: "var(--font-body-editorial)", fontWeight: 500, fontSize: "0.8rem", letterSpacing: "0.04em", textTransform: "uppercase" }}
                 >
+                  <svg width="11" height="11" viewBox="0 0 14 14" fill="none" aria-hidden>
+                    <path d="M4.5 3.25L10 7L4.5 10.75V3.25Z" fill="currentColor" />
+                  </svg>
                   <span>{t("playVsl")}</span>
-                  <span className="hero-vsl-play__icon" aria-hidden>
-                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                      <path d="M4.5 3.25L10 7L4.5 10.75V3.25Z" fill="currentColor" />
-                    </svg>
-                  </span>
                 </button>
               ) : (
-                <div className="hero-vsl-static-label absolute bottom-4 left-4 right-4 z-30">
-                  <span>{vslCopy.previewStatic}</span>
-                  <span>{vslCopy.originalFrame}</span>
+                <div className="absolute bottom-4 left-4 right-4 z-30 flex items-center justify-between" style={{ fontFamily: "var(--font-mono-editorial)" }}>
+                  <span className="text-[10px] uppercase tracking-[0.12em] text-white/60">{vslCopy.previewStatic}</span>
+                  <span className="text-[10px] uppercase tracking-[0.12em] text-white/40">{vslCopy.originalFrame}</span>
                 </div>
               )}
-            </ResponsiveMediaFrame>
+            </MacDesktopFrame>
           </div>
-        </div>
       </div>
 
       <div ref={scrollOverlayRef} className="vsl-scroll-overlay" aria-hidden />

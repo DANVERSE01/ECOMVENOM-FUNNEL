@@ -8,9 +8,9 @@
     --grid-gap: clamp(12px, 2vw, 24px);
     --base-px: clamp(20px, 5vw, 80px);
     --base-py: clamp(24px, 4vw, 56px);
-    --c-black: #000; --c-bg-top: #030403; --c-bg-mid: #070809; --c-bg-bottom: #010101;
-    --c-hero-top: #020303; --c-hero-mid: #06100a; --c-hero-bottom: #010202; --c-panel-black: #020302;
-    --c-ink: #060608; --c-ink-2: #0A0A0E; --c-ink-3: #101016; --c-ink-4: #18181F; --c-ink-5: #222230;
+    --c-black: #020408; --c-bg-top: #060a14; --c-bg-mid: #0a0f1a; --c-bg-bottom: #08101e;
+    --c-hero-top: #070b18; --c-hero-mid: #0c1626; --c-hero-bottom: #070c14; --c-panel-black: #050810;
+    --c-ink: #070c16; --c-ink-2: #0c1220; --c-ink-3: #121b2e; --c-ink-4: #1a2336; --c-ink-5: #242f42;
     --c-bone: #F0EDE6; --c-bone-2: #D8D4CC;
     --c-ash: #8A8A94; --c-ash-2: #6B6B75; --c-ash-3: #3D3D47;
     --c-venom: #B8FF2E; --c-venom-2: #9AE600; --c-venom-3: #CCFF66; --c-venom-highlight: #E4FF9D;
@@ -66,8 +66,8 @@
     font-family: var(--font-inter), var(--font-space), ui-sans-serif;
     font-feature-settings: "ss01","cv11","liga","kern";
     background:
-      linear-gradient(115deg, rgba(184,255,46,0.032), transparent 22%, rgba(90,154,173,0.028) 58%, transparent 82%),
-      linear-gradient(180deg, var(--c-bg-top) 0%, var(--c-bg-mid) 42%, var(--c-bg-bottom) 100%);
+      linear-gradient(115deg, rgba(184,255,46,0.04) 0%, transparent 20%, rgba(15,23,42,0.45) 55%, transparent 80%),
+      linear-gradient(180deg, var(--c-bg-top) 0%, var(--c-bg-mid) 35%, #0d1628 65%, var(--c-bg-bottom) 100%);
   }
   h1 {
     font-feature-settings: "kern" 1, "liga" 1;
@@ -117,19 +117,20 @@
   /* ──────────────────────────────────────────────────────────
      CINEMATIC PAGE FOUNDATION
      ────────────────────────────────────────────────────────── */
-  .cinematic-page { background: var(--c-black); position: relative; overflow:hidden; }
+  /* DANVERSE deep navy page foundation */
+  .cinematic-page { background: var(--c-bg-mid); position: relative; overflow:hidden; }
   .cinematic-page::before {
     content:""; position:absolute; inset:0; z-index:0; pointer-events:none;
     background:
-      linear-gradient(90deg, rgba(240,237,230,0.012) 1px, transparent 1px),
-      linear-gradient(180deg, rgba(184,255,46,0.012) 1px, transparent 1px),
-      linear-gradient(115deg, transparent 0 38%, rgba(90,154,173,0.03) 42%, transparent 46% 100%);
+      linear-gradient(90deg, rgba(184,255,46,0.016) 1px, transparent 1px),
+      linear-gradient(180deg, rgba(90,154,173,0.012) 1px, transparent 1px),
+      linear-gradient(115deg, transparent 0 38%, rgba(15,23,42,0.22) 42%, transparent 46% 100%);
     background-size: clamp(72px, 8vw, 120px) clamp(72px, 8vw, 120px), clamp(72px, 8vw, 120px) clamp(72px, 8vw, 120px), 180% 100%;
     mask-image: linear-gradient(to bottom, transparent, black 8%, black 92%, transparent);
   }
   .cinematic-page::after {
     content:""; position:absolute; inset:0; z-index:0; pointer-events:none;
-    background:linear-gradient(90deg, rgba(0,0,0,0.7), transparent 18%, transparent 82%, rgba(0,0,0,0.7));
+    background:linear-gradient(90deg, rgba(6,10,20,0.62), transparent 18%, transparent 82%, rgba(6,10,20,0.62));
   }
 
   /* ──────────────────────────────────────────────────────────
@@ -355,59 +356,58 @@
   /* ──────────────────────────────────────────────────────────
      CTA BUTTON SYSTEM — TIERED PREMIUM HIERARCHY
      ────────────────────────────────────────────────────────── */
+  /* ─── DANVERSE-style button — bold, solid, uppercase, rounded ─── */
   .btn-primary {
-    display:inline-flex; align-items:center; justify-content:center; gap:0.72rem;
-    min-height:3.25rem; max-width:100%;
-    background:
-      linear-gradient(180deg, rgba(255,255,255,0.2), transparent 34%),
-      linear-gradient(135deg, var(--c-venom), var(--c-venom-2) 68%, var(--c-venom-highlight));
+    display:inline-flex; align-items:center; justify-content:center; gap:0.65rem;
+    min-height:3.75rem; max-width:100%;
+    background: var(--c-venom);
     color:var(--c-ink);
-    font-weight:700; font-family:var(--font-space),ui-sans-serif; letter-spacing:0.04em;
-    padding:0.95rem 1.25rem 0.95rem 1.65rem; border-radius:var(--radius-button); text-align:center;
-    transition:transform 200ms var(--ease-spring),background-color 200ms,box-shadow 200ms,border-color 200ms;
-    box-shadow:var(--shadow-sm), 0 1px 0 rgba(255,255,255,0.08), inset 0 1px 0 rgba(255,255,255,0.26), inset 0 -12px 20px rgba(6,6,8,0.12);
+    font-weight:900; font-family:var(--font-display),var(--font-space),ui-sans-serif; letter-spacing:0.07em;
+    text-transform:uppercase;
+    padding:1.1rem 2.2rem; border-radius:10px; text-align:center;
+    transition:transform 220ms var(--ease-spring),background 220ms,box-shadow 220ms;
+    box-shadow:0 0 0 2px rgba(184,255,46,0.35), 0 8px 36px rgba(184,255,46,0.18), var(--shadow-sm);
     position:relative; z-index:40; isolation:isolate; overflow:hidden;
     transform:translateZ(0);
-    border: 1px solid rgba(184,255,46,0.6);
+    border: 2px solid rgba(184,255,46,0.5);
   }
   .btn-primary::before {
     content:""; position:absolute; inset:-1px; z-index:0;
-    background:linear-gradient(110deg, transparent 0%, rgba(255,255,255,0.28) 46%, transparent 54%);
-    transform:translateX(-120%); transition:transform 520ms var(--ease-out-expo); pointer-events:none;
+    background:linear-gradient(110deg, transparent 0%, rgba(255,255,255,0.22) 46%, transparent 54%);
+    transform:translateX(-120%); transition:transform 500ms var(--ease-out-expo); pointer-events:none;
   }
   .btn-primary__material {
     position:absolute !important;
-    inset:4px;
+    inset:3px;
     z-index:0 !important;
-    border-radius:calc(var(--radius-button) - 2px);
-    border:1px solid rgba(0,0,0,0.14);
-    background:
-      linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent) 0 0 / 220% 100% no-repeat,
-      linear-gradient(180deg, rgba(255,255,255,0.13), transparent);
-    opacity:0.68;
+    border-radius:7px;
+    border:1px solid rgba(0,0,0,0.1);
+    background: linear-gradient(180deg, rgba(255,255,255,0.18), transparent);
+    opacity:0.55;
     pointer-events:none;
   }
   .btn-primary__glyph {
     display:grid;
-    width:2.1rem;
-    height:2.1rem;
+    width:2.25rem;
+    height:2.25rem;
     flex:0 0 auto;
     place-items:center;
     border-radius:999px;
-    background:rgba(6,6,8,0.9);
+    background:rgba(7,12,22,0.88);
     color:var(--c-venom);
-    box-shadow:inset 0 1px 0 rgba(255,255,255,0.12);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,0.1);
     transition:transform 240ms var(--ease-venom), background 240ms var(--ease-venom), color 240ms var(--ease-venom);
   }
   .btn-primary > span { position:relative; z-index:1; }
   .btn-primary:hover {
-    transform:translateY(-1px);
-    box-shadow:var(--shadow-md), 0 1px 0 rgba(255,255,255,0.08), inset 0 1px 0 rgba(255,255,255,0.2);
+    transform:translateY(-3px) scale(1.03);
+    box-shadow:0 0 0 2px rgba(184,255,46,0.65), 0 18px 52px rgba(184,255,46,0.28), var(--shadow-lg);
+    background: var(--c-venom-3);
   }
   .btn-primary:hover::before { transform:translateX(120%); }
-  .btn-primary:hover .btn-primary__material { background-position:100% 0; }
-  .btn-primary:hover .btn-primary__glyph { transform:translateX(4px); background:var(--c-ink); color:var(--c-bone); }
-  .btn-primary:active { transform:translateY(0) scale(0.97); box-shadow:var(--shadow-sm), inset 0 1px 0 rgba(255,255,255,0.14); transition-duration: 80ms; }
+  .btn-primary:hover .btn-primary__material { opacity:0.35; }
+  .btn-primary:hover .btn-primary__glyph { transform:translateX(5px); background:rgba(7,12,22,0.96); color:var(--c-venom); }
+  .btn-primary:active { transform:translateY(0) scale(0.97); box-shadow:0 0 0 2px rgba(184,255,46,0.4), 0 4px 16px rgba(184,255,46,0.14); transition-duration: 80ms; }
   .btn-primary:focus-visible { outline:2px solid var(--c-bone); outline-offset:3px; }
 
   /* Enhanced magnetic button with glow tracking */
@@ -843,11 +843,12 @@
     opacity: 0.65;
   }
 
-  /* Hero VSL opening */
+  /* Hero VSL opening — DANVERSE deep navy treatment */
   .hero-cold-open {
     background:
-      radial-gradient(ellipse at 72% 18%, rgba(184,255,46,0.07), transparent 32%),
-      radial-gradient(ellipse at 16% 72%, rgba(90,154,173,0.055), transparent 38%),
+      radial-gradient(ellipse at 72% 18%, rgba(184,255,46,0.09), transparent 34%),
+      radial-gradient(ellipse at 16% 72%, rgba(10,20,50,0.72), transparent 44%),
+      radial-gradient(ellipse at 50% 60%, rgba(12,18,40,0.38), transparent 58%),
       linear-gradient(180deg, var(--c-hero-top) 0%, var(--c-hero-mid) 46%, var(--c-hero-bottom) 100%);
   }
   .hero-cold-open::after {
@@ -1651,6 +1652,165 @@
     animation: border-rotate 6s linear infinite;
   }
   @keyframes border-rotate { to { --border-angle: 360deg; } }
+
+  /* ─── DANVERSE TRANSPLANT: Visual Shell Classes ─────────────────────────── */
+
+  /* DANVERSE-style mega heading — enormous, bold, uppercase */
+  .dan-heading {
+    font-size: clamp(3rem, 10vw, 9rem);
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: -0.04em;
+    line-height: 1.0;
+    text-wrap: balance;
+    font-family: var(--font-display), Impact, ui-sans-serif;
+  }
+
+  /* DANVERSE-style section title */
+  .dan-section-title {
+    font-size: clamp(2.5rem, 7vw, 6.5rem);
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: -0.035em;
+    line-height: 1.05;
+    font-family: var(--font-display), Impact, ui-sans-serif;
+  }
+
+  /* DANVERSE marquee text band */
+  .dan-marquee-strip {
+    overflow: hidden;
+    white-space: nowrap;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    padding: 1.25rem 0;
+    background: rgba(7,12,22,0.94);
+  }
+  .dan-marquee-strip__inner {
+    display: inline-flex;
+    gap: 0;
+    animation: dan-marquee 26s linear infinite;
+    will-change: transform;
+  }
+  .dan-marquee-strip__item {
+    font-size: clamp(2rem, 5vw, 4.5rem);
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: -0.03em;
+    line-height: 1.0;
+    font-family: var(--font-display), Impact, ui-sans-serif;
+    padding-inline: 2rem;
+    white-space: nowrap;
+    color: var(--c-bone);
+  }
+  .dan-marquee-strip__item--accent { color: var(--c-venom); }
+  @keyframes dan-marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  /* DANVERSE-style glass card (deep navy tint) */
+  .dan-glass-card {
+    background: rgba(7, 12, 22, 0.84);
+    backdrop-filter: blur(18px) saturate(130%);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 14px;
+    box-shadow: 0 24px 64px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.06);
+  }
+
+  /* DANVERSE-style navy section background */
+  .dan-section-bg {
+    background:
+      radial-gradient(ellipse at 50% 0%, rgba(10,20,55,0.6), transparent 58%),
+      linear-gradient(180deg, #060a14, #0a0f1a 40%, #0c1220 70%, #06090e);
+  }
+
+  /* DANVERSE fullscreen nav overlay */
+  .dan-nav-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 8999;
+    background: rgba(6,10,20,0.97);
+    backdrop-filter: blur(24px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 350ms var(--ease-out-expo);
+  }
+  .dan-nav-overlay[data-open="true"] {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .dan-nav-menu {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .dan-nav-menu__item {
+    font-size: clamp(2.5rem, 8vw, 5.5rem);
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: -0.04em;
+    line-height: 1.0;
+    color: var(--c-bone);
+    font-family: var(--font-display), Impact, ui-sans-serif;
+    transition: color 200ms var(--ease-venom), transform 220ms var(--ease-spring);
+    display: block;
+    padding: 0.25rem 0;
+  }
+  .dan-nav-menu__item:hover {
+    color: var(--c-venom);
+    transform: scale(1.03);
+  }
+
+  /* DANVERSE hamburger button */
+  .dan-hamburger {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    border: 2px solid rgba(184,255,46,0.4);
+    border-radius: 8px;
+    background: rgba(184,255,46,0.08);
+    color: var(--c-venom);
+    transition: background 220ms var(--ease-venom), border-color 220ms, transform 220ms var(--ease-spring);
+    flex-shrink: 0;
+  }
+  .dan-hamburger:hover {
+    background: rgba(184,255,46,0.18);
+    border-color: rgba(184,255,46,0.72);
+    transform: scale(1.06);
+  }
+
+  /* DANVERSE cinematic-page — navy-blue grid overlay */
+  .dan-grid-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background:
+      linear-gradient(90deg, rgba(184,255,46,0.015) 1px, transparent 1px),
+      linear-gradient(180deg, rgba(90,154,173,0.01) 1px, transparent 1px);
+    background-size: clamp(60px,6vw,100px) clamp(60px,6vw,100px);
+    mask-image: linear-gradient(to bottom, transparent, black 12%, black 88%, transparent);
+    opacity: 0.7;
+  }
+
+  /* DANVERSE section horizontal divider */
+  .dan-section-rule {
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(184,255,46,0.25) 30%, rgba(184,255,46,0.25) 70%, transparent);
+    margin: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dan-marquee-strip__inner { animation: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -2070,4 +2230,647 @@ body::after {
     min-height: 44px;
   }
 }
+
+/* ============================================================================
+   EDITORIAL TRANSPLANT — gustavoparis.co design language (FINAL OVERRIDE LAYER)
+   --------------------------------------------------------------------------
+   Mandate: unified flat-black background, editorial typography (Michroma display
+   + Inter body), single yellow-dot accent, hairline rules, asymmetric layouts,
+   engineering-precise motion. Awwwards / Framer-level restraint.
+   This layer sits LAST so it wins specificity ties without rewriting upstream.
+   ============================================================================ */
+
+/* ─── Aeonik + IBM Plex Mono (Lusion typographic system, self-hosted) ─── */
+@font-face {
+  font-family: 'Aeonik';
+  src: url('/fonts/Aeonik-Regular.woff2') format('woff2');
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'Aeonik';
+  src: url('/fonts/Aeonik-Medium.woff2') format('woff2');
+  font-weight: 500; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'Aeonik';
+  src: url('/fonts/Aeonik-RegularItalic.woff2') format('woff2');
+  font-weight: 400; font-style: italic; font-display: swap;
+}
+@font-face {
+  font-family: 'IBMPlexMono';
+  src: url('/fonts/IBMPlexMono-Regular.woff2') format('woff2');
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'IBMPlexMono';
+  src: url('/fonts/IBMPlexMono-Medium.woff2') format('woff2');
+  font-weight: 500; font-style: normal; font-display: swap;
+}
+
+:root {
+  /* Editorial palette — pure black, restrained whites, single yellow dot */
+  --ev-black: #000000;
+  --ev-near-black: #050505;
+  --ev-white: #FFFFFF;
+  --ev-mute: rgba(255,255,255,0.55);
+  --ev-mute-2: rgba(255,255,255,0.35);
+  --ev-mute-3: rgba(255,255,255,0.18);
+  --ev-hairline: rgba(255,255,255,0.08);
+  --ev-hairline-hot: rgba(255,255,255,0.16);
+  --ev-accent-dot: #F9FF00;
+  /* Lusion-canonical motion curves */
+  --ev-ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ev-ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --ev-ease-emphatic: cubic-bezier(0.16, 1, 0.3, 1);
+  --ev-ease-lusion: cubic-bezier(0.4, 0, 0.1, 1);
+  /* Typography stacks — every role mapped */
+  --font-display-editorial: 'Aeonik', var(--font-michroma), 'Syne', ui-sans-serif;
+  --font-body-editorial: 'Aeonik', var(--font-inter-tight), var(--font-inter), ui-sans-serif;
+  --font-mono-editorial: 'IBMPlexMono', var(--font-mono), ui-monospace, monospace;
+}
+
+/* Flat unified background — kills navy/venom layered gradients */
+html, body {
+  background-color: var(--ev-black) !important;
+  color: var(--ev-white);
+}
+body {
+  background-image: none !important;
+}
+body::before {
+  /* Soften the existing grain to barely-there editorial film */
+  opacity: 0.018 !important;
+  background-image:
+    radial-gradient(circle at 50% 50%, rgba(255,255,255,0.20) 0 0.5px, transparent 0.65px) !important;
+  background-size: 3px 3px !important;
+  mix-blend-mode: overlay !important;
+}
+.cinematic-page {
+  background: var(--ev-black) !important;
+  background-image: none !important;
+}
+
+/* Hero — strip ALL atmospheric noise (grids, glows, plasma, spotlights) */
+.hero-cold-open {
+  background: var(--ev-black) !important;
+}
+.hero-cold-open::before,
+.hero-cold-open::after {
+  display: none !important;
+}
+.hero-tunnel-field,
+.system-overlay,
+.hero-cursor-spotlight,
+.hero-tunnel-field *,
+[data-background] > .opacity-65,
+[data-background] > [aria-hidden][style*="radial-gradient"] {
+  display: none !important;
+}
+.hero-cold-open [data-background] img { opacity: 0 !important; }
+.hero-cold-open [data-background] video { display: none !important; }
+.hero-cold-open [data-background] canvas { display: none !important; }
+.hero-cold-open [data-background] .opacity-65 { display: none !important; }
+/* Keep only the bottom-vignette gradient for typography legibility */
+.hero-cold-open [data-background] .bg-gradient-to-b {
+  display: none !important;
+}
+
+/* Particle trail cursor — silence venom glow */
+.particle-trail-cursor,
+canvas.particle-trail { display: none !important; }
+
+/* DanMarquee neutralized — replaced by EditorialMarquee */
+.dan-marquee-strip { display: none !important; }
+
+/* Border beam — kill venom ring on VSL card */
+.border-beam,
+[class*="border-beam"] { display: none !important; }
+
+/* ─── Editorial Typography — each role has a dedicated voice ─────────────
+   Display = Aeonik 400 (heroes, scene titles, key statements)
+   Display-italic = Aeonik 400 italic (emphasis words, pull quotes)
+   Body = Aeonik 400 (paragraphs, descriptions)
+   Mono = IBM Plex Mono (system labels, timestamps, technical metadata)
+   ────────────────────────────────────────────────────────────────────── */
+.editorial-headline {
+  font-family: var(--font-display-editorial);
+  font-weight: 400;
+  letter-spacing: -0.04em;
+  line-height: 0.86;
+  text-transform: uppercase;
+  color: var(--ev-white);
+}
+/* Eyebrow / scene-label: mono — gives a "system terminal" voice */
+.editorial-eyebrow {
+  font-family: var(--font-mono-editorial);
+  font-weight: 400;
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ev-mute);
+}
+/* Sub-headline / body copy: Aeonik regular */
+.editorial-sub {
+  font-family: var(--font-body-editorial);
+  font-weight: 400;
+  letter-spacing: -0.005em;
+  line-height: 1.48;
+  color: var(--ev-mute);
+}
+/* Metadata / chip labels: mono — technical voice */
+.editorial-meta {
+  font-family: var(--font-mono-editorial);
+  font-weight: 400;
+  font-size: 0.74rem;
+  letter-spacing: 0.06em;
+  color: var(--ev-mute-2);
+  text-transform: uppercase;
+}
+/* Italic emphasis — for "real" / "actually" / "now" type phrases */
+.editorial-emph {
+  font-family: var(--font-display-editorial);
+  font-style: italic;
+  font-weight: 400;
+}
+/* Section number / index — mono large */
+.editorial-index {
+  font-family: var(--font-mono-editorial);
+  font-weight: 500;
+  font-size: 0.78rem;
+  letter-spacing: 0.18em;
+  color: var(--ev-accent-dot);
+}
+
+/* ─── Hairline System ─────────────────────────────────────────────────── */
+.editorial-rule {
+  display: block;
+  width: 100%;
+  height: 1px;
+  background: var(--ev-hairline);
+  border: 0;
+}
+
+/* ─── Inverted Minimal CTA — overrides .btn-primary venom system ─────── */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
+  min-height: 3.4rem;
+  background: var(--ev-white) !important;
+  color: var(--ev-black) !important;
+  font-family: var(--font-body-editorial);
+  font-weight: 500 !important;
+  letter-spacing: 0.04em !important;
+  text-transform: uppercase;
+  font-size: 0.82rem;
+  padding: 1rem 2rem;
+  border-radius: 999px;
+  border: 1px solid var(--ev-white) !important;
+  box-shadow: none !important;
+  transition: background 220ms var(--ev-ease-out), color 220ms var(--ev-ease-out), transform 220ms var(--ev-ease-out);
+  position: relative;
+  overflow: hidden;
+}
+.btn-primary:hover {
+  background: var(--ev-black) !important;
+  color: var(--ev-white) !important;
+  transform: translateY(-1px);
+  box-shadow: 0 0 0 1px var(--ev-white) !important;
+}
+.btn-primary span,
+.btn-primary > span {
+  font-family: var(--font-body-editorial) !important;
+  font-weight: 500 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.04em !important;
+}
+
+/* Secondary / ghost CTA in nav */
+.editorial-link {
+  font-family: var(--font-body-editorial);
+  font-weight: 400;
+  font-size: 0.86rem;
+  letter-spacing: 0.02em;
+  color: var(--ev-white);
+  text-decoration: none;
+  position: relative;
+  transition: opacity 200ms var(--ev-ease-out);
+}
+.editorial-link:hover { opacity: 0.6; }
+
+/* ─── Editorial Marquee — section header ──────────────────────────────── */
+.editorial-marquee {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  padding: clamp(2.5rem, 5vw, 4.5rem) 0;
+  background: var(--ev-black);
+  border-top: 1px solid var(--ev-hairline);
+  border-bottom: 1px solid var(--ev-hairline);
+}
+.editorial-marquee__track {
+  display: flex;
+  align-items: center;
+  gap: 3.5rem;
+  animation: editorial-scroll 32s linear infinite;
+  will-change: transform;
+  white-space: nowrap;
+}
+.editorial-marquee__item {
+  font-family: var(--font-display-editorial);
+  font-weight: 400;
+  font-size: clamp(2.4rem, 6vw, 5.4rem);
+  letter-spacing: -0.02em;
+  line-height: 1;
+  text-transform: uppercase;
+  color: var(--ev-mute-3);
+  flex-shrink: 0;
+}
+.editorial-marquee__dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 100%;
+  background: var(--ev-accent-dot);
+  flex-shrink: 0;
+}
+@keyframes editorial-scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .editorial-marquee__track { animation: none; }
+}
+
+/* ─── Editorial Card ──────────────────────────────────────────────────── */
+.editorial-card {
+  background: transparent;
+  border: 1px solid var(--ev-hairline);
+  border-radius: 4px;
+  padding: clamp(1.5rem, 3vw, 2.5rem);
+  transition: border-color 280ms var(--ev-ease-out), transform 280ms var(--ev-ease-out);
+}
+.editorial-card:hover {
+  border-color: var(--ev-hairline-hot);
+  transform: translateY(-2px);
+}
+
+/* ─── Suppress legacy ornament systems on hero only (preserve elsewhere) ─ */
+.hero-cold-open .scene-ghost { display: none; }
+.hero-cold-open .hero-command-rail span {
+  border-color: var(--ev-hairline) !important;
+  background: transparent !important;
+  color: var(--ev-mute) !important;
+  font-family: var(--font-body-editorial) !important;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.66rem;
+}
+
+/* ─── Nav minimalism — kill loud venom CTA in sticky bar ──────────────── */
+.nav-sticky-cta,
+header .btn-primary[data-nav-cta] {
+  background: transparent !important;
+  color: var(--ev-white) !important;
+  border: 1px solid var(--ev-hairline-hot) !important;
+  min-height: 2.4rem !important;
+  font-size: 0.7rem !important;
+  padding: 0.55rem 1rem !important;
+  box-shadow: none !important;
+}
+.nav-sticky-cta:hover,
+header .btn-primary[data-nav-cta]:hover {
+  background: var(--ev-white) !important;
+  color: var(--ev-black) !important;
+  border-color: var(--ev-white) !important;
+}
+
+/* ─── Editorial section title (replaces dan-heading) ──────────────────── */
+.editorial-section-title {
+  font-family: var(--font-display-editorial);
+  font-weight: 400;
+  font-size: clamp(2.6rem, 7vw, 7rem);
+  letter-spacing: -0.035em;
+  line-height: 0.9;
+  text-transform: uppercase;
+  color: var(--ev-white);
+}
+.editorial-section-title-large {
+  font-family: var(--font-display-editorial);
+  font-weight: 400;
+  font-size: clamp(3.2rem, 10vw, 11rem);
+  letter-spacing: -0.045em;
+  line-height: 0.84;
+  text-transform: uppercase;
+  color: var(--ev-white);
+}
+
+/* Force the dan-heading (legacy from the prior attempt) to editorial */
+.dan-heading {
+  font-family: var(--font-display-editorial) !important;
+  font-weight: 400 !important;
+  letter-spacing: -0.04em !important;
+  line-height: 0.86 !important;
+  text-transform: uppercase !important;
+}
+
+/* Engineering-precise scroll choreography — replaces stagger w/ clip reveal */
+[data-choreography] {
+  /* base styles set by hook — extending visual quality */
+  transition-timing-function: var(--ev-ease-emphatic);
+}
+
+/* RTL editorial respect: Arabic uses Alexandria, not Michroma */
+[dir="rtl"] .editorial-headline,
+[dir="rtl"] .editorial-section-title,
+[dir="rtl"] .editorial-section-title-large,
+[dir="rtl"] .dan-heading {
+  font-family: var(--font-arabic-display), 'Alexandria', ui-sans-serif !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.02em !important;
+  text-transform: none !important;
+}
+
+/* Yellow status indicator — accent dot for live/system signals */
+.editorial-status-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 100%;
+  background: var(--ev-accent-dot);
+  vertical-align: middle;
+  margin: 0 0.5em;
+  box-shadow: 0 0 6px rgba(249,255,0,0.5);
+}
+
+/* Asymmetric hero grid — editorial split */
+.editorial-hero-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  align-items: end;
+  min-height: 100svh;
+  padding: clamp(5rem, 8vw, 8rem) clamp(1.5rem, 4vw, 4rem) clamp(3rem, 6vw, 5rem);
+}
+@media (min-width: 1024px) {
+  .editorial-hero-grid {
+    grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+    gap: 4rem;
+    align-items: end;
+  }
+}
+
+/* Mute legacy hero-vsl venom badges */
+.hero-vsl-card .text-venom,
+.hero-vsl-card [class*="venom"] {
+  color: var(--ev-accent-dot) !important;
+}
+
+/* Neutralize venom-green word highlights inside editorial headlines —
+   pure editorial restraint: all words white, scale carries the weight */
+.editorial-section-title-large .text-venom,
+.editorial-section-title .text-venom,
+.editorial-headline .text-venom,
+h1.editorial-section-title-large .text-venom,
+h1.editorial-section-title-large [class*="text-venom"] {
+  color: var(--ev-white) !important;
+}
+
+/* Smooth fades for scenes — calm not loud */
+.scroll-film-scene {
+  background: var(--ev-black) !important;
+}
+/* Kill ALL atmospheric/grid/glow backgrounds across scenes */
+.scroll-film-scene::before,
+.scroll-film-scene::after,
+.scene-atmosphere,
+.scene-grid,
+.scene-glow,
+.crimson-glow,
+.venom-glow,
+[class*="-glow"]:not(.editorial-status-dot),
+[class*="atmosphere"]:not(.editorial-marquee),
+.scene-divider,
+.system-grid,
+.grid-overlay,
+.pattern-grid,
+.scene-vignette {
+  display: none !important;
+  background: transparent !important;
+}
+/* Kill body-level fixed grain to a single subtle layer */
+body::after {
+  display: none !important;
+}
+
+/* Strip all crimson + venom GLOW backgrounds globally (preserve text colors only) */
+[class*="bg-crimson"],
+[class*="bg-venom"]:not(.btn-primary):not(.editorial-marquee__dot),
+[class*="bg-violet"],
+[class*="bg-gold"],
+.crimson-pulse,
+.venom-pulse {
+  background-color: transparent !important;
+}
+
+/* Section titles across all scenes — Michroma editorial */
+.scroll-film-scene h2,
+.scroll-film-scene h3 {
+  font-family: var(--font-display-editorial) !important;
+  font-weight: 400 !important;
+  letter-spacing: -0.035em !important;
+  line-height: 0.92 !important;
+  text-transform: uppercase !important;
+  color: var(--ev-white) !important;
+}
+[dir="rtl"] .scroll-film-scene h2,
+[dir="rtl"] .scroll-film-scene h3 {
+  font-family: var(--font-arabic-display), 'Alexandria', ui-sans-serif !important;
+  font-weight: 700 !important;
+  text-transform: none !important;
+  letter-spacing: -0.02em !important;
+}
+
+/* Cards across all scenes — editorial hairline minimal */
+.scene-panel,
+.scene-panel-elevated,
+.scene-panel-feature,
+.learn-card,
+.premium-card,
+.premium-card-hover,
+[class*="card-base"] {
+  background: transparent !important;
+  background-color: transparent !important;
+  border: 1px solid var(--ev-hairline) !important;
+  box-shadow: none !important;
+  border-radius: 4px !important;
+}
+.scene-panel:hover,
+.scene-panel-elevated:hover,
+.scene-panel-feature:hover,
+.learn-card:hover,
+.premium-card:hover,
+.premium-card-hover:hover {
+  border-color: var(--ev-hairline-hot) !important;
+  background: rgba(255,255,255,0.02) !important;
+}
+
+/* Body text inside scenes — Inter Tight */
+.scroll-film-scene p,
+.scroll-film-scene li {
+  font-family: var(--font-body-editorial) !important;
+  color: var(--ev-mute) !important;
+}
+.scroll-film-scene .text-bone,
+.scroll-film-scene .text-white {
+  color: var(--ev-white) !important;
+}
+
+/* Eyebrow / scene chip labels — yellow dot + uppercase tracking */
+.scene-chip,
+.scene-eyebrow,
+[data-scene-eyebrow] {
+  background: transparent !important;
+  border: 1px solid var(--ev-hairline) !important;
+  color: var(--ev-mute) !important;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-family: var(--font-body-editorial) !important;
+  font-size: 0.7rem;
+  padding: 0.5rem 0.8rem;
+}
+
+/* ─── Unified one-page background canvas (Lusion architecture) ─────────
+   Fixed-position layer that stays put while sections scroll over it.
+   Gives "single continuous page" feel — no background break between scenes. */
+.ev-unified-canvas {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 0%, rgba(255,255,255,0.025) 0%, transparent 60%),
+    radial-gradient(ellipse 70% 50% at 50% 100%, rgba(255,255,255,0.018) 0%, transparent 60%),
+    var(--ev-black);
+}
+.ev-unified-canvas::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(circle at 50% 50%, rgba(255,255,255,0.22) 0 0.5px, transparent 0.65px);
+  background-size: 3px 3px;
+  opacity: 0.012;
+  mix-blend-mode: overlay;
+}
+/* Make all sections transparent so the unified canvas shows through */
+section[id],
+.scroll-film-scene,
+.cinematic-page > * {
+  background-color: transparent !important;
+}
+.cinematic-page {
+  background: transparent !important;
+}
+
+/* Hero — kill ALL atmospheric images entirely (we want pure black hero) */
+.hero-cold-open [data-background] > img,
+.hero-cold-open [data-background] > video,
+.hero-cold-open [data-background] > canvas {
+  opacity: 0 !important;
+  display: none !important;
+}
+
+/* ─── Mac Desktop Frame — Lusion-style reel container ──────────────────
+   Wraps content in a macOS window chrome with traffic-light buttons + URL bar.
+   Combines with useVslScrollExpansion for the scroll-driven scale expansion. */
+.mac-frame {
+  position: relative;
+  isolate: isolate;
+  background: linear-gradient(180deg, #1c1c1e 0%, #0a0a0a 100%);
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,0.06),
+    0 24px 64px rgba(0,0,0,0.65),
+    0 80px 140px rgba(0,0,0,0.45);
+  will-change: transform;
+  transform-style: preserve-3d;
+}
+.mac-frame__chrome {
+  height: 28px;
+  background: linear-gradient(180deg, #2a2a2c 0%, #1a1a1c 100%);
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  display: flex;
+  align-items: center;
+  padding: 0 14px;
+  gap: 8px;
+  font-family: var(--font-mono-editorial);
+}
+.mac-frame__dots {
+  display: flex;
+  gap: 7px;
+}
+.mac-frame__dot {
+  width: 11px;
+  height: 11px;
+  border-radius: 100%;
+  background: rgba(255,255,255,0.16);
+}
+.mac-frame__dot:nth-child(1) { background: #ff5f57; }
+.mac-frame__dot:nth-child(2) { background: #febc2e; }
+.mac-frame__dot:nth-child(3) { background: #28c840; }
+.mac-frame__url {
+  flex: 1;
+  text-align: center;
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  color: rgba(255,255,255,0.4);
+  text-transform: uppercase;
+  font-family: var(--font-mono-editorial);
+}
+.mac-frame__viewport {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #000;
+  overflow: hidden;
+}
+/* Scroll-driven scale wrapper — controlled by GSAP scrub */
+.mac-frame-stage {
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  perspective: 2200px;
+  transform-style: preserve-3d;
+}
+.mac-frame-stage[data-scroll-state="cold"] .mac-frame {
+  transform: scale(0.62) translateY(0) rotateX(8deg);
+}
+.mac-frame-stage[data-scroll-state="expanding"] .mac-frame {
+  transform: scale(0.85) rotateX(3deg);
+}
+.mac-frame-stage[data-scroll-state="full"] .mac-frame {
+  transform: scale(1.06) rotateX(0deg);
+}
+
+/* Non-hero scenes — desaturate all images for monochrome editorial fit (preserves storytelling content) */
+section[id]:not(#system-boot) img,
+section[id]:not(#system-boot) video {
+  filter: grayscale(100%) contrast(1.05) brightness(0.85) !important;
+}
+/* Keep the editorial marquee + nav logo color-correct (those are deliberate brand elements) */
+.editorial-marquee img,
+header img,
+.hero-vsl-card img,
+.hero-vsl-overlay img {
+  filter: none !important;
+}
+
+/* Kill any radial-gradient/spotlight panels across scenes */
+section [aria-hidden][style*="radial-gradient"] {
+  display: none !important;
+}
+
 

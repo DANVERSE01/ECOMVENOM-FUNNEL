@@ -93,6 +93,31 @@ export const graduationGift = {
     { flag: "🇸🇦", label: "OPTION B", market: "The Saudi Market" },
   ],
   outro: "A cleaner start, built on execution instead of improvisation.",
+  /* Expanded bonuses — added per founder directive */
+  bonusesHeading: "WHAT ELSE COMES WITH THE SEAT",
+  bonusesSub: "Beyond the curriculum — the operating support around it.",
+  bonuses: [
+    {
+      tag: "BUILD",
+      title: "Free store build, 1–2 products",
+      body: "Our team builds your storefront and seeds it with one to two products ready for live testing — so launch is not where you lose momentum.",
+    },
+    {
+      tag: "MEDIA",
+      title: "Media-buying team runs your ads",
+      body: "A dedicated team handles ad setup, audience structure, and daily optimization on your account — you stay focused on operations.",
+    },
+    {
+      tag: "REFUND",
+      title: "Full course refund at 50 Saudi orders",
+      body: "Reach 50 paid orders with a seller in the Saudi market and we refund the entire course price. The system is the proof.",
+    },
+    {
+      tag: "1:1",
+      title: "Weekly one-on-one with Youssef",
+      body: "A direct weekly call with Youssef Adel — review what shipped, what didn't, and what to adjust before the next sprint.",
+    },
+  ],
 };
 
 export const beyond = {

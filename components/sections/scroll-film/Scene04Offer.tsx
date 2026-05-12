@@ -151,6 +151,37 @@ export function Scene04Offer() {
           </div>
         </div>
 
+        {/* Expanded bonuses — free store / media team / refund / 1:1 */}
+        <div className="mt-20 border-t border-white/[0.08] pt-12">
+          <div className="flex items-center gap-3 mb-3">
+            <span className="h-1.5 w-1.5 rounded-full" style={{ background: "#F9FF00", boxShadow: "0 0 6px rgba(249,255,0,0.5)" }} aria-hidden />
+            <p style={{ fontFamily: "var(--font-mono-editorial)" }} className="text-[11px] uppercase tracking-[0.18em] text-white/55">
+              {graduationGift.bonusesHeading}
+            </p>
+          </div>
+          <p className="editorial-sub max-w-2xl mb-10">{graduationGift.bonusesSub}</p>
+          <div className="grid gap-px bg-white/[0.06] sm:grid-cols-2">
+            {graduationGift.bonuses.map((b, i) => (
+              <article key={b.tag} className="bg-black p-7 sm:p-9 transition-colors duration-300 hover:bg-white/[0.02]">
+                <div className="flex items-baseline justify-between gap-4 mb-6">
+                  <span style={{ fontFamily: "var(--font-mono-editorial)" }} className="text-[10px] uppercase tracking-[0.18em] text-white/45">
+                    BONUS / {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <span style={{ fontFamily: "var(--font-mono-editorial)" }} className="text-[10px] uppercase tracking-[0.18em] text-yellow-300/70">
+                    {b.tag}
+                  </span>
+                </div>
+                <h4 style={{ fontFamily: "var(--font-display-editorial)", fontWeight: 500 }} className="text-[clamp(1.35rem,2.4vw,2rem)] uppercase leading-[1.05] tracking-[-0.02em] text-white">
+                  {b.title}
+                </h4>
+                <p className="mt-4 max-w-md text-[0.92rem] leading-[1.55] text-white/55">
+                  {b.body}
+                </p>
+              </article>
+            ))}
+          </div>
+        </div>
+
         {/* Marquee strip */}
         <div className="mt-16 overflow-hidden border-y border-white/4 py-3">
           <div className="marquee-track font-heading text-[11px] uppercase tracking-widest text-ash/50">

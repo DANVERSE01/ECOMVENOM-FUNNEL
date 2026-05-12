@@ -9,25 +9,27 @@ import { Scene07Application } from "@/components/sections/scroll-film/Scene07App
 import { Scene08FinalCTA } from "@/components/sections/scroll-film/Scene08FinalCTA";
 import { SceneHairline } from "@/components/cinematic/SceneHairline";
 import { SceneObserver } from "@/components/cinematic/SceneObserver";
+import { EditorialMarquee } from "@/components/ui/EditorialMarquee";
 
 export default function HomePage() {
   return (
     <div className="cinematic-page">
       <SceneObserver />
       <Scene00ColdOpen />
-      <SceneHairline className="relative z-20" />
+      {/* DANVERSE signature marquee strip — visual identity band */}
+      <EditorialMarquee className="relative z-20" />
       <Scene01Problem />
       <SceneHairline className="relative z-20" />
       <Scene02ChaosToSystem />
       <SceneHairline className="relative z-20" />
       <Scene03Roadmap />
-      <SceneHairline className="relative z-20" />
+      <EditorialMarquee className="relative z-20" />
       <Scene04Offer />
       <SceneHairline className="relative z-20" />
       <Scene05Founder />
       <SceneHairline className="relative z-20" />
       <Scene06ProofGate />
-      <SceneHairline className="relative z-20" />
+      <EditorialMarquee className="relative z-20" />
       <Scene07Application />
       <SceneHairline className="relative z-20" />
       <Scene08FinalCTA />
