@@ -1,0 +1,23 @@
+## main...origin/main
+ M app/globals.css
+ M app/page.tsx
+ M components/cinematic/FloatingVslPlayer.tsx
+ M components/cursor/ParticleTrailCursor.tsx
+ M components/ui/StickyMobileCTA.tsx
+?? .agents/
+?? AGENTS.md
+?? REJECTED_VENOM_OS_ATTEMPT.patch
+?? REJECTED_VENOM_OS_ATTEMPT.status.txt
+?? components/sections/VenomOSHomepage.tsx
+?? components/ui/venom-os.tsx
+?? ecomvenom_visual_redesign_pack/
+?? venom-os-desktop-top-v2.png
+?? venom-os-desktop-top-v3.png
+?? venom-os-desktop-top-v4.png
+?? venom-os-desktop-top-v5.png
+?? venom-os-desktop-top.png
+?? venom-os-desktop-v2.png
+?? venom-os-desktop-v3.png
+?? venom-os-desktop.png
+?? venom-os-mobile-sticky.png
+?? venom-os-mobile-top.png

@@ -6,15 +6,17 @@ export function ReducedMotionFallback({
   alt,
   className,
   children,
+  sizes = "(min-width: 768px) 50vw, 100vw",
 }: {
   src: string;
   alt: string;
   className?: string;
   children?: React.ReactNode;
+  sizes?: string;
 }) {
   return (
     <div className={cn("relative h-full w-full overflow-hidden bg-black", className)}>
-      <Image src={src} alt={alt} fill sizes="100vw" className="object-cover opacity-[0.85]" />
+      <Image src={src} alt={alt} fill sizes={sizes} className="object-cover opacity-[0.85]" />
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_40%,rgba(0,0,0,0.78)_100%)]" />
       {children}
     </div>

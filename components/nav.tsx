@@ -121,14 +121,14 @@ export function Nav() {
       >
         <div
           className={cn(
-            "mx-auto grid h-[72px] max-w-[1440px] grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3 px-4 transition-[height] duration-300 ease-out sm:px-6",
+            "mx-auto grid h-[72px] max-w-[1440px] grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-2 px-3 transition-[height] duration-300 ease-out sm:gap-3 sm:px-6",
             compressed && "h-14",
           )}
         >
           <Link href="/" aria-label="ECOMVENOM home" className="relative z-40 flex min-h-11 min-w-0 items-center gap-3">
             <span
               className={cn(
-                "relative block h-12 w-44 origin-left overflow-hidden transition-transform duration-300 ease-out",
+                "relative block h-12 w-36 origin-left overflow-hidden transition-transform duration-300 ease-out sm:w-44",
                 compressed && "scale-90",
               )}
             >
@@ -137,7 +137,7 @@ export function Nav() {
                 alt="ECOMVENOM"
                 fill
                 sizes="160px"
-                className="object-contain scale-[2.7]"
+                className="object-contain scale-[1.88] sm:translate-x-0 sm:scale-[2.7]"
                 priority
               />
             </span>
@@ -153,7 +153,7 @@ export function Nav() {
 
           <div data-nav-actions="true" className="relative z-40 flex items-center gap-3 justify-end justify-self-end">
             <LangToggle />
-            <div className="hidden sm:block">
+            <div className="hidden lg:block">
               <CtaLink href="/apply" sub={CTA_SUB} className="nav-sticky-cta">
                 {CTA_LABEL}
               </CtaLink>

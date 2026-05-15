@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, FormEvent } from "react";
+import { useRef, useState, FormEvent } from "react";
 import { useRouter } from "next/navigation";
 import { CtaButton } from "@/components/ui/button";
 import { cn } from "@/lib/cn";
@@ -11,6 +11,7 @@ const ENDPOINT = process.env.NEXT_PUBLIC_FORM_ENDPOINT;
 export function ApplicationForm() {
   const router = useRouter();
   const { lang } = useLang();
+  const formRef = useRef<HTMLFormElement | null>(null);
   const [step, setStep] = useState(0);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -43,6 +44,7 @@ export function ApplicationForm() {
         },
         commitmentLabel: "أفهم أن هذا نظام عمل حقيقي وأنا مستعد للالتزام بالخارطة.",
         advisorNote: "بمجرد التقديم فإنك توافق على التواصل معك من قبل مستشار.",
+        endpointMissing: "بوابة استقبال الطلبات غير مضبوطة بعد. اضبط NEXT_PUBLIC_FORM_ENDPOINT قبل إطلاق التقديم الحقيقي.",
         back: "رجوع",
         continue: "استمرار",
         submit: "إرسال الطلب",
@@ -84,6 +86,7 @@ export function ApplicationForm() {
         },
         commitmentLabel: "I understand this is a business system and I am ready to follow the roadmap.",
         advisorNote: "By applying you agree to be contacted by an advisor.",
+        endpointMissing: "Application intake is not configured yet. Set NEXT_PUBLIC_FORM_ENDPOINT before launching real submissions.",
         back: "Back",
         continue: "Continue",
         submit: "Submit application",
@@ -146,9 +149,8 @@ export function ApplicationForm() {
     const data = Object.fromEntries(new FormData(form).entries());
 
     if (!ENDPOINT) {
-      // No backend configured yet — treat as a soft success and forward.
+      setError(copy.endpointMissing);
       setSubmitting(false);
-      router.push("/schedule");
       return;
     }
 
@@ -170,10 +172,17 @@ export function ApplicationForm() {
     }
   }
 
+  function continueToNextStep() {
+    const form = formRef.current;
+    if (!form || !validateCurrentStep(form)) return;
+    setStep((current) => Math.min(2, current + 1));
+  }
+
   return (
     <form
       data-integration="lead-form"
       data-endpoint={ENDPOINT ?? ""}
+      ref={formRef}
       onSubmit={onSubmit}
       className="scene-panel grid gap-5 p-5 sm:p-6"
       noValidate
@@ -249,6 +258,12 @@ export function ApplicationForm() {
         </p>
       )}
 
+      {!ENDPOINT && (
+        <p className="rounded-xl border border-alert/30 bg-alert/10 px-4 py-3 text-xs leading-relaxed text-ash">
+          {copy.endpointMissing}
+        </p>
+      )}
+
       <div className="flex flex-col gap-4 pt-2 sm:flex-row sm:items-center sm:justify-between">
         <p className="text-xs leading-relaxed text-ash">
           {copy.advisorNote}
@@ -263,7 +278,12 @@ export function ApplicationForm() {
               {copy.back}
             </button>
           )}
-          <CtaButton type="submit" disabled={submitting} className="cinematic-command w-full sm:w-auto">
+          <CtaButton
+            type={isFinalStep ? "submit" : "button"}
+            disabled={submitting}
+            onClick={isFinalStep ? undefined : continueToNextStep}
+            className="cinematic-command w-full sm:w-auto"
+          >
             {submitting ? copy.submitting : isFinalStep ? copy.submit : copy.continue}
           </CtaButton>
         </div>

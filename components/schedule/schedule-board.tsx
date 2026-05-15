@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { useRouter } from "next/navigation";
 import { CtaButton } from "@/components/ui/button";
 import { useContent } from "@/lib/useContent";
 import { useLang } from "@/lib/lang-context";
@@ -17,7 +16,6 @@ function buildDays(year: number, month: number) {
 }
 
 export function ScheduleBoard() {
-  const router = useRouter();
   const { schedule } = useContent();
   const { lang } = useLang();
   const today = useMemo(() => new Date(), []);
@@ -63,8 +61,12 @@ export function ScheduleBoard() {
   const provider = process.env.NEXT_PUBLIC_SCHEDULE_PROVIDER_URL;
 
   function confirm() {
-    if (!day || !slot) return;
-    router.push("/confirmation");
+    if (!day || !slot || !provider) return;
+    const target = new URL(provider, window.location.href);
+    target.searchParams.set("date", `${year}-${String(month + 1).padStart(2, "0")}-${String(day).padStart(2, "0")}`);
+    target.searchParams.set("slot", slot);
+    if (tz) target.searchParams.set("timezone", tz);
+    window.location.href = target.toString();
   }
 
   return (
@@ -178,7 +180,7 @@ export function ScheduleBoard() {
       </div>
 
       <div className="mt-6 flex justify-end">
-        <CtaButton type="button" disabled={!day || !slot} onClick={confirm} className="cinematic-command">
+        <CtaButton type="button" disabled={!day || !slot || !provider} onClick={confirm} className="cinematic-command">
           {copy.confirm}
         </CtaButton>
       </div>

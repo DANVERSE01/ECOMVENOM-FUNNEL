@@ -94,8 +94,7 @@ export function Preloader() {
       <CrossMark className="bottom-4 right-4" />
 
       <div
-        className="flex items-baseline leading-none font-display text-bone"
-        style={{ fontSize: "clamp(5rem,15vw,14rem)" }}
+        className="flex items-baseline font-display text-[5rem] leading-none text-bone sm:text-[9rem] lg:text-[14rem]"
       >
         <span ref={d0Ref}>0</span>
         <span ref={d1Ref}>0</span>

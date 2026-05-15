@@ -2,7 +2,6 @@
 
 import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
-import { gsap } from "@/lib/gsap";
 import { useReducedMotion } from "@/lib/useReducedMotion";
 import { cn } from "@/lib/cn";
 import { ReducedMotionFallback } from "./ReducedMotionFallback";
@@ -56,6 +55,7 @@ export function FrameScrubCanvas({
 
       let idleCallbackId: number | null = null;
       let timeoutId: ReturnType<typeof setTimeout> | null = null;
+      let ticking = false;
       const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
 
       const sizeCanvas = () => {
@@ -76,6 +76,25 @@ export function FrameScrubCanvas({
         const { width, height } = canvasSizeRef.current;
         if (!width || !height) return;
         drawCover(context, image, width, height);
+      };
+
+      const updateByScroll = () => {
+        const rect = trigger.getBoundingClientRect();
+        const scrollable = Math.max(1, rect.height - window.innerHeight);
+        const progress = Math.max(0, Math.min(1, -rect.top / scrollable));
+        const nextFrame = Math.max(0, Math.min(frames.length - 1, Math.round(progress * (frames.length - 1))));
+        currentFrameRef.current = nextFrame;
+        preloadAround(nextFrame);
+        drawFrame(nextFrame);
+      };
+
+      const requestUpdate = () => {
+        if (ticking) return;
+        ticking = true;
+        window.requestAnimationFrame(() => {
+          updateByScroll();
+          ticking = false;
+        });
       };
 
       const loadFrame = (index: number) => {
@@ -108,7 +127,10 @@ export function FrameScrubCanvas({
       loadFrame(0);
       preloadAround(0);
       sizeCanvas();
+      updateByScroll();
       window.addEventListener("resize", sizeCanvas);
+      window.addEventListener("resize", requestUpdate);
+      window.addEventListener("scroll", requestUpdate, { passive: true });
 
       if (typeof window.requestIdleCallback === "function") {
         idleCallbackId = window.requestIdleCallback(() => preloadInBatches(0), { timeout: 1600 });
@@ -116,35 +138,16 @@ export function FrameScrubCanvas({
         timeoutId = globalThis.setTimeout(() => preloadInBatches(0), 900);
       }
 
-      const playhead = { frame: 0 };
-      const tween = gsap.to(playhead, {
-        frame: frames.length - 1,
-        ease: "none",
-        snap: { frame: 1 },
-        scrollTrigger: {
-          trigger,
-          start: "top top",
-          end: "bottom bottom",
-          scrub: 1.5,
-        },
-        onUpdate: () => {
-          const nextFrame = Math.max(0, Math.min(frames.length - 1, Math.round(playhead.frame)));
-          currentFrameRef.current = nextFrame;
-          preloadAround(nextFrame);
-          drawFrame(nextFrame);
-        },
-      });
-
       return () => {
         window.removeEventListener("resize", sizeCanvas);
+        window.removeEventListener("resize", requestUpdate);
+        window.removeEventListener("scroll", requestUpdate);
         if (idleCallbackId !== null && typeof window.cancelIdleCallback === "function") {
           window.cancelIdleCallback(idleCallbackId);
         }
         if (timeoutId !== null) {
           globalThis.clearTimeout(timeoutId);
         }
-        tween.scrollTrigger?.kill();
-        tween.kill();
       };
     },
     { scope: canvasRef, dependencies: [frames, triggerSelector, reduced], revertOnUpdate: true },

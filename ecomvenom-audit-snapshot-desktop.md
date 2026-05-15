@@ -1,0 +1,27 @@
+- generic [active] [ref=e1] [box=0,0,1425,10948]:
+  - link "Skip to content" [ref=e2] [cursor=pointer] [box=16,-40,156,38]:
+    - /url: "#main-content"
+  - banner [ref=e3] [box=0,0,1425,72]:
+    - generic [ref=e4] [box=0,0,1425,72]:
+      - link "ECOMVENOM home" [ref=e5] [cursor=pointer] [box=1225,12,176,48]:
+        - /url: /
+      - generic [ref=e10] [box=983,27,58,17]: النظام يعمل
+      - generic [ref=e11] [box=24,10,353,53]
+  - main [ref=e25] [box=0,0,1425,10810]:
+    - generic [ref=e26] [box=0,0,1425,10810]:
+      - generic [ref=e28] [box=92,112,1240,676]
+      - generic [ref=e63] [box=58,1219,1310,603]
+      - generic [ref=e100] [box=92,4312,1240,512]
+      - generic [ref=e130] [box=92,5080,1240,637]
+      - generic [ref=e169] [box=92,6005,1240,930]
+      - generic [ref=e192] [box=92,7191,1240,946]
+      - generic [ref=e226] [box=92,8394,1240,752]
+      - generic [ref=e262] [box=92,9401,1240,415]
+      - generic [ref=e286] [box=92,10073,1240,608]
+  - contentinfo [ref=e297] [box=0,10810,1425,137]:
+    - generic [ref=e299] [box=112,10859,1200,40]:
+      - img "ECOMVENOM" [ref=e301] [box=959,10832,466,95]
+      - generic [ref=e302] [box=144,10859,211,40]
+  - button "Back to top" [box=1361,948,44,44]:
+    - img [box=1375,962,16,16]
+  - alert [ref=e305] [box=1425,-1,1,1]

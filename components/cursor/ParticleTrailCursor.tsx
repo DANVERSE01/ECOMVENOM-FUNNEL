@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { usePathname } from "next/navigation";
 import { reducedMotion } from "@/lib/gsap";
 
 interface Particle {
@@ -13,6 +14,8 @@ interface Particle {
 }
 
 export function ParticleTrailCursor() {
+  const pathname = usePathname();
+  const disabledForHomepage = pathname === "/";
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const dotRef = useRef<HTMLDivElement>(null);
   const ringRef = useRef<HTMLDivElement>(null);
@@ -25,6 +28,7 @@ export function ParticleTrailCursor() {
   const particlesRef = useRef<Particle[]>([]);
 
   useEffect(() => {
+    if (disabledForHomepage) return;
     if (reducedMotion() || window.matchMedia("(pointer: coarse), (max-width: 767px)").matches) return;
 
     const canvas = canvasRef.current;
@@ -145,7 +149,9 @@ export function ParticleTrailCursor() {
       document.removeEventListener("mouseover", handleHoverIn);
       document.removeEventListener("mouseout", handleHoverOut);
     };
-  }, []);
+  }, [disabledForHomepage]);
+
+  if (disabledForHomepage) return null;
 
   return (
     <>

@@ -22,7 +22,7 @@ const config: Config = {
 				mono: ["var(--font-mono)", "JetBrains Mono", "ui-monospace", "monospace"],
 			},
 			letterSpacing: {
-				tightest: "-0.04em", tighter: "-0.02em", tight: "-0.01em",
+				tightest: "0", tighter: "0", tight: "0",
 				caps: "0.12em", label: "0.12em", widest: "0.14em",
 			},
 			maxWidth: { wrap: "1200px", measure: "1120px", wide: "1320px" },

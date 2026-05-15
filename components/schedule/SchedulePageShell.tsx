@@ -18,10 +18,10 @@ export function SchedulePageShell() {
         <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(0,0,0,0.92),rgba(0,0,0,0.72))]" />
       </div>
       <Container className="relative z-10 max-w-4xl">
-        <p className="font-heading text-[10px] uppercase tracking-caps text-venom">
+        <p className="font-mono text-[10px] text-venom">
           {schedule.eyebrow}
         </p>
-        <h1 className="mt-4 font-display text-[clamp(3rem,7vw,6rem)] uppercase leading-[1.02] tracking-tightest">
+        <h1 className="mt-4 font-display text-5xl leading-[1.02] text-bone sm:text-7xl lg:text-8xl">
           {schedule.heading}
         </h1>
         <p className="mt-3 text-base text-ash sm:text-lg">{schedule.sub}</p>

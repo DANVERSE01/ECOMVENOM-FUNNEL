@@ -16,9 +16,9 @@ export const HIGGSFIELD_STILLS = {
 } as const;
 
 export const FINAL_FUNNEL_IMAGES = [
-  "/stills/funnel-image-1.webp",
-  "/stills/funnel-image-2.webp",
-  "/stills/funnel-image-3.webp",
+  "/proof/proof-order-signal.webp",
+  "/proof/proof-student-dashboard.webp",
+  "/proof/proof-first-day-orders.webp",
 ] as const;
 
 export const BRAND_VISUALS = Array.from(

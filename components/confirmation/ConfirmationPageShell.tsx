@@ -12,7 +12,7 @@ export function ConfirmationPageShell() {
 
   return (
     <>
-      <div className="border-b border-gold/25 bg-gold/10 py-2 text-center font-heading text-xs uppercase tracking-caps text-gold sm:text-sm">
+      <div className="border-b border-gold/25 bg-gold/10 pb-2 pt-20 text-center font-heading text-xs uppercase tracking-caps text-gold sm:text-sm">
         {confirmation.banner}
       </div>
 
@@ -31,7 +31,7 @@ export function ConfirmationPageShell() {
         <Container className="relative z-10 max-w-6xl">
           <div className="grid gap-10 lg:grid-cols-[0.86fr_1.14fr] lg:items-start">
             <div>
-              <h1 className="font-display text-[clamp(4rem,9vw,8rem)] uppercase leading-[1.02] tracking-tightest text-venom">
+              <h1 className="font-display text-6xl uppercase leading-[1.02] tracking-tightest text-venom sm:text-8xl lg:text-9xl">
                 {confirmation.h1}
               </h1>
               <p className="mt-4 font-display text-2xl uppercase leading-tight tracking-tight text-bone sm:text-3xl">

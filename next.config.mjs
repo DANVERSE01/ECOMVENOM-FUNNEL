@@ -3,6 +3,7 @@ const nextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
   devIndicators: false,
+  outputFileTracingRoot: process.cwd(),
   images: {
     formats: ["image/avif", "image/webp"],
     minimumCacheTTL: 31536000,

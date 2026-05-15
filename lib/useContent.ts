@@ -203,16 +203,16 @@ const arFinalScene = {
 
 const enApplyPage = {
   step: "STEP 1 OF 2",
-  heading: "Start your application",
-  body: "Share the essentials. If the fit is right, the next step is choosing your consultation time.",
-  duration: "Application takes about 2 minutes",
+  heading: "Apply for the operating build",
+  body: "Send the details that help us understand your market, budget, and current execution stage before the consultation opens.",
+  duration: "Focused application · about 2 minutes",
 };
 
 const arApplyPage = {
   step: "الخطوة 01 / 02",
-  heading: "ابدأ طلب الانضمام",
-  body: "أرسل التفاصيل الأساسية أولًا، وإذا كان البرنامج مناسبًا لك ننتقل مباشرة إلى اختيار موعد الاستشارة.",
-  duration: "التقديم يستغرق قرابة دقيقتين",
+  heading: "ادخل مرحلة التفعيل",
+  body: "أرسل البيانات التي توضح السوق والميزانية ومرحلة التنفيذ الحالية قبل فتح خطوة الاستشارة.",
+  duration: "طلب مركز · قرابة دقيقتين",
 };
 
 const enNav = {
@@ -519,10 +519,10 @@ const arFounder = {
 };
 
 const arSchedule = {
-  eyebrow: "الخطوة الأخيرة:",
-  heading: "مطلوب لإتمام طلبك",
-  sub: "تهانينا على اتخاذ الخطوة الأولى! لإنهاء طلبك، يرجى تحديد وقت مناسب أدناه لمكالمة الاستشارة المجانية.",
-  cta: "اختر وقت استشارتك المجانية",
+  eyebrow: "الاستشارة",
+  heading: "اختر موعد الاستشارة",
+  sub: "هذه الخطوة لا تؤكد حجزًا وهميًا. عند تفعيل التقويم الرسمي، اختر نافذة مناسبة وسيتم تحويلك إلى مزود الحجز الحقيقي.",
+  cta: "نافذة حجز الاستشارة",
   card: { name: "مكالمة استكشافية مجانية", duration: "٢٠ دقيقة" },
   slots: enSchedule.slots,
 };

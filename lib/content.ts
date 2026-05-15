@@ -216,10 +216,10 @@ export const founder = {
 };
 
 export const schedule = {
-  eyebrow: "FINAL STEP:",
-  heading: "Complete Your Application",
-  sub: "You are one step away from finishing the process. Choose the consultation slot that fits you best.",
-  cta: "Choose your consultation time",
+  eyebrow: "CONSULTATION",
+  heading: "Choose your consultation time",
+  sub: "This page does not create a fake booking. When the official calendar provider is configured, select a slot and you will be sent to the real scheduler.",
+  cta: "Consultation booking window",
   card: {
     name: "Free Discovery Call",
     duration: "20 min",

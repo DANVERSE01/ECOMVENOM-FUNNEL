@@ -1,0 +1,1223 @@
+diff --git a/app/globals.css b/app/globals.css
+index fba1cbb..fd2003a 100644
+--- a/app/globals.css
++++ b/app/globals.css
+@@ -2873,4 +2873,1003 @@ section [aria-hidden][style*="radial-gradient"] {
+   display: none !important;
+ }
+ 
++/* ──────────────────────────────────────────────────────────
++   VENOM OS HOMEPAGE REDESIGN
++   Scoped full rebuild for / using reference-pack direction.
++   ────────────────────────────────────────────────────────── */
++.venom-os {
++  --vo-black: #050706;
++  --vo-carbon: #0A0D0A;
++  --vo-charcoal: #10140F;
++  --vo-panel: rgba(255, 255, 255, 0.075);
++  --vo-panel-strong: rgba(255, 255, 255, 0.105);
++  --vo-border: rgba(255, 255, 255, 0.14);
++  --vo-border-hot: rgba(104, 255, 126, 0.38);
++  --vo-text: #F3F5EF;
++  --vo-muted: #A6AEA2;
++  --vo-muted-2: rgba(243, 245, 239, 0.54);
++  --vo-green: #68FF7E;
++  --vo-green-2: #36F76B;
++  --vo-green-dark: #0D7F35;
++  --vo-red: #FF2A2A;
++  --vo-shadow: 0 28px 90px rgba(0, 0, 0, 0.56);
++  --vo-ease: cubic-bezier(0.16, 1, 0.3, 1);
++  position: relative;
++  isolation: isolate;
++  overflow: hidden;
++  background:
++    linear-gradient(180deg, rgba(104, 255, 126, 0.045), transparent 12rem),
++    linear-gradient(112deg, rgba(104, 255, 126, 0.055), transparent 28%, rgba(255, 255, 255, 0.018) 56%, transparent 82%),
++    var(--vo-black);
++  color: var(--vo-text);
++  font-family: var(--font-body-editorial), var(--font-inter-tight), ui-sans-serif;
++}
++
++.venom-os * {
++  letter-spacing: 0;
++}
++
++.venom-os section[id] img,
++.venom-os section[id] video {
++  filter: none !important;
++}
++
++.venom-os::before {
++  content: "";
++  position: fixed;
++  inset: 0;
++  z-index: -2;
++  pointer-events: none;
++  background:
++    linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
++    linear-gradient(90deg, rgba(104, 255, 126, 0.035) 1px, transparent 1px);
++  background-size: 86px 86px;
++  mask-image: linear-gradient(to bottom, transparent, black 11%, black 86%, transparent);
++  opacity: 0.24;
++}
++
++.venom-os::after {
++  content: "";
++  position: fixed;
++  inset: 0;
++  z-index: -1;
++  pointer-events: none;
++  background:
++    linear-gradient(90deg, rgba(5, 7, 6, 0.94), transparent 20%, transparent 78%, rgba(5, 7, 6, 0.9)),
++    linear-gradient(180deg, rgba(255, 255, 255, 0.03), transparent 32%, rgba(0, 0, 0, 0.62));
++}
++
++.vo-ambient {
++  position: fixed;
++  inset: 0;
++  z-index: -1;
++  pointer-events: none;
++  opacity: 0.86;
++  background:
++    linear-gradient(128deg, transparent 0 18%, rgba(54, 247, 107, 0.09) 30%, transparent 46% 100%),
++    linear-gradient(21deg, transparent 0 58%, rgba(104, 255, 126, 0.055) 70%, transparent 86% 100%);
++  filter: blur(18px);
++}
++
++.vo-container {
++  width: min(100% - 2rem, 1320px);
++  margin-inline: auto;
++}
++
++.vo-section {
++  position: relative;
++  z-index: 1;
++  overflow: hidden;
++  padding-block: 6rem;
++  content-visibility: auto;
++  contain-intrinsic-size: 0 900px;
++}
++
++.vo-section h2 {
++  max-width: 12ch;
++  color: var(--vo-text);
++  font-family: var(--font-display-editorial), var(--font-inter-tight), ui-sans-serif;
++  font-size: 3rem;
++  font-weight: 400;
++  line-height: 0.95;
++  text-transform: uppercase;
++}
++
++.vo-section h3 {
++  color: var(--vo-text);
++  font-family: var(--font-body-editorial), var(--font-inter-tight), ui-sans-serif;
++  font-size: 1.1rem;
++  font-weight: 500;
++  line-height: 1.14;
++}
++
++.vo-section p,
++.vo-section li {
++  color: var(--vo-muted);
++  font-size: 1rem;
++  line-height: 1.64;
++}
++
++.vo-text-accent {
++  color: var(--vo-green);
++  text-shadow: 0 0 34px rgba(104, 255, 126, 0.28);
++}
++
++.vo-status-pill {
++  display: inline-flex;
++  min-height: 2.35rem;
++  align-items: center;
++  gap: 0.62rem;
++  border: 1px solid var(--vo-border);
++  border-radius: 999px;
++  background: rgba(255, 255, 255, 0.055);
++  padding: 0.55rem 0.82rem;
++  color: var(--vo-muted);
++  font-family: var(--font-mono-editorial), ui-monospace, monospace;
++  font-size: 0.72rem;
++  line-height: 1.2;
++  text-transform: uppercase;
++  backdrop-filter: blur(18px) saturate(140%);
++}
++
++.vo-status-pill__dot {
++  width: 0.44rem;
++  height: 0.44rem;
++  border-radius: 999px;
++  background: currentColor;
++  box-shadow: 0 0 12px currentColor;
++}
++
++.vo-status-pill--active {
++  border-color: rgba(104, 255, 126, 0.34);
++  color: var(--vo-green);
++  background: rgba(13, 127, 53, 0.18);
++}
++
++.vo-status-pill--danger {
++  border-color: rgba(255, 42, 42, 0.28);
++  color: #ff7777;
++  background: rgba(255, 42, 42, 0.08);
++}
++
++.vo-glass {
++  position: relative;
++  overflow: hidden;
++  border: 1px solid var(--vo-border);
++  border-radius: 8px;
++  background:
++    linear-gradient(145deg, rgba(255, 255, 255, 0.115), transparent 28%, rgba(104, 255, 126, 0.045)),
++    var(--vo-panel);
++  box-shadow: var(--vo-shadow), inset 0 1px 0 rgba(255, 255, 255, 0.08);
++  backdrop-filter: blur(22px) saturate(150%);
++}
++
++.vo-glass--strong {
++  border-color: rgba(255, 255, 255, 0.18);
++  background:
++    linear-gradient(145deg, rgba(255, 255, 255, 0.13), transparent 30%, rgba(54, 247, 107, 0.07)),
++    var(--vo-panel-strong);
++}
++
++.vo-glass--active {
++  border-color: var(--vo-border-hot);
++  background:
++    linear-gradient(150deg, rgba(104, 255, 126, 0.16), transparent 38%, rgba(255, 255, 255, 0.07)),
++    rgba(9, 21, 12, 0.72);
++}
++
++.vo-glass--flat {
++  box-shadow: none;
++}
++
++.vo-spatial-panel {
++  min-height: 32rem;
++  padding: 1.2rem;
++  transform-style: preserve-3d;
++}
++
++.vo-panel-label {
++  margin: 0 0 1rem;
++  color: var(--vo-muted-2);
++  font-family: var(--font-mono-editorial), ui-monospace, monospace;
++  font-size: 0.72rem;
++  text-transform: uppercase;
++}
++
++.vo-corner {
++  position: absolute;
++  width: 1rem;
++  height: 1rem;
++  pointer-events: none;
++  color: var(--vo-green);
++}
++
++.vo-corner--tl { top: 0.65rem; left: 0.65rem; border-top: 1px solid currentColor; border-left: 1px solid currentColor; }
++.vo-corner--tr { top: 0.65rem; right: 0.65rem; border-top: 1px solid currentColor; border-right: 1px solid currentColor; }
++.vo-corner--bl { bottom: 0.65rem; left: 0.65rem; border-bottom: 1px solid currentColor; border-left: 1px solid currentColor; }
++.vo-corner--br { bottom: 0.65rem; right: 0.65rem; border-bottom: 1px solid currentColor; border-right: 1px solid currentColor; }
++
++.vo-cta {
++  display: inline-flex;
++  min-height: 3.4rem;
++  min-width: 11.5rem;
++  align-items: center;
++  justify-content: center;
++  gap: 0.7rem;
++  border-radius: 999px;
++  padding: 0.92rem 1.35rem;
++  font-family: var(--font-body-editorial), ui-sans-serif;
++  font-size: 0.86rem;
++  font-weight: 700;
++  line-height: 1.1;
++  text-align: center;
++  text-transform: uppercase;
++  transition: transform 220ms var(--vo-ease), border-color 220ms var(--vo-ease), background 220ms var(--vo-ease), color 220ms var(--vo-ease);
++}
++
++.vo-cta--primary {
++  border: 1px solid var(--vo-green);
++  background: var(--vo-green);
++  color: #041006;
++  box-shadow: 0 0 0 1px rgba(104, 255, 126, 0.28), 0 18px 48px rgba(54, 247, 107, 0.18);
++}
++
++.vo-cta--ghost {
++  border: 1px solid rgba(255, 255, 255, 0.18);
++  background: rgba(255, 255, 255, 0.055);
++  color: var(--vo-text);
++}
++
++.vo-cta:hover {
++  transform: translateY(-2px);
++}
++
++.vo-cta:focus-visible,
++.vo-vsl-preview__button:focus-visible,
++.vo-floating-vsl__close:focus-visible {
++  outline: 2px solid var(--vo-green);
++  outline-offset: 3px;
++}
++
++.vo-play-dot {
++  width: 0;
++  height: 0;
++  border-top: 0.36rem solid transparent;
++  border-bottom: 0.36rem solid transparent;
++  border-left: 0.58rem solid currentColor;
++}
++
++.vo-hero {
++  min-height: 100svh;
++  display: flex;
++  align-items: flex-start;
++  padding-top: 5.2rem;
++  padding-bottom: 3rem;
++}
++
++.vo-hero__grid {
++  display: grid;
++  grid-template-columns: minmax(0, 1fr);
++  gap: 2.2rem;
++  align-items: center;
++}
++
++.vo-hero__copy {
++  display: flex;
++  flex-direction: column;
++  align-items: flex-start;
++  gap: 1rem;
++}
++
++.vo-hero-title {
++  max-width: 12ch;
++  color: var(--vo-text);
++  font-family: var(--font-display-editorial), var(--font-inter-tight), ui-sans-serif;
++  font-size: 3.1rem;
++  font-weight: 400;
++  line-height: 0.9;
++  text-transform: uppercase;
++}
++
++.vo-hero-title__line {
++  display: block;
++}
++
++.vo-hero__sub {
++  max-width: 42rem;
++  color: var(--vo-muted);
++  font-size: 1rem;
++  line-height: 1.62;
++}
++
++.vo-hero__actions {
++  display: flex;
++  flex-wrap: wrap;
++  gap: 0.8rem;
++  align-items: center;
++}
++
++.vo-hero__meta {
++  display: grid;
++  width: min(100%, 42rem);
++  grid-template-columns: 1fr;
++  gap: 0.65rem;
++  border-top: 1px solid rgba(255, 255, 255, 0.1);
++  padding-top: 0.9rem;
++}
++
++.vo-hero__meta span {
++  color: var(--vo-muted-2);
++  font-family: var(--font-mono-editorial), ui-monospace, monospace;
++  font-size: 0.75rem;
++  text-transform: uppercase;
++}
++
++.vo-hero__system {
++  min-width: 0;
++}
++
++.vo-os-header {
++  display: flex;
++  gap: 0.8rem;
++  align-items: center;
++  justify-content: space-between;
++  margin-bottom: 1.35rem;
++}
++
++.vo-os-header > span:last-child {
++  color: var(--vo-muted-2);
++  font-family: var(--font-mono-editorial), ui-monospace, monospace;
++  font-size: 0.7rem;
++  text-transform: uppercase;
++}
++
++.vo-doc-stack {
++  position: relative;
++  min-height: 18rem;
++  perspective: 1400px;
++}
++
++.vo-doc-card {
++  position: absolute;
++  inset: auto 0 0;
++  min-height: 12.2rem;
++  border: 1px solid rgba(255, 255, 255, 0.18);
++  border-radius: 8px;
++  background:
++    linear-gradient(160deg, rgba(255, 255, 255, 0.24), rgba(255, 255, 255, 0.065) 42%, rgba(5, 7, 6, 0.34)),
++    rgba(255, 255, 255, 0.08);
++  padding: 1rem;
++  color: var(--vo-text);
++  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.38);
++  transform: translate3d(calc(var(--vo-i) * 1.05rem), calc(var(--vo-i) * -1rem), calc(var(--vo-i) * -24px)) rotateY(-10deg) rotateX(4deg);
++  transform-origin: center;
++}
++
++.vo-doc-card--active {
++  border-color: rgba(104, 255, 126, 0.72);
++  background:
++    linear-gradient(160deg, rgba(104, 255, 126, 0.96), rgba(54, 247, 107, 0.9) 48%, rgba(13, 127, 53, 0.86)),
++    #36F76B;
++  color: #041006;
++  z-index: 5;
++}
++
++.vo-doc-card__chrome {
++  display: flex;
++  align-items: center;
++  justify-content: space-between;
++  color: inherit;
++  opacity: 0.82;
++  font-family: var(--font-mono-editorial), ui-monospace, monospace;
++  font-size: 0.72rem;
++}
++
++.vo-doc-card h3 {
++  margin-top: 1.4rem;
++  max-width: 18rem;
++  color: inherit;
++  font-size: 1.25rem;
++}
++
++.vo-doc-card p {
++  margin-top: 0.8rem;
++  max-width: 34ch;
++  color: inherit;
++  opacity: 0.72;
++  font-size: 0.85rem;
++  line-height: 1.5;
++}
++
++.vo-vsl-preview {
++  position: relative;
++  min-height: 15rem;
++  overflow: hidden;
++  border: 1px solid rgba(255, 255, 255, 0.14);
++  border-radius: 8px;
++  background: #050505;
++}
++
++.vo-vsl-preview::after {
++  content: "";
++  position: absolute;
++  inset: 0;
++  background: linear-gradient(180deg, transparent 34%, rgba(0, 0, 0, 0.82));
++}
++
++.vo-vsl-preview__button {
++  position: absolute;
++  left: 1rem;
++  right: 1rem;
++  bottom: 1rem;
++  z-index: 2;
++  display: flex;
++  min-height: 3.25rem;
++  align-items: center;
++  justify-content: space-between;
++  border: 1px solid rgba(255, 255, 255, 0.18);
++  border-radius: 999px;
++  background: rgba(5, 7, 6, 0.72);
++  color: var(--vo-text);
++  padding: 0.75rem 1rem;
++  font-family: var(--font-mono-editorial), ui-monospace, monospace;
++  font-size: 0.72rem;
++  text-transform: uppercase;
++  backdrop-filter: blur(18px);
++}
++
++.vo-vsl-preview__play {
++  display: grid;
++  width: 2.1rem;
++  height: 2.1rem;
++  place-items: center;
++  border-radius: 999px;
++  background: var(--vo-green);
++  color: #041006;
++}
++
++.vo-vsl-preview__play::before {
++  content: "";
++  width: 0;
++  height: 0;
++  border-top: 0.34rem solid transparent;
++  border-bottom: 0.34rem solid transparent;
++  border-left: 0.52rem solid currentColor;
++  transform: translateX(1px);
++}
++
++.vo-split,
++.vo-founder__grid,
++.vo-offer__grid {
++  display: grid;
++  grid-template-columns: minmax(0, 1fr);
++  gap: 2rem;
++  align-items: center;
++}
++
++.vo-split--top {
++  align-items: start;
++}
++
++.vo-section-copy,
++.vo-section-heading {
++  display: grid;
++  gap: 1rem;
++}
++
++.vo-section-heading {
++  max-width: 58rem;
++  margin-bottom: 2rem;
++}
++
++.vo-section-heading--wide {
++  max-width: 72rem;
++}
++
++.vo-section-copy h2,
++.vo-section-heading h2 {
++  max-width: 13ch;
++}
++
++.vo-dashboard-grid,
++.vo-application-stack {
++  display: grid;
++  gap: 0.8rem;
++}
++
++.vo-timeline-card {
++  display: grid;
++  grid-template-columns: auto minmax(0, 1fr);
++  gap: 1rem;
++  align-items: start;
++  border: 1px solid rgba(255, 255, 255, 0.12);
++  border-radius: 8px;
++  background: rgba(255, 255, 255, 0.045);
++  padding: 1rem;
++}
++
++.vo-timeline-card--active {
++  border-color: rgba(104, 255, 126, 0.42);
++  background: rgba(13, 127, 53, 0.16);
++}
++
++.vo-timeline-card__index {
++  min-width: 4.5rem;
++  color: var(--vo-green);
++  font-family: var(--font-mono-editorial), ui-monospace, monospace;
++  font-size: 0.72rem;
++  text-transform: uppercase;
++}
++
++.vo-timeline-card p {
++  margin-top: 0.45rem;
++  font-size: 0.92rem;
++}
++
++.vo-problem-grid,
++.vo-bento-grid,
++.vo-proof-grid,
++.vo-faq__grid,
++.vo-founder__traits,
++.vo-offer__cards {
++  display: grid;
++  grid-template-columns: minmax(0, 1fr);
++  gap: 0.9rem;
++}
++
++.vo-bento-card {
++  min-height: 14rem;
++  padding: 1rem;
++}
++
++.vo-bento-card__top {
++  display: flex;
++  align-items: center;
++  justify-content: space-between;
++  margin-bottom: 2rem;
++  color: var(--vo-green);
++  font-family: var(--font-mono-editorial), ui-monospace, monospace;
++  font-size: 0.76rem;
++  text-transform: uppercase;
++}
++
++.vo-bento-card h3 {
++  max-width: 18rem;
++}
++
++.vo-bento-card p {
++  margin-top: 0.8rem;
++  font-size: 0.95rem;
++}
++
++.vo-roadmap-list {
++  display: grid;
++  gap: 0.75rem;
++}
++
++.vo-roadmap-card {
++  display: grid;
++  grid-template-columns: auto minmax(0, 1fr) auto;
++  gap: 1rem;
++  align-items: start;
++  padding: 1rem;
++}
++
++.vo-roadmap-card > span {
++  color: var(--vo-green);
++  font-family: var(--font-mono-editorial), ui-monospace, monospace;
++  font-size: 0.8rem;
++}
++
++.vo-roadmap-card ul {
++  margin-top: 0.75rem;
++  display: grid;
++  gap: 0.35rem;
++}
++
++.vo-roadmap-card li {
++  list-style: none;
++  font-size: 0.9rem;
++}
++
++.vo-roadmap-card li::before {
++  content: "";
++  display: inline-block;
++  width: 0.38rem;
++  height: 0.38rem;
++  margin-inline-end: 0.55rem;
++  border-radius: 999px;
++  background: var(--vo-green);
++}
++
++.vo-founder__media {
++  position: relative;
++  min-height: 34rem;
++  overflow: hidden;
++  border: 1px solid rgba(255, 255, 255, 0.14);
++  border-radius: 8px;
++  background: var(--vo-charcoal);
++  box-shadow: var(--vo-shadow);
++}
++
++.vo-founder__media::after {
++  content: "";
++  position: absolute;
++  inset: 0;
++  background:
++    linear-gradient(180deg, transparent 42%, rgba(5, 7, 6, 0.82)),
++    linear-gradient(110deg, rgba(54, 247, 107, 0.16), transparent 44%);
++}
++
++.vo-founder__copy {
++  display: grid;
++  gap: 1rem;
++}
++
++.vo-founder__copy blockquote {
++  border-left: 1px solid var(--vo-green);
++  margin: 1rem 0;
++  padding-inline-start: 1rem;
++  color: var(--vo-text);
++  font-size: 1.2rem;
++  line-height: 1.35;
++}
++
++.vo-proof-card {
++  padding: 0.65rem;
++}
++
++.vo-proof-card__media {
++  position: relative;
++  min-height: 20rem;
++  overflow: hidden;
++  border-radius: 6px;
++  background: var(--vo-charcoal);
++}
++
++.vo-proof-card__body {
++  display: grid;
++  gap: 0.85rem;
++  padding: 1rem 0.35rem 0.35rem;
++}
++
++.vo-honesty-note {
++  display: grid;
++  gap: 1rem;
++  margin-top: 1rem;
++  padding: 1rem;
++}
++
++.vo-cta-module {
++  display: grid;
++  gap: 1rem;
++  align-content: center;
++  min-height: 28rem;
++  padding: 1.2rem;
++}
++
++.vo-cta-module h2,
++.vo-final h2 {
++  max-width: 11ch;
++}
++
++.vo-market-card {
++  min-height: 10rem;
++  padding: 1rem;
++}
++
++.vo-market-card > span {
++  color: #041006;
++  font-family: var(--font-mono-editorial), ui-monospace, monospace;
++  font-size: 0.75rem;
++  text-transform: uppercase;
++}
++
++.vo-market-card h3 {
++  margin-top: 2.8rem;
++  color: #041006;
++  font-size: 1.35rem;
++}
++
++.vo-faq {
++  margin-top: 4rem;
++}
++
++.vo-faq > h2 {
++  max-width: 14ch;
++  margin-bottom: 1.35rem;
++}
++
++.vo-faq-item {
++  padding: 1rem;
++}
++
++.vo-faq-item > span {
++  color: var(--vo-green);
++  font-family: var(--font-mono-editorial), ui-monospace, monospace;
++  font-size: 0.76rem;
++}
++
++.vo-faq-item h3 {
++  margin-top: 1rem;
++}
++
++.vo-faq-item p {
++  margin-top: 0.75rem;
++}
++
++.vo-final {
++  padding-bottom: 7rem;
++}
++
++.vo-final__panel {
++  position: relative;
++  overflow: hidden;
++  min-height: 34rem;
++  border: 1px solid var(--vo-border-hot);
++  border-radius: 8px;
++  background: var(--vo-carbon);
++  box-shadow: var(--vo-shadow);
++}
++
++.vo-final__panel::after {
++  content: "";
++  position: absolute;
++  inset: 0;
++  background:
++    linear-gradient(90deg, rgba(5, 7, 6, 0.94), rgba(5, 7, 6, 0.7) 44%, rgba(5, 7, 6, 0.36)),
++    linear-gradient(180deg, transparent, rgba(5, 7, 6, 0.86));
++}
++
++.vo-final__content {
++  position: relative;
++  z-index: 2;
++  display: grid;
++  gap: 1.1rem;
++  max-width: 42rem;
++  padding: 1.25rem;
++}
++
++.vo-final h2 span {
++  color: var(--vo-green);
++}
++
++.vo-floating-vsl {
++  position: fixed;
++  right: 1rem;
++  bottom: 6.6rem;
++  z-index: 9500;
++  width: min(22rem, calc(100vw - 2rem));
++  aspect-ratio: 16 / 9;
++  overflow: hidden;
++  border: 1px solid rgba(104, 255, 126, 0.42);
++  border-radius: 8px;
++  background: #050505;
++  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.72), 0 0 42px rgba(54, 247, 107, 0.12);
++}
++
++.vo-floating-vsl iframe {
++  width: 100%;
++  height: 100%;
++  border: 0;
++  display: block;
++}
++
++.vo-floating-vsl__close {
++  position: absolute;
++  top: 0.5rem;
++  right: 0.5rem;
++  z-index: 2;
++  display: grid;
++  width: 2rem;
++  height: 2rem;
++  place-items: center;
++  border: 1px solid rgba(255, 255, 255, 0.18);
++  border-radius: 999px;
++  background: rgba(0, 0, 0, 0.72);
++  color: var(--vo-text);
++  backdrop-filter: blur(10px);
++}
++
++.mobile-command-bar {
++  border-top: 1px solid rgba(104, 255, 126, 0.24) !important;
++  background:
++    linear-gradient(90deg, rgba(104, 255, 126, 0.11), transparent 42%, rgba(255, 255, 255, 0.055)),
++    rgba(5, 7, 6, 0.92) !important;
++  padding-bottom: env(safe-area-inset-bottom);
++  backdrop-filter: blur(18px) saturate(150%) !important;
++}
++
++.mobile-command-bar > div {
++  padding: 0.7rem 1rem 0.6rem !important;
++  gap: 0.38rem !important;
++}
++
++.mobile-command-bar .btn-primary {
++  width: min(100%, 24rem);
++  min-height: 3.05rem !important;
++  border-radius: 999px !important;
++  flex-direction: row !important;
++  gap: 0.75rem !important;
++  background: var(--vo-green) !important;
++  color: #041006 !important;
++  border-color: var(--vo-green) !important;
++  padding: 0.76rem 1rem !important;
++}
++
++.mobile-command-bar .btn-primary span {
++  color: inherit !important;
++}
++
++.mobile-command-bar .btn-primary__glyph {
++  width: 1.9rem;
++  height: 1.9rem;
++  background: rgba(4, 16, 6, 0.92) !important;
++  color: var(--vo-green) !important;
++}
++
++.mobile-command-bar p {
++  color: var(--vo-muted) !important;
++  font-family: var(--font-mono-editorial), ui-monospace, monospace !important;
++  font-size: 0.65rem !important;
++  line-height: 1 !important;
++}
++
++@supports (animation-timeline: view()) {
++  @media (prefers-reduced-motion: no-preference) {
++    .venom-os .vo-section > .vo-container {
++      animation: vo-section-reveal both linear;
++      animation-timeline: view();
++      animation-range: entry 0% cover 24%;
++    }
++  }
++}
++
++@keyframes vo-section-reveal {
++  from {
++    opacity: 0.72;
++    transform: translateY(34px);
++    filter: blur(10px);
++  }
++  to {
++    opacity: 1;
++    transform: translateY(0);
++    filter: blur(0);
++  }
++}
++
++@media (prefers-reduced-motion: no-preference) {
++  .vo-doc-card--active {
++    animation: vo-active-doc 5.5s var(--vo-ease) infinite;
++  }
++}
++
++@keyframes vo-active-doc {
++  0%, 100% { box-shadow: 0 24px 70px rgba(0, 0, 0, 0.38), 0 0 0 rgba(104, 255, 126, 0); }
++  50% { box-shadow: 0 28px 84px rgba(0, 0, 0, 0.42), 0 0 38px rgba(104, 255, 126, 0.2); }
++}
++
++@media (min-width: 640px) {
++  .vo-container {
++    width: min(100% - 3rem, 1320px);
++  }
++  .vo-hero-title {
++    font-size: 3.12rem;
++  }
++  .vo-section h2 {
++    font-size: 4rem;
++  }
++  .vo-hero__meta {
++    grid-template-columns: repeat(3, minmax(0, 1fr));
++  }
++  .vo-problem-grid,
++  .vo-proof-grid,
++  .vo-faq__grid {
++    grid-template-columns: repeat(3, minmax(0, 1fr));
++  }
++  .vo-bento-grid {
++    grid-template-columns: repeat(2, minmax(0, 1fr));
++  }
++}
++
++@media (min-width: 1024px) {
++  .vo-section {
++    padding-block: 8rem;
++  }
++  .vo-hero {
++    padding-top: 5.2rem;
++    padding-bottom: 3rem;
++  }
++  .vo-hero__grid {
++    grid-template-columns: minmax(0, 1.05fr) minmax(26rem, 0.86fr);
++    gap: 4rem;
++  }
++  .vo-hero-title {
++    font-size: 3.8rem;
++  }
++  .vo-section h2 {
++    font-size: 5.35rem;
++  }
++  .vo-split {
++    grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr);
++    gap: 4rem;
++  }
++  .vo-founder__grid {
++    grid-template-columns: minmax(24rem, 0.75fr) minmax(0, 1fr);
++    gap: 4rem;
++  }
++  .vo-offer__grid {
++    grid-template-columns: minmax(0, 0.75fr) minmax(0, 1fr);
++    gap: 2rem;
++  }
++  .vo-bento-grid {
++    grid-template-columns: repeat(4, minmax(0, 1fr));
++  }
++  .vo-bento-card--wide {
++    grid-column: span 2;
++  }
++  .vo-founder__traits,
++  .vo-offer__cards {
++    grid-template-columns: repeat(2, minmax(0, 1fr));
++  }
++  .vo-final__content {
++    padding: 4rem;
++  }
++  .vo-floating-vsl {
++    right: 1.5rem;
++    bottom: 1.5rem;
++    width: 22rem;
++  }
++}
++
++@media (min-width: 1280px) {
++  .vo-hero-title {
++    font-size: 3.42rem;
++  }
++}
++
++@media (max-width: 767px) {
++  .vo-section {
++    padding-block: 4.6rem;
++  }
++  .vo-hero {
++    align-items: start;
++    padding-top: 6rem;
++  }
++  .vo-hero__actions,
++  .vo-hero__actions > span,
++  .vo-hero__actions .vo-cta {
++    width: 100%;
++  }
++  .vo-spatial-panel {
++    min-height: 0;
++  }
++  .vo-doc-stack {
++    min-height: 20rem;
++  }
++  .vo-doc-card {
++    transform: translate3d(0, calc(var(--vo-i) * 1.1rem), 0) scale(calc(1 - var(--vo-i) * 0.035));
++  }
++  .vo-founder__media,
++  .vo-final__panel {
++    min-height: 29rem;
++  }
++  .vo-final {
++    padding-bottom: calc(9rem + env(safe-area-inset-bottom));
++  }
++}
++
++@media (prefers-reduced-motion: reduce) {
++  .venom-os *,
++  .venom-os *::before,
++  .venom-os *::after {
++    animation: none !important;
++    transition-duration: 1ms !important;
++    scroll-behavior: auto !important;
++  }
++  .vo-ambient {
++    display: none;
++  }
++}
++
+ 
+diff --git a/app/page.tsx b/app/page.tsx
+index 77fbbd0..96b8335 100644
+--- a/app/page.tsx
++++ b/app/page.tsx
+@@ -1,38 +1,5 @@
+-import { Scene00ColdOpen } from "@/components/sections/scroll-film/Scene00ColdOpen";
+-import { Scene01Problem } from "@/components/sections/scroll-film/Scene01Problem";
+-import { Scene02ChaosToSystem } from "@/components/sections/scroll-film/Scene02ChaosToSystem";
+-import { Scene03Roadmap } from "@/components/sections/scroll-film/Scene03Roadmap";
+-import { Scene04Offer } from "@/components/sections/scroll-film/Scene04Offer";
+-import { Scene05Founder } from "@/components/sections/scroll-film/Scene05Founder";
+-import { Scene06ProofGate } from "@/components/sections/scroll-film/Scene06ProofGate";
+-import { Scene07Application } from "@/components/sections/scroll-film/Scene07Application";
+-import { Scene08FinalCTA } from "@/components/sections/scroll-film/Scene08FinalCTA";
+-import { SceneHairline } from "@/components/cinematic/SceneHairline";
+-import { SceneObserver } from "@/components/cinematic/SceneObserver";
+-import { EditorialMarquee } from "@/components/ui/EditorialMarquee";
++import { VenomOSHomepage } from "@/components/sections/VenomOSHomepage";
+ 
+ export default function HomePage() {
+-  return (
+-    <div className="cinematic-page">
+-      <SceneObserver />
+-      <Scene00ColdOpen />
+-      {/* DANVERSE signature marquee strip — visual identity band */}
+-      <EditorialMarquee className="relative z-20" />
+-      <Scene01Problem />
+-      <SceneHairline className="relative z-20" />
+-      <Scene02ChaosToSystem />
+-      <SceneHairline className="relative z-20" />
+-      <Scene03Roadmap />
+-      <EditorialMarquee className="relative z-20" />
+-      <Scene04Offer />
+-      <SceneHairline className="relative z-20" />
+-      <Scene05Founder />
+-      <SceneHairline className="relative z-20" />
+-      <Scene06ProofGate />
+-      <EditorialMarquee className="relative z-20" />
+-      <Scene07Application />
+-      <SceneHairline className="relative z-20" />
+-      <Scene08FinalCTA />
+-    </div>
+-  );
++  return <VenomOSHomepage />;
+ }
+diff --git a/components/cinematic/FloatingVslPlayer.tsx b/components/cinematic/FloatingVslPlayer.tsx
+index bcbdf0e..17157b6 100644
+--- a/components/cinematic/FloatingVslPlayer.tsx
++++ b/components/cinematic/FloatingVslPlayer.tsx
+@@ -43,64 +43,29 @@ export function FloatingVslPlayer({ src, onClose }: FloatingVslPlayerProps) {
+   return createPortal(
+     <div
+       ref={containerRef}
+-      style={{
+-        position: "fixed",
+-        bottom: "1.5rem",
+-        right: "1.5rem",
+-        zIndex: 9500,
+-        width: "320px",
+-        height: "180px",
+-        borderRadius: "8px",
+-        border: "1px solid rgba(184,255,46,0.3)",
+-        background: "#060608",
+-        overflow: "hidden",
+-        boxShadow: "0 14px 40px rgba(0,0,0,0.72)",
+-        willChange: "transform, opacity",
+-      }}
++      className="vo-floating-vsl"
++      style={{ willChange: "transform, opacity" }}
+       aria-label="Mini VSL Player"
+       role="complementary"
+     >
+-      {/* Responsive size via inline media via css class */}
+-      <style>{`
+-        @media (max-width: 767px) {
+-          .evfvp-wrap { width: 240px !important; height: 135px !important; }
+-        }
+-      `}</style>
+-      <div className="evfvp-wrap" style={{ width: "100%", height: "100%" }}>
++      <div style={{ width: "100%", height: "100%" }}>
+         <iframe
+           src={src}
+-          style={{ width: "100%", height: "100%", border: "none", display: "block" }}
+           allow="autoplay; fullscreen; picture-in-picture"
+           allowFullScreen
+           title="VSL Mini Player"
+         />
+       </div>
+ 
+-      {/* Close button */}
+       <button
+         type="button"
+         onClick={handleClose}
+         aria-label="Close mini player"
+-        style={{
+-          position: "absolute",
+-          top: "8px",
+-          right: "8px",
+-          width: "28px",
+-          height: "28px",
+-          borderRadius: "50%",
+-          background: "rgba(0,0,0,0.72)",
+-          border: "1px solid rgba(255,255,255,0.18)",
+-          color: "#fff",
+-          fontSize: "14px",
+-          lineHeight: "1",
+-          display: "flex",
+-          alignItems: "center",
+-          justifyContent: "center",
+-          cursor: "pointer",
+-          zIndex: 1,
+-        }}
++        className="vo-floating-vsl__close"
+       >
+-        ✕
++        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
++          <path d="M3.25 3.25L10.75 10.75M10.75 3.25L3.25 10.75" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
++        </svg>
+       </button>
+     </div>,
+     document.body,
+diff --git a/components/cursor/ParticleTrailCursor.tsx b/components/cursor/ParticleTrailCursor.tsx
+index 32014f6..e643a07 100644
+--- a/components/cursor/ParticleTrailCursor.tsx
++++ b/components/cursor/ParticleTrailCursor.tsx
+@@ -1,6 +1,7 @@
+ "use client";
+ 
+ import { useEffect, useRef } from "react";
++import { usePathname } from "next/navigation";
+ import { reducedMotion } from "@/lib/gsap";
+ 
+ interface Particle {
+@@ -13,6 +14,8 @@ interface Particle {
+ }
+ 
+ export function ParticleTrailCursor() {
++  const pathname = usePathname();
++  const disabledForHomepage = pathname === "/";
+   const canvasRef = useRef<HTMLCanvasElement>(null);
+   const dotRef = useRef<HTMLDivElement>(null);
+   const ringRef = useRef<HTMLDivElement>(null);
+@@ -25,6 +28,7 @@ export function ParticleTrailCursor() {
+   const particlesRef = useRef<Particle[]>([]);
+ 
+   useEffect(() => {
++    if (disabledForHomepage) return;
+     if (reducedMotion() || window.matchMedia("(pointer: coarse), (max-width: 767px)").matches) return;
+ 
+     const canvas = canvasRef.current;
+@@ -145,7 +149,9 @@ export function ParticleTrailCursor() {
+       document.removeEventListener("mouseover", handleHoverIn);
+       document.removeEventListener("mouseout", handleHoverOut);
+     };
+-  }, []);
++  }, [disabledForHomepage]);
++
++  if (disabledForHomepage) return null;
+ 
+   return (
+     <>
+diff --git a/components/ui/StickyMobileCTA.tsx b/components/ui/StickyMobileCTA.tsx
+index 67b47a6..aad4b94 100644
+--- a/components/ui/StickyMobileCTA.tsx
++++ b/components/ui/StickyMobileCTA.tsx
+@@ -24,6 +24,49 @@ export function StickyMobileCTA() {
+     }
+ 
+     const heroCta = document.querySelector<HTMLElement>('#system-boot [data-hero-cta]');
++    const finalCtaZone = document.querySelector<HTMLElement>('[data-final-cta-zone]');
++    let heroExited = false;
++    let finalVisible = false;
++    const syncVisibility = () => setVisible(heroExited && !finalVisible);
++
++    if (heroCta || finalCtaZone) {
++      const observers: IntersectionObserver[] = [];
++
++      if (heroCta) {
++        const heroObserver = new IntersectionObserver(
++          ([entry]) => {
++            heroExited = !entry.isIntersecting;
++            syncVisibility();
++          },
++          {
++            threshold: 0.01,
++            rootMargin: "-88px 0px 0px 0px",
++          },
++        );
++        heroObserver.observe(heroCta);
++        observers.push(heroObserver);
++      } else {
++        heroExited = window.scrollY > window.innerHeight * 0.35;
++      }
++
++      if (finalCtaZone) {
++        const finalObserver = new IntersectionObserver(
++          ([entry]) => {
++            finalVisible = entry.isIntersecting;
++            syncVisibility();
++          },
++          {
++            threshold: 0.12,
++            rootMargin: "0px 0px -18% 0px",
++          },
++        );
++        finalObserver.observe(finalCtaZone);
++        observers.push(finalObserver);
++      }
++
++      syncVisibility();
++      return () => observers.forEach((observer) => observer.disconnect());
++    }
+ 
+     if (heroCta) {
+       const observer = new IntersectionObserver(
