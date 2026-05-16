@@ -27,13 +27,11 @@ export function StickyMobileCTA() {
     const finalCtaZone = document.querySelector<HTMLElement>('[data-final-cta-zone]');
     let heroExited = false;
     let finalVisible = false;
-    let denseContentVisible = false;
-    const denseContent = new Set<Element>();
-    const syncVisibility = () => setVisible(heroExited && !finalVisible && !denseContentVisible);
+    const syncVisibility = () => setVisible(heroExited && !finalVisible);
 
     const updateHeroState = () => {
       if (heroSection) {
-        heroExited = heroSection.getBoundingClientRect().bottom <= 88;
+        heroExited = heroSection.getBoundingClientRect().bottom <= 88 || window.scrollY > window.innerHeight * 0.9;
       } else {
         heroExited = window.scrollY > window.innerHeight * 0.75;
       }
@@ -55,31 +53,6 @@ export function StickyMobileCTA() {
       );
       finalObserver.observe(finalCtaZone);
       observers.push(finalObserver);
-    }
-
-    const denseTargets = document.querySelectorAll<HTMLElement>(
-      ".v2-scroll-film, .vx-command-board, .vx-timeline-list, .vx-founder, .v2-proof-rail, .vx-offer-list, .vx-faq-list",
-    );
-    if (denseTargets.length) {
-      const denseObserver = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              denseContent.add(entry.target);
-            } else {
-              denseContent.delete(entry.target);
-            }
-          });
-          denseContentVisible = denseContent.size > 0;
-          syncVisibility();
-        },
-        {
-          threshold: 0,
-          rootMargin: "-64% 0px 0px 0px",
-        },
-      );
-      denseTargets.forEach((target) => denseObserver.observe(target));
-      observers.push(denseObserver);
     }
 
     let ticking = false;

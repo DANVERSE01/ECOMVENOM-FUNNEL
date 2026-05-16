@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { cn } from "@/lib/cn";
@@ -36,6 +38,32 @@ export function GlowButton({
   type = "button",
 }: GlowButtonProps) {
   const classes = cn("vx-button", variant === "ghost" && "vx-button--ghost", className);
+
+  if (href?.startsWith("#")) {
+    const handleHashClick = () => {
+      onClick?.();
+      if (typeof window === "undefined") return;
+
+      const target = document.querySelector<HTMLElement>(href);
+      if (!target) return;
+
+      window.history.pushState(null, "", href);
+
+      if (window.__lenis) {
+        window.__lenis.scrollTo(href, { offset: -80, duration: 1.2 });
+        return;
+      }
+
+      target.scrollIntoView({ behavior: "smooth", block: "start" });
+    };
+
+    return (
+      <button type="button" onClick={handleHashClick} className={classes}>
+        <span>{children}</span>
+        <Arrow />
+      </button>
+    );
+  }
 
   if (href) {
     return (

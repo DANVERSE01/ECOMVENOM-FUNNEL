@@ -3,8 +3,19 @@
 import { useEffect } from "react";
 import { usePathname } from "next/navigation";
 import { ScrollTrigger } from "@/lib/gsap";
-import { destroyLenis, getLenis, scrollToElement } from "@/lib/lenis";
+import { destroyLenis, getCurrentLenis, getLenis, scrollToElement } from "@/lib/lenis";
 import { useReducedMotion } from "@/lib/useReducedMotion";
+
+declare global {
+  interface Window {
+    __lenis?: import("lenis").default;
+  }
+}
+
+export function useLenis() {
+  if (typeof window === "undefined") return null;
+  return window.__lenis ?? getCurrentLenis();
+}
 
 export function SmoothScroll({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -41,20 +52,24 @@ export function SmoothScroll({ children }: { children: React.ReactNode }) {
     document.addEventListener("click", handleAnchorClick);
 
     if (useNativeScroll) {
+      delete window.__lenis;
       destroyLenis();
       ScrollTrigger.refresh();
       return () => {
         document.removeEventListener("click", handleAnchorClick);
+        delete window.__lenis;
         ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
       };
     }
 
-    getLenis();
+    const instance = getLenis();
+    if (instance) window.__lenis = instance;
     const refresh = window.setTimeout(() => ScrollTrigger.refresh(), 0);
 
     return () => {
       document.removeEventListener("click", handleAnchorClick);
       window.clearTimeout(refresh);
+      delete window.__lenis;
       destroyLenis();
       ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
     };
