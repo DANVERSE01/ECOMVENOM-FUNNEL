@@ -1,0 +1,84 @@
+{
+  "viewport": {
+    "width": 1440,
+    "height": 900,
+    "clientWidth": 1425,
+    "horizontalOverflow": false
+  },
+  "responses": {
+    "/": 200,
+    "/apply": 200,
+    "/schedule": 200,
+    "/confirmation": 200
+  },
+  "ctas": [
+    {
+      "text": "START YOUR APPLICATIONLIMITED INTAKE*",
+      "visible": true,
+      "top": 10,
+      "fixed": false
+    },
+    {
+      "text": "Start your application",
+      "visible": true,
+      "top": -7782,
+      "fixed": false
+    },
+    {
+      "text": "START YOUR APPLICATION",
+      "visible": true,
+      "top": 2601,
+      "fixed": false
+    },
+    {
+      "text": "START YOUR APPLICATION",
+      "visible": true,
+      "top": 4219,
+      "fixed": false
+    },
+    {
+      "text": "START YOUR APPLICATION",
+      "visible": false,
+      "top": 0,
+      "fixed": false
+    }
+  ],
+  "hashScroll": {
+    "buttonFound": true,
+    "buttonTag": "BUTTON",
+    "targetFound": true,
+    "hashBefore": "",
+    "hashAfter": "#founder-vsl",
+    "targetTopAfter": 80,
+    "scrollY": 8419,
+    "passed": true
+  },
+  "languageToggle": {
+    "buttonFound": true,
+    "heroBefore": "Turn dropshipping from gambling into a decision system.",
+    "heroAfter": "حوّل الدروبشيبينغ من مقامرة إلى نظام قرار.",
+    "htmlAfter": {
+      "lang": "ar",
+      "dir": "rtl"
+    },
+    "changed": true
+  },
+  "proofDialog": {
+    "cardCount": 6,
+    "opened": false,
+    "dialogText": "",
+    "imageAlt": null
+  },
+  "heroWistia": {
+    "found": true,
+    "mediaId": "0z2r9j4jnz",
+    "aspect": "1.7777777777777777",
+    "autoplay": true,
+    "muted": true,
+    "playsinline": true,
+    "doNotTrack": "true",
+    "width": 593,
+    "height": 359
+  },
+  "consoleErrorNote": "Playwright reports 3 Wistia network/CORS console errors on localhost."
+}

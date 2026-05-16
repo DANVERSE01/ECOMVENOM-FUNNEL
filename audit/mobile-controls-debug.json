@@ -1,0 +1,80 @@
+[
+  {
+    "i": 3,
+    "tag": "A",
+    "text": "START YOUR APPLICATIONLIMITED INTAKE*",
+    "href": "/apply",
+    "position": "relative",
+    "display": "flex",
+    "opacity": "1",
+    "classes": "btn-primary min-w-0 max-w-full nav-sticky-cta",
+    "top": 0,
+    "width": 0,
+    "height": 0
+  },
+  {
+    "i": 11,
+    "tag": "A",
+    "text": "Start your application",
+    "href": "/apply",
+    "position": "relative",
+    "display": "inline-flex",
+    "opacity": "1",
+    "classes": "vx-button",
+    "top": -12398,
+    "width": 343,
+    "height": 62
+  },
+  {
+    "i": 19,
+    "tag": "A",
+    "text": "START YOUR APPLICATION",
+    "href": "/apply",
+    "position": "relative",
+    "display": "inline-flex",
+    "opacity": "1",
+    "classes": "vx-button",
+    "top": -2102,
+    "width": 252,
+    "height": 62
+  },
+  {
+    "i": 20,
+    "tag": "A",
+    "text": "START YOUR APPLICATION",
+    "href": "/apply",
+    "position": "relative",
+    "display": "inline-flex",
+    "opacity": "1",
+    "classes": "vx-button",
+    "top": 588,
+    "width": 252,
+    "height": 62
+  },
+  {
+    "i": 21,
+    "tag": "A",
+    "text": "START YOUR APPLICATION",
+    "href": "/apply",
+    "position": "relative",
+    "display": "flex",
+    "opacity": "1",
+    "classes": "btn-primary min-w-0 max-w-full w-full max-w-sm text-center",
+    "top": 873,
+    "width": 304,
+    "height": 62
+  },
+  {
+    "i": 22,
+    "tag": "BUTTON",
+    "text": "",
+    "href": null,
+    "position": "fixed",
+    "display": "none",
+    "opacity": "1",
+    "classes": "fixed bottom-5 right-5 z-[8900] hidden h-11 w-11 place-items-center rounded-lg border border-white/10 bg-ink-2/90 text-venom shadow-lg backdrop-blur transition-",
+    "top": 0,
+    "width": 0,
+    "height": 0
+  }
+]

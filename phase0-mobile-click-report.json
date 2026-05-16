@@ -1,0 +1,170 @@
+{
+  "url": "http://127.0.0.1:3000/",
+  "viewport": {
+    "w": 1536,
+    "h": 730
+  },
+  "scrollHeight": 11670,
+  "routes": [
+    {
+      "href": "#founder-vsl",
+      "status": "clicked",
+      "scrollY": 226,
+      "targetTop": 0,
+      "hash": "#founder-vsl"
+    },
+    {
+      "href": "#main-content",
+      "status": "clicked",
+      "scrollY": 0,
+      "targetTop": 0,
+      "hash": "#main-content"
+    }
+  ],
+  "buttons": [
+    {
+      "tag": "a",
+      "text": "Skip to content",
+      "href": "#main-content",
+      "visible": true
+    },
+    {
+      "tag": "a",
+      "text": "ECOMVENOM home",
+      "href": "/",
+      "visible": true
+    },
+    {
+      "tag": "button",
+      "text": "عربيEN",
+      "href": null,
+      "visible": true
+    },
+    {
+      "tag": "a",
+      "text": "START YOUR APPLICATIONLIMITED INTAKE*",
+      "href": "/apply",
+      "visible": true
+    },
+    {
+      "tag": "a",
+      "text": "01Mechanism",
+      "href": "#mechanism",
+      "visible": true
+    },
+    {
+      "tag": "a",
+      "text": "02Execution map",
+      "href": "#roadmap",
+      "visible": true
+    },
+    {
+      "tag": "a",
+      "text": "03Operator behind it",
+      "href": "#founder",
+      "visible": true
+    },
+    {
+      "tag": "a",
+      "text": "04Real proof",
+      "href": "#proof",
+      "visible": true
+    },
+    {
+      "tag": "a",
+      "text": "05Offer",
+      "href": "#offer",
+      "visible": true
+    },
+    {
+      "tag": "a",
+      "text": "06Practical objections",
+      "href": "#faq",
+      "visible": true
+    },
+    {
+      "tag": "a",
+      "text": "07Next move",
+      "href": "#final-cta",
+      "visible": true
+    },
+    {
+      "tag": "a",
+      "text": "Start your application",
+      "href": "/apply",
+      "visible": true
+    },
+    {
+      "tag": "a",
+      "text": "Watch founder video",
+      "href": "#founder-vsl",
+      "visible": true
+    },
+    {
+      "tag": "button",
+      "text": "Open the operating brief",
+      "href": null,
+      "visible": true
+    },
+    {
+      "tag": "button",
+      "text": "WhatsApp / EasyOrdersDemand signalA real conversation and visible order capture, used as context rather than an income p",
+      "href": null,
+      "visible": true
+    },
+    {
+      "tag": "button",
+      "text": "Platform / salesVerified student resultA capture showing sales and orders from a student context, without adding numbers",
+      "href": null,
+      "visible": true
+    },
+    {
+      "tag": "button",
+      "text": "Execution / WhatsAppLaunch-day ordersDocumented chats and orders from an existing asset, with personal data withheld.",
+      "href": null,
+      "visible": true
+    },
+    {
+      "tag": "a",
+      "text": "START YOUR APPLICATION",
+      "href": "/apply",
+      "visible": true
+    },
+    {
+      "tag": "a",
+      "text": "START YOUR APPLICATION",
+      "href": "/apply",
+      "visible": true
+    },
+    {
+      "tag": "a",
+      "text": "START YOUR APPLICATION",
+      "href": "/apply",
+      "visible": false
+    },
+    {
+      "tag": "button",
+      "text": "Back to top",
+      "href": null,
+      "visible": true
+    }
+  ],
+  "stickyStates": [
+    {
+      "y": 0,
+      "visible": "false",
+      "bottom": 0
+    },
+    {
+      "y": 850,
+      "visible": "false",
+      "bottom": 0
+    },
+    {
+      "y": 6418,
+      "visible": "false",
+      "bottom": 0
+    }
+  ],
+  "horizontalOverflow": 0
+}

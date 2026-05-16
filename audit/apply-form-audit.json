@@ -1,0 +1,112 @@
+{
+  "url": "http://127.0.0.1:3002/apply",
+  "title": "Apply — ECOMVENOM",
+  "fieldCount": 8,
+  "fields": [
+    {
+      "tag": "INPUT",
+      "type": "text",
+      "name": "name",
+      "required": true,
+      "placeholder": null,
+      "value": "",
+      "ariaInvalid": "false"
+    },
+    {
+      "tag": "INPUT",
+      "type": "email",
+      "name": "email",
+      "required": true,
+      "placeholder": null,
+      "value": "",
+      "ariaInvalid": "false"
+    },
+    {
+      "tag": "INPUT",
+      "type": "tel",
+      "name": "phone",
+      "required": true,
+      "placeholder": "+20 1XX XXX XXXX",
+      "value": "",
+      "ariaInvalid": "false"
+    },
+    {
+      "tag": "SELECT",
+      "type": null,
+      "name": "experience",
+      "required": true,
+      "placeholder": null,
+      "value": "",
+      "ariaInvalid": "false"
+    },
+    {
+      "tag": "SELECT",
+      "type": null,
+      "name": "market",
+      "required": true,
+      "placeholder": null,
+      "value": "",
+      "ariaInvalid": "false"
+    },
+    {
+      "tag": "SELECT",
+      "type": null,
+      "name": "budget",
+      "required": true,
+      "placeholder": null,
+      "value": "",
+      "ariaInvalid": "false"
+    },
+    {
+      "tag": "TEXTAREA",
+      "type": null,
+      "name": "message",
+      "required": false,
+      "placeholder": null,
+      "value": "",
+      "ariaInvalid": null
+    },
+    {
+      "tag": "INPUT",
+      "type": "checkbox",
+      "name": "commitment",
+      "required": true,
+      "placeholder": null,
+      "value": "yes",
+      "ariaInvalid": null
+    }
+  ],
+  "buttons": [
+    {
+      "i": 0,
+      "text": "عربيEN",
+      "type": "button",
+      "disabled": false,
+      "top": 16
+    },
+    {
+      "i": 1,
+      "text": "Continue",
+      "type": "button",
+      "disabled": false,
+      "top": 576
+    },
+    {
+      "i": 2,
+      "text": "",
+      "type": "button",
+      "disabled": false,
+      "top": 678
+    }
+  ],
+  "clickedButton": "Continue",
+  "urlAfter": "http://127.0.0.1:3002/apply",
+  "stayedOnPage": true,
+  "errorCandidates": [
+    "Full name is required.",
+    "Email is required.",
+    "WhatsApp number is required.",
+    "Complete the required fields before continuing."
+  ],
+  "horizontalOverflow": false
+}

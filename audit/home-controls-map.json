@@ -1,0 +1,120 @@
+{
+  "links": [
+    {
+      "i": 0,
+      "text": "Skip to content",
+      "href": "#main-content",
+      "top": -40
+    },
+    {
+      "i": 1,
+      "text": "",
+      "href": "/",
+      "top": 12
+    },
+    {
+      "i": 2,
+      "text": "START YOUR APPLICATIONLIMITED INTAKE*",
+      "href": "/apply",
+      "top": 10
+    },
+    {
+      "i": 3,
+      "text": "Start your application",
+      "href": "/apply",
+      "top": 637
+    },
+    {
+      "i": 4,
+      "text": "START YOUR APPLICATION",
+      "href": "/apply",
+      "top": 11020
+    },
+    {
+      "i": 5,
+      "text": "START YOUR APPLICATION",
+      "href": "/apply",
+      "top": 12638
+    },
+    {
+      "i": 6,
+      "text": "START YOUR APPLICATION",
+      "href": "/apply",
+      "top": 0
+    }
+  ],
+  "buttons": [
+    {
+      "i": 0,
+      "text": "عربيEN",
+      "type": "button",
+      "top": 16,
+      "disabled": false,
+      "classes": "relative inline-grid h-10 min-w-[7.25rem] grid-cols-2 items-center rounded-full border border-white/10 bg-white/[0.03] p-1 font-heading text-[9px] uppercase tracking-[0.16em] text-bone shadow-[inset_0_1px_0_rgba(255,255,255,0.08),0_10px_24px_rgba(0,0,0,0.28)] backdrop-blur-md transition-all duration-300 hover:border-venom/45 hover:bg-white/[0.05] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-venom"
+    },
+    {
+      "i": 1,
+      "text": "Watch founder video",
+      "type": "button",
+      "top": 637,
+      "disabled": false,
+      "classes": "vx-button vx-button--ghost"
+    },
+    {
+      "i": 2,
+      "text": "WhatsApp / EasyOrdersDemand signalA real conversation and visible order capture,",
+      "type": "button",
+      "top": 8861,
+      "disabled": false,
+      "classes": "v2-proof-card"
+    },
+    {
+      "i": 3,
+      "text": "Platform / salesVerified student resultA capture showing sales and orders from a",
+      "type": "button",
+      "top": 8863,
+      "disabled": false,
+      "classes": "v2-proof-card"
+    },
+    {
+      "i": 4,
+      "text": "Execution / WhatsAppLaunch-day ordersDocumented chats and orders from an existin",
+      "type": "button",
+      "top": 8863,
+      "disabled": false,
+      "classes": "v2-proof-card"
+    },
+    {
+      "i": 5,
+      "text": "Live store / Sales dashboardFull month performance$0 in a single month, 0 orders",
+      "type": "button",
+      "top": 9317,
+      "disabled": false,
+      "classes": "v2-proof-card"
+    },
+    {
+      "i": 6,
+      "text": "EasyOrders / NotificationsLive order burst0 orders in under 2 minutes, 220 each.",
+      "type": "button",
+      "top": 9317,
+      "disabled": false,
+      "classes": "v2-proof-card"
+    },
+    {
+      "i": 7,
+      "text": "WhatsApp / Operating storeSaudi store update0 orders by Fajr, SAR 352 AOV, 1.61%",
+      "type": "button",
+      "top": 9317,
+      "disabled": false,
+      "classes": "v2-proof-card"
+    },
+    {
+      "i": 8,
+      "text": "",
+      "type": "button",
+      "top": 848,
+      "disabled": false,
+      "classes": "fixed bottom-5 right-5 z-[8900] hidden h-11 w-11 place-items-center rounded-lg border border-white/10 bg-ink-2/90 text-venom shadow-lg backdrop-blur transition-[opacity,transform,border-color,background-color] duration-300 ease-out hover:border-venom/60 hover:bg-ink-3 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-venom data-[visible=false]:pointer-events-none data-[visible=false]:translate-y-3 data-[visible=false]:opacity-0 md:grid"
+    }
+  ]
+}

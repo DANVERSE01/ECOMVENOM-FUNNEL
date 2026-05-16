@@ -1,0 +1,231 @@
+{
+  "url": "http://127.0.0.1:3002/schedule",
+  "title": "Schedule your call — ECOMVENOM",
+  "selectedDay": "15",
+  "selectedSlot": "02:00 AM",
+  "confirmButton": {
+    "text": "Confirm booking",
+    "disabled": true
+  },
+  "urlAfter": "http://127.0.0.1:3002/schedule",
+  "stayedOnPage": true,
+  "alerts": [
+    "This page does not create a fake booking. When the official calendar provider is configured, select a slot and you will be sent to the real scheduler.",
+    "Free Discovery Call · 20 min",
+    "Select Date & Time",
+    "Calendar integration not yet configured. Set NEXT_PUBLIC_SCHEDULE_PROVIDER_URL before launch."
+  ],
+  "buttonsBefore": [
+    {
+      "i": 0,
+      "text": "عربيEN",
+      "disabled": false,
+      "ariaPressed": null,
+      "top": 16
+    },
+    {
+      "i": 1,
+      "text": "1",
+      "disabled": true,
+      "ariaPressed": "false",
+      "top": 732
+    },
+    {
+      "i": 2,
+      "text": "2",
+      "disabled": true,
+      "ariaPressed": "false",
+      "top": 732
+    },
+    {
+      "i": 3,
+      "text": "3",
+      "disabled": true,
+      "ariaPressed": "false",
+      "top": 887
+    },
+    {
+      "i": 4,
+      "text": "4",
+      "disabled": true,
+      "ariaPressed": "false",
+      "top": 887
+    },
+    {
+      "i": 5,
+      "text": "5",
+      "disabled": true,
+      "ariaPressed": "false",
+      "top": 887
+    },
+    {
+      "i": 6,
+      "text": "6",
+      "disabled": true,
+      "ariaPressed": "false",
+      "top": 887
+    },
+    {
+      "i": 7,
+      "text": "7",
+      "disabled": true,
+      "ariaPressed": "false",
+      "top": 887
+    },
+    {
+      "i": 8,
+      "text": "8",
+      "disabled": true,
+      "ariaPressed": "false",
+      "top": 887
+    },
+    {
+      "i": 9,
+      "text": "9",
+      "disabled": true,
+      "ariaPressed": "false",
+      "top": 887
+    },
+    {
+      "i": 10,
+      "text": "10",
+      "disabled": true,
+      "ariaPressed": "false",
+      "top": 1042
+    },
+    {
+      "i": 11,
+      "text": "11",
+      "disabled": true,
+      "ariaPressed": "false",
+      "top": 1042
+    },
+    {
+      "i": 12,
+      "text": "12",
+      "disabled": true,
+      "ariaPressed": "false",
+      "top": 1042
+    },
+    {
+      "i": 13,
+      "text": "13",
+      "disabled": true,
+      "ariaPressed": "false",
+      "top": 1042
+    },
+    {
+      "i": 14,
+      "text": "14",
+      "disabled": true,
+      "ariaPressed": "false",
+      "top": 1042
+    },
+    {
+      "i": 15,
+      "text": "15",
+      "disabled": false,
+      "ariaPressed": "true",
+      "top": 1042
+    },
+    {
+      "i": 16,
+      "text": "16",
+      "disabled": false,
+      "ariaPressed": "false",
+      "top": 1042
+    },
+    {
+      "i": 17,
+      "text": "17",
+      "disabled": false,
+      "ariaPressed": "false",
+      "top": 1196
+    },
+    {
+      "i": 18,
+      "text": "18",
+      "disabled": false,
+      "ariaPressed": "false",
+      "top": 1196
+    },
+    {
+      "i": 19,
+      "text": "19",
+      "disabled": false,
+      "ariaPressed": "false",
+      "top": 1196
+    },
+    {
+      "i": 20,
+      "text": "20",
+      "disabled": false,
+      "ariaPressed": "false",
+      "top": 1196
+    },
+    {
+      "i": 21,
+      "text": "21",
+      "disabled": false,
+      "ariaPressed": "false",
+      "top": 1196
+    },
+    {
+      "i": 22,
+      "text": "22",
+      "disabled": false,
+      "ariaPressed": "false",
+      "top": 1196
+    },
+    {
+      "i": 23,
+      "text": "23",
+      "disabled": false,
+      "ariaPressed": "false",
+      "top": 1196
+    },
+    {
+      "i": 24,
+      "text": "24",
+      "disabled": false,
+      "ariaPressed": "false",
+      "top": 1351
+    },
+    {
+      "i": 25,
+      "text": "25",
+      "disabled": false,
+      "ariaPressed": "false",
+      "top": 1351
+    },
+    {
+      "i": 26,
+      "text": "26",
+      "disabled": false,
+      "ariaPressed": "false",
+      "top": 1351
+    },
+    {
+      "i": 27,
+      "text": "27",
+      "disabled": false,
+      "ariaPressed": "false",
+      "top": 1351
+    },
+    {
+      "i": 28,
+      "text": "28",
+      "disabled": false,
+      "ariaPressed": "false",
+      "top": 1351
+    },
+    {
+      "i": 29,
+      "text": "29",
+      "disabled": false,
+      "ariaPressed": "false",
+      "top": 1351
+    }
+  ],
+  "horizontalOverflow": false
+}

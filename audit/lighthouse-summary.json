@@ -1,0 +1,16 @@
+{
+  "command": "npx -y lighthouse@12.6.1 http://127.0.0.1:3002 --output=json --output-path=audit\\lighthouse-home.json --chrome-flags=\"--headless=new --no-sandbox --disable-gpu\" --quiet",
+  "exitCode": 1,
+  "failure": "Lighthouse wrote JSON but exited 1 during temp profile cleanup: EPERM Permission denied in chrome-launcher destroyTmp",
+  "performance": 81.0,
+  "accessibility": 92.0,
+  "bestPractices": 79.0,
+  "seo": 91.0,
+  "fcp": "2.0 s",
+  "lcp": "3.6 s",
+  "cls": "0.051",
+  "tbt": "320 ms",
+  "speedIndex": "2.7 s",
+  "insecure": "7 insecure requests found",
+  "thirdParty": "Third-party code blocked the main thread for 230 ms"
+}

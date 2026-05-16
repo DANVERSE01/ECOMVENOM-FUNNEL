@@ -1,0 +1,207 @@
+{
+  "url": "http://127.0.0.1:3000/",
+  "viewport": {
+    "w": 1440,
+    "h": 900
+  },
+  "scrollHeight": 12546,
+  "anchors": [
+    {
+      "text": "Skip to content",
+      "href": "#main-content",
+      "id": null,
+      "className": "skip-to-content",
+      "exists": true
+    },
+    {
+      "text": "ECOMVENOM home",
+      "href": "/",
+      "id": null,
+      "className": "relative z-40 flex min-h-11 min-w-0 items-center gap-3",
+      "exists": null
+    },
+    {
+      "text": "START YOUR APPLICATIONLIMITED INTAKE*",
+      "href": "/apply",
+      "id": null,
+      "className": "btn-primary min-w-0 max-w-full nav-sticky-cta",
+      "exists": null
+    },
+    {
+      "text": "Start your application",
+      "href": "/apply",
+      "id": null,
+      "className": "vx-button",
+      "exists": null
+    },
+    {
+      "text": "Watch founder video",
+      "href": "#founder-vsl",
+      "id": null,
+      "className": "vx-button vx-button--ghost",
+      "exists": true
+    },
+    {
+      "text": "START YOUR APPLICATION",
+      "href": "/apply",
+      "id": null,
+      "className": "vx-button",
+      "exists": null
+    },
+    {
+      "text": "START YOUR APPLICATION",
+      "href": "/apply",
+      "id": null,
+      "className": "vx-button",
+      "exists": null
+    },
+    {
+      "text": "START YOUR APPLICATION",
+      "href": "/apply",
+      "id": null,
+      "className": "btn-primary min-w-0 max-w-full w-full max-w-sm text-center",
+      "exists": null
+    }
+  ],
+  "routes": [
+    {
+      "href": "#founder-vsl",
+      "status": "clicked",
+      "scrollY": 226,
+      "targetTop": 0,
+      "hash": "#founder-vsl"
+    },
+    {
+      "href": "#main-content",
+      "status": "clicked",
+      "scrollY": 0,
+      "targetTop": 0,
+      "hash": "#main-content"
+    },
+    {
+      "href": "/apply",
+      "status": 200
+    },
+    {
+      "href": "/schedule",
+      "status": 200
+    },
+    {
+      "href": "/confirmation",
+      "status": 200
+    }
+  ],
+  "buttons": [
+    {
+      "tag": "a",
+      "text": "Skip to content",
+      "href": "#main-content",
+      "type": null,
+      "visible": true
+    },
+    {
+      "tag": "a",
+      "text": "ECOMVENOM home",
+      "href": "/",
+      "type": null,
+      "visible": true
+    },
+    {
+      "tag": "button",
+      "text": "عربيEN",
+      "href": null,
+      "type": "button",
+      "visible": true
+    },
+    {
+      "tag": "a",
+      "text": "START YOUR APPLICATIONLIMITED INTAKE*",
+      "href": "/apply",
+      "type": null,
+      "visible": true
+    },
+    {
+      "tag": "a",
+      "text": "Start your application",
+      "href": "/apply",
+      "type": null,
+      "visible": true
+    },
+    {
+      "tag": "a",
+      "text": "Watch founder video",
+      "href": "#founder-vsl",
+      "type": null,
+      "visible": true
+    },
+    {
+      "tag": "button",
+      "text": "Open the operating brief",
+      "href": null,
+      "type": "button",
+      "visible": true
+    },
+    {
+      "tag": "button",
+      "text": "WhatsApp / EasyOrdersDemand signalA real conversation and visible order capture, used as context rather than an income p",
+      "href": null,
+      "type": "button",
+      "visible": true
+    },
+    {
+      "tag": "button",
+      "text": "Platform / salesVerified student resultA capture showing sales and orders from a student context, without adding numbers",
+      "href": null,
+      "type": "button",
+      "visible": true
+    },
+    {
+      "tag": "button",
+      "text": "Execution / WhatsAppLaunch-day ordersDocumented chats and orders from an existing asset, with personal data withheld.",
+      "href": null,
+      "type": "button",
+      "visible": true
+    },
+    {
+      "tag": "a",
+      "text": "START YOUR APPLICATION",
+      "href": "/apply",
+      "type": null,
+      "visible": true
+    },
+    {
+      "tag": "a",
+      "text": "START YOUR APPLICATION",
+      "href": "/apply",
+      "type": null,
+      "visible": true
+    },
+    {
+      "tag": "a",
+      "text": "START YOUR APPLICATION",
+      "href": "/apply",
+      "type": null,
+      "visible": false
+    },
+    {
+      "tag": "button",
+      "text": "Back to top",
+      "href": null,
+      "type": "button",
+      "visible": true
+    }
+  ],
+  "sticky": {
+    "visible": "false",
+    "rect": {
+      "x": 0,
+      "y": 0,
+      "width": 0,
+      "height": 0,
+      "top": 0,
+      "right": 0,
+      "bottom": 0,
+      "left": 0
+    }
+  }
+}

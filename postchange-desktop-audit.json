@@ -1,0 +1,39 @@
+{
+  "url": "http://127.0.0.1:3001/",
+  "viewport": {
+    "w": 1536,
+    "h": 730
+  },
+  "hash": {
+    "scrollY": 146,
+    "targetTop": 80,
+    "hash": "#founder-vsl",
+    "tag": "BUTTON"
+  },
+  "routes": {
+    "/apply": 200,
+    "/schedule": 200,
+    "/confirmation": 200
+  },
+  "wistia": [
+    {
+      "mediaId": "0z2r9j4jnz",
+      "aspect": "1.7777777777777777",
+      "autoplay": "true",
+      "muted": "true",
+      "playsinline": "true",
+      "dnt": "true",
+      "width": 593,
+      "height": 359
+    }
+  ],
+  "proof": {
+    "cards": 6,
+    "images": [
+      "Real monthly dashboard capture from an operating store",
+      "EasyOrders notification stack from a live launch",
+      "WhatsApp update from a Saudi store with operating stats"
+    ]
+  },
+  "sticky": []
+}

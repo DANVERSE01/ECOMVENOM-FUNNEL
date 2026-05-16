@@ -1,0 +1,70 @@
+{
+  "viewport": {
+    "width": 390,
+    "height": 844,
+    "clientWidth": 375,
+    "horizontalOverflow": false
+  },
+  "samples": [
+    {
+      "targetY": 0,
+      "y": 0,
+      "barFound": true,
+      "dataVisible": "false",
+      "inViewport": false,
+      "text": "START YOUR APPLICATIONFree 20-minute consultation",
+      "rect": {
+        "top": 860,
+        "bottom": 968,
+        "left": 0,
+        "width": 375,
+        "height": 108
+      }
+    },
+    {
+      "targetY": 802,
+      "y": 802,
+      "barFound": true,
+      "dataVisible": "true",
+      "inViewport": true,
+      "text": "START YOUR APPLICATIONFree 20-minute consultation",
+      "rect": {
+        "top": 736,
+        "bottom": 844,
+        "left": 0,
+        "width": 375,
+        "height": 108
+      }
+    },
+    {
+      "targetY": 1300,
+      "y": 1300,
+      "barFound": true,
+      "dataVisible": "true",
+      "inViewport": true,
+      "text": "START YOUR APPLICATIONFree 20-minute consultation",
+      "rect": {
+        "top": 736,
+        "bottom": 844,
+        "left": 0,
+        "width": 375,
+        "height": 108
+      }
+    },
+    {
+      "targetY": 12936,
+      "y": 12936,
+      "barFound": true,
+      "dataVisible": "false",
+      "inViewport": false,
+      "text": "START YOUR APPLICATIONFree 20-minute consultation",
+      "rect": {
+        "top": 860,
+        "bottom": 968,
+        "left": 0,
+        "width": 375,
+        "height": 108
+      }
+    }
+  ]
+}

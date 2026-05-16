@@ -1,0 +1,43 @@
+{
+  "viewport": {
+    "w": 390,
+    "h": 844,
+    "clientWidth": 375
+  },
+  "sticky": [
+    {
+      "y": 0,
+      "visible": "false",
+      "top": 860,
+      "height": 108
+    },
+    {
+      "y": 984,
+      "visible": "false",
+      "top": 860,
+      "height": 108
+    },
+    {
+      "y": 7724,
+      "visible": "true",
+      "top": 736,
+      "height": 108
+    }
+  ],
+  "hash": {
+    "scrollY": 774,
+    "targetTop": 80,
+    "hash": "#founder-vsl",
+    "tag": "BUTTON"
+  },
+  "overflow": 0,
+  "wistia": [
+    {
+      "mediaId": "0z2r9j4jnz",
+      "autoplay": "true",
+      "muted": "true",
+      "playsinline": "true",
+      "dnt": "true"
+    }
+  ]
+}

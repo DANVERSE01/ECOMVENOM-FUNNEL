@@ -1,0 +1,20 @@
+{
+  "url": "http://127.0.0.1:3002/confirmation",
+  "title": "You're confirmed — ECOMVENOM",
+  "video": {
+    "found": true,
+    "mediaId": "bg446wfhed",
+    "aspect": "0.5625",
+    "autoplay": true,
+    "muted": true,
+    "playsinline": true,
+    "doNotTrack": "true",
+    "width": 245,
+    "height": 436
+  },
+  "viewport": {
+    "width": 1536,
+    "height": 730,
+    "horizontalOverflow": false
+  }
+}
