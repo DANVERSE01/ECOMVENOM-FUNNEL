@@ -63,17 +63,15 @@
   padding: var(--vo-section-y) var(--vo-pad);
 }
 
-[data-vx-reveal] {
-  opacity: 1;
-  transform: translate3d(0, 0, 0);
+[data-vx-reveal]:not([data-vx-reveal-init]) {
+  opacity: 0;
+  transform: translate3d(0, 32px, 0);
+}
+
+[data-vx-reveal][data-vx-reveal-init] {
   transition:
     opacity 620ms cubic-bezier(0.16, 1, 0.3, 1),
     transform 620ms cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-[data-vx-reveal][data-vx-visible="true"] {
-  opacity: 1;
-  transform: translate3d(0, 0, 0);
 }
 
 .vx-section--hero {

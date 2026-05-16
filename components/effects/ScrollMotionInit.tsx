@@ -19,7 +19,7 @@ export function ScrollMotionInit() {
       ScrollTrigger.refresh();
     };
 
-    const id = window.setTimeout(run, 80);
+    const id = window.setTimeout(run, 300);
 
     rescanInterval = window.setInterval(() => {
       const pending = document.querySelectorAll(

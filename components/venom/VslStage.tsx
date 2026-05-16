@@ -17,7 +17,7 @@ export function VslStage({ label, title }: VslStageProps) {
     <div className="vx-stage" data-vx-reveal>
       <StatusPill>{label}</StatusPill>
       <div className="vx-vsl">
-        <WistiaPlayer mediaId={HERO_VSL_MEDIA_ID} aspect={HERO_VSL_ASPECT} autoplay muted />
+        <WistiaPlayer mediaId={HERO_VSL_MEDIA_ID} aspect={HERO_VSL_ASPECT} autoplay={false} muted={false} />
         <span className="sr-only">{title}</span>
       </div>
     </div>

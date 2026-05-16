@@ -46,23 +46,28 @@ export function GlowButton({
       if (typeof window === "undefined") return;
 
       const targetId = href.slice(1);
-      const target = document.getElementById(targetId) || document.querySelector<HTMLElement>(href);
-      if (!target) return;
+      const target =
+        document.getElementById(targetId) ??
+        document.querySelector<HTMLElement>(href);
 
-      try {
-        window.history.pushState(null, "", href);
-      } catch {}
+      if (!target) {
+        console.warn("[GlowButton] target not found:", href);
+        return;
+      }
 
-      if (window.__lenis) {
+      try { window.history.pushState(null, "", href); } catch {}
+
+      const lenis = window.__lenis ?? (window as unknown as { __lenis?: Window["__lenis"] }).__lenis;
+      if (lenis) {
         try {
-          window.__lenis.scrollTo(target, { offset: -80, duration: 1.2 });
+          lenis.scrollTo(target, { offset: -80, duration: 1.2 });
           return;
         } catch {}
       }
 
       const rect = target.getBoundingClientRect();
       const y = rect.top + window.scrollY - 80;
-      window.scrollTo({ top: y, behavior: "smooth" });
+      window.scrollTo({ top: Math.max(0, y), behavior: "smooth" });
     };
 
     return (

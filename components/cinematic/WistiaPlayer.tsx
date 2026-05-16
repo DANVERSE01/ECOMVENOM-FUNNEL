@@ -75,10 +75,9 @@ export function WistiaPlayer({
       attempts += 1;
       const el = document.querySelector(
         `wistia-player[media-id="${mediaId}"]`,
-      ) as (HTMLElement & { play?: () => Promise<void> | void; muted?: boolean }) | null;
+      ) as (HTMLElement & { play?: () => Promise<void> | void }) | null;
       if (el?.play) {
         try {
-          if (muted) el.muted = true;
           const r = el.play();
           if (r && typeof (r as Promise<void>).catch === "function") {
             (r as Promise<void>).catch(() => {});
@@ -92,7 +91,7 @@ export function WistiaPlayer({
     return () => {
       window.clearInterval(interval);
     };
-  }, [mediaId, autoplay, muted]);
+  }, [mediaId, autoplay]);
 
   return (
     <div className={className} style={{ position: "relative", width: "100%", aspectRatio: aspect }}>

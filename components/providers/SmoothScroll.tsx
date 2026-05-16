@@ -58,7 +58,6 @@ export function SmoothScroll({ children }: { children: React.ReactNode }) {
       return () => {
         document.removeEventListener("click", handleAnchorClick);
         delete window.__lenis;
-        ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
       };
     }
 

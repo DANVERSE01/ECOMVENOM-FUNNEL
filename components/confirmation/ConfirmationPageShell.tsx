@@ -1,10 +1,9 @@
 "use client";
 
-import Image from "next/image";
 import { Container } from "@/components/ui/container";
 import { PreCallSteps } from "@/components/confirmation/pre-call-steps";
-import { CinematicLoopVideo } from "@/components/cinematic/CinematicLoopVideo";
-import { HIGGSFIELD_STILLS } from "@/lib/frameManifest";
+import { LusionMonitorScrollScene } from "@/components/cinematic/LusionMonitorScrollScene";
+import { HIGGSFIELD_FRAMES, HIGGSFIELD_STILLS } from "@/lib/frameManifest";
 import { useContent } from "@/lib/useContent";
 
 export function ConfirmationPageShell() {
@@ -17,17 +16,25 @@ export function ConfirmationPageShell() {
       </div>
 
       <section className="relative min-h-screen overflow-hidden py-24 sm:py-32">
-        <div className="absolute inset-0">
-          <Image src={HIGGSFIELD_STILLS.ecomvenomLockup} alt="" fill priority sizes="100vw" className="object-cover opacity-20" />
-          <CinematicLoopVideo
-            src="/media/system-loop-02.mp4"
-            poster={HIGGSFIELD_STILLS.ecomvenomLockup}
-            preload="metadata"
-            hideOnMobile
-            className="opacity-20 mix-blend-screen"
+        {/* Monitor scene background */}
+        <div
+          className="pointer-events-none absolute inset-0 z-0"
+          style={{ opacity: 0.38 }}
+          aria-hidden
+        >
+          <LusionMonitorScrollScene
+            alt="ECOMVENOM system scene"
+            assets={{
+              frames: HIGGSFIELD_FRAMES,
+              mobileVideo: "/media/chaos-system.mp4",
+              monitorFrame: "/textures/lusion-monitor-frame.webp",
+              poster: HIGGSFIELD_FRAMES[0] ?? HIGGSFIELD_STILLS.systemIntro,
+            }}
           />
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_16%,rgba(0,0,0,0.9)_74%)]" />
         </div>
+
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_16%,rgba(0,0,0,0.88)_74%)] z-[1]" />
+
         <Container className="relative z-10 max-w-6xl">
           <div className="grid gap-10 lg:grid-cols-[0.86fr_1.14fr] lg:items-start">
             <div>
@@ -37,12 +44,10 @@ export function ConfirmationPageShell() {
               <p className="mt-4 font-display text-2xl uppercase leading-tight tracking-tight text-bone sm:text-3xl">
                 {confirmation.sub}
               </p>
-
               <h2 className="mt-12 font-display text-xl uppercase tracking-tight text-bone sm:text-2xl">
                 {confirmation.stepsHeading}
               </h2>
             </div>
-
             <div>
               <PreCallSteps />
             </div>
