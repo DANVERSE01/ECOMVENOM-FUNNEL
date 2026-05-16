@@ -264,6 +264,27 @@ export const proofAssets = {
       market: "تشغيل / واتساب",
       note: "محادثات وطلبات موثقة من أصل موجود، مع إخفاء أي بيانات شخصية.",
     },
+    {
+      src: "/proof/proof-shopify-dashboard.png",
+      alt: "لقطة لوحة بيانات شهرية حقيقية من متجر تشغيل",
+      label: "أداء شهر كامل",
+      market: "متجر تشغيل / لوحة المبيعات",
+      note: "‏$5,029 خلال شهر واحد، 81 أوردر، تحويل 2.88%. لقطة مباشرة من المنصة بدون إضافات.",
+    },
+    {
+      src: "/proof/proof-easyorders-flood.png",
+      alt: "إشعارات أوردرات متلاحقة من EasyOrders",
+      label: "موجة أوردرات حية",
+      market: "EasyOrders / إشعارات",
+      note: "9 أوردرات في أقل من دقيقتين، كل واحد 220، إشعارات اتسجلت لايف وقت الإطلاق.",
+    },
+    {
+      src: "/proof/proof-whatsapp-stats.png",
+      alt: "تحديث واتساب من ستور سعودي مع إحصائيات تشغيل",
+      label: "تحديث ستور سعودي",
+      market: "واتساب / متجر تشغيل",
+      note: "9 أوردرات لحد الفجر، متوسط الطلب 352 ريال، تحويل 1.61% — تحديث من تشغيل حقيقي.",
+    },
   ],
   en: [
     {
@@ -286,6 +307,27 @@ export const proofAssets = {
       label: "Launch-day orders",
       market: "Execution / WhatsApp",
       note: "Documented chats and orders from an existing asset, with personal data withheld.",
+    },
+    {
+      src: "/proof/proof-shopify-dashboard.png",
+      alt: "Real monthly dashboard capture from an operating store",
+      label: "Full month performance",
+      market: "Live store / Sales dashboard",
+      note: "$5,029 in a single month, 81 orders, 2.88% conversion. Direct platform capture, no edits.",
+    },
+    {
+      src: "/proof/proof-easyorders-flood.png",
+      alt: "EasyOrders notification stack from a live launch",
+      label: "Live order burst",
+      market: "EasyOrders / Notifications",
+      note: "9 orders in under 2 minutes, 220 each. Notification stack captured during launch.",
+    },
+    {
+      src: "/proof/proof-whatsapp-stats.png",
+      alt: "WhatsApp update from a Saudi store with operating stats",
+      label: "Saudi store update",
+      market: "WhatsApp / Operating store",
+      note: "9 orders by Fajr, SAR 352 AOV, 1.61% conversion — update from a working operator.",
     },
   ],
 } satisfies Record<"ar" | "en", ProofAsset[]>;
