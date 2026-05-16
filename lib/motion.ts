@@ -18,17 +18,118 @@ interface SplitResult {
 }
 
 export function revealHeadline(target: HTMLElement | null) {
-  if (!target || reducedMotion()) return;
+  if (!target) return;
+  target.style.visibility = "visible";
 
-  const split = new SplitText(target, { type: "chars,words", mask: "chars" });
-  gsap.from(split.chars, {
-    yPercent: 110,
-    duration: 0.9,
-    ease: "expo.out",
-    stagger: 0.018,
+  if (reducedMotion()) {
+    target.style.opacity = "1";
+    return;
+  }
+
+  let split: SplitText | undefined;
+  const run = () => {
+    try {
+      split = new SplitText(target, { type: "chars,words", mask: "chars" });
+      gsap.set(split.chars, { yPercent: 110 });
+      gsap.to(split.chars, {
+        yPercent: 0,
+        duration: 0.9,
+        ease: "expo.out",
+        stagger: 0.018,
+        delay: 0.05,
+        onComplete: () => {
+          try {
+            split?.revert();
+          } catch {}
+        },
+      });
+    } catch {
+      target.style.opacity = "1";
+    }
+  };
+
+  if (document.fonts?.ready) {
+    document.fonts.ready.then(() => requestAnimationFrame(run));
+  } else {
+    requestAnimationFrame(run);
+  }
+
+  return { revert: () => split?.revert() };
+}
+
+export function initScrollReveals() {
+  if (reducedMotion() || typeof window === "undefined") return () => {};
+
+  const elements = Array.from(
+    document.querySelectorAll<HTMLElement>("[data-vx-reveal]"),
+  ).filter((el) => !el.dataset.vxRevealInit);
+
+  const vh = window.innerHeight || document.documentElement.clientHeight;
+
+  const reveal = (el: HTMLElement) => {
+    gsap.to(el, {
+      y: 0,
+      opacity: 1,
+      duration: 0.9,
+      ease: "power3.out",
+      onComplete: () => {
+        el.style.willChange = "";
+      },
+    });
+  };
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          reveal(entry.target as HTMLElement);
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { rootMargin: "0px 0px -12% 0px", threshold: 0.01 },
+  );
+
+  elements.forEach((el) => {
+    el.dataset.vxRevealInit = "1";
+    const rect = el.getBoundingClientRect();
+    const alreadyVisible = rect.top < vh * 0.92 && rect.bottom > 0;
+
+    if (alreadyVisible) {
+      gsap.set(el, { y: 0, opacity: 1 });
+      return;
+    }
+
+    gsap.set(el, { y: 32, opacity: 0, willChange: "transform, opacity" });
+    observer.observe(el);
   });
 
-  return split;
+  return () => {
+    observer.disconnect();
+  };
+}
+
+export function initHeroParallax() {
+  if (reducedMotion()) return () => {};
+  const media = document.querySelector<HTMLElement>(".v2-hero__media");
+  const hero = document.querySelector<HTMLElement>(".v2-hero");
+  if (!media || !hero) return () => {};
+
+  const tween = gsap.to(media, {
+    yPercent: 10,
+    ease: "none",
+    scrollTrigger: {
+      trigger: hero,
+      start: "top top",
+      end: "bottom top",
+      scrub: 1.4,
+    },
+  });
+
+  return () => {
+    tween.scrollTrigger?.kill();
+    tween.kill();
+  };
 }
 
 function getTextNodes(root: HTMLElement): Text[] {

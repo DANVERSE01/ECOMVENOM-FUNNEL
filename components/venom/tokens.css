@@ -88,6 +88,30 @@
   padding-block: clamp(4rem, 8vw, 7rem);
 }
 
+.vx-section--compact::before {
+  content: "";
+  position: absolute;
+  inset-inline: clamp(1rem, 8vw, 4rem);
+  top: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--vo-green), transparent);
+  background-size: 200% 100%;
+  animation: vxSectionSheen 6s ease-in-out infinite;
+  opacity: 0.32;
+  pointer-events: none;
+}
+
+@keyframes vxSectionSheen {
+  0%, 100% { background-position: -100% 0; }
+  50% { background-position: 200% 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vx-section--compact::before {
+    animation: none;
+  }
+}
+
 .vx-section--final {
   padding-bottom: calc(clamp(6rem, 9vw, 9rem) + env(safe-area-inset-bottom));
 }
@@ -206,6 +230,8 @@
 }
 
 .vx-actions {
+  position: relative;
+  z-index: 10;
   display: flex;
   flex-wrap: wrap;
   gap: 0.75rem;
@@ -734,6 +760,10 @@
   padding: 0;
 }
 
+.vx-faq {
+  overflow: hidden;
+}
+
 .vx-faq summary {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
@@ -747,6 +777,20 @@
   letter-spacing: 0;
   line-height: 1.2;
   list-style: none;
+  user-select: none;
+}
+
+.vx-faq summary:hover {
+  color: var(--vo-green);
+}
+
+.vx-faq summary::after {
+  transition: transform 280ms cubic-bezier(0.16, 1, 0.3, 1), border-color 200ms ease;
+}
+
+.vx-faq details[open] summary::after {
+  transform: rotate(180deg);
+  border-color: rgba(104, 255, 126, 0.42);
 }
 
 .vx-faq summary::-webkit-details-marker {
@@ -771,6 +815,19 @@
 
 .vx-faq p {
   margin: 0;
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  padding: 0 1rem;
+  transition:
+    max-height 360ms cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 240ms ease,
+    padding 320ms ease;
+}
+
+.vx-faq details[open] > p {
+  max-height: 24rem;
+  opacity: 1;
   padding: 0 1rem 1rem;
 }
 

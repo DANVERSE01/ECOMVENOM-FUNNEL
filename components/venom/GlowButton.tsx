@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import type { ReactNode } from "react";
+import type { MouseEvent, ReactNode } from "react";
 import { cn } from "@/lib/cn";
 
 type GlowButtonProps = {
@@ -40,25 +40,38 @@ export function GlowButton({
   const classes = cn("vx-button", variant === "ghost" && "vx-button--ghost", className);
 
   if (href?.startsWith("#")) {
-    const handleHashClick = () => {
+    const handleHashClick = (event: MouseEvent<HTMLButtonElement>) => {
+      event.preventDefault();
       onClick?.();
       if (typeof window === "undefined") return;
 
-      const target = document.querySelector<HTMLElement>(href);
+      const targetId = href.slice(1);
+      const target = document.getElementById(targetId) || document.querySelector<HTMLElement>(href);
       if (!target) return;
 
-      window.history.pushState(null, "", href);
+      try {
+        window.history.pushState(null, "", href);
+      } catch {}
 
       if (window.__lenis) {
-        window.__lenis.scrollTo(href, { offset: -80, duration: 1.2 });
-        return;
+        try {
+          window.__lenis.scrollTo(target, { offset: -80, duration: 1.2 });
+          return;
+        } catch {}
       }
 
-      target.scrollIntoView({ behavior: "smooth", block: "start" });
+      const rect = target.getBoundingClientRect();
+      const y = rect.top + window.scrollY - 80;
+      window.scrollTo({ top: y, behavior: "smooth" });
     };
 
     return (
-      <button type="button" onClick={handleHashClick} className={classes}>
+      <button
+        type="button"
+        onClick={handleHashClick}
+        className={classes}
+        style={{ position: "relative", zIndex: 10 }}
+      >
         <span>{children}</span>
         <Arrow />
       </button>

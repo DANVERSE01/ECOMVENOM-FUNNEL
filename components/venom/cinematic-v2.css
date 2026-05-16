@@ -107,8 +107,26 @@
   font-size: 3.8rem;
   font-weight: 600;
   letter-spacing: 0;
-  line-height: 0.98;
+  line-height: 1.05;
   text-wrap: balance;
+  overflow: visible;
+  padding-block: 0.06em;
+}
+
+.v2-hero__headline .char {
+  display: inline-block;
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .v2-hero__headline {
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: none !important;
+  }
+  .v2-hero__headline .char {
+    transform: none !important;
+  }
 }
 
 .v2-hero__body {
@@ -655,25 +673,32 @@
 
 @media (max-width: 767px) {
   .v2-scroll-film--visual {
-    min-height: 230svh;
+    min-height: 180svh;
+    padding: 2rem 1rem;
   }
 
   .lusion-monitor-scene {
-    --film-monitor-scale: 0.92;
-    --film-monitor-y: 4;
+    --film-monitor-scale: 0.94;
+    --film-monitor-y: 0;
     --film-frame-opacity: 1;
-    --film-screen-brightness: 0.86;
+    --film-screen-brightness: 0.92;
     position: relative;
-    min-height: 100svh;
+    width: 100%;
+    flex: 1 1 100%;
+    min-height: 80svh;
+    place-items: center;
   }
 
   .lusion-monitor-scene__rig {
-    min-height: 100svh;
+    width: 100%;
+    min-height: 80svh;
+    padding-inline: 0.5rem;
   }
 
   .lusion-monitor-scene__monitor {
-    width: min(138vw, 42rem);
-    transform: translate3d(0, 2vh, 0) scale(0.9);
+    width: min(100%, 26rem);
+    margin-inline: auto;
+    transform: translate3d(0, 0, 0) scale(1);
   }
 
   .lusion-monitor-scene__canvas,
@@ -1149,8 +1174,11 @@
   .v2-scroll-film--visual .v2-scroll-film__pin {
     position: sticky;
     top: 0;
-    min-height: 100svh;
-    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 80svh;
+    padding: 1.5rem 0.75rem;
     place-items: center;
   }
 

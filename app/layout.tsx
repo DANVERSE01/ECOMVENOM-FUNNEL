@@ -10,6 +10,7 @@ import { ChapterRail } from "@/components/effects/ChapterRail";
 import { StickyMobileCTA } from "@/components/ui/StickyMobileCTA";
 import { BackToTop } from "@/components/ui/BackToTop";
 import { ViewTransitions } from "@/components/effects/ViewTransitions";
+import { ScrollMotionInit } from "@/components/effects/ScrollMotionInit";
 import { LanguageProvider } from "@/lib/lang-context";
 import { type Lang, defaultLang } from "@/lib/translations";
 
@@ -50,6 +51,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <a href="#main-content" className="skip-to-content">Skip to content</a>
         <div className="ev-unified-canvas" aria-hidden />
         <ViewTransitions />
+        <ScrollMotionInit />
         <ParticleTrailCursor />
         <LanguageProvider initialLang={initialLang}>
           <SmoothScroll>

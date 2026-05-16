@@ -26,7 +26,7 @@ export function HeroSection() {
     <SectionWrapper id="system-boot" className="v2-hero" sceneTitle="ECOMVENOM">
       <div className="vx-shell v2-hero__grid">
         <div className="v2-hero__copy" data-vx-reveal>
-          <h1 ref={headlineRef} className="v2-hero__headline">{c.headline}</h1>
+          <h1 ref={headlineRef} className="v2-hero__headline" style={{ visibility: "visible", opacity: 1 }}>{c.headline}</h1>
           <p className="v2-hero__body">{c.body}</p>
           <div className="vx-actions">
             <span ref={magRef} data-hero-cta>

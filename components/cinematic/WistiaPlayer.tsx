@@ -21,6 +21,7 @@ declare global {
         "do-not-track"?: string;
         muted?: string;
         playsinline?: string;
+        seo?: string;
       };
     }
   }
@@ -59,7 +60,47 @@ export function WistiaPlayer({
   useEffect(() => {
     loadWistiaScripts();
     loadMediaScript(mediaId);
-  }, [mediaId]);
+
+    if (!autoplay) return;
+
+    const w = window as unknown as { _wq?: Array<Record<string, unknown>> };
+    w._wq = w._wq || [];
+    w._wq.push({
+      id: mediaId,
+      onReady: (video: { mute?: () => void; play?: () => Promise<void> | void }) => {
+        try {
+          if (muted) video.mute?.();
+          const result = video.play?.();
+          if (result && typeof (result as Promise<void>).catch === "function") {
+            (result as Promise<void>).catch(() => {});
+          }
+        } catch {}
+      },
+    });
+
+    let attempts = 0;
+    const interval = window.setInterval(() => {
+      attempts += 1;
+      const el = document.querySelector(
+        `wistia-player[media-id="${mediaId}"]`,
+      ) as (HTMLElement & { play?: () => Promise<void> | void; muted?: boolean }) | null;
+      if (el?.play) {
+        try {
+          if (muted) el.muted = true;
+          const r = el.play();
+          if (r && typeof (r as Promise<void>).catch === "function") {
+            (r as Promise<void>).catch(() => {});
+          }
+        } catch {}
+        window.clearInterval(interval);
+      }
+      if (attempts > 40) window.clearInterval(interval);
+    }, 350);
+
+    return () => {
+      window.clearInterval(interval);
+    };
+  }, [mediaId, autoplay, muted]);
 
   return (
     <div className={className} style={{ position: "relative", width: "100%", aspectRatio: aspect }}>
@@ -70,6 +111,7 @@ export function WistiaPlayer({
         do-not-track="true"
         muted={muted ? "true" : undefined}
         playsinline="true"
+        seo="false"
         style={{ display: "block", width: "100%", height: "100%" }}
       />
     </div>
