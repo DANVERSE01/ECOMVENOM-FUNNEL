@@ -1,24 +1,35 @@
 "use client";
 
+import { useRef } from "react";
+import { useGSAP } from "@gsap/react";
 import { GlowButton } from "@/components/venom/GlowButton";
 import { SectionWrapper } from "@/components/venom/SectionWrapper";
 import { VslStage } from "@/components/venom/VslStage";
 import { SignalFieldScene } from "@/components/effects/SignalFieldScene";
 import { recoveryCopy } from "@/lib/cinematicRecoveryContent";
 import { useLang } from "@/lib/lang-context";
+import { useMagnetic } from "@/lib/magnetic";
+import { revealHeadline } from "@/lib/motion";
 
 export function HeroSection() {
   const { lang } = useLang();
   const c = recoveryCopy[lang].hero;
+  const headlineRef = useRef<HTMLHeadingElement>(null);
+  const magRef = useMagnetic<HTMLSpanElement>(0.22, 130);
+
+  useGSAP(() => {
+    const split = revealHeadline(headlineRef.current);
+    return () => split?.revert();
+  }, []);
 
   return (
     <SectionWrapper id="system-boot" className="v2-hero" sceneTitle="ECOMVENOM">
       <div className="vx-shell v2-hero__grid">
         <div className="v2-hero__copy" data-vx-reveal>
-          <h1 className="v2-hero__headline">{c.headline}</h1>
+          <h1 ref={headlineRef} className="v2-hero__headline">{c.headline}</h1>
           <p className="v2-hero__body">{c.body}</p>
           <div className="vx-actions">
-            <span data-hero-cta>
+            <span ref={magRef} data-hero-cta>
               <GlowButton href="/apply">{c.primary}</GlowButton>
             </span>
             <GlowButton href="#founder-vsl" variant="ghost">

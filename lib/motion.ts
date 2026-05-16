@@ -1,3 +1,5 @@
+import { gsap, SplitText, reducedMotion } from "@/lib/gsap";
+
 /**
  * splitText — Lightweight SplitText replacement (no GSAP Club dependency).
  *
@@ -13,6 +15,20 @@ export type SplitType = "lines" | "words" | "chars";
 interface SplitResult {
   elements: HTMLElement[];
   revert: () => void;
+}
+
+export function revealHeadline(target: HTMLElement | null) {
+  if (!target || reducedMotion()) return;
+
+  const split = new SplitText(target, { type: "chars,words", mask: "chars" });
+  gsap.from(split.chars, {
+    yPercent: 110,
+    duration: 0.9,
+    ease: "expo.out",
+    stagger: 0.018,
+  });
+
+  return split;
 }
 
 function getTextNodes(root: HTMLElement): Text[] {

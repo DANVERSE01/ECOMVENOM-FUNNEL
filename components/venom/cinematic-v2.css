@@ -795,7 +795,9 @@
     rgba(8, 14, 8, 0.7);
   padding: 0.75rem;
   text-align: start;
-  transition: border-color 260ms var(--v2-ease), transform 260ms var(--v2-ease), background 260ms var(--v2-ease);
+  transform-style: preserve-3d;
+  transition: border-color 260ms var(--v2-ease), transform 280ms cubic-bezier(0.16, 1, 0.3, 1), background 260ms var(--v2-ease);
+  will-change: transform;
 }
 
 .v2-proof-card__media {

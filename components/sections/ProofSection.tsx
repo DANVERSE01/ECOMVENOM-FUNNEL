@@ -2,11 +2,103 @@
 
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import { CountUpNumber } from "@/components/ui/count-up";
 import { GlassPanel } from "@/components/venom/GlassPanel";
 import { SectionWrapper } from "@/components/venom/SectionWrapper";
 import { StatusPill } from "@/components/venom/StatusPill";
-import { proofAssets, recoveryCopy } from "@/lib/cinematicRecoveryContent";
+import { proofAssets, recoveryCopy, type ProofAsset } from "@/lib/cinematicRecoveryContent";
 import { useLang } from "@/lib/lang-context";
+import type { Lang } from "@/lib/translations";
+import { useTilt } from "@/lib/tilt";
+
+const formatNumber = (value: number) => value.toLocaleString("en-US");
+
+function ProofNote({ asset, lang }: { asset: ProofAsset; lang: Lang }) {
+  if (asset.src === "/proof/proof-shopify-dashboard.png") {
+    return (
+      <p>
+        {lang === "ar" ? (
+          <>
+            $<CountUpNumber value={5029} format={formatNumber} /> خلال شهر واحد، <CountUpNumber value={81} /> أوردر، تحويل 2.88%. لقطة مباشرة من المنصة بدون إضافات.
+          </>
+        ) : (
+          <>
+            $<CountUpNumber value={5029} format={formatNumber} /> in a single month, <CountUpNumber value={81} /> orders, 2.88% conversion. Direct platform capture, no edits.
+          </>
+        )}
+      </p>
+    );
+  }
+
+  if (asset.src === "/proof/proof-easyorders-flood.png") {
+    return (
+      <p>
+        {lang === "ar" ? (
+          <>
+            <CountUpNumber value={9} /> أوردرات في أقل من دقيقتين، كل واحد 220، إشعارات اتسجلت لايف وقت الإطلاق.
+          </>
+        ) : (
+          <>
+            <CountUpNumber value={9} /> orders in under 2 minutes, 220 each. Notification stack captured during launch.
+          </>
+        )}
+      </p>
+    );
+  }
+
+  if (asset.src === "/proof/proof-whatsapp-stats.png") {
+    return (
+      <p>
+        {lang === "ar" ? (
+          <>
+            <CountUpNumber value={9} /> أوردرات لحد الفجر، متوسط الطلب 352 ريال، تحويل 1.61% — تحديث من تشغيل حقيقي.
+          </>
+        ) : (
+          <>
+            <CountUpNumber value={9} /> orders by Fajr, SAR 352 AOV, 1.61% conversion — update from a working operator.
+          </>
+        )}
+      </p>
+    );
+  }
+
+  return <p>{asset.note}</p>;
+}
+
+function ProofCardTilt({
+  active,
+  asset,
+  index,
+  lang,
+  onInspect,
+}: {
+  active: boolean;
+  asset: ProofAsset;
+  index: number;
+  lang: Lang;
+  onInspect: (index: number) => void;
+}) {
+  const tiltRef = useTilt<HTMLButtonElement>(8);
+
+  return (
+    <button
+      ref={tiltRef}
+      type="button"
+      className="v2-proof-card"
+      aria-pressed={active}
+      onClick={() => onInspect(index)}
+    >
+      <div className="v2-proof-card__media">
+        <Image src={asset.src} alt={asset.alt} fill sizes="(min-width: 1040px) 26vw, 92vw" />
+      </div>
+      <div className="v2-proof-card__body">
+        <small>{asset.market}</small>
+        <h3>{asset.label}</h3>
+        <ProofNote asset={asset} lang={lang} />
+      </div>
+    </button>
+  );
+}
 
 export function ProofSection() {
   const { lang } = useLang();
@@ -41,25 +133,17 @@ export function ProofSection() {
         </div>
         <div className="v2-proof-rail" data-vx-reveal>
           {assets.map((asset, index) => (
-            <button
-              type="button"
-              className="v2-proof-card"
+            <ProofCardTilt
               key={asset.src}
-              aria-pressed={index === activeIndex}
-              onClick={() => {
-                setActiveIndex(index);
-                setInspectIndex(index);
+              active={index === activeIndex}
+              asset={asset}
+              index={index}
+              lang={lang}
+              onInspect={(nextIndex) => {
+                setActiveIndex(nextIndex);
+                setInspectIndex(nextIndex);
               }}
-            >
-              <div className="v2-proof-card__media">
-                <Image src={asset.src} alt={asset.alt} fill sizes="(min-width: 1040px) 26vw, 92vw" />
-              </div>
-              <div className="v2-proof-card__body">
-                <small>{asset.market}</small>
-                <h3>{asset.label}</h3>
-                <p>{asset.note}</p>
-              </div>
-            </button>
+            />
           ))}
         </div>
         <GlassPanel className="vx-bento-card" variant="signal" data-vx-reveal>
@@ -68,7 +152,7 @@ export function ProofSection() {
           </div>
           <div>
             <h3>{c.transparency}</h3>
-            <p>{active.note}</p>
+            <ProofNote asset={active} lang={lang} />
           </div>
         </GlassPanel>
       </div>
@@ -91,7 +175,7 @@ export function ProofSection() {
             <div className="proof-inspector__copy">
               <small>{inspected.market}</small>
               <h3>{inspected.label}</h3>
-              <p>{inspected.note}</p>
+              <ProofNote asset={inspected} lang={lang} />
             </div>
           </div>
           </>

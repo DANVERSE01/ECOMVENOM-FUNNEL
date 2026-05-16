@@ -13,11 +13,13 @@ export function CountUpNumber({
   pad = 0,
   duration = 1200,
   className,
+  format,
 }: {
   value: number;
   pad?: number;
   duration?: number;
   className?: string;
+  format?: (value: number) => string;
 }) {
   const ref = useRef<HTMLSpanElement>(null);
   const inView = useInViewOnce(ref, { rootMargin: "0px 0px -18% 0px", threshold: 0.35 });
@@ -47,7 +49,7 @@ export function CountUpNumber({
 
   return (
     <span ref={ref} className={className} style={{ fontVariantNumeric: "tabular-nums" }}>
-      {String(display).padStart(pad, "0")}
+      {format ? format(display) : String(display).padStart(pad, "0")}
     </span>
   );
 }
