@@ -380,17 +380,11 @@
   background: #020302;
 }
 
-.vx-vsl img {
-  object-fit: cover;
-}
-
-.vx-vsl::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background:
-    linear-gradient(180deg, transparent 34%, rgba(0, 0, 0, 0.86)),
-    linear-gradient(90deg, rgba(104, 255, 126, 0.08), transparent 46%);
+.vx-vsl > div,
+.vx-vsl wistia-player {
+  display: block;
+  width: 100%;
+  height: 100%;
 }
 
 .vx-icon-button {
