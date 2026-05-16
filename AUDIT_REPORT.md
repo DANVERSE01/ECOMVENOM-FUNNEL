@@ -164,3 +164,38 @@ Live deploy permalink audit:
 Publish caveat:
 
 Netlify produced the new deploy successfully, but the production alias remained on an older published/locked deployment during verification. I did not manually publish or unlock the Netlify production deploy from the CLI; this report records the verified ready deploy permalink and the alias state exactly as observed.
+
+---
+
+## Re-Verification Pass — 2026-05-16
+
+**Build:** `npm run typecheck` ✅ 0 errors · `npm run build` ✅ 7 routes generated  
+**Dev server:** `http://localhost:3000` — HTTP 200
+
+### Viewport Screenshots (screenshots/audit-2026-05-16/)
+
+| File | Viewport | Result |
+|---|---|---|
+| `desktop-1440-hero.png` | 1440×900 | ✅ Hero, nav, both CTAs, Wistia panel visible |
+| `desktop-1440-full.png` | 1440 full page | ✅ All sections render; cinematic scroll section confirmed |
+| `tablet-768-hero.png` | 768×1024 | ✅ Two-column layout intact, headline readable |
+| `mobile-390-hero.png` | 390×844 | ✅ Full-width headline, both CTAs tap-sized |
+| `mobile-390-full.png` | 390 full page | ✅ No horizontal overflow; cinematic section compresses correctly |
+
+### Phase 3 Recovery Items — Final Status
+
+| Item | Status |
+|---|---|
+| Buttons scroll to target via Lenis | ✅ Working |
+| GlowButton z-index above overlays | ✅ `z-index: 10` inline |
+| VSL Wistia autoplay polling | ✅ 350ms interval, 40 attempts |
+| `chaos-system.mp4` mobile video | ✅ File present, rendered via `.lusion-monitor-scene__mobile-video` |
+| 3 new proof PNG images | ✅ All 6 proof cards in ProofSection including shopify-dashboard, easyorders-flood, whatsapp-stats |
+| `initScrollReveals` motion | ✅ Wired via ScrollMotionInit in layout |
+| `initHeroParallax` | ✅ Active on `.v2-hero__media` |
+| `initSectionSheen` | ✅ CSS `--vx-sheen-opacity` animated on scroll |
+| FAQ smooth expand | ✅ `max-height` + `opacity` transition on `<details>` |
+| Bilingual copy AR/EN | ✅ Professional, result-focused, Egyptian dialect AR |
+| `prefers-reduced-motion` respected | ✅ All motion paths guarded |
+| TypeScript strict — 0 errors | ✅ |
+| Production build — 0 errors | ✅ |
