@@ -1,0 +1,20 @@
+{
+  "url": "https://ecomvenom.netlify.app/",
+  "title": "ECOMVENOM — Become a Profitable Dropshipper in 45 Days",
+  "h1": "BUILD APROFITABLE DROPSHIPPINGSYSTEMIN 45 DAYSZERO EXPERIENCE",
+  "routes": {
+    "/": 200,
+    "/apply": 200,
+    "/schedule": 200,
+    "/confirmation": 200
+  },
+  "hashScroll": {
+    "buttonFound": false,
+    "hash": "",
+    "targetTop": null
+  },
+  "wistia": {
+    "found": false
+  },
+  "horizontalOverflow": false
+}

@@ -1,0 +1,27 @@
+{
+  "url": "https://6a07ec676eef4a0008eaf281--ecomvenom.netlify.app/#founder-vsl",
+  "title": "ECOMVENOM — Become a Profitable Dropshipper in 45 Days",
+  "h1": "Turn dropshipping from gambling into a decision system.",
+  "routes": {
+    "/": 200,
+    "/apply": 200,
+    "/schedule": 200,
+    "/confirmation": 200
+  },
+  "hashScroll": {
+    "buttonFound": true,
+    "hash": "#founder-vsl",
+    "targetTop": 80
+  },
+  "wistia": {
+    "found": true,
+    "mediaId": "0z2r9j4jnz",
+    "autoplay": true,
+    "muted": true,
+    "playsinline": true,
+    "doNotTrack": "true",
+    "width": 593,
+    "height": 359
+  },
+  "horizontalOverflow": false
+}

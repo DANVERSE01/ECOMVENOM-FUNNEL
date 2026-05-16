@@ -128,4 +128,39 @@ Result: both Lighthouse commands exited `1` because Chrome cleanup hit `EPERM, P
 
 ## Live Deploy Verification
 
-Pending until Task 7 push/deploy verification.
+Push:
+
+- `git push origin main`
+- Result: success, `2392fe9..a0ce976 main -> main`.
+
+Netlify build:
+
+- Site: `ecomvenom`
+- Site ID: `6ab905be-a39f-46ca-bf37-81e1bd5e9b6d`
+- Deploy ID: `6a07ec676eef4a0008eaf281`
+- Commit: `a0ce97612a4465a526af05b942d3a6db44c25dfa`
+- State: `ready`
+- Deploy permalink: `https://6a07ec676eef4a0008eaf281--ecomvenom.netlify.app`
+- Deploy summary: `audit/live-netlify-deploy-summary.json`
+
+Header checks:
+
+| URL | Result |
+| --- | --- |
+| `https://6a07ec676eef4a0008eaf281--ecomvenom.netlify.app/` | `200 OK` |
+| `https://ecomvenom.netlify.app/` | `200 OK`, but still serving older alias content during verification |
+| `https://go.ecomvenom.com/` | `200 OK`, but still serving older Cloudflare/custom-domain content during verification |
+
+Live deploy permalink audit:
+
+- Screenshot: `audit/live-deploy-permalink-hero.png`
+- Eval: `audit/live-deploy-permalink-eval.json`
+- Routes `/`, `/apply`, `/schedule`, `/confirmation`: all `200`
+- H1: `Turn dropshipping from gambling into a decision system.`
+- Founder CTA: `buttonFound: true`, hash `#founder-vsl`, `targetTop: 80`
+- Wistia: `0z2r9j4jnz`, `autoplay`, `muted`, `playsinline`, `do-not-track="true"`, nonzero `593x359`
+- Horizontal overflow: `false`
+
+Publish caveat:
+
+Netlify produced the new deploy successfully, but the production alias remained on an older published/locked deployment during verification. I did not manually publish or unlock the Netlify production deploy from the CLI; this report records the verified ready deploy permalink and the alias state exactly as observed.
