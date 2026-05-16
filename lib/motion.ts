@@ -389,3 +389,43 @@ export function setupStrokeDraw(el: SVGGeometryElement) {
   el.style.strokeDasharray = `${length}`;
   el.style.strokeDashoffset = `${length}`;
 }
+
+/**
+ * initSectionSheen — Scroll-triggered sheen sweep on section divider lines.
+ *
+ * Complements the existing CSS `vxSectionSheen` keyframe animation by adding
+ * a one-time GSAP-driven sweep when a `.vx-section--compact` enters the viewport.
+ */
+export function initSectionSheen() {
+  if (reducedMotion() || typeof window === "undefined") return () => {};
+
+  const sections = Array.from(
+    document.querySelectorAll<HTMLElement>(".vx-section--compact"),
+  );
+
+  const tweens: gsap.core.Tween[] = [];
+
+  sections.forEach((section) => {
+    (section as HTMLElement).style.setProperty("--vx-sheen-opacity", "0");
+
+    const tween = gsap.to(section, {
+      "--vx-sheen-opacity": "0.32",
+      duration: 1.2,
+      ease: "power2.out",
+      scrollTrigger: {
+        trigger: section,
+        start: "top 85%",
+        toggleActions: "play none none none",
+      },
+    });
+
+    tweens.push(tween);
+  });
+
+  return () => {
+    tweens.forEach((t) => {
+      t.scrollTrigger?.kill();
+      t.kill();
+    });
+  };
+}

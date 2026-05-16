@@ -63,20 +63,12 @@ export function WistiaPlayer({
 
     if (!autoplay) return;
 
-    const w = window as unknown as { _wq?: Array<Record<string, unknown>> };
-    w._wq = w._wq || [];
-    w._wq.push({
-      id: mediaId,
-      onReady: (video: { mute?: () => void; play?: () => Promise<void> | void }) => {
-        try {
-          if (muted) video.mute?.();
-          const result = video.play?.();
-          if (result && typeof (result as Promise<void>).catch === "function") {
-            (result as Promise<void>).catch(() => {});
-          }
-        } catch {}
-      },
-    });
+    // Use wistiaOptions (current API) instead of deprecated _wq
+    const w = window as unknown as {
+      wistiaOptions?: Record<string, unknown>;
+      _wq?: Array<Record<string, unknown>>;
+    };
+    w.wistiaOptions = w.wistiaOptions || {};
 
     let attempts = 0;
     const interval = window.setInterval(() => {

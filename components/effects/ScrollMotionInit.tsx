@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 import { ScrollTrigger } from "@/lib/gsap";
-import { initHeroParallax, initScrollReveals } from "@/lib/motion";
+import { initHeroParallax, initScrollReveals, initSectionSheen } from "@/lib/motion";
 
 export function ScrollMotionInit() {
   useEffect(() => {
@@ -10,9 +10,12 @@ export function ScrollMotionInit() {
     let cleanupParallax: (() => void) | undefined;
     let rescanInterval: number | undefined;
 
+    let cleanupSheen: (() => void) | undefined;
+
     const run = () => {
       cleanupReveals = initScrollReveals();
       cleanupParallax = initHeroParallax();
+      cleanupSheen = initSectionSheen();
       ScrollTrigger.refresh();
     };
 
@@ -33,6 +36,7 @@ export function ScrollMotionInit() {
       if (rescanInterval) window.clearInterval(rescanInterval);
       cleanupReveals?.();
       cleanupParallax?.();
+      cleanupSheen?.();
     };
   }, []);
 
