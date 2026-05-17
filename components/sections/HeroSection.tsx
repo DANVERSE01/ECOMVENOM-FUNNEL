@@ -57,6 +57,11 @@ export function HeroSection() {
             <VslStage
               label={lang === "ar" ? "فيديو المؤسس" : "Founder video"}
               playLabel={c.secondary}
+              pauseLabel={lang === "ar" ? "إيقاف مؤقت" : "Pause video"}
+              soundLabel={lang === "ar" ? "تشغيل الصوت" : "Sound on"}
+              mutedLabel={lang === "ar" ? "كتم الصوت" : "Mute"}
+              blockedLabel={lang === "ar" ? "اضغط للتشغيل بالصوت" : "Tap to play with sound"}
+              controlsLabel={lang === "ar" ? "أزرار التحكم في فيديو المؤسس" : "Founder video controls"}
               title={lang === "ar" ? "افتح ملخص التشغيل" : "Open the operating brief"}
             />
           </div>

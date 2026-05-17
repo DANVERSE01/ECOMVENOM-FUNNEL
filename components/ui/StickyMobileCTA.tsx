@@ -24,10 +24,12 @@ export function StickyMobileCTA() {
     }
 
     const heroSection = document.getElementById("system-boot");
+    const scrollFilmSection = document.getElementById("chaos-system-film");
     const finalCtaZone = document.querySelector<HTMLElement>('[data-final-cta-zone]');
     let heroExited = false;
+    let scrollFilmVisible = false;
     let finalVisible = false;
-    const syncVisibility = () => setVisible(heroExited && !finalVisible);
+    const syncVisibility = () => setVisible(heroExited && !scrollFilmVisible && !finalVisible);
 
     const updateHeroState = () => {
       if (heroSection) {
@@ -53,6 +55,21 @@ export function StickyMobileCTA() {
       );
       finalObserver.observe(finalCtaZone);
       observers.push(finalObserver);
+    }
+
+    if (scrollFilmSection) {
+      const scrollFilmObserver = new IntersectionObserver(
+        ([entry]) => {
+          scrollFilmVisible = entry.isIntersecting;
+          syncVisibility();
+        },
+        {
+          threshold: 0.08,
+          rootMargin: "-8% 0px -16% 0px",
+        },
+      );
+      scrollFilmObserver.observe(scrollFilmSection);
+      observers.push(scrollFilmObserver);
     }
 
     let ticking = false;

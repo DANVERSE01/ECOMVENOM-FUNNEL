@@ -673,8 +673,8 @@
 
 @media (max-width: 767px) {
   .v2-scroll-film--visual {
-    min-height: 180svh;
-    padding: 2rem 1rem;
+    min-height: 360svh;
+    padding: 0;
   }
 
   .lusion-monitor-scene {
@@ -682,23 +682,26 @@
     --film-monitor-y: 0;
     --film-frame-opacity: 1;
     --film-screen-brightness: 0.92;
-    position: relative;
-    width: 100%;
-    flex: 1 1 100%;
-    min-height: 80svh;
+    position: absolute;
+    inset: 0;
+    width: 100vw;
+    min-height: 100svh;
     place-items: center;
   }
 
   .lusion-monitor-scene__rig {
-    width: 100%;
-    min-height: 80svh;
-    padding-inline: 0.5rem;
+    width: 100vw;
+    min-height: 100svh;
+    padding-inline: 0;
   }
 
   .lusion-monitor-scene__monitor {
-    width: min(100%, 26rem);
+    width: min(104vw, 42rem);
     margin-inline: auto;
-    transform: translate3d(0, 0, 0) scale(1);
+    transform:
+      translate3d(0, var(--film-monitor-y-length), 0)
+      rotateX(var(--film-monitor-rotate-x))
+      scale(var(--film-monitor-scale));
   }
 
   .lusion-monitor-scene__canvas,
@@ -712,13 +715,18 @@
   }
 
   .lusion-monitor-scene__screen {
-    border-radius: 7px;
-    filter: none;
-    transform: translateZ(20px) scale(1.01);
+    border-radius: var(--film-screen-radius);
+    filter:
+      brightness(var(--film-screen-brightness))
+      saturate(var(--film-screen-saturation))
+      contrast(var(--film-screen-contrast));
+    transform:
+      translateZ(var(--film-screen-z))
+      scale(var(--film-screen-scale));
   }
 
   .lusion-monitor-scene__frame {
-    opacity: 1;
+    opacity: var(--film-frame-opacity);
   }
 }
 
@@ -985,6 +993,10 @@
   padding: clamp(1rem, 4vw, 2.5rem);
 }
 
+.proof-inspector:not([open]) {
+  display: none;
+}
+
 .proof-inspector::backdrop {
   background: rgba(0, 0, 0, 0.78);
   backdrop-filter: blur(18px);
@@ -1161,7 +1173,7 @@
   }
 
   .v2-scroll-film--visual {
-    min-height: 230svh;
+    min-height: 360svh;
     padding: 0;
   }
 
@@ -1177,8 +1189,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    min-height: 80svh;
-    padding: 1.5rem 0.75rem;
+    min-height: 100svh;
+    padding: 0;
     place-items: center;
   }
 

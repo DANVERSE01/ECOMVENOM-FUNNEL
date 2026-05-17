@@ -9,15 +9,41 @@ const HERO_VSL_ASPECT = 1.7777777777777777;
 type VslStageProps = {
   label: string;
   playLabel: string;
+  pauseLabel: string;
+  soundLabel: string;
+  mutedLabel: string;
+  blockedLabel: string;
+  controlsLabel: string;
   title: string;
 };
 
-export function VslStage({ label, title }: VslStageProps) {
+export function VslStage({
+  label,
+  playLabel,
+  pauseLabel,
+  soundLabel,
+  mutedLabel,
+  blockedLabel,
+  controlsLabel,
+  title,
+}: VslStageProps) {
   return (
     <div className="vx-stage" data-vx-reveal>
       <StatusPill>{label}</StatusPill>
       <div className="vx-vsl">
-        <WistiaPlayer mediaId={HERO_VSL_MEDIA_ID} aspect={HERO_VSL_ASPECT} autoplay={false} muted={false} />
+        <WistiaPlayer
+          mediaId={HERO_VSL_MEDIA_ID}
+          aspect={HERO_VSL_ASPECT}
+          autoplay
+          muted={false}
+          controls
+          playLabel={playLabel}
+          pauseLabel={pauseLabel}
+          soundLabel={soundLabel}
+          mutedLabel={mutedLabel}
+          blockedLabel={blockedLabel}
+          controlsLabel={controlsLabel}
+        />
         <span className="sr-only">{title}</span>
       </div>
     </div>

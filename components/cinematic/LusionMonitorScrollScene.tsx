@@ -73,13 +73,16 @@ export function LusionMonitorScrollScene({
   const { frames, mobileVideo, monitorFrame, poster } = assets;
   const rootRef = useRef<HTMLDivElement | null>(null);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const videoRef = useRef<HTMLVideoElement | null>(null);
   const imagesRef = useRef<Array<HTMLImageElement | null>>([]);
   const currentFrameRef = useRef(0);
   const canvasSizeRef = useRef({ width: 0, height: 0 });
+  const lastProgressRef = useRef(0);
 
   useEffect(() => {
     const root = rootRef.current;
     const canvas = canvasRef.current;
+    const video = videoRef.current;
     if (!root || !canvas) return;
 
     const section = root.closest<HTMLElement>("#chaos-system-film") ?? root;
@@ -152,23 +155,32 @@ export function LusionMonitorScrollScene({
 
     const render = (progress: number) => {
       const p = clamp(progress);
+      const isMobile = !desktopQuery.matches;
       const cold = smoothstep(p / 0.16);
       const tunnelIn = smoothstep((p - 0.12) / 0.56);
       const tunnelHold = smoothstep((p - 0.64) / 0.16);
       const returnHome = smoothstep((p - 0.84) / 0.16);
       const travel = tunnelIn * (1 - returnHome);
 
-      const monitorScale = mix(mix(0.72, 0.92, cold), 2.72, travel);
-      const settledScale = mix(monitorScale, 0.86, returnHome);
-      const y = mix(mix(8, 0, cold), -2, travel);
-      const settledY = mix(y, 5, returnHome);
+      const startScale = isMobile ? 0.82 : 0.72;
+      const coldScale = isMobile ? 1.02 : 0.92;
+      const tunnelScale = isMobile ? 3.35 : 2.72;
+      const exitScale = isMobile ? 1.18 : 0.86;
+      const monitorScale = mix(mix(startScale, coldScale, cold), tunnelScale, travel);
+      const settledScale = mix(monitorScale, exitScale, returnHome);
+      const startY = isMobile ? 7 : 8;
+      const tunnelY = isMobile ? -1 : -2;
+      const exitY = isMobile ? 16 : 5;
+      const y = mix(mix(startY, 0, cold), tunnelY, travel);
+      const settledY = mix(y, exitY, returnHome);
       const frameOpacity = mix(mix(1, 0.94, tunnelHold), 0.06, travel);
       const settledFrameOpacity = mix(frameOpacity, 1, returnHome);
-      const screenScale = mix(1, 1.12, travel);
+      const screenScale = mix(1, isMobile ? 1.2 : 1.12, travel);
       const brightness = mix(mix(0.42, 0.68, cold), 1.08, tunnelIn);
       const settledBrightness = mix(brightness, 0.78, returnHome);
       const glow = mix(0.16, 0.9, tunnelIn) * (1 - returnHome * 0.5);
       const depth = mix(0, 1, travel);
+      const mediaProgress = smoothstep((p - 0.04) / 0.9);
 
       setNumber("--film-progress", p);
       setNumber("--film-monitor-scale", settledScale);
@@ -205,12 +217,19 @@ export function LusionMonitorScrollScene({
       setNumber("--film-glass-shadow-alpha", depth * 0.42);
       setNumber("--film-glass-opacity", 0.42 + settledFrameOpacity * 0.38);
 
-      if (!desktopQuery.matches || prefersReduced || !ctx) return;
+      if (isMobile && video && Number.isFinite(video.duration) && video.duration > 0) {
+        const targetTime = Math.min(video.duration - 0.04, Math.max(0, mediaProgress * video.duration));
+        if (Math.abs(video.currentTime - targetTime) > 0.045) {
+          video.currentTime = targetTime;
+        }
+        video.pause();
+      }
 
-      const frameProgress = smoothstep((p - 0.04) / 0.9);
+      if (isMobile || prefersReduced || !ctx) return;
+
       const nextFrame = Math.max(
         0,
-        Math.min(frames.length - 1, Math.round(frameProgress * (frames.length - 1))),
+        Math.min(frames.length - 1, Math.round(mediaProgress * (frames.length - 1))),
       );
       currentFrameRef.current = nextFrame;
       preloadAround(nextFrame);
@@ -222,6 +241,7 @@ export function LusionMonitorScrollScene({
       ticking = true;
       window.requestAnimationFrame(() => {
         render(progress);
+        lastProgressRef.current = progress;
         ticking = false;
       });
     };
@@ -236,16 +256,21 @@ export function LusionMonitorScrollScene({
     root.style.setProperty("--film-screen-width", calibration.screen.width);
     root.style.setProperty("--film-screen-height", calibration.screen.height);
 
+    if (video) {
+      video.muted = true;
+      video.playsInline = true;
+      video.preload = "auto";
+      video.pause();
+      video.currentTime = 0;
+    }
+
+    const handleLoadedMetadata = () => requestRender(lastProgressRef.current);
+    video?.addEventListener("loadedmetadata", handleLoadedMetadata);
+
     if (desktopQuery.matches && !prefersReduced && ctx) {
       loadFrame(0);
       preloadAround(0);
       sizeCanvas();
-      scrollTrigger = ScrollTrigger.create({
-        trigger: section,
-        start: "top top",
-        end: "bottom bottom",
-        onUpdate: (self) => requestRender(self.progress),
-      });
 
       if (typeof window.requestIdleCallback === "function") {
         idleCallbackId = window.requestIdleCallback(() => preloadInBatches(0), { timeout: 1800 });
@@ -254,19 +279,30 @@ export function LusionMonitorScrollScene({
       }
     }
 
+    if (!prefersReduced) {
+      scrollTrigger = ScrollTrigger.create({
+        trigger: section,
+        start: "top top",
+        end: "bottom bottom",
+        invalidateOnRefresh: true,
+        onUpdate: (self) => requestRender(self.progress),
+      });
+    }
+
     render(0);
     window.addEventListener("resize", handleResize, { passive: true });
     ScrollTrigger.refresh();
 
     return () => {
       window.removeEventListener("resize", handleResize);
+      video?.removeEventListener("loadedmetadata", handleLoadedMetadata);
       scrollTrigger?.kill();
       if (idleCallbackId !== null && typeof window.cancelIdleCallback === "function") {
         window.cancelIdleCallback(idleCallbackId);
       }
       if (timeoutId !== null) globalThis.clearTimeout(timeoutId);
     };
-  }, [frames, calibration.screen.height, calibration.screen.left, calibration.screen.top, calibration.screen.width]);
+  }, [frames, mobileVideo, calibration.screen.height, calibration.screen.left, calibration.screen.top, calibration.screen.width]);
 
   return (
     <div ref={rootRef} className="lusion-monitor-scene" aria-label={alt}>
@@ -278,12 +314,11 @@ export function LusionMonitorScrollScene({
             <canvas ref={canvasRef} className="lusion-monitor-scene__canvas" role="img" aria-label={alt} />
             <Image className="lusion-monitor-scene__poster" src={poster} alt="" fill sizes="100vw" />
             <video
+              ref={videoRef}
               className="lusion-monitor-scene__mobile-video"
               muted
               playsInline
-              loop
-              autoPlay
-              preload="metadata"
+              preload="auto"
               poster={poster}
             >
               <source src={mobileVideo} type="video/mp4" />
