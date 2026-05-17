@@ -178,7 +178,7 @@ export function HeroScene() {
       ring2.material instanceof THREE.Material && ring2.material.dispose();
 
       renderer.dispose();
-      container.removeChild(renderer.domElement);
+      try { container.removeChild(renderer.domElement); } catch {}
     };
   }, []);
 
