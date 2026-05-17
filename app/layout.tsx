@@ -11,6 +11,7 @@ import { StickyMobileCTA } from "@/components/ui/StickyMobileCTA";
 import { BackToTop } from "@/components/ui/BackToTop";
 import { ViewTransitions } from "@/components/effects/ViewTransitions";
 import { ScrollMotionInit } from "@/components/effects/ScrollMotionInit";
+import { Preloader } from "@/components/ui/Preloader";
 import { LanguageProvider } from "@/lib/lang-context";
 import { type Lang, defaultLang } from "@/lib/translations";
 
@@ -48,6 +49,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   return (
     <html lang={initialLang} dir={initialLang === "ar" ? "rtl" : "ltr"} className={`${arabicDisplay.variable} ${arabicBody.variable}`}>
       <body className="font-sans antialiased min-h-screen flex flex-col">
+        <Preloader />
         <a href="#main-content" className="skip-to-content">Skip to content</a>
         <div className="ev-unified-canvas" aria-hidden />
         <ViewTransitions />

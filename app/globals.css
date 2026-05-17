@@ -13,6 +13,18 @@
 @layer base {
   :root {
     color-scheme: dark;
+
+    /* Fluid type scale */
+    --text-xs: clamp(0.65rem, 0.6rem + 0.25vw, 0.75rem);
+    --text-sm: clamp(0.78rem, 0.72rem + 0.3vw, 0.875rem);
+    --text-base: clamp(0.9rem, 0.84rem + 0.3vw, 1rem);
+    --text-lg: clamp(1rem, 0.9rem + 0.5vw, 1.15rem);
+    --text-xl: clamp(1.1rem, 0.95rem + 0.75vw, 1.35rem);
+    --text-2xl: clamp(1.3rem, 1.05rem + 1.25vw, 1.75rem);
+    --text-3xl: clamp(1.6rem, 1.15rem + 2.25vw, 2.4rem);
+    --text-4xl: clamp(2rem, 1.3rem + 3.5vw, 3.5rem);
+    --text-5xl: clamp(2.6rem, 1.4rem + 6vw, 5rem);
+    --text-hero: clamp(3.2rem, 1.6rem + 8vw, 7rem);
     --c-black: #010101;
     --c-bg-top: #010101;
     --c-bg-mid: #0B0A08;

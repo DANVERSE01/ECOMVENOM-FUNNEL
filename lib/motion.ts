@@ -396,6 +396,61 @@ export function setupStrokeDraw(el: SVGGeometryElement) {
  * Complements the existing CSS `vxSectionSheen` keyframe animation by adding
  * a one-time GSAP-driven sweep when a `.vx-section--compact` enters the viewport.
  */
+export function initSectionHeadlineReveals() {
+  if (reducedMotion() || typeof window === "undefined") return () => {};
+
+  const targets = Array.from(
+    document.querySelectorAll<HTMLElement>(
+      "h2.vx-headline--section, .v2-section-copy h2, [data-reveal-headline]",
+    ),
+  );
+
+  const cleanups: Array<() => void> = [];
+
+  targets.forEach((el) => {
+    let split: import("gsap/SplitText").SplitText | undefined;
+
+    const run = () => {
+      try {
+        split = new SplitText(el, { type: "chars,words", mask: "chars" });
+        gsap.set(split.chars, { yPercent: 115, opacity: 0 });
+
+        const trigger = ScrollTrigger.create({
+          trigger: el,
+          start: "top 82%",
+          onEnter: () => {
+            gsap.to(split!.chars, {
+              yPercent: 0,
+              opacity: 1,
+              duration: 0.85,
+              ease: "expo.out",
+              stagger: { amount: 0.35, from: "start" },
+              onComplete: () => {
+                try { split?.revert(); } catch {}
+              },
+            });
+          },
+        });
+
+        cleanups.push(() => {
+          trigger.kill();
+          try { split?.revert(); } catch {}
+        });
+      } catch {
+        el.style.opacity = "1";
+      }
+    };
+
+    if (document.fonts?.ready) {
+      document.fonts.ready.then(() => requestAnimationFrame(run));
+    } else {
+      requestAnimationFrame(run);
+    }
+  });
+
+  return () => cleanups.forEach((fn) => fn());
+}
+
 export function initSectionSheen() {
   if (reducedMotion() || typeof window === "undefined") return () => {};
 

@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { usePathname } from "next/navigation";
 import { reducedMotion } from "@/lib/gsap";
 
 interface Particle {
@@ -13,9 +12,9 @@ interface Particle {
   size: number;
 }
 
+const ACID = "213,217,4";
+
 export function ParticleTrailCursor() {
-  const pathname = usePathname();
-  const disabledForHomepage = pathname === "/";
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const dotRef = useRef<HTMLDivElement>(null);
   const ringRef = useRef<HTMLDivElement>(null);
@@ -28,7 +27,6 @@ export function ParticleTrailCursor() {
   const particlesRef = useRef<Particle[]>([]);
 
   useEffect(() => {
-    if (disabledForHomepage) return;
     if (reducedMotion() || window.matchMedia("(pointer: coarse), (max-width: 767px)").matches) return;
 
     const canvas = canvasRef.current;
@@ -67,7 +65,7 @@ export function ParticleTrailCursor() {
       if (t.closest("a, button")) {
         ringEl.style.width = "36px";
         ringEl.style.height = "36px";
-        ringEl.style.borderColor = "rgba(184,255,46,0.6)";
+        ringEl.style.borderColor = `rgba(${ACID},0.7)`;
       } else if (t.closest("h1, h2, h3")) {
         ringEl.style.width = "48px";
         ringEl.style.height = "28px";
@@ -123,7 +121,7 @@ export function ParticleTrailCursor() {
         p.y += p.vy;
         p.life -= 0.052;
         const alpha = Math.max(0, p.life);
-        context.fillStyle = `rgba(184,255,46,${alpha * 0.9})`;
+        context.fillStyle = `rgba(${ACID},${alpha * 0.9})`;
         context.beginPath();
         context.arc(p.x, p.y, p.size, 0, Math.PI * 2);
         context.fill();
@@ -149,31 +147,31 @@ export function ParticleTrailCursor() {
       document.removeEventListener("mouseover", handleHoverIn);
       document.removeEventListener("mouseout", handleHoverOut);
     };
-  }, [disabledForHomepage]);
-
-  if (disabledForHomepage) return null;
+  }, []);
 
   return (
     <>
       <canvas
         ref={canvasRef}
-        className="particle-cursor fixed inset-0 z-[9999] pointer-events-none mix-blend-screen"
+        style={{ position: "fixed", inset: 0, zIndex: 9999, pointerEvents: "none", mixBlendMode: "screen", display: "block" }}
       />
       <div
         ref={dotRef}
-        className="particle-cursor fixed top-0 left-0 z-[9999] pointer-events-none w-3 h-3 rounded-full bg-venom mix-blend-screen"
-        style={{ boxShadow: "0 0 12px rgba(184,255,46,0.8)", opacity: 0, transform: "translate3d(-100px,-100px,0)" }}
+        style={{
+          position: "fixed", top: 0, left: 0, zIndex: 9999, pointerEvents: "none",
+          width: 12, height: 12, borderRadius: "50%",
+          background: `rgb(${ACID})`, mixBlendMode: "screen",
+          boxShadow: `0 0 14px rgba(${ACID},0.9)`,
+          opacity: 0, transform: "translate3d(-100px,-100px,0)",
+        }}
       />
       <div
         ref={ringRef}
-        className="particle-cursor fixed top-0 left-0 z-[9998] pointer-events-none"
         style={{
-          width: "24px",
-          height: "24px",
-          borderRadius: "50%",
+          position: "fixed", top: 0, left: 0, zIndex: 9998, pointerEvents: "none",
+          width: "24px", height: "24px", borderRadius: "50%",
           border: "1px solid rgba(255,255,255,0.25)",
-          opacity: 0,
-          transform: "translate3d(-100px,-100px,0)",
+          opacity: 0, transform: "translate3d(-100px,-100px,0)",
           transition: "width 0.25s ease, height 0.25s ease, border-color 0.25s ease",
         }}
       />

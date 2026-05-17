@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { motion } from "framer-motion";
 import type { MouseEvent, ReactNode } from "react";
 import { cn } from "@/lib/cn";
 
@@ -11,6 +12,14 @@ type GlowButtonProps = {
   onClick?: () => void;
   variant?: "primary" | "ghost";
   type?: "button" | "submit";
+};
+
+const spring = { type: "spring" as const, stiffness: 380, damping: 26 };
+
+const motionProps = {
+  whileHover: { scale: 1.04, y: -2 },
+  whileTap: { scale: 0.97, y: 0 },
+  transition: spring,
 };
 
 function Arrow() {
@@ -50,52 +59,48 @@ export function GlowButton({
         document.getElementById(targetId) ??
         document.querySelector<HTMLElement>(href);
 
-      if (!target) {
-        console.warn("[GlowButton] target not found:", href);
-        return;
-      }
+      if (!target) return;
 
       try { window.history.pushState(null, "", href); } catch {}
 
       const lenis = window.__lenis ?? (window as unknown as { __lenis?: Window["__lenis"] }).__lenis;
       if (lenis) {
-        try {
-          lenis.scrollTo(target, { offset: -80, duration: 1.2 });
-          return;
-        } catch {}
+        try { lenis.scrollTo(target, { offset: -80, duration: 1.2 }); return; } catch {}
       }
 
       const rect = target.getBoundingClientRect();
-      const y = rect.top + window.scrollY - 80;
-      window.scrollTo({ top: Math.max(0, y), behavior: "smooth" });
+      window.scrollTo({ top: Math.max(0, rect.top + window.scrollY - 80), behavior: "smooth" });
     };
 
     return (
-      <button
+      <motion.button
         type="button"
         onClick={handleHashClick}
         className={classes}
         style={{ position: "relative", zIndex: 10 }}
+        {...motionProps}
       >
         <span>{children}</span>
         <Arrow />
-      </button>
+      </motion.button>
     );
   }
 
   if (href) {
     return (
-      <Link href={href} className={classes}>
-        <span>{children}</span>
-        <Arrow />
-      </Link>
+      <motion.div style={{ display: "inline-block" }} {...motionProps}>
+        <Link href={href} className={classes}>
+          <span>{children}</span>
+          <Arrow />
+        </Link>
+      </motion.div>
     );
   }
 
   return (
-    <button type={type} onClick={onClick} className={classes}>
+    <motion.button type={type} onClick={onClick} className={classes} {...motionProps}>
       <span>{children}</span>
       <Arrow />
-    </button>
+    </motion.button>
   );
 }
