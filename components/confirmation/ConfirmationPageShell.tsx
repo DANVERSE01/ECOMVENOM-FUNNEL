@@ -11,7 +11,7 @@ export function ConfirmationPageShell() {
 
   return (
     <>
-      <div className="border-b border-gold/25 bg-gold/10 pb-2 pt-20 text-center font-heading text-xs uppercase tracking-caps text-gold sm:text-sm">
+      <div className="border-b border-amber/40 bg-amber/15 pb-2 pt-20 text-center font-mono text-[11px] uppercase tracking-[0.18em] text-[#E47A3A] sm:text-xs">
         {confirmation.banner}
       </div>
 
@@ -38,13 +38,15 @@ export function ConfirmationPageShell() {
         <Container className="relative z-10 max-w-6xl">
           <div className="grid gap-10 lg:grid-cols-[0.86fr_1.14fr] lg:items-start">
             <div>
-              <h1 className="font-display text-6xl uppercase leading-[1.02] tracking-tightest text-venom sm:text-8xl lg:text-9xl">
+              <h1 className="font-display text-6xl font-semibold leading-[1.02] tracking-[-0.012em] text-acid sm:text-8xl lg:text-9xl" style={{
+                textShadow: "0 0 42px rgba(213,217,4,0.22)",
+              }}>
                 {confirmation.h1}
               </h1>
-              <p className="mt-4 font-display text-2xl uppercase leading-tight tracking-tight text-bone sm:text-3xl">
+              <p className="mt-4 font-display text-2xl font-semibold leading-tight tracking-[0.02em] text-bone sm:text-3xl">
                 {confirmation.sub}
               </p>
-              <h2 className="mt-12 font-display text-xl uppercase tracking-tight text-bone sm:text-2xl">
+              <h2 className="mt-12 font-mono text-[11px] uppercase tracking-[0.18em] text-bone-2 sm:text-xs">
                 {confirmation.stepsHeading}
               </h2>
             </div>

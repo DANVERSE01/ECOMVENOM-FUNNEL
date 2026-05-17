@@ -115,7 +115,7 @@ export function Nav() {
         className={cn(
           "fixed left-0 right-0 top-0 z-[9000] isolate transition-[background-color,border-color,backdrop-filter] duration-400 ease-out",
           compressed
-            ? "border-b border-white/[0.08] bg-[rgba(6,10,20,0.88)] backdrop-blur-xl backdrop-saturate-150"
+            ? "border-b border-bone/8 bg-[rgba(11,10,8,0.82)] backdrop-blur-2xl backdrop-saturate-150 shadow-[0_18px_60px_rgba(1,1,1,0.55)]"
             : "bg-transparent backdrop-blur-0",
         )}
       >
@@ -144,10 +144,10 @@ export function Nav() {
           </Link>
 
           <div className={cn(
-            "relative z-10 hidden max-w-[min(36vw,24rem)] items-center justify-center gap-3 overflow-hidden px-5 lg:flex editorial-meta",
+            "relative z-10 hidden max-w-[min(36vw,24rem)] items-center justify-center gap-3 overflow-hidden px-5 font-mono text-[10.5px] uppercase tracking-[0.18em] text-bone-2/80 lg:flex",
             lang === "ar" ? "text-[0.72rem] tracking-[0.02em]" : "",
           )}>
-            <span className="h-1.5 w-1.5 rounded-full" style={{ background: "#F9FF00", boxShadow: "0 0 6px rgba(249,255,0,0.5)" }} aria-hidden />
+            <span className="h-1.5 w-1.5 rounded-full" style={{ background: "#D5D904", boxShadow: "0 0 8px rgba(213,217,4,0.55)" }} aria-hidden />
             <span ref={sceneLabelRef} className="truncate" />
           </div>
 
@@ -163,7 +163,7 @@ export function Nav() {
                 href="/apply"
                 aria-current={pathname === "/apply" ? "page" : undefined}
                 className={cn(
-                  "relative z-40 inline-flex h-10 min-w-16 items-center justify-center rounded-full border border-white/20 bg-transparent px-4 text-white transition-colors hover:bg-white hover:text-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white sm:hidden",
+                  "relative z-40 inline-flex h-10 min-w-16 items-center justify-center rounded-full border border-bone/16 bg-ink-2/60 px-4 text-bone backdrop-blur-md transition-colors hover:border-acid hover:text-acid focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-acid sm:hidden",
                   lang === "ar" ? "text-[0.74rem] tracking-[0.02em]" : "text-[10px] uppercase tracking-[0.08em]",
                 )}
               >

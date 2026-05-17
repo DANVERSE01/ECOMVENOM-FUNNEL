@@ -31,17 +31,26 @@
 }
 
 .venom-home {
-  --vo-bg: #050706;
-  --vo-surface: #0a0d0a;
-  --vo-surface-2: #10140f;
-  --vo-line: rgba(243, 245, 239, 0.1);
-  --vo-line-hot: rgba(104, 255, 126, 0.34);
-  --vo-text: #f3f5ef;
-  --vo-muted: #a6aea2;
-  --vo-muted-2: #788274;
-  --vo-green: #68ff7e;
-  --vo-green-2: #36f76b;
-  --vo-red: #ff2a2a;
+  --vo-bg: #010101;
+  --vo-surface: #0B0A08;
+  --vo-surface-2: #1A1813;
+  --vo-surface-3: #2D2B26;
+  --vo-line: rgba(228, 225, 220, 0.08);
+  --vo-line-2: rgba(228, 225, 220, 0.14);
+  --vo-line-hot: rgba(213, 217, 4, 0.28);
+  --vo-line-burnt: rgba(199, 66, 8, 0.34);
+  --vo-text: #E4E1DC;
+  --vo-text-2: #A29E97;
+  --vo-muted: #A29E97;
+  --vo-muted-2: #6E6B67;
+  --vo-muted-3: #474741;
+  --vo-green: #D5D904;
+  --vo-green-2: #918C09;
+  --vo-acid: #D5D904;
+  --vo-acid-shadow: #918C09;
+  --vo-red: #C74208;
+  --vo-heat: #C74208;
+  --vo-amber: #5C3E0B;
   --vo-max: 1240px;
   --vo-pad: clamp(1rem, 4vw, 3.75rem);
   --vo-section-y: clamp(5rem, 10vw, 10rem);
@@ -176,15 +185,15 @@
 }
 
 .vx-pill--signal {
-  border-color: rgba(104, 255, 126, 0.34);
-  background: rgba(104, 255, 126, 0.095);
+  border-color: rgba(213, 217, 4, 0.34);
+  background: rgba(213, 217, 4, 0.095);
   color: var(--vo-green);
 }
 
 .vx-pill--danger {
-  border-color: rgba(255, 42, 42, 0.34);
-  background: rgba(255, 42, 42, 0.085);
-  color: #ff7777;
+  border-color: rgba(199, 66, 8, 0.34);
+  background: rgba(199, 66, 8, 0.085);
+  color: #E47A3A;
 }
 
 .vx-pill--muted::before {
@@ -248,7 +257,7 @@
   border: 1px solid var(--vo-line);
   border-radius: 14px;
   background: rgba(255, 255, 255, 0.035);
-  color: rgba(243, 245, 239, 0.72);
+  color: rgba(228, 225, 220, 0.72);
   padding: 0.78rem;
   font-family: "IBM Plex Mono", ui-monospace, monospace;
   font-size: 0.7rem;
@@ -261,8 +270,8 @@
   border: 1px solid var(--vo-line);
   border-radius: 18px;
   background:
-    linear-gradient(145deg, rgba(255, 255, 255, 0.11), transparent 36%, rgba(104, 255, 126, 0.05)),
-    rgba(10, 13, 10, 0.66);
+    linear-gradient(145deg, rgba(255, 255, 255, 0.11), transparent 36%, rgba(213, 217, 4, 0.05)),
+    rgba(11, 10, 8, 0.66);
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.08),
     0 28px 100px rgba(0, 0, 0, 0.42);
@@ -276,8 +285,8 @@
   z-index: 0;
   pointer-events: none;
   background:
-    linear-gradient(116deg, rgba(255, 255, 255, 0.14), transparent 21% 76%, rgba(104, 255, 126, 0.06)),
-    radial-gradient(circle at 85% 20%, rgba(104, 255, 126, 0.12), transparent 18rem);
+    linear-gradient(116deg, rgba(255, 255, 255, 0.14), transparent 21% 76%, rgba(213, 217, 4, 0.06)),
+    radial-gradient(circle at 85% 20%, rgba(213, 217, 4, 0.12), transparent 18rem);
   opacity: 0.54;
 }
 
@@ -289,21 +298,21 @@
 .vx-glass--strong {
   border-color: rgba(255, 255, 255, 0.16);
   background:
-    linear-gradient(145deg, rgba(255, 255, 255, 0.12), transparent 28%, rgba(104, 255, 126, 0.07)),
-    rgba(16, 20, 15, 0.76);
+    linear-gradient(145deg, rgba(255, 255, 255, 0.12), transparent 28%, rgba(213, 217, 4, 0.07)),
+    rgba(26, 24, 19, 0.76);
 }
 
 .vx-glass--signal {
-  border-color: rgba(104, 255, 126, 0.38);
+  border-color: rgba(213, 217, 4, 0.38);
   background:
-    linear-gradient(150deg, rgba(104, 255, 126, 0.16), transparent 45%),
-    rgba(13, 127, 53, 0.14);
+    linear-gradient(150deg, rgba(213, 217, 4, 0.16), transparent 45%),
+    rgba(145, 140, 9, 0.14);
 }
 
 .vx-glass--danger {
-  border-color: rgba(255, 42, 42, 0.28);
+  border-color: rgba(199, 66, 8, 0.28);
   background:
-    linear-gradient(150deg, rgba(255, 42, 42, 0.12), transparent 42%),
+    linear-gradient(150deg, rgba(199, 66, 8, 0.12), transparent 42%),
     rgba(255, 255, 255, 0.045);
 }
 
@@ -319,7 +328,7 @@
   gap: 1rem;
   align-items: center;
   justify-content: space-between;
-  color: rgba(243, 245, 239, 0.58);
+  color: rgba(228, 225, 220, 0.58);
   font-family: "IBM Plex Mono", ui-monospace, monospace;
   font-size: 0.66rem;
   letter-spacing: 0.06em;
@@ -340,7 +349,7 @@
   border: 1px solid rgba(255, 255, 255, 0.16);
   border-radius: 14px;
   background:
-    linear-gradient(155deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.06) 42%, rgba(5, 7, 6, 0.18)),
+    linear-gradient(155deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.06) 42%, rgba(1, 1, 1, 0.18)),
     rgba(255, 255, 255, 0.08);
   padding: 1rem;
   box-shadow: 0 22px 70px rgba(0, 0, 0, 0.38);
@@ -349,11 +358,11 @@
 }
 
 .vx-doc--active {
-  border-color: rgba(104, 255, 126, 0.78);
+  border-color: rgba(213, 217, 4, 0.78);
   background:
-    linear-gradient(160deg, rgba(104, 255, 126, 0.96), rgba(104, 255, 126, 0.82) 55%, rgba(18, 150, 61, 0.76)),
+    linear-gradient(160deg, rgba(213, 217, 4, 0.96), rgba(213, 217, 4, 0.82) 55%, rgba(145, 140, 9, 0.76)),
     var(--vo-green);
-  color: #031006;
+  color: #010101;
 }
 
 .vx-doc:not(.vx-doc--active) h3,
@@ -401,7 +410,7 @@
   overflow: hidden;
   border: 1px solid rgba(255, 255, 255, 0.14);
   border-radius: 14px;
-  background: #020302;
+  background: #010101;
 }
 
 .vx-vsl > div,
@@ -429,9 +438,9 @@
 .wistia-custom-controls__status {
   width: fit-content;
   max-width: 100%;
-  border: 1px solid rgba(104, 255, 126, 0.28);
+  border: 1px solid rgba(213, 217, 4, 0.28);
   border-radius: 999px;
-  background: rgba(5, 7, 6, 0.74);
+  background: rgba(1, 1, 1, 0.74);
   color: var(--vo-green);
   padding: 0.45rem 0.68rem;
   font-family: "IBM Plex Mono", ui-monospace, monospace;
@@ -453,7 +462,7 @@
   min-height: 2.55rem;
   border: 1px solid rgba(255, 255, 255, 0.16);
   border-radius: 999px;
-  background: rgba(5, 7, 6, 0.78);
+  background: rgba(1, 1, 1, 0.78);
   color: var(--vo-text);
   padding: 0.7rem 0.9rem;
   font-family: "IBM Plex Mono", ui-monospace, monospace;
@@ -469,20 +478,20 @@
 
 .wistia-custom-controls__button:hover,
 .wistia-custom-controls__button:focus-visible {
-  border-color: rgba(104, 255, 126, 0.56);
+  border-color: rgba(213, 217, 4, 0.56);
   color: var(--vo-green);
   transform: translateY(-1px);
 }
 
 .wistia-custom-controls__button--primary {
-  border-color: rgba(104, 255, 126, 0.62);
-  background: rgba(104, 255, 126, 0.92);
-  color: #031006;
+  border-color: rgba(213, 217, 4, 0.62);
+  background: rgba(213, 217, 4, 0.92);
+  color: #010101;
 }
 
 .wistia-custom-controls__button--primary:hover,
 .wistia-custom-controls__button--primary:focus-visible {
-  color: #031006;
+  color: #010101;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -508,7 +517,7 @@
   gap: 1rem;
   border: 1px solid rgba(255, 255, 255, 0.18);
   border-radius: 999px;
-  background: rgba(5, 7, 6, 0.72);
+  background: rgba(1, 1, 1, 0.72);
   color: var(--vo-text);
   padding: 0.7rem 0.9rem;
   font-family: "IBM Plex Mono", ui-monospace, monospace;
@@ -524,7 +533,7 @@
   place-items: center;
   border-radius: 999px;
   background: var(--vo-green);
-  color: #031006;
+  color: #010101;
 }
 
 .vx-play::before {
@@ -595,7 +604,7 @@
   display: grid;
   min-height: 28rem;
   align-content: space-between;
-  border-inline-start: 1px solid rgba(104, 255, 126, 0.36);
+  border-inline-start: 1px solid rgba(213, 217, 4, 0.36);
   padding-inline-start: clamp(1rem, 3vw, 2rem);
 }
 
@@ -644,7 +653,7 @@
   aspect-ratio: 1;
   border-radius: 999px;
   background:
-    radial-gradient(circle at center, rgba(104, 255, 126, 0.18), transparent 20%),
+    radial-gradient(circle at center, rgba(213, 217, 4, 0.18), transparent 20%),
     repeating-radial-gradient(circle, transparent 0 3.3rem, rgba(255, 255, 255, 0.06) 3.35rem 3.42rem);
   mask-image: radial-gradient(circle, black 0 72%, transparent 78%);
 }
@@ -710,7 +719,7 @@
   width: 3.1rem;
   height: 3.1rem;
   place-items: center;
-  border: 1px solid rgba(104, 255, 126, 0.34);
+  border: 1px solid rgba(213, 217, 4, 0.34);
   border-radius: 999px;
   color: var(--vo-green);
   font-family: "IBM Plex Mono", ui-monospace, monospace;
@@ -745,8 +754,8 @@
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(180deg, transparent 44%, rgba(5, 7, 6, 0.88)),
-    linear-gradient(112deg, rgba(104, 255, 126, 0.16), transparent 52%);
+    linear-gradient(180deg, transparent 44%, rgba(1, 1, 1, 0.88)),
+    linear-gradient(112deg, rgba(213, 217, 4, 0.16), transparent 52%);
 }
 
 .vx-founder__media img {
@@ -873,7 +882,7 @@
 
 .vx-faq details[open] summary::after {
   transform: rotate(180deg);
-  border-color: rgba(104, 255, 126, 0.42);
+  border-color: rgba(213, 217, 4, 0.42);
 }
 
 .vx-faq summary::-webkit-details-marker {
@@ -928,7 +937,7 @@
   inset: auto -10% -30% 20%;
   height: 58%;
   pointer-events: none;
-  background: radial-gradient(ellipse, rgba(104, 255, 126, 0.18), transparent 62%);
+  background: radial-gradient(ellipse, rgba(213, 217, 4, 0.18), transparent 62%);
   filter: blur(18px);
 }
 
@@ -944,12 +953,12 @@
   width: min(23rem, calc(100vw - 2rem));
   aspect-ratio: 16 / 9;
   overflow: hidden;
-  border: 1px solid rgba(104, 255, 126, 0.42);
+  border: 1px solid rgba(213, 217, 4, 0.42);
   border-radius: 14px;
-  background: #050505;
+  background: #010101;
   box-shadow:
     0 24px 80px rgba(0, 0, 0, 0.72),
-    0 0 42px rgba(104, 255, 126, 0.12);
+    0 0 42px rgba(213, 217, 4, 0.12);
 }
 
 .vx-floating-vsl iframe {

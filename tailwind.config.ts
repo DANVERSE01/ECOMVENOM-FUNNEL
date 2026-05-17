@@ -5,15 +5,18 @@ const config: Config = {
 	theme: {
 		extend: {
 			colors: {
-				ink: { DEFAULT: "#060608", 2: "#0A0A0E", 3: "#101016", 4: "#18181F", 5: "#222230" },
-				bone: { DEFAULT: "#F0EDE6", 2: "#D8D4CC" },
-				ash: { DEFAULT: "#8A8A94", 2: "#6B6B75", 3: "#3D3D47" },
-				venom: { DEFAULT: "#B8FF2E", 2: "#9AE600", 3: "#CCFF66", dim: "rgba(184,255,46,0.12)", glow: "rgba(184,255,46,0.06)" },
-				steel: { DEFAULT: "#5A9AAD", 2: "#4D8A9E" },
-				gold: { DEFAULT: "#D4A45A", 2: "#C99A52" },
-				crimson: { DEFAULT: "#FF1744", 2: "#D50000", 3: "#FF5566", glow: "rgba(255,23,68,0.12)", dim: "rgba(255,23,68,0.06)" },
-				violet: { DEFAULT: "#6C00FF", 2: "#4A00C4", glow: "rgba(108,0,255,0.10)" },
-				alert: "#FF3344", info: "#3B82F6", success: "#22C55E",
+				ink: { DEFAULT: "#010101", 2: "#0B0A08", 3: "#1A1813", 4: "#2D2B26", 5: "#474741" },
+				bone: { DEFAULT: "#E4E1DC", 2: "#A29E97" },
+				ash: { DEFAULT: "#A29E97", 2: "#6E6B67", 3: "#474741" },
+				venom: { DEFAULT: "#D5D904", 2: "#918C09", 3: "#D5D904", dim: "rgba(213,217,4,0.12)", glow: "rgba(213,217,4,0.06)" },
+				acid: { DEFAULT: "#D5D904", shadow: "#918C09" },
+				steel: { DEFAULT: "#6E6B67", 2: "#474741" },
+				gold: { DEFAULT: "#5C3E0B", 2: "#5C3E0B" },
+				amber: { DEFAULT: "#5C3E0B", smoke: "#5C3E0B" },
+				crimson: { DEFAULT: "#C74208", 2: "#C74208", 3: "#E47A3A", glow: "rgba(199,66,8,0.14)", dim: "rgba(199,66,8,0.06)" },
+				heat: { DEFAULT: "#C74208", glow: "rgba(199,66,8,0.18)" },
+				violet: { DEFAULT: "#5C3E0B", 2: "#474741", glow: "rgba(92,62,11,0.10)" },
+				alert: "#C74208", info: "#A29E97", success: "#D5D904",
 			},
 			fontFamily: {
 				display: ["var(--font-syne)", "Impact", "ui-sans-serif"],

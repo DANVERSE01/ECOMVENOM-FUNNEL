@@ -78,7 +78,7 @@ function ProofCardTilt({
   lang: Lang;
   onInspect: (index: number) => void;
 }) {
-  const tiltRef = useTilt<HTMLButtonElement>(8);
+  const tiltRef = useTilt<HTMLButtonElement>(4);
 
   return (
     <button
