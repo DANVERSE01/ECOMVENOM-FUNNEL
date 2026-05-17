@@ -1,4 +1,4 @@
-import { gsap, SplitText, reducedMotion } from "@/lib/gsap";
+import { gsap, ScrollTrigger, SplitText, reducedMotion } from "@/lib/gsap";
 
 /**
  * splitText — Lightweight SplitText replacement (no GSAP Club dependency).
@@ -449,6 +449,33 @@ export function initSectionHeadlineReveals() {
   });
 
   return () => cleanups.forEach((fn) => fn());
+}
+
+export function initAtmosphereTransitions() {
+  if (reducedMotion() || typeof window === "undefined") return () => {};
+
+  const root = document.documentElement;
+
+  const st = ScrollTrigger.create({
+    trigger: document.body,
+    start: "top top",
+    end: "bottom bottom",
+    scrub: true,
+    onUpdate: (self) => {
+      const p = self.progress;
+      // Glow X: 90% → 50% → 10% (right → center → left)
+      const glowX = 90 - p * 80;
+      // Glow Y: 10% → 50% → 85% (top → mid → bottom)
+      const glowY = 10 + p * 75;
+      // Intensity: peaks at midpoint
+      const intensity = 0.07 + Math.sin(p * Math.PI) * 0.05;
+      root.style.setProperty("--atm-x", `${glowX.toFixed(1)}%`);
+      root.style.setProperty("--atm-y", `${glowY.toFixed(1)}%`);
+      root.style.setProperty("--atm-i", intensity.toFixed(3));
+    },
+  });
+
+  return () => { st.kill(); };
 }
 
 export function initSectionSheen() {

@@ -1,20 +1,15 @@
 "use client";
 
-import dynamic from "next/dynamic";
 import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import { GlowButton } from "@/components/venom/GlowButton";
 import { SectionWrapper } from "@/components/venom/SectionWrapper";
 import { VslStage } from "@/components/venom/VslStage";
+import { HeroScene } from "@/components/three/HeroScene";
 import { recoveryCopy } from "@/lib/cinematicRecoveryContent";
 import { useLang } from "@/lib/lang-context";
 import { useMagnetic } from "@/lib/magnetic";
 import { revealHeadline } from "@/lib/motion";
-
-const HeroScene = dynamic(
-  () => import("@/components/three/HeroScene").then((m) => ({ default: m.HeroScene })),
-  { ssr: false, loading: () => null },
-);
 
 export function HeroSection() {
   const { lang } = useLang();
@@ -29,7 +24,6 @@ export function HeroSection() {
 
   return (
     <SectionWrapper id="system-boot" className="v2-hero" sceneTitle="ECOMVENOM">
-      {/* R3F WebGL scene — full-hero background layer */}
       <div className="v2-hero__scene-canvas" aria-hidden="true">
         <HeroScene />
       </div>

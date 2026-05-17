@@ -1,156 +1,186 @@
 "use client";
 
-import { useEffect, useRef, useMemo } from "react";
-import { Canvas, useFrame, useThree } from "@react-three/fiber";
-import { Float } from "@react-three/drei";
+import { useEffect, useRef } from "react";
 import * as THREE from "three";
 
-const ACID = new THREE.Color("#D5D904");
-const HEAT = new THREE.Color("#C74208");
-
-function TorusKnot({
-  position,
-  scale,
-  speed,
-  p = 2,
-  q = 3,
-}: {
-  position: [number, number, number];
-  scale: number;
-  speed: [number, number, number];
-  p?: number;
-  q?: number;
-}) {
-  const ref = useRef<THREE.Mesh>(null);
-
-  useFrame((_, dt) => {
-    if (!ref.current) return;
-    ref.current.rotation.x += dt * speed[0];
-    ref.current.rotation.y += dt * speed[1];
-    ref.current.rotation.z += dt * speed[2];
-  });
-
-  return (
-    <Float speed={1.4} rotationIntensity={0.2} floatIntensity={1.0}>
-      <mesh ref={ref} position={position} scale={scale}>
-        <torusKnotGeometry args={[1, 0.26, 140, 18, p, q]} />
-        <meshStandardMaterial
-          color="#050505"
-          emissive={ACID}
-          emissiveIntensity={1.2}
-          wireframe
-          transparent
-          opacity={0.9}
-        />
-      </mesh>
-    </Float>
-  );
-}
-
-function SmallRing({ position }: { position: [number, number, number] }) {
-  const ref = useRef<THREE.Mesh>(null);
-  useFrame((_, dt) => {
-    if (!ref.current) return;
-    ref.current.rotation.x += dt * 0.18;
-    ref.current.rotation.y -= dt * 0.12;
-  });
-  return (
-    <Float speed={2} rotationIntensity={0.6} floatIntensity={1.4}>
-      <mesh ref={ref} position={position} scale={0.28}>
-        <torusGeometry args={[1, 0.06, 16, 60]} />
-        <meshStandardMaterial
-          color="#050505"
-          emissive={HEAT}
-          emissiveIntensity={1.4}
-          wireframe
-          transparent
-          opacity={0.75}
-        />
-      </mesh>
-    </Float>
-  );
-}
-
-function ParticleCloud() {
-  const ref = useRef<THREE.Points>(null);
-
-  const geometry = useMemo(() => {
-    const count = 140;
-    const pos = new Float32Array(count * 3);
-    for (let i = 0; i < count; i++) {
-      const r = 3.5 + Math.random() * 4;
-      const theta = Math.random() * Math.PI * 2;
-      const phi = Math.acos(2 * Math.random() - 1);
-      pos[i * 3] = r * Math.sin(phi) * Math.cos(theta);
-      pos[i * 3 + 1] = r * Math.sin(phi) * Math.sin(theta);
-      pos[i * 3 + 2] = r * Math.cos(phi);
-    }
-    const geo = new THREE.BufferGeometry();
-    geo.setAttribute("position", new THREE.BufferAttribute(pos, 3));
-    return geo;
-  }, []);
-
-  useFrame((_, dt) => {
-    if (ref.current) ref.current.rotation.y += dt * 0.035;
-  });
-
-  return (
-    <points ref={ref} geometry={geometry}>
-      <pointsMaterial
-        color={ACID}
-        size={0.045}
-        sizeAttenuation
-        transparent
-        opacity={0.55}
-        depthWrite={false}
-      />
-    </points>
-  );
-}
-
-function MouseCamera() {
-  const { camera } = useThree();
-  const mouse = useRef({ x: 0, y: 0 });
-
-  useEffect(() => {
-    const onMove = (e: MouseEvent) => {
-      mouse.current.x = (e.clientX / window.innerWidth - 0.5) * 2;
-      mouse.current.y = -(e.clientY / window.innerHeight - 0.5) * 2;
-    };
-    window.addEventListener("mousemove", onMove, { passive: true });
-    return () => window.removeEventListener("mousemove", onMove);
-  }, []);
-
-  useFrame((_, dt) => {
-    const target = new THREE.Vector3(mouse.current.x * 1.0, mouse.current.y * 0.6, 6);
-    camera.position.lerp(target, dt * 1.2);
-    camera.lookAt(0, 0, 0);
-  });
-
-  return null;
-}
+const ACID = 0xd5d904;
+const HEAT = 0xc74208;
 
 export function HeroScene() {
-  return (
-    <Canvas
-      dpr={[1, Math.min(typeof window !== "undefined" ? window.devicePixelRatio : 1, 1.5)]}
-      camera={{ position: [0, 0, 6], fov: 52 }}
-      gl={{ alpha: true, antialias: true, powerPreference: "high-performance" }}
-      style={{ position: "absolute", inset: 0, width: "100%", height: "100%", pointerEvents: "none" }}
-    >
-      <ambientLight intensity={0.15} />
-      <pointLight position={[4, 6, 4]} intensity={3} color={ACID} />
-      <pointLight position={[-5, -4, -2]} intensity={1.5} color={HEAT} />
-      <pointLight position={[0, 0, 3]} intensity={0.8} color="#ffffff" />
+  const containerRef = useRef<HTMLDivElement>(null);
 
-      <MouseCamera />
-      <ParticleCloud />
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
 
-      <TorusKnot position={[2.4, 0.7, -1.5]} scale={0.72} speed={[0.10, 0.07, 0.04]} p={2} q={3} />
-      <TorusKnot position={[-2.0, -0.4, -2.5]} scale={0.50} speed={[-0.06, 0.13, 0.05]} p={3} q={5} />
-      <TorusKnot position={[0.3, -1.8, -0.8]} scale={0.38} speed={[0.09, -0.10, 0.08]} p={2} q={7} />
-      <SmallRing position={[-1.2, 1.8, -1]} />
-      <SmallRing position={[3.2, -1.2, -2]} />
-    </Canvas>
-  );
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    const renderer = new THREE.WebGLRenderer({
+      alpha: true,
+      antialias: true,
+      powerPreference: "high-performance",
+    });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
+    renderer.setSize(container.clientWidth, container.clientHeight);
+    container.appendChild(renderer.domElement);
+
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(
+      52,
+      container.clientWidth / container.clientHeight,
+      0.1,
+      100,
+    );
+    camera.position.set(0, 0, 6);
+
+    // --- Torus Knots (wireframe, acid green) ---
+    const knotGeo = new THREE.TorusKnotGeometry(0.8, 0.25, 128, 16, 2, 3);
+    const knotMat = new THREE.MeshBasicMaterial({
+      color: ACID,
+      wireframe: true,
+      transparent: true,
+      opacity: 0.85,
+    });
+
+    const knot1 = new THREE.Mesh(knotGeo, knotMat);
+    knot1.position.set(2.4, 0.7, -1.5);
+    knot1.scale.setScalar(0.72);
+
+    const knot2 = new THREE.Mesh(knotGeo, knotMat.clone());
+    knot2.position.set(-2.0, -0.4, -2.5);
+    knot2.scale.setScalar(0.5);
+
+    const knotGeo3 = new THREE.TorusKnotGeometry(0.8, 0.25, 128, 16, 3, 5);
+    const knot3 = new THREE.Mesh(knotGeo3, knotMat.clone());
+    knot3.position.set(0.3, -1.8, -0.8);
+    knot3.scale.setScalar(0.38);
+
+    scene.add(knot1, knot2, knot3);
+
+    // --- Small Rings (wireframe, heat orange) ---
+    const ringGeo = new THREE.TorusGeometry(0.3, 0.08, 16, 48);
+    const ringMat = new THREE.MeshBasicMaterial({
+      color: HEAT,
+      wireframe: true,
+      transparent: true,
+      opacity: 0.7,
+    });
+
+    const ring1 = new THREE.Mesh(ringGeo, ringMat);
+    ring1.position.set(-1.2, 1.8, -1);
+    ring1.scale.setScalar(0.9);
+
+    const ring2 = new THREE.Mesh(ringGeo, ringMat.clone());
+    ring2.position.set(3.2, -1.2, -2);
+    ring2.scale.setScalar(0.7);
+
+    scene.add(ring1, ring2);
+
+    // --- Particles (spherical distribution) ---
+    const particleCount = 140;
+    const positions = new Float32Array(particleCount * 3);
+    for (let i = 0; i < particleCount; i++) {
+      const r = 3.5 + Math.random() * 4.5;
+      const theta = Math.random() * Math.PI * 2;
+      const phi = Math.acos(2 * Math.random() - 1);
+      positions[i * 3] = r * Math.sin(phi) * Math.cos(theta);
+      positions[i * 3 + 1] = r * Math.sin(phi) * Math.sin(theta);
+      positions[i * 3 + 2] = r * Math.cos(phi);
+    }
+    const particleGeo = new THREE.BufferGeometry();
+    particleGeo.setAttribute("position", new THREE.BufferAttribute(positions, 3));
+    const particleMat = new THREE.PointsMaterial({
+      color: ACID,
+      size: 0.04,
+      sizeAttenuation: true,
+      transparent: true,
+      opacity: 0.55,
+      depthWrite: false,
+    });
+    const particles = new THREE.Points(particleGeo, particleMat);
+    scene.add(particles);
+
+    // --- Lights ---
+    const light1 = new THREE.PointLight(ACID, 2, 10);
+    light1.position.set(4, 6, 4);
+    const light2 = new THREE.PointLight(HEAT, 1.5, 8);
+    light2.position.set(-5, -4, -2);
+    const light3 = new THREE.PointLight(0xffffff, 0.5, 12);
+    light3.position.set(0, 0, 5);
+    const ambient = new THREE.AmbientLight(0x111111, 0.3);
+    scene.add(light1, light2, light3, ambient);
+
+    // --- Mouse tracking ---
+    const mouse = { x: 0, y: 0 };
+    const onMouseMove = (e: MouseEvent) => {
+      mouse.x = (e.clientX / window.innerWidth - 0.5) * 2;
+      mouse.y = -(e.clientY / window.innerHeight - 0.5) * 2;
+    };
+    window.addEventListener("mousemove", onMouseMove, { passive: true });
+
+    // --- Resize ---
+    const ro = new ResizeObserver(() => {
+      if (!container) return;
+      const w = container.clientWidth;
+      const h = container.clientHeight;
+      renderer.setSize(w, h);
+      camera.aspect = w / h;
+      camera.updateProjectionMatrix();
+    });
+    ro.observe(container);
+
+    // --- Animation loop ---
+    let frameId = 0;
+
+    if (reducedMotion) {
+      renderer.render(scene, camera);
+    } else {
+      const animate = () => {
+        frameId = requestAnimationFrame(animate);
+
+        knot1.rotation.x += 0.003;
+        knot1.rotation.y += 0.005;
+        knot2.rotation.x -= 0.004;
+        knot2.rotation.y += 0.006;
+        knot3.rotation.x += 0.005;
+        knot3.rotation.z += 0.003;
+
+        ring1.rotation.x += 0.01;
+        ring1.rotation.y -= 0.007;
+        ring2.rotation.x -= 0.008;
+        ring2.rotation.y += 0.01;
+
+        particles.rotation.y += 0.0008;
+
+        camera.position.x += (mouse.x * 0.8 - camera.position.x) * 0.02;
+        camera.position.y += (mouse.y * 0.5 - camera.position.y) * 0.02;
+        camera.lookAt(0, 0, 0);
+
+        renderer.render(scene, camera);
+      };
+      animate();
+    }
+
+    return () => {
+      cancelAnimationFrame(frameId);
+      window.removeEventListener("mousemove", onMouseMove);
+      ro.disconnect();
+
+      knotGeo.dispose();
+      knotGeo3.dispose();
+      ringGeo.dispose();
+      particleGeo.dispose();
+      knotMat.dispose();
+      ringMat.dispose();
+      particleMat.dispose();
+      knot2.material instanceof THREE.Material && knot2.material.dispose();
+      knot3.material instanceof THREE.Material && knot3.material.dispose();
+      ring2.material instanceof THREE.Material && ring2.material.dispose();
+
+      renderer.dispose();
+      container.removeChild(renderer.domElement);
+    };
+  }, []);
+
+  return <div ref={containerRef} className="v2-hero__scene-inner" />;
 }

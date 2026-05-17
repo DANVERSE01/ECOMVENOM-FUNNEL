@@ -22,9 +22,7 @@ export function SmoothScroll({ children }: { children: React.ReactNode }) {
   const reduced = useReducedMotion();
 
   useEffect(() => {
-    const useNativeScroll =
-      reduced ||
-      window.matchMedia("(pointer: coarse), (max-width: 767px)").matches;
+    const useNativeScroll = reduced;
 
     const handleAnchorClick = (event: MouseEvent) => {
       if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) {

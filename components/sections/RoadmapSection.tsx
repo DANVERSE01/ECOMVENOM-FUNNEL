@@ -1,5 +1,8 @@
 "use client";
 
+import { useRef } from "react";
+import { useGSAP } from "@gsap/react";
+import { gsap, ScrollTrigger } from "@/lib/gsap";
 import { EditorialHeading } from "@/components/venom/EditorialHeading";
 import { GlassPanel } from "@/components/venom/GlassPanel";
 import { SectionWrapper } from "@/components/venom/SectionWrapper";
@@ -12,6 +15,31 @@ export function RoadmapSection() {
   const { lang } = useLang();
   const { curriculum } = useContent();
   const c = recoveryCopy[lang].roadmap;
+  const listRef = useRef<HTMLDivElement>(null);
+
+  useGSAP(() => {
+    const list = listRef.current;
+    if (!list) return;
+    const steps = list.querySelectorAll<HTMLElement>(".vx-timeline");
+    if (!steps.length) return;
+
+    gsap.set(steps, { opacity: 0, y: 28, filter: "blur(3px)" });
+
+    ScrollTrigger.create({
+      trigger: list,
+      start: "top 80%",
+      onEnter: () => {
+        gsap.to(steps, {
+          opacity: 1,
+          y: 0,
+          filter: "blur(0px)",
+          duration: 0.7,
+          ease: "expo.out",
+          stagger: { amount: 0.5, from: "start" },
+        });
+      },
+    });
+  }, { scope: listRef });
 
   return (
     <SectionWrapper id="roadmap" sceneTitle={c.eyebrow}>
@@ -20,7 +48,7 @@ export function RoadmapSection() {
           <EditorialHeading eyebrow={c.eyebrow} title={c.title} body={c.body} />
           <p className="vx-mini">{lang === "ar" ? "من إشارة المنتج إلى قرار التوسع" : "From product signal to scale decision"}</p>
         </GlassPanel>
-        <div className="vx-timeline-list" data-vx-reveal>
+        <div ref={listRef} className="vx-timeline-list">
           {curriculum.modules.map((module) => (
             <TimelineStep key={module.n} index={module.n} title={module.title} body={module.bullets.join(" / ")} />
           ))}

@@ -22,7 +22,7 @@
   --v2-gold: #5C3E0B;
   --v2-ease: cubic-bezier(0.16, 1, 0.3, 1);
   background:
-    radial-gradient(ellipse 60% 38% at 78% -4%, rgba(213, 217, 4, 0.10), transparent 70%),
+    radial-gradient(ellipse 55% 40% at var(--atm-x, 78%) var(--atm-y, 5%), rgba(213, 217, 4, var(--atm-i, 0.10)), transparent 70%),
     radial-gradient(ellipse 38% 30% at 8% 28%, rgba(199, 66, 8, 0.045), transparent 72%),
     linear-gradient(180deg, #010101 0%, #0B0A08 48%, #010101 100%);
   overflow: visible;
@@ -209,6 +209,17 @@
   width: 100%;
   height: 100%;
   mix-blend-mode: screen;
+}
+
+.v2-hero__scene-inner {
+  width: 100%;
+  height: 100%;
+}
+
+.v2-hero__scene-inner canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
 }
 
 .v2-hero__media::after {
