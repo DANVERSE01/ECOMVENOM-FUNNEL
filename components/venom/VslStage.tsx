@@ -31,8 +31,7 @@ export function VslStage({
           mediaId={HERO_VSL_MEDIA_ID}
           aspect={HERO_VSL_ASPECT}
           autoplay
-          muted={false}
-          controls
+          muted={true}
           posterSrc="/media/hero-vsl-poster.webp"
           posterAlt="ECOMVENOM founder VSL"
           playLabel={playLabel}

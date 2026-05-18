@@ -138,30 +138,28 @@ canvas[style*="zIndex: 9999"] {
    expansion is preserved. */
 
 .v2-hero--vsl-first {
-  /* Composed first fold + cinematic scroll runway.
-     130svh = 100svh first fold + ~30svh cinematic playthrough. */
-  min-height: 130svh;
-  padding-top: clamp(4rem, 6vw, 5rem);
-  padding-bottom: clamp(1.4rem, 3vw, 2.2rem);
-  /* Top-anchor the composed grid so the runway sits below it. */
+  /* No cinematic runway — clean single fold. */
+  min-height: 100svh;
+  padding-top: clamp(3.5rem, 5vw, 4.2rem);
+  padding-bottom: clamp(1rem, 2vw, 1.6rem);
   align-items: start;
   align-content: start;
 }
 
 @media (max-width: 1023px) {
   .v2-hero--vsl-first {
-    min-height: 115svh;
+    min-height: auto;
   }
 }
 
 @media (max-width: 768px) {
   .v2-hero--vsl-first {
-    min-height: 100svh;
+    min-height: auto;
   }
 }
 
 .v2-hero--vsl-first .v2-hero__vsl-first-grid {
-  gap: clamp(0.85rem, 1.6vw, 1.3rem);
+  gap: clamp(0.6rem, 1vw, 0.9rem);
 }
 
 @media (min-width: 1024px) {
@@ -172,7 +170,7 @@ canvas[style*="zIndex: 9999"] {
 
 /* Per-viewport VSL frame width — keep VSL dominant and cinematic. */
 .v2-hero--vsl-first .v2-hero__vsl-dominant {
-  max-width: min(1080px, 78vw);
+  max-width: min(940px, 68vw);
   margin-inline: auto;
 }
 
@@ -184,7 +182,7 @@ canvas[style*="zIndex: 9999"] {
 
 @media (min-width: 1280px) and (max-width: 1599px) {
   .v2-hero--vsl-first .v2-hero__vsl-dominant {
-    max-width: min(1080px, 82vw);
+    max-width: min(940px, 68vw);
   }
 }
 
