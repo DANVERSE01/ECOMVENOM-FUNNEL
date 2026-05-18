@@ -32,6 +32,7 @@ export function VslStage({
           aspect={HERO_VSL_ASPECT}
           autoplay
           muted={false}
+          controls
           posterSrc="/media/hero-vsl-poster.webp"
           posterAlt="ECOMVENOM founder VSL"
           playLabel={playLabel}

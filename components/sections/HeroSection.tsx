@@ -56,9 +56,6 @@ export function HeroSection() {
             <span ref={magRef} data-hero-cta>
               <GlowButton href="/apply">{c.primary}</GlowButton>
             </span>
-            <GlowButton href="#founder-vsl" variant="ghost">
-              {c.secondary}
-            </GlowButton>
           </div>
         </div>
       </div>
