@@ -41,10 +41,26 @@ export function Preloader() {
     if (!el) return;
 
     const obj = { val: 0 };
+    let exited = false;
 
-    gsap.to(obj, {
+    const exit = () => {
+      if (exited) return;
+      exited = true;
+      tween.kill();
+      gsap.to(el, {
+        yPercent: -100,
+        duration: 0.32,
+        ease: "power4.inOut",
+        onComplete() {
+          document.body.style.overflow = "";
+          setDone(true);
+        },
+      });
+    };
+
+    const tween = gsap.to(obj, {
       val: 100,
-      duration: 0.8,
+      duration: 0.6, // hard ceiling reduced from 0.8 → 0.6
       ease: "power2.inOut",
       onUpdate() {
         const n = Math.floor(obj.val);
@@ -55,27 +71,36 @@ export function Preloader() {
         if (barRef.current) barRef.current.style.transform = `scaleX(${obj.val / 100})`;
       },
       onComplete() {
-        gsap.to(el, {
-          yPercent: -100,
-          duration: 0.42,
-          ease: "power4.inOut",
-          onComplete() {
-            document.body.style.overflow = "";
-            setDone(true);
-          },
-        });
+        exit();
       },
     });
 
+    // If the document finishes loading before the 600 ms ceiling, exit early
+    // (still respecting whichever fires first).
+    const onReady = () => {
+      if (document.readyState === "complete") {
+        // Tiny grace tick so the counter visibly hits 100
+        window.setTimeout(exit, 80);
+      }
+    };
+    if (document.readyState === "complete") {
+      window.setTimeout(exit, 80);
+    } else {
+      document.addEventListener("readystatechange", onReady);
+      window.addEventListener("load", onReady, { once: true });
+    }
+
     gsap.to(logoRef.current, {
       opacity: 1,
-      delay: 0.2,
-      duration: 0.4,
+      delay: 0.15,
+      duration: 0.32,
       ease: "power2.out",
     });
 
     return () => {
       document.body.style.overflow = "";
+      document.removeEventListener("readystatechange", onReady);
+      window.removeEventListener("load", onReady);
     };
   }, []);
 

@@ -23,7 +23,7 @@ export function MechanismSection() {
 
     gsap.set(steps, { opacity: 0, x: -36, filter: "blur(4px)" });
 
-    ScrollTrigger.create({
+    const enterTrigger = ScrollTrigger.create({
       trigger: grid,
       start: "top 78%",
       onEnter: () => {
@@ -46,6 +46,30 @@ export function MechanismSection() {
         }
       },
     });
+
+    // Active-step indicator driven by scroll progress through the section.
+    // Maps progress in [0, 1] to active index in [0, steps.length - 1].
+    let lastActive = -1;
+    const progressTrigger = ScrollTrigger.create({
+      trigger: "#mechanism",
+      start: "top 70%",
+      end: "bottom 60%",
+      scrub: true,
+      onUpdate: (self) => {
+        const idx = Math.min(steps.length - 1, Math.floor(self.progress * steps.length));
+        if (idx === lastActive) return;
+        lastActive = idx;
+        steps.forEach((el, i) => {
+          if (i === idx) el.setAttribute("data-active", "true");
+          else el.removeAttribute("data-active");
+        });
+      },
+    });
+
+    return () => {
+      enterTrigger.kill();
+      progressTrigger.kill();
+    };
   }, { scope: gridRef });
 
   return (

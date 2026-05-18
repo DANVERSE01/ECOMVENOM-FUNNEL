@@ -17,6 +17,8 @@ export function PreCallVideo() {
         autoplay
         muted
         className="confirmation-wistia"
+        posterSrc="/posters/confirmation-poster.jpg"
+        posterAlt="ECOMVENOM pre-call video"
       />
       <span className="sr-only">
         {lang === "ar" ? "فيديو ما قبل المكالمة من ECOMVENOM" : "ECOMVENOM pre-call video"}

@@ -37,6 +37,8 @@ export function VslStage({
           autoplay
           muted={false}
           controls
+          posterSrc="/media/hero-vsl-poster.webp"
+          posterAlt="ECOMVENOM founder VSL"
           playLabel={playLabel}
           pauseLabel={pauseLabel}
           soundLabel={soundLabel}

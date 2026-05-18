@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { CtaLink } from "@/components/ui/button";
 import { useReducedMotion } from "@/lib/useReducedMotion";
@@ -12,6 +13,7 @@ export function StickyMobileCTA() {
   const pathname = usePathname();
   const barRef = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
+  const [pillVisible, setPillVisible] = useState(false);
   const reduced = useReducedMotion();
   const { stickyCta } = useContent();
 
@@ -20,6 +22,7 @@ export function StickyMobileCTA() {
   useEffect(() => {
     if (hidden) {
       setVisible(false);
+      setPillVisible(false);
       return;
     }
 
@@ -29,7 +32,14 @@ export function StickyMobileCTA() {
     let heroExited = false;
     let scrollFilmVisible = false;
     let finalVisible = false;
-    const syncVisibility = () => setVisible(heroExited && !scrollFilmVisible && !finalVisible);
+
+    const syncVisibility = () => {
+      const mainVisible = heroExited && !scrollFilmVisible && !finalVisible;
+      setVisible(mainVisible);
+      // Mobile cinematic pill: visible only when the cinematic section is in
+      // view AND the main sticky bar is hidden (so we cover the gap).
+      setPillVisible(scrollFilmVisible && !finalVisible);
+    };
 
     const updateHeroState = () => {
       if (heroSection) {
@@ -96,19 +106,30 @@ export function StickyMobileCTA() {
   if (hidden) return null;
 
   return (
-    <div
-      ref={barRef}
-      data-sticky-mobile-cta
-      data-visible={visible ? "true" : "false"}
-      data-reduced-motion={reduced ? "true" : "false"}
-      className="mobile-command-bar venom-mobile-cta fixed bottom-0 left-0 right-0 z-[8000] md:hidden"
-    >
-      <div className="px-4 py-3 flex flex-col items-center gap-1">
-        <CtaLink href="/apply" className="w-full max-w-sm text-center">
-          {stickyCta.label}
-        </CtaLink>
-        <p className="font-heading text-[10px] uppercase tracking-caps text-ash">{stickyCta.sub}</p>
+    <>
+      <div
+        ref={barRef}
+        data-sticky-mobile-cta
+        data-visible={visible ? "true" : "false"}
+        data-reduced-motion={reduced ? "true" : "false"}
+        className="mobile-command-bar venom-mobile-cta fixed bottom-0 left-0 right-0 z-[8000] md:hidden"
+      >
+        <div className="px-4 py-3 flex flex-col items-center gap-1">
+          <CtaLink href="/apply" className="w-full max-w-sm text-center">
+            {stickyCta.label}
+          </CtaLink>
+          <p className="font-heading text-[10px] uppercase tracking-caps text-ash">{stickyCta.sub}</p>
+        </div>
       </div>
-    </div>
+      <Link
+        href="/apply"
+        data-mobile-cinematic-pill
+        data-visible={pillVisible ? "true" : "false"}
+        className="mobile-cinematic-pill"
+        aria-label={stickyCta.label}
+      >
+        {stickyCta.label}
+      </Link>
+    </>
   );
 }

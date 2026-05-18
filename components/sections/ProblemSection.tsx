@@ -37,7 +37,7 @@ export function ProblemSection() {
   const c = lang === "ar" ? copy.ar : copy.en;
 
   return (
-    <SectionWrapper id="problem" className="vx-section--compact">
+    <SectionWrapper id="problem" className="vx-section--compact" sceneTitle={c.eyebrow}>
       <div className="vx-shell vx-problem-diagnostic">
         <EditorialHeading eyebrow={c.eyebrow} title={c.title} body={c.body} tone="danger" wide />
         <GlassPanel className="vx-problem-rail" variant="danger" data-vx-reveal>

@@ -21,6 +21,13 @@ type WistiaPlayerProps = {
   muted?: boolean;
   className?: string;
   controls?: boolean;
+  /**
+   * Optional poster image displayed inside the player container before
+   * Wistia's `api-ready` event (or, on slow/blocked networks, until the
+   * 4 s readiness timeout). Resilience layer added in Phase 6.
+   */
+  posterSrc?: string;
+  posterAlt?: string;
   playLabel?: string;
   pauseLabel?: string;
   soundLabel?: string;
@@ -48,6 +55,15 @@ declare global {
 
 let scriptsLoaded = false;
 
+/**
+ * loadWistiaScripts — append the Wistia player loader to <head>.
+ *
+ * The script element's `onerror` is intentionally a no-op: Wistia's own
+ * loaders surface their failures via the player element's events, and any
+ * real-world page errors still propagate normally. We do NOT add explicit
+ * console.error calls here so the dev console stays readable when the
+ * Wistia CDN is unreachable.
+ */
 function loadWistiaScripts() {
   if (scriptsLoaded || typeof window === "undefined") return;
   scriptsLoaded = true;
@@ -55,6 +71,9 @@ function loadWistiaScripts() {
   const playerScript = document.createElement("script");
   playerScript.src = "https://fast.wistia.com/player.js";
   playerScript.async = true;
+  playerScript.onerror = () => {
+    /* swallow; the poster fallback already covers this surface */
+  };
   document.head.appendChild(playerScript);
 }
 
@@ -66,6 +85,9 @@ function loadMediaScript(mediaId: string) {
   mediaScript.src = `https://fast.wistia.com/embed/${mediaId}.js`;
   mediaScript.async = true;
   mediaScript.type = "module";
+  mediaScript.onerror = () => {
+    /* swallow; poster fallback covers this surface */
+  };
   document.head.appendChild(mediaScript);
 }
 
@@ -123,6 +145,8 @@ export function WistiaPlayer({
   muted = true,
   className,
   controls = false,
+  posterSrc,
+  posterAlt = "",
   playLabel = "Play",
   pauseLabel = "Pause",
   soundLabel = "Sound on",
@@ -134,6 +158,54 @@ export function WistiaPlayer({
   const [playerState, setPlayerState] = useState<WistiaState>("beforeplay");
   const [isMuted, setIsMuted] = useState(muted);
   const [autoplayBlocked, setAutoplayBlocked] = useState(false);
+  const [posterStatus, setPosterStatus] = useState<"visible" | "hidden">(
+    posterSrc ? "visible" : "hidden",
+  );
+
+  // Wistia readiness + poster lifecycle.
+  // - poster is visible from mount until either api-ready fires or 4 s passes
+  // - if api-ready never arrives within 8 s, or the player fires an error,
+  //   the poster is brought back so the surface stays presentable
+  useEffect(() => {
+    if (!posterSrc) return;
+    const player = playerRef.current;
+    if (!player) return;
+
+    let didReachReady = false;
+    let cancelled = false;
+
+    const fadeOut = () => {
+      if (cancelled || didReachReady) return;
+      didReachReady = true;
+      setPosterStatus("hidden");
+    };
+
+    const failBack = () => {
+      if (cancelled) return;
+      setPosterStatus("visible");
+    };
+
+    const onReady = () => fadeOut();
+    const onError = () => failBack();
+
+    player.addEventListener("api-ready", onReady);
+    player.addEventListener("error", onError);
+
+    // Soft fade after 4 s even if api-ready never fires (slow networks)
+    const softTimer = window.setTimeout(fadeOut, 4000);
+    // Hard fail-back at 8 s if still not ready
+    const hardTimer = window.setTimeout(() => {
+      if (!didReachReady) failBack();
+    }, 8000);
+
+    return () => {
+      cancelled = true;
+      window.clearTimeout(softTimer);
+      window.clearTimeout(hardTimer);
+      player.removeEventListener("api-ready", onReady);
+      player.removeEventListener("error", onError);
+    };
+  }, [posterSrc, mediaId]);
 
   useEffect(() => {
     loadWistiaScripts();
@@ -260,6 +332,7 @@ export function WistiaPlayer({
       data-wistia-state={playerState}
       data-autoplay-blocked={autoplayBlocked ? "true" : "false"}
       data-muted={isMuted ? "true" : "false"}
+      data-poster-status={posterSrc ? posterStatus : undefined}
       style={{ position: "relative", width: "100%", aspectRatio: aspect }}
     >
       <wistia-player
@@ -274,6 +347,38 @@ export function WistiaPlayer({
         seo="false"
         style={{ display: "block", width: "100%", height: "100%" }}
       />
+
+      {posterSrc ? (
+        <div
+          className="wistia-poster"
+          aria-hidden="true"
+          role="presentation"
+          data-status={posterStatus}
+          data-alt={posterAlt || undefined}
+          style={{
+            backgroundImage: `url(${posterSrc})`,
+          }}
+        />
+      ) : null}
+
+      {autoplayBlocked ? (
+        <button
+          type="button"
+          className="wistia-sound-overlay"
+          onClick={() => void playWithSound()}
+          data-visible="true"
+          aria-label={blockedLabel}
+        >
+          <span className="wistia-sound-overlay__icon" aria-hidden>
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none">
+              <path d="M3 10v4h4l5 4V6L7 10H3z" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+              <path d="M16 8a5 5 0 0 1 0 8" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+              <path d="M19 5a9 9 0 0 1 0 14" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+            </svg>
+          </span>
+          <span className="wistia-sound-overlay__label">{blockedLabel}</span>
+        </button>
+      ) : null}
 
       {controls ? (
         <div className="wistia-custom-controls" aria-label={controlsLabel}>

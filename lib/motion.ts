@@ -58,7 +58,21 @@ export function revealHeadline(target: HTMLElement | null) {
 }
 
 export function initScrollReveals() {
-  if (reducedMotion() || typeof window === "undefined") return () => {};
+  if (typeof window === "undefined") return () => {};
+
+  // Reduced motion: mark every reveal target as initialised so the
+  // `[data-vx-reveal]:not([data-vx-reveal-init])` CSS rule stops hiding
+  // them. No animation, no observer, no GSAP timelines.
+  if (reducedMotion()) {
+    document
+      .querySelectorAll<HTMLElement>("[data-vx-reveal]:not([data-vx-reveal-init])")
+      .forEach((el) => {
+        el.dataset.vxRevealInit = "1";
+        el.style.opacity = "1";
+        el.style.transform = "none";
+      });
+    return () => {};
+  }
 
   const elements = Array.from(
     document.querySelectorAll<HTMLElement>("[data-vx-reveal]"),

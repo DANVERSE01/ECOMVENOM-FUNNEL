@@ -146,7 +146,10 @@ export function Nav() {
           <div className={cn(
             "relative z-10 hidden max-w-[min(36vw,24rem)] items-center justify-center gap-3 overflow-hidden px-5 font-mono text-[10.5px] uppercase tracking-[0.18em] text-bone-2/80 lg:flex",
             lang === "ar" ? "text-[0.72rem] tracking-[0.02em]" : "",
-          )}>
+          )}
+            aria-live="polite"
+            aria-atomic="true"
+          >
             <span className="h-1.5 w-1.5 rounded-full" style={{ background: "#D5D904", boxShadow: "0 0 8px rgba(213,217,4,0.55)" }} aria-hidden />
             <span ref={sceneLabelRef} className="truncate" />
           </div>
