@@ -5,7 +5,7 @@ import "./globals.css";
 import { Nav } from "@/components/nav";
 import { Footer } from "@/components/footer";
 import { SmoothScroll } from "@/components/providers/SmoothScroll";
-import { ParticleTrailCursor } from "@/components/cursor/ParticleTrailCursor";
+// Custom cursor removed — adds visual noise and runtime cost with no conversion value
 import { ChapterRail } from "@/components/effects/ChapterRail";
 import { StickyMobileCTA } from "@/components/ui/StickyMobileCTA";
 import { BackToTop } from "@/components/ui/BackToTop";
@@ -54,7 +54,6 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <div className="ev-unified-canvas" aria-hidden />
         <ViewTransitions />
         <ScrollMotionInit />
-        <ParticleTrailCursor />
         <LanguageProvider initialLang={initialLang}>
           <SmoothScroll>
             <Nav />

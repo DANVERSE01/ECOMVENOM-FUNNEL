@@ -53,7 +53,7 @@ export function MechanismSection() {
     const progressTrigger = ScrollTrigger.create({
       trigger: "#mechanism",
       start: "top 70%",
-      end: "bottom 60%",
+      end: "bottom 30%",
       scrub: true,
       onUpdate: (self) => {
         const idx = Math.min(steps.length - 1, Math.floor(self.progress * steps.length));

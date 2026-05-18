@@ -1,8 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
-import { EditorialHeading } from "@/components/venom/EditorialHeading";
-import { GlassPanel } from "@/components/venom/GlassPanel";
+import { useEffect } from "react";
 import { GlowButton } from "@/components/venom/GlowButton";
 import { MobileCTA } from "@/components/venom/MobileCTA";
 import { SectionWrapper } from "@/components/venom/SectionWrapper";
@@ -14,11 +12,7 @@ export function FinalCtaSection() {
   const { lang } = useLang();
   const { CTA_LABEL } = useContent();
   const c = recoveryCopy[lang].finalCta;
-  const sectionRef = useRef<HTMLElement | null>(null);
 
-  // The horizontal "door" hairline above the panel animates from edge to
-  // centre when the section enters view. Driven via a data attribute so the
-  // animation can be paused under prefers-reduced-motion via CSS only.
   useEffect(() => {
     const section = document.getElementById("final-cta");
     if (!section) return;
@@ -37,18 +31,17 @@ export function FinalCtaSection() {
     return () => observer.disconnect();
   }, []);
 
-  void sectionRef;
-
   return (
     <SectionWrapper id="final-cta" className="vx-section--final" finalCtaZone sceneTitle={c.eyebrow}>
-      <span className="vx-final-door" aria-hidden="true" />
-      <div className="vx-shell">
-        <GlassPanel className="vx-final-panel v2-final surface-acid-emissive" variant="strong" data-vx-reveal>
-          <EditorialHeading eyebrow={c.eyebrow} title={c.title} body={c.body} wide />
-          <div>
+      <div className="vx-shell vx-final-cta">
+        <div className="vx-final-cta__content" data-vx-reveal>
+          <span className="v2-label">{c.eyebrow}</span>
+          <h2 className="vx-final-cta__title">{c.title}</h2>
+          <p className="vx-final-cta__body">{c.body}</p>
+          <div className="vx-final-cta__action">
             <GlowButton href="/apply">{CTA_LABEL}</GlowButton>
           </div>
-        </GlassPanel>
+        </div>
       </div>
       <MobileCTA />
     </SectionWrapper>
