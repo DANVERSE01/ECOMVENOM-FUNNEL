@@ -1,0 +1,1104 @@
+/* ==========================================================================
+   FINAL USER VISUAL DEFECTS OVERRIDE
+   --------------------------------------------------------------------------
+   Final production polish layer for ECOM VENOM.
+   Loads after tokens.css / cinematic-v2.css.
+   Scope: production defects + migrated critical rules from opus47-premium.css.
+
+   Goals:
+   1. No custom cursor visuals anywhere.
+   2. Clean Hero VSL frame — no decorative status rails / slates / pills.
+   3. Hero fold composes for 1440×900 / 1366×768 / 1280×900 / mobile.
+   4. Founder section reads as editorial, not random.
+   5. FAQ answers expand cleanly with accessible markup.
+   6. Final CTA has material weight, no dead rectangle.
+   7. Lighter background — restrained OLED graphite, no grid noise.
+   8. Section handoffs feel intentional, not stacked.
+
+   Rules:
+   - No new tokens, no new colors.
+   - No new dependencies.
+   - No fabricated proof, no fake claims.
+   - Mobile lighter than desktop.
+   - All animation degrades under prefers-reduced-motion.
+   ========================================================================== */
+
+
+/* --------------------------------------------------------------------------
+   Migrated from opus47-premium.css: :root custom properties (Category A)
+   These are referenced by rules in this file via var(--opus-*).
+   -------------------------------------------------------------------------- */
+
+:root {
+  --opus-venom-black: #010101;
+  --opus-carbon-night: #0B0A08;
+  --opus-charcoal-graphite: #1A1813;
+  --opus-smoked-graphite: #2D2B26;
+  --opus-bone: #E4E1DC;
+  --opus-acid: #D5D904;
+  --opus-burnt: #C74208;
+  --opus-ash-metal: #474741;
+  --opus-steel-grey: #6E6B67;
+  --opus-warm-silver: #A29E97;
+  --opus-olive: #918C09;
+  --opus-amber-smoke: #5C3E0B;
+}
+
+
+/* --------------------------------------------------------------------------
+   1. CURSOR — restore default system cursor everywhere
+   -------------------------------------------------------------------------- */
+
+html,
+body,
+.venom-home,
+.venom-home a,
+.venom-home button,
+.venom-home [role="button"] {
+  cursor: auto;
+}
+
+.venom-home a,
+.venom-home button,
+.venom-home [role="button"],
+.venom-home label,
+.venom-home summary {
+  cursor: pointer;
+}
+
+.venom-home input,
+.venom-home textarea,
+.venom-home select {
+  cursor: text;
+}
+
+.venom-home input[type="checkbox"],
+.venom-home input[type="radio"],
+.venom-home input[type="submit"],
+.venom-home input[type="button"] {
+  cursor: pointer;
+}
+
+/* Ensure no leftover cursor canvas/dot/ring layers can render. The
+   ParticleTrailCursor component has been removed; this guards any
+   stale DOM injection paths. */
+canvas[style*="z-index: 9999"],
+canvas[style*="zIndex: 9999"] {
+  display: none !important;
+}
+
+
+/* --------------------------------------------------------------------------
+   2. BACKGROUND — calmer OLED graphite, mobile lighter than desktop
+   -------------------------------------------------------------------------- */
+
+/* Disable grid and dot noise overlays from globals.css. They were the
+   primary source of visual cheapness and perceived slowness. */
+.ev-unified-canvas::before,
+.ev-unified-canvas::after {
+  display: none !important;
+}
+
+/* Disable the venom-home grid and dot overlays from cinematic-v2.css. */
+.venom-home::before,
+.venom-home::after {
+  display: none !important;
+}
+
+/* Restrained ambient: a single, soft acid pivot near the top + a
+   gentle warm pivot lower. No grid, no dots, no animation. */
+.ev-unified-canvas {
+  background:
+    radial-gradient(ellipse 70% 38% at 50% -10%, rgba(213, 217, 4, 0.05), transparent 70%),
+    radial-gradient(ellipse 48% 32% at 96% 56%, rgba(92, 62, 11, 0.05), transparent 72%),
+    #050505 !important;
+}
+
+@media (max-width: 767px) {
+  .ev-unified-canvas {
+    background:
+      radial-gradient(ellipse 80% 28% at 50% -8%, rgba(213, 217, 4, 0.035), transparent 70%),
+      #050505 !important;
+  }
+}
+
+/* Atmospheric pseudo-glow opacity is set in the migrated section
+   atmosphere block below (Category A migration from opus47-premium.css). */
+
+
+/* --------------------------------------------------------------------------
+   3. HERO — clean VSL composition; remove decorative chrome
+   -------------------------------------------------------------------------- */
+
+/* Hero clean rhythm: VSL stays dominant but the support cluster fits
+   the fold on common laptops. No status rail, no slate, no eyebrow.
+   The hero keeps an extra scroll runway below the composed first fold
+   so the cinematic HeroScene (Three.js convergence) can play through
+   gradually as the user scrolls — the approved scroll-driven
+   expansion is preserved. */
+
+.v2-hero--vsl-first {
+  /* Composed first fold + cinematic scroll runway.
+     145svh = 100svh first fold + ~45svh cinematic playthrough. */
+  min-height: 145svh;
+  padding-top: clamp(4rem, 6vw, 5rem);
+  padding-bottom: clamp(1.4rem, 3vw, 2.2rem);
+  /* Top-anchor the composed grid so the runway sits below it. */
+  align-items: start;
+  align-content: start;
+}
+
+@media (max-width: 1023px) {
+  .v2-hero--vsl-first {
+    /* Tablet: shorter runway so the next section is reachable
+       within a reasonable scroll distance. */
+    min-height: 130svh;
+  }
+}
+
+@media (max-width: 768px) {
+  .v2-hero--vsl-first {
+    /* Mobile: minimal runway. The Three.js scene is already
+       gated off below 769px in HeroSection.tsx. */
+    min-height: 100svh;
+  }
+}
+
+.v2-hero--vsl-first .v2-hero__vsl-first-grid {
+  gap: clamp(0.85rem, 1.6vw, 1.3rem);
+}
+
+@media (min-width: 1024px) {
+  .v2-hero--vsl-first .v2-hero__vsl-first-grid {
+    gap: clamp(0.7rem, 1.1vw, 1rem);
+  }
+}
+
+/* Per-viewport VSL frame width — keep VSL dominant but never push
+   the headline + CTA off the fold. */
+.v2-hero--vsl-first .v2-hero__vsl-dominant {
+  max-width: min(960px, 62vw);
+}
+
+@media (min-width: 1024px) and (max-width: 1279px) {
+  .v2-hero--vsl-first .v2-hero__vsl-dominant {
+    max-width: min(760px, 60vw);
+  }
+}
+
+@media (min-width: 1280px) and (max-width: 1599px) {
+  .v2-hero--vsl-first .v2-hero__vsl-dominant {
+    max-width: min(820px, 56vw);
+  }
+}
+
+@media (min-width: 1600px) {
+  .v2-hero--vsl-first .v2-hero__vsl-dominant {
+    max-width: 940px;
+  }
+}
+
+@media (max-width: 1023px) and (min-width: 769px) {
+  .v2-hero--vsl-first .v2-hero__vsl-dominant {
+    max-width: min(820px, 86vw);
+  }
+}
+
+@media (max-width: 768px) {
+  .v2-hero--vsl-first .v2-hero__vsl-dominant {
+    max-width: 100%;
+  }
+}
+
+/* Short laptop heights: tighten further so primary CTA lands inside
+   or just at the fold. */
+@media (min-width: 1024px) and (max-height: 820px) {
+  .v2-hero--vsl-first {
+    padding-top: clamp(3.4rem, 5vw, 4.4rem);
+    padding-bottom: clamp(1rem, 2vw, 1.6rem);
+  }
+  .v2-hero--vsl-first .v2-hero__vsl-dominant {
+    max-width: min(660px, 48vw);
+  }
+  .v2-hero--vsl-first .v2-hero__support {
+    gap: clamp(0.45rem, 0.8vw, 0.7rem) !important;
+  }
+  .v2-hero--vsl-first .v2-hero__headline {
+    font-size: clamp(1.5rem, 2.4vw, 2rem);
+    line-height: 1.06;
+  }
+  .v2-hero--vsl-first .v2-hero__body {
+    font-size: clamp(0.86rem, 0.95vw, 0.94rem);
+    line-height: 1.5;
+    max-width: 36rem;
+  }
+}
+
+/* Inner padding on the dominant VSL frame */
+.v2-hero__vsl-dominant > .vx-stage {
+  padding: clamp(0.4rem, 0.65vw, 0.55rem);
+  gap: 0;
+}
+
+/* Hide any legacy hero status rail / slate / eyebrow that may still
+   render from stale CSS or future DOM. The current JSX no longer
+   emits these, so this rule is purely defensive. */
+.v2-hero__status-rail,
+.v2-hero__status-rail--numbered,
+.v2-hero__vsl-slate,
+.v2-hero__support-eyebrow {
+  display: none !important;
+}
+
+/* Hide the StatusPill that used to sit above the VSL inside vx-stage. */
+.v2-hero__vsl-dominant .vx-stage > .vx-pill {
+  display: none !important;
+}
+
+/* Headline override — wider, balanced, single-paragraph rhythm */
+.v2-hero--vsl-first .v2-hero__support {
+  display: grid;
+  gap: clamp(0.6rem, 1vw, 0.85rem);
+  max-width: min(100%, 56rem);
+  margin-inline: auto;
+  text-align: center;
+}
+
+.v2-hero--vsl-first .v2-hero__support .v2-hero__headline {
+  max-width: 30ch;
+  margin-inline: auto;
+  font-size: clamp(1.65rem, 2.9vw, 2.4rem);
+  line-height: 1.06;
+  letter-spacing: -0.012em;
+  visibility: visible;
+  opacity: 1;
+}
+
+@media (min-width: 1024px) {
+  .v2-hero--vsl-first .v2-hero__support .v2-hero__headline {
+    max-width: 36ch;
+  }
+}
+
+.v2-hero--vsl-first .v2-hero__body {
+  max-width: 44rem;
+  margin-inline: auto;
+  font-size: clamp(0.92rem, 1vw, 1rem);
+  line-height: 1.55;
+}
+
+.v2-hero--vsl-first .vx-actions {
+  display: inline-flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: clamp(0.6rem, 1.2vw, 0.85rem);
+  margin-top: 0.2rem;
+}
+
+@media (max-width: 768px) {
+  .v2-hero--vsl-first .vx-actions {
+    width: 100%;
+    flex-direction: column;
+  }
+  .v2-hero--vsl-first .vx-actions > * {
+    width: 100%;
+  }
+}
+
+/* Hide proof bullet row on hero — redundant with body copy and
+   increases vertical pressure on the fold. The same proof points
+   live inside the offer/founder copy. */
+.v2-hero--vsl-first .v2-hero__proof {
+  display: none;
+}
+
+/* Click-for-sound overlay — restrained, no animated pulse */
+.wistia-sound-overlay {
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 50%, rgba(213, 217, 4, 0.06), transparent 70%),
+    rgba(1, 1, 1, 0.5) !important;
+  backdrop-filter: blur(4px) !important;
+}
+
+.wistia-sound-overlay__icon {
+  animation: none !important;
+}
+
+
+/* --------------------------------------------------------------------------
+   4. FAQ — clean accordion driven by FaqSection.tsx (state-managed)
+   -------------------------------------------------------------------------- */
+
+/* Hide legacy <details>/<summary> styling fallback inside the new
+   button-based accordion. The new component renders .vx-faq-item, so
+   .vx-faq summary rules from tokens.css and opus47-premium.css are
+   irrelevant for the FAQ list now. */
+
+.vx-faq-list {
+  display: grid;
+  gap: 0.65rem;
+}
+
+.vx-faq-item {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(228, 225, 220, 0.08);
+  border-radius: 14px;
+  background: rgba(11, 10, 8, 0.6);
+  backdrop-filter: blur(14px) saturate(130%);
+  transition: border-color 240ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.vx-faq-item:hover {
+  border-color: rgba(213, 217, 4, 0.28);
+}
+
+.vx-faq-item:has(button[aria-expanded="true"]) {
+  border-color: rgba(213, 217, 4, 0.34);
+  background: rgba(11, 10, 8, 0.78);
+}
+
+.vx-faq-item__trigger {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 1rem;
+  align-items: center;
+  width: 100%;
+  padding: 1rem clamp(1rem, 1.6vw, 1.25rem);
+  background: transparent;
+  border: 0;
+  color: var(--opus-bone);
+  font-family: "Aeonik", ui-sans-serif, system-ui;
+  font-size: clamp(0.96rem, 1.05vw, 1.04rem);
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: -0.005em;
+  text-align: start;
+  cursor: pointer;
+}
+
+.vx-faq-item__trigger:focus-visible {
+  outline: 2px solid var(--opus-acid);
+  outline-offset: 2px;
+}
+
+.vx-faq-item__question {
+  display: block;
+}
+
+.vx-faq-item__icon {
+  display: inline-grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 999px;
+  border: 1px solid rgba(228, 225, 220, 0.14);
+  color: var(--opus-acid);
+  background: rgba(213, 217, 4, 0.04);
+  transition:
+    transform 240ms cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 240ms cubic-bezier(0.22, 1, 0.36, 1),
+    background-color 240ms cubic-bezier(0.22, 1, 0.36, 1);
+  flex-shrink: 0;
+}
+
+.vx-faq-item__icon--open {
+  transform: rotate(45deg);
+  border-color: rgba(213, 217, 4, 0.5);
+  background: rgba(213, 217, 4, 0.08);
+}
+
+.vx-faq-item__panel {
+  overflow: hidden;
+}
+
+.vx-faq-item__answer {
+  margin: 0;
+  padding: 0 clamp(1rem, 1.6vw, 1.25rem) 1rem;
+  color: var(--opus-warm-silver);
+  font-size: 0.96rem;
+  line-height: 1.65;
+  max-width: 64ch;
+}
+
+[dir="rtl"] .vx-faq-item__trigger {
+  text-align: right;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vx-faq-item,
+  .vx-faq-item__icon {
+    transition: none;
+  }
+}
+
+
+/* --------------------------------------------------------------------------
+   5. FOUNDER — editorial layout, balanced image/copy
+   -------------------------------------------------------------------------- */
+
+.vx-founder--editorial {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: clamp(1.5rem, 3vw, 2.2rem);
+  align-items: center;
+}
+
+@media (min-width: 960px) {
+  .vx-founder--editorial {
+    grid-template-columns: 0.95fr 1.05fr;
+    gap: clamp(2rem, 3.6vw, 3rem);
+  }
+}
+
+[dir="rtl"] .vx-founder--editorial {
+  /* Image on the right in RTL */
+}
+
+@media (min-width: 960px) {
+  [dir="rtl"] .vx-founder--editorial > .vx-founder__media {
+    order: 2;
+  }
+  [dir="rtl"] .vx-founder--editorial > .vx-founder__copy {
+    order: 1;
+  }
+}
+
+.vx-founder--editorial .vx-founder__media {
+  position: relative;
+  min-height: clamp(22rem, 50vw, 32rem);
+  border-radius: 18px;
+  overflow: hidden;
+  border: 1px solid rgba(228, 225, 220, 0.08);
+  box-shadow:
+    inset 0 1px 0 rgba(228, 225, 220, 0.04),
+    0 30px 80px rgba(1, 1, 1, 0.55);
+}
+
+.vx-founder--editorial .vx-founder__media::after {
+  background:
+    linear-gradient(180deg, transparent 52%, rgba(1, 1, 1, 0.78)),
+    linear-gradient(112deg, rgba(213, 217, 4, 0.06), transparent 60%);
+}
+
+.vx-founder__copy {
+  display: grid;
+  gap: clamp(0.85rem, 1.4vw, 1.2rem);
+  align-content: center;
+}
+
+.vx-founder__copy .v2-label {
+  width: fit-content;
+}
+
+.vx-founder__title {
+  margin: 0;
+  color: var(--opus-bone);
+  font-family: "Aeonik", ui-sans-serif, system-ui;
+  font-size: clamp(1.6rem, 2.6vw, 2.25rem);
+  font-weight: 600;
+  line-height: 1.08;
+  letter-spacing: -0.012em;
+  max-width: 22ch;
+}
+
+.vx-founder__body {
+  margin: 0;
+  color: var(--opus-warm-silver);
+  font-size: clamp(0.96rem, 1.05vw, 1.04rem);
+  line-height: 1.7;
+  max-width: 42rem;
+}
+
+.vx-founder__quote {
+  position: relative;
+  margin: clamp(0.5rem, 1vw, 0.85rem) 0 0;
+  padding: clamp(0.85rem, 1.4vw, 1.1rem) clamp(0.85rem, 1.4vw, 1.2rem);
+  border-inline-start: 2px solid var(--opus-acid);
+  background: rgba(213, 217, 4, 0.035);
+  border-radius: 0 10px 10px 0;
+}
+
+[dir="rtl"] .vx-founder__quote {
+  border-radius: 10px 0 0 10px;
+}
+
+.vx-founder__quote p {
+  margin: 0;
+  color: var(--opus-bone);
+  font-family: "Aeonik", ui-sans-serif, system-ui;
+  font-size: clamp(1rem, 1.1vw, 1.1rem);
+  font-style: normal;
+  line-height: 1.55;
+  letter-spacing: -0.005em;
+}
+
+
+/* --------------------------------------------------------------------------
+   6. FINAL CTA — premium close, no dead rectangle
+   -------------------------------------------------------------------------- */
+
+#final-cta {
+  position: relative;
+  isolation: isolate;
+  padding-block: clamp(4rem, 7vw, 7rem);
+}
+
+#final-cta::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 60% 40% at 50% 30%, rgba(213, 217, 4, 0.08), transparent 70%),
+    radial-gradient(ellipse 40% 30% at 50% 80%, rgba(92, 62, 11, 0.05), transparent 72%);
+  z-index: 0;
+}
+
+#final-cta > .vx-shell {
+  position: relative;
+  z-index: 1;
+}
+
+.vx-final-cta {
+  display: grid;
+  place-items: center;
+}
+
+.vx-final-cta__content {
+  position: relative;
+  display: grid;
+  gap: clamp(0.85rem, 1.4vw, 1.15rem);
+  width: min(100%, 44rem);
+  padding: clamp(2rem, 3.6vw, 3rem) clamp(1.5rem, 3vw, 2.5rem);
+  border: 1px solid rgba(228, 225, 220, 0.08);
+  border-radius: 18px;
+  background:
+    radial-gradient(ellipse 90% 60% at 50% 0%, rgba(213, 217, 4, 0.05), transparent 70%),
+    linear-gradient(180deg, rgba(26, 24, 19, 0.7) 0%, rgba(11, 10, 8, 0.85) 100%);
+  backdrop-filter: blur(18px) saturate(140%);
+  text-align: center;
+  box-shadow:
+    inset 0 1px 0 rgba(228, 225, 220, 0.06),
+    inset 0 0 0 1px rgba(213, 217, 4, 0.06),
+    0 30px 80px rgba(1, 1, 1, 0.5);
+}
+
+.vx-final-cta__content::before {
+  content: "";
+  position: absolute;
+  inset-inline: clamp(2rem, 6vw, 4rem);
+  top: -1px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--opus-acid), transparent);
+  pointer-events: none;
+}
+
+.vx-final-cta__content .v2-label {
+  margin-inline: auto;
+}
+
+.vx-final-cta__title {
+  margin: 0;
+  color: var(--opus-bone);
+  font-family: "Aeonik", ui-sans-serif, system-ui;
+  font-size: clamp(1.55rem, 2.6vw, 2.2rem);
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.012em;
+  max-width: 24ch;
+  margin-inline: auto;
+}
+
+.vx-final-cta__body {
+  margin: 0;
+  color: var(--opus-warm-silver);
+  font-size: clamp(0.95rem, 1vw, 1rem);
+  line-height: 1.6;
+  max-width: 38rem;
+  margin-inline: auto;
+}
+
+.vx-final-cta__action {
+  display: flex;
+  justify-content: center;
+  margin-top: 0.4rem;
+}
+
+@media (max-width: 480px) {
+  .vx-final-cta__content {
+    padding: 1.6rem 1.25rem;
+  }
+  .vx-final-cta__action > * {
+    width: 100%;
+  }
+}
+
+
+/* --------------------------------------------------------------------------
+   7. SECTION HANDOFFS — restrained gradient bridges + acid-lime hairlines
+   -------------------------------------------------------------------------- */
+
+#problem,
+#mechanism,
+#proof,
+#offer,
+#final-cta {
+  position: relative;
+}
+
+/* Top-of-section soft fade so adjacent sections never read as a hard
+   stack. 24 px of plate gradient at the top edge. CSS-only, no JS,
+   no animation. */
+#problem::before,
+#mechanism::before,
+#proof::before,
+#offer::before,
+#final-cta:not([data-no-bridge])::before {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  top: 0;
+  height: clamp(28px, 4vw, 56px);
+  background: linear-gradient(180deg, rgba(1, 1, 1, 0.55) 0%, transparent 100%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* The final-cta::before halo above already sets background; restore
+   the larger halo definition there by stacking with the bridge. */
+#final-cta::before {
+  background:
+    linear-gradient(180deg, rgba(1, 1, 1, 0.55) 0%, transparent 8%),
+    radial-gradient(ellipse 60% 40% at 50% 30%, rgba(213, 217, 4, 0.08), transparent 70%),
+    radial-gradient(ellipse 40% 30% at 50% 80%, rgba(92, 62, 11, 0.05), transparent 72%);
+  height: 100%;
+}
+
+/* Acid-lime hairline — fades in via IntersectionObserver (class added by JS).
+   Applied at Hero→Problem, Problem→Mechanism, Founder→Offer, FAQ→Final CTA. */
+.vx-section-hairline {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: clamp(120px, 18vw, 280px);
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--opus-acid), transparent);
+  opacity: 0;
+  transition: opacity 600ms cubic-bezier(0.22, 1, 0.36, 1);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.vx-section-hairline[data-visible="true"] {
+  opacity: 0.5;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vx-section-hairline {
+    display: none;
+  }
+}
+
+/* Bottom signal hairline at the end of hero — replaces previous
+   single 1-px line with a gentler glow that hands off into Problem. */
+.v2-hero--vsl-first::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: clamp(120px, 14vw, 220px);
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--opus-acid), transparent);
+  opacity: 0.4;
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* Bridges are static; nothing to disable. */
+}
+
+
+/* --------------------------------------------------------------------------
+   8. PROBLEM / MECHANISM / OFFER — quiet existing decorative layers
+   -------------------------------------------------------------------------- */
+
+/* Tone down the animated section sheen so it does not read as a
+   sliding light bar. Keep a very faint static line. */
+.vx-section--compact::before {
+  animation: none !important;
+  opacity: 0.18 !important;
+  background: linear-gradient(90deg, transparent, rgba(213, 217, 4, 0.4), transparent) !important;
+}
+
+
+/* --------------------------------------------------------------------------
+   9. STATIC FALLBACKS for reduced-motion — guarantee content visibility
+   -------------------------------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  [data-vx-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .v2-hero__headline {
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: none !important;
+  }
+}
+
+
+/* --------------------------------------------------------------------------
+   10. CHAPTER RAIL — drop visual weight further on smaller desktops
+   -------------------------------------------------------------------------- */
+
+@media (max-width: 1199px) {
+  .chapter-rail {
+    display: none !important;
+  }
+}
+
+
+/* --------------------------------------------------------------------------
+   Migrated from opus47-premium.css: .wistia-poster (Category A)
+   -------------------------------------------------------------------------- */
+
+.wistia-poster {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background-color: #0B0A08;
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  pointer-events: none;
+  opacity: 1;
+  transition: opacity 320ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.wistia-poster::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 80% 70% at 50% 35%, rgba(213, 217, 4, 0.04), transparent 70%),
+    linear-gradient(180deg, transparent 0%, rgba(1, 1, 1, 0.12) 100%);
+}
+
+.wistia-poster[data-status="hidden"] {
+  opacity: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wistia-poster {
+    transition: opacity 100ms linear;
+  }
+}
+
+
+/* --------------------------------------------------------------------------
+   Migrated from opus47-premium.css: .mobile-cinematic-pill (Category A)
+   -------------------------------------------------------------------------- */
+
+.mobile-cinematic-pill {
+  position: fixed;
+  bottom: max(0.85rem, env(safe-area-inset-bottom));
+  left: 50%;
+  transform: translateX(-50%) translateY(20%);
+  z-index: 7900;
+  display: none;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.55rem 0.95rem;
+  border-radius: 999px;
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--opus-bone);
+  background: rgba(11, 10, 8, 0.78);
+  border: 1px solid rgba(213, 217, 4, 0.32);
+  backdrop-filter: blur(10px) saturate(140%);
+  box-shadow: 0 18px 36px rgba(1, 1, 1, 0.5);
+  text-decoration: none;
+  opacity: 0;
+  transition:
+    opacity 320ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 320ms cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 320ms cubic-bezier(0.22, 1, 0.36, 1);
+  pointer-events: none;
+}
+
+.mobile-cinematic-pill::before {
+  content: "";
+  width: 0.35rem;
+  height: 0.35rem;
+  border-radius: 50%;
+  background: var(--opus-acid);
+  box-shadow: 0 0 8px rgba(213, 217, 4, 0.55);
+}
+
+.mobile-cinematic-pill[data-visible="true"] {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+  pointer-events: auto;
+}
+
+@media (max-width: 768px) {
+  .mobile-cinematic-pill {
+    display: inline-flex;
+  }
+}
+
+@media (hover: hover) {
+  .mobile-cinematic-pill:hover {
+    border-color: rgba(213, 217, 4, 0.55);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mobile-cinematic-pill {
+    transition: opacity 200ms linear;
+    transform: translateX(-50%) translateY(0);
+  }
+  .mobile-cinematic-pill[data-visible="true"] {
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+
+/* --------------------------------------------------------------------------
+   Migrated from opus47-premium.css: .vx-faq-cta (Category A)
+   -------------------------------------------------------------------------- */
+
+.vx-faq-cta {
+  display: flex;
+  justify-content: flex-start;
+  margin-top: clamp(1rem, 2.4vw, 1.75rem);
+}
+
+@media (max-width: 720px) {
+  .vx-faq-cta {
+    justify-content: stretch;
+  }
+
+  .vx-faq-cta > * {
+    width: 100%;
+  }
+}
+
+
+/* --------------------------------------------------------------------------
+   Migrated from opus47-premium.css: iOS safe-area sticky CTA (Category A)
+   -------------------------------------------------------------------------- */
+
+[data-sticky-mobile-cta],
+.mobile-command-bar {
+  padding-bottom: max(0.75rem, env(safe-area-inset-bottom));
+}
+
+
+/* --------------------------------------------------------------------------
+   Migrated from opus47-premium.css: .vx-timeline__sprint (Category A)
+   -------------------------------------------------------------------------- */
+
+.vx-timeline__sprint {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.45rem;
+  padding: 0.25rem 0.55rem;
+  border: 1px solid rgba(213, 217, 4, 0.22);
+  border-radius: 999px;
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--opus-acid);
+  background: rgba(213, 217, 4, 0.03);
+}
+
+.vx-timeline__sprint::before {
+  content: "";
+  display: inline-block;
+  width: 0.35rem;
+  height: 0.35rem;
+  border-radius: 50%;
+  background: var(--opus-acid);
+  box-shadow: 0 0 6px rgba(213, 217, 4, 0.6);
+}
+
+.vx-timeline__title {
+  display: block;
+}
+
+
+/* --------------------------------------------------------------------------
+   Migrated from opus47-premium.css: .vx-roadmap-sweep (Category A)
+   -------------------------------------------------------------------------- */
+
+.vx-roadmap-sweep {
+  position: absolute;
+  inset-inline: clamp(1rem, 8vw, 4rem);
+  top: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--opus-acid) 50%, transparent);
+  transform-origin: left center;
+  transform: scaleX(0);
+  pointer-events: none;
+  z-index: 2;
+}
+
+#roadmap.vx-section--sweep-in .vx-roadmap-sweep {
+  animation: vxRoadmapSweep 1.4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes vxRoadmapSweep {
+  0% { transform: scaleX(0); }
+  100% { transform: scaleX(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #roadmap.vx-section--sweep-in .vx-roadmap-sweep {
+    animation: none;
+    transform: scaleX(1);
+  }
+}
+
+
+/* --------------------------------------------------------------------------
+   Migrated from opus47-premium.css: #final-cta .vx-final-door (Category A)
+   -------------------------------------------------------------------------- */
+
+#final-cta .vx-final-door {
+  position: absolute;
+  inset-inline: clamp(1rem, 6vw, 3rem);
+  top: -1px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--opus-acid), transparent);
+  transform-origin: center;
+  transform: scaleX(0);
+  pointer-events: none;
+}
+
+#final-cta[data-final-cta-zone="true"][data-door="visible"] .vx-final-door {
+  animation: vxFinalDoor 1.2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes vxFinalDoor {
+  0% { transform: scaleX(0); }
+  100% { transform: scaleX(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #final-cta[data-final-cta-zone="true"][data-door="visible"] .vx-final-door {
+    animation: none;
+    transform: scaleX(1);
+  }
+}
+
+
+/* --------------------------------------------------------------------------
+   Migrated from opus47-premium.css: Section atmosphere (Category A)
+   -------------------------------------------------------------------------- */
+
+#problem,
+#mechanism,
+#founder,
+#offer {
+  position: relative;
+  isolation: isolate;
+}
+
+#problem::after,
+#mechanism::after,
+#founder::after,
+#offer::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Problem — burnt velocity / heat ambient */
+#problem::after {
+  background:
+    radial-gradient(ellipse 64% 44% at 18% 12%, rgba(199, 66, 8, 0.06), transparent 70%),
+    radial-gradient(ellipse 50% 38% at 88% 88%, rgba(92, 62, 11, 0.05), transparent 72%);
+  opacity: 0.55;
+}
+
+/* Mechanism — cool, neutral graphite */
+#mechanism::after {
+  background:
+    radial-gradient(ellipse 58% 40% at 82% 18%, rgba(110, 107, 103, 0.04), transparent 72%),
+    radial-gradient(ellipse 44% 36% at 12% 80%, rgba(228, 225, 220, 0.025), transparent 76%);
+  opacity: 0.55;
+}
+
+/* Founder — warm amber smoke */
+#founder::after {
+  background:
+    radial-gradient(ellipse 62% 46% at 78% 22%, rgba(92, 62, 11, 0.05), transparent 72%),
+    radial-gradient(ellipse 50% 38% at 14% 76%, rgba(199, 66, 8, 0.025), transparent 76%);
+  opacity: 0.55;
+}
+
+/* Offer — full acid signal (decision moment) */
+#offer::after {
+  background:
+    radial-gradient(ellipse 64% 46% at 50% 8%, rgba(213, 217, 4, 0.07), transparent 70%),
+    radial-gradient(ellipse 44% 36% at 14% 90%, rgba(213, 217, 4, 0.035), transparent 76%);
+  opacity: 0.55;
+}
+
+/* Section content above atmosphere pseudo */
+#problem > *,
+#mechanism > *,
+#founder > *,
+#offer > * {
+  position: relative;
+  z-index: 1;
+}
+
+
+/* --------------------------------------------------------------------------
+   Migrated from opus47-premium.css: .v2-mechanism__step enhanced (Category A)
+   -------------------------------------------------------------------------- */
+
+.v2-mechanism__step {
+  transition:
+    box-shadow 360ms cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 360ms cubic-bezier(0.22, 1, 0.36, 1),
+    background-color 360ms cubic-bezier(0.22, 1, 0.36, 1);
+  border-radius: 14px;
+  padding-inline: clamp(0.85rem, 1.6vw, 1.25rem);
+  padding-block: clamp(0.6rem, 1.2vw, 0.9rem);
+}
+
+.v2-mechanism__step[data-active="true"] {
+  box-shadow:
+    inset 0 0 0 1px rgba(213, 217, 4, 0.32),
+    0 0 28px rgba(213, 217, 4, 0.14),
+    0 0 60px rgba(213, 217, 4, 0.08);
+  background: rgba(213, 217, 4, 0.025);
+}
+
+.v2-mechanism__step[data-active="true"] span {
+  color: var(--opus-acid);
+  text-shadow: 0 0 12px rgba(213, 217, 4, 0.45);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .v2-mechanism__step {
+    transition: none;
+  }
+  .v2-mechanism__step[data-active="true"] {
+    box-shadow: inset 0 0 0 1px rgba(213, 217, 4, 0.32);
+  }
+}

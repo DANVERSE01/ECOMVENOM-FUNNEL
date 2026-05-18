@@ -1,70 +1,52 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { EditorialHeading } from "@/components/venom/EditorialHeading";
-import { GlassPanel } from "@/components/venom/GlassPanel";
 import { GlowButton } from "@/components/venom/GlowButton";
 import { SectionWrapper } from "@/components/venom/SectionWrapper";
 import { recoveryCopy } from "@/lib/cinematicRecoveryContent";
 import { useContent } from "@/lib/useContent";
 import { useLang } from "@/lib/lang-context";
 
-const spring = { type: "spring" as const, stiffness: 240, damping: 26 };
+const transition = { duration: 0.32, ease: [0.22, 1, 0.36, 1] as const };
 
-function FaqItem({ q, a, index }: { q: string; a: string; index: number }) {
-  const [open, setOpen] = useState(index === 0);
+function FaqItem({
+  q,
+  a,
+  index,
+  isOpen,
+  onToggle,
+}: {
+  q: string;
+  a: string;
+  index: number;
+  isOpen: boolean;
+  onToggle: () => void;
+}) {
   const buttonId = `faq-trigger-${index}`;
   const panelId = `faq-panel-${index}`;
 
   return (
-    <GlassPanel className="vx-faq" style={{ overflow: "hidden" }}>
+    <div className="vx-faq-item">
       <button
         type="button"
         id={buttonId}
-        onClick={() => setOpen((v) => !v)}
-        aria-expanded={open}
+        onClick={onToggle}
+        aria-expanded={isOpen}
         aria-controls={panelId}
-        style={{
-          display: "grid",
-          gridTemplateColumns: "minmax(0,1fr) auto",
-          gap: "1rem",
-          alignItems: "center",
-          width: "100%",
-          cursor: "pointer",
-          padding: "1rem",
-          background: "none",
-          border: "none",
-          color: "var(--vo-text)",
-          fontSize: "1rem",
-          fontWeight: 600,
-          letterSpacing: 0,
-          lineHeight: 1.2,
-          textAlign: "left",
-        }}
+        className="vx-faq-item__trigger"
       >
-        <span>{q}</span>
-        <motion.span
-          animate={{ rotate: open ? 45 : 0 }}
-          transition={spring}
-          style={{
-            display: "grid",
-            width: "2rem",
-            height: "2rem",
-            placeItems: "center",
-            border: "1px solid rgba(255,255,255,0.14)",
-            borderRadius: "999px",
-            color: "var(--vo-green)",
-            fontFamily: "IBM Plex Mono, ui-monospace, monospace",
-            flexShrink: 0,
-          }}
-        >
-          +
-        </motion.span>
+        <span className="vx-faq-item__question">{q}</span>
+        <span className={`vx-faq-item__icon${isOpen ? " vx-faq-item__icon--open" : ""}`} aria-hidden="true">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M8 3v10M3 8h10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+          </svg>
+        </span>
       </button>
 
       <AnimatePresence initial={false}>
-        {open && (
+        {isOpen && (
           <motion.div
             key="answer"
             id={panelId}
@@ -73,22 +55,14 @@ function FaqItem({ q, a, index }: { q: string; a: string; index: number }) {
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            transition={spring}
-            style={{ overflow: "hidden" }}
+            transition={transition}
+            className="vx-faq-item__panel"
           >
-            <p style={{
-              margin: 0,
-              padding: "0 1rem 1rem",
-              color: "var(--vo-muted)",
-              fontSize: "0.94rem",
-              lineHeight: 1.6,
-            }}>
-              {a}
-            </p>
+            <p className="vx-faq-item__answer">{a}</p>
           </motion.div>
         )}
       </AnimatePresence>
-    </GlassPanel>
+    </div>
   );
 }
 
@@ -96,6 +70,11 @@ export function FaqSection() {
   const { lang } = useLang();
   const { CTA_LABEL } = useContent();
   const c = recoveryCopy[lang].faq;
+  const [openIndex, setOpenIndex] = useState(0);
+
+  const handleToggle = useCallback((index: number) => {
+    setOpenIndex((prev) => (prev === index ? -1 : index));
+  }, []);
 
   return (
     <SectionWrapper id="faq" className="vx-section--compact" sceneTitle={c.eyebrow}>
@@ -103,7 +82,14 @@ export function FaqSection() {
         <EditorialHeading eyebrow={c.eyebrow} title={c.title} body={c.body} />
         <div className="vx-faq-list" data-vx-reveal>
           {c.items.map((item, index) => (
-            <FaqItem key={item.q} q={item.q} a={item.a} index={index} />
+            <FaqItem
+              key={item.q}
+              q={item.q}
+              a={item.a}
+              index={index}
+              isOpen={openIndex === index}
+              onToggle={() => handleToggle(index)}
+            />
           ))}
           <div className="vx-faq-cta" data-vx-reveal>
             <GlowButton href="/apply">{CTA_LABEL}</GlowButton>
