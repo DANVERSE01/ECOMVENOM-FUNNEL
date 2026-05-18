@@ -1,7 +1,0 @@
-{
-  "kiroAgent.trustedCommands": [
-    "uvx mcp-server-git *",
-    "uvx mcp-server-fetch *",
-    "npx @playwright/mcp@latest *"
-  ]
-}

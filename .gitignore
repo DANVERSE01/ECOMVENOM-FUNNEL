@@ -75,3 +75,13 @@ _reference/
 01_INPUT/
 
 _CLAUDE_REFERENCE_PACK/
+
+
+# Local audit / tooling / agent artifacts (not production)
+audit-2026-supreme/
+.codex/
+.kiro/
+.vscode/
+ECOMVENOM_PHASE10_VSL_FIRST_DIRECTIVE.md
+ECOMVENOM_SUPREME_REBUILD_MASTER_PLAN.md
+KIRO_SUPREME_PROJECT_AUDIT_DIRECTIVE.md
