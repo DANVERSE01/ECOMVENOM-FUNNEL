@@ -32,6 +32,7 @@ export function ScrollMotionInit() {
     let cleanupSheen: (() => void) | undefined;
     let cleanupHeadlines: (() => void) | undefined;
     let cleanupAtmosphere: (() => void) | undefined;
+    let cleanupHairlines: (() => void) | undefined;
     let mutationObserver: MutationObserver | undefined;
     let pendingRescan = 0;
 
@@ -42,6 +43,39 @@ export function ScrollMotionInit() {
       cleanupHeadlines = initSectionHeadlineReveals();
       cleanupAtmosphere = initAtmosphereTransitions();
       ScrollTrigger.refresh();
+
+      // Section hairline fade-in via IntersectionObserver.
+      // Targets: #problem, #mechanism, #offer, #final-cta
+      const hairlineSections = document.querySelectorAll<HTMLElement>(
+        "#problem, #mechanism, #offer, #final-cta",
+      );
+      const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (!reducedMotion) {
+        hairlineSections.forEach((section) => {
+          // Only add if not already present
+          if (!section.querySelector(".vx-section-hairline")) {
+            const hairline = document.createElement("span");
+            hairline.className = "vx-section-hairline";
+            hairline.setAttribute("aria-hidden", "true");
+            section.prepend(hairline);
+          }
+        });
+
+        const hairlineObserver = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              const hairline = entry.target.querySelector<HTMLElement>(".vx-section-hairline");
+              if (hairline) {
+                hairline.setAttribute("data-visible", entry.isIntersecting ? "true" : "false");
+              }
+            });
+          },
+          { threshold: 0.05 },
+        );
+
+        hairlineSections.forEach((section) => hairlineObserver.observe(section));
+        cleanupHairlines = () => hairlineObserver.disconnect();
+      }
 
       // Rescan only when new reveal targets are added to the DOM.
       // Debounced via rAF so a burst of mutations triggers a single re-init.
@@ -86,6 +120,7 @@ export function ScrollMotionInit() {
       cleanupSheen?.();
       cleanupHeadlines?.();
       cleanupAtmosphere?.();
+      cleanupHairlines?.();
     };
   }, []);
 
